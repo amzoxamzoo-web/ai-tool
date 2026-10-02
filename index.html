@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Idea Generator</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0b0b12;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .box {
+      width: 100%;
+      max-width: 650px;
+      background: #151521;
+      padding: 35px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #aaa;
+      margin-bottom: 25px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #333;
+      background: #0d0d15;
+      color: white;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: white;
+      color: black;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    #result {
+      margin-top: 25px;
+      text-align: left;
+      line-height: 1.7;
+      color: #ddd;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+    <h1>AI Idea Generator</h1>
+    <p>Enter a topic and generate content ideas instantly.</p>
+
+    <input id="topic" placeholder="Example: Minecraft">
+
+    <button onclick="generateIdeas()">Generate Ideas</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function generateIdeas() {
+      const topic = document.getElementById("topic").value.trim();
+      const result = document.getElementById("result");
+
+      if (!topic) {
+        result.innerText = "Please enter a topic.";
+        return;
+      }
+
+      result.innerText =
+`1. 5 Things You Didn't Know About ${topic}
+
+2. The Biggest Mistakes Beginners Make With ${topic}
+
+3. ${topic} Challenge — Can You Do It?
+
+4. ${topic} Tips That Actually Work
+
+5. What Happens If You Try ${topic} For 7 Days?
+
+6. ${topic}: Beginner vs Expert
+
+7. The Future of ${topic}
+
+8. 10 Crazy Facts About ${topic}
+
+9. ${topic} Explained in 60 Seconds
+
+10. I Tried ${topic} So You Don't Have To`;
+    }
+  </script>
+
+</body>
+</html>
