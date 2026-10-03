@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Idea Generator</title>
+  <title>Amzo AI</title>
 
   <style>
     * {
@@ -15,122 +15,319 @@
 
     body {
       min-height: 100vh;
-      background: #08080d;
+      background: #050505;
       color: white;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      overflow-x: hidden;
     }
 
-    .box {
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -50%;
+      background: conic-gradient(
+        #ff004c,
+        #ff00ff,
+        #0066ff,
+        #00ffff,
+        #00ff66,
+        #ffff00,
+        #ff004c
+      );
+      animation: rgb 8s linear infinite;
+      filter: blur(100px);
+      opacity: 0.18;
+      z-index: -1;
+    }
+
+    @keyframes rgb {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .app {
       width: 100%;
-      max-width: 700px;
-      background: #12121b;
-      padding: 35px;
-      border: 1px solid #272735;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      max-width: 800px;
+      min-height: 650px;
+      background: rgba(12, 12, 18, 0.94);
+      border: 2px solid transparent;
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 15px #ff0066,
+        0 0 35px #0066ff,
+        0 0 60px #00ffff;
     }
 
-    h1 {
-      font-size: 38px;
-      margin-bottom: 10px;
+    .app::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      padding: 2px;
+      border-radius: 24px;
+      background: linear-gradient(
+        90deg,
+        #ff004c,
+        #ff00ff,
+        #0066ff,
+        #00ffff,
+        #00ff66,
+        #ffff00,
+        #ff004c
+      );
+      background-size: 300% 300%;
+      animation: borderRGB 5s linear infinite;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    @keyframes borderRGB {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .header {
+      padding: 25px;
       text-align: center;
+      border-bottom: 1px solid #292936;
     }
 
-    .subtitle {
-      color: #999;
-      text-align: center;
-      margin-bottom: 25px;
+    .header h1 {
+      font-size: 34px;
+      margin-bottom: 7px;
+      background: linear-gradient(
+        90deg,
+        #ff0066,
+        #ff00ff,
+        #00ffff,
+        #00ff66,
+        #ffff00
+      );
+      background-size: 300%;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: textRGB 4s linear infinite;
     }
 
-    input {
-      width: 100%;
-      padding: 16px;
-      border-radius: 12px;
+    @keyframes textRGB {
+      0% { background-position: 0%; }
+      100% { background-position: 300%; }
+    }
+
+    .header p {
+      color: #888;
+      font-size: 14px;
+    }
+
+    #chat {
+      height: 440px;
+      overflow-y: auto;
+      padding: 25px;
+    }
+
+    .message {
+      display: flex;
+      margin-bottom: 18px;
+    }
+
+    .message.user {
+      justify-content: flex-end;
+    }
+
+    .bubble {
+      max-width: 80%;
+      padding: 14px 17px;
+      border-radius: 16px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .ai .bubble {
+      background: #181821;
       border: 1px solid #30303d;
-      background: #0b0b12;
-      color: white;
-      font-size: 16px;
-      outline: none;
-      margin-bottom: 12px;
     }
 
-    button {
-      width: 100%;
-      padding: 16px;
+    .user .bubble {
+      background: linear-gradient(
+        90deg,
+        #ff0066,
+        #7b00ff,
+        #0066ff
+      );
+    }
+
+    .input-area {
+      padding: 18px;
+      border-top: 1px solid #292936;
+      display: flex;
+      gap: 10px;
+    }
+
+    #messageInput {
+      flex: 1;
+      padding: 15px;
+      border-radius: 13px;
+      border: 1px solid #30303d;
+      background: #09090f;
+      color: white;
+      outline: none;
+      font-size: 15px;
+    }
+
+    #messageInput:focus {
+      border-color: #00ffff;
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.35);
+    }
+
+    #sendBtn {
+      width: 110px;
       border: none;
-      border-radius: 12px;
-      background: white;
-      color: black;
-      font-size: 16px;
+      border-radius: 13px;
+      color: white;
       font-weight: bold;
       cursor: pointer;
+      background: linear-gradient(
+        90deg,
+        #ff0066,
+        #ff00ff,
+        #0066ff,
+        #00ffff
+      );
+      background-size: 300%;
+      animation: buttonRGB 4s linear infinite;
     }
 
-    button:disabled {
-      opacity: .5;
+    #sendBtn:disabled {
+      opacity: 0.5;
       cursor: wait;
     }
 
-    #result {
-      margin-top: 25px;
-      padding: 20px;
-      border-radius: 14px;
-      background: #0b0b12;
-      border: 1px solid #272735;
-      color: #ddd;
-      line-height: 1.7;
-      white-space: pre-line;
-      min-height: 60px;
+    @keyframes buttonRGB {
+      0% { background-position: 0%; }
+      100% { background-position: 300%; }
+    }
+
+    .typing {
+      color: #888;
+      font-size: 14px;
+      padding: 5px;
+    }
+
+    @media (max-width: 600px) {
+      .app {
+        min-height: 600px;
+      }
+
+      #chat {
+        height: 390px;
+      }
+
+      .input-area {
+        flex-direction: column;
+      }
+
+      #sendBtn {
+        width: 100%;
+        padding: 15px;
+      }
+
+      .bubble {
+        max-width: 90%;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="box">
+  <div class="app">
 
-    <h1>AI Idea Generator</h1>
+    <div class="header">
+      <h1>Amzo AI</h1>
+      <p>Your AI assistant</p>
+    </div>
 
-    <p class="subtitle">
-      Enter a topic and get AI-generated content ideas.
-    </p>
+    <div id="chat">
+      <div class="message ai">
+        <div class="bubble">
+          Hey! 👋 I'm Amzo AI. Ask me anything!
+        </div>
+      </div>
+    </div>
 
-    <input
-      id="topic"
-      type="text"
-      placeholder="Example: Minecraft"
-    >
+    <div class="input-area">
+      <input
+        id="messageInput"
+        type="text"
+        placeholder="Message Amzo AI..."
+        autocomplete="off"
+      >
 
-    <button id="generateBtn" onclick="generateIdeas()">
-      Generate Ideas
-    </button>
-
-    <div id="result">
-      Your AI-generated ideas will appear here.
+      <button id="sendBtn" onclick="sendMessage()">
+        Send
+      </button>
     </div>
 
   </div>
 
   <script>
-    async function generateIdeas() {
+    const input = document.getElementById("messageInput");
+    const chat = document.getElementById("chat");
+    const sendBtn = document.getElementById("sendBtn");
 
-      const topic = document.getElementById("topic").value.trim();
-      const result = document.getElementById("result");
-      const button = document.getElementById("generateBtn");
-
-      if (!topic) {
-        result.innerText = "Please enter a topic.";
-        return;
+    input.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        sendMessage();
       }
+    });
 
-      button.disabled = true;
-      button.innerText = "Generating...";
-      result.innerText = "AI is thinking...";
+    function addMessage(text, type) {
+      const message = document.createElement("div");
+      message.className = "message " + type;
+
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      bubble.textContent = text;
+
+      message.appendChild(bubble);
+      chat.appendChild(message);
+
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    async function sendMessage() {
+
+      const message = input.value.trim();
+
+      if (!message) return;
+
+      addMessage(message, "user");
+
+      input.value = "";
+      sendBtn.disabled = true;
+      sendBtn.textContent = "Thinking...";
+
+      const typing = document.createElement("div");
+      typing.className = "message ai";
+      typing.id = "typing";
+      typing.innerHTML = '<div class="typing">🤖 AI is thinking...</div>';
+
+      chat.appendChild(typing);
+      chat.scrollTop = chat.scrollHeight;
 
       try {
+
         const response = await fetch(
           "https://ai-tool-api.amzoxamzoo.workers.dev/",
           {
@@ -139,27 +336,40 @@
               "Content-Type": "application/json"
             },
             body: JSON.stringify({
-              topic: topic
+              topic: message
             })
           }
         );
 
         const data = await response.json();
 
+        document.getElementById("typing").remove();
+
         if (data.result) {
-          result.innerText = data.result;
+          addMessage(data.result, "ai");
         } else if (data.error) {
-          result.innerText = "Error: " + data.error;
+          addMessage("Error: " + data.error, "ai");
         } else {
-          result.innerText = "Something went wrong.";
+          addMessage("Something went wrong.", "ai");
         }
 
       } catch (error) {
-        result.innerText = "Could not connect to the AI server.";
+
+        const typingElement = document.getElementById("typing");
+
+        if (typingElement) {
+          typingElement.remove();
+        }
+
+        addMessage(
+          "Could not connect to the AI server.",
+          "ai"
+        );
       }
 
-      button.disabled = false;
-      button.innerText = "Generate Ideas";
+      sendBtn.disabled = false;
+      sendBtn.textContent = "Send";
+      input.focus();
     }
   </script>
 
