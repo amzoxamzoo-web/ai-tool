@@ -2,171 +2,99 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Amzo AI</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
-}
-
-:root{
-  --bg:#050509;
-  --panel:#0c0c13;
-  --panel2:#11111a;
-  --border:#292936;
-  --text:#fff;
-  --muted:#888;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#050505;
+  color:#fff;
+  min-height:100vh;
   overflow:hidden;
-  color:var(--text);
-  background:var(--bg);
 }
 
-/* RGB BACKGROUND */
-body::before{
+body:before{
   content:"";
   position:fixed;
-  width:850px;
-  height:850px;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  background:conic-gradient(
-    #ff0055,
-    #ff00ff,
-    #6200ff,
-    #0088ff,
-    #00ffff,
-    #00ff66,
-    #ffff00,
-    #ff0055
-  );
-  filter:blur(180px);
-  opacity:.11;
-  animation:spin 12s linear infinite;
+  inset:-50%;
+  background:
+    radial-gradient(circle at 20% 30%,rgba(255,0,120,.18),transparent 25%),
+    radial-gradient(circle at 80% 20%,rgba(0,180,255,.18),transparent 25%),
+    radial-gradient(circle at 50% 80%,rgba(120,0,255,.18),transparent 25%);
+  filter:blur(50px);
+  animation:rgb 12s linear infinite;
   z-index:-1;
 }
 
-@keyframes spin{
-  to{
-    transform:translate(-50%,-50%) rotate(360deg);
-  }
+@keyframes rgb{
+  0%{transform:rotate(0deg) scale(1)}
+  50%{transform:rotate(180deg) scale(1.15)}
+  100%{transform:rotate(360deg) scale(1)}
 }
 
 .app{
-  height:100vh;
   display:flex;
+  height:100vh;
 }
 
 /* SIDEBAR */
 
 .sidebar{
   width:270px;
-  background:rgba(8,8,14,.97);
-  border-right:1px solid var(--border);
+  background:rgba(10,10,12,.92);
+  border-right:1px solid #222;
   padding:18px;
   display:flex;
   flex-direction:column;
 }
 
 .logo{
-  font-size:25px;
+  font-size:22px;
   font-weight:bold;
   margin-bottom:20px;
-
-  background:linear-gradient(
-    90deg,
-    #ff0055,
-    #ff00ff,
-    #0088ff,
-    #00ffff,
-    #00ff66,
-    #ffff00
-  );
-
-  background-size:300%;
-  -webkit-background-clip:text;
-  color:transparent;
-  animation:rgbText 4s linear infinite;
 }
 
-@keyframes rgbText{
-  to{
-    background-position:300%;
-  }
-}
-
-.new-chat{
+.newchat{
   width:100%;
-  padding:13px;
-  border-radius:12px;
-  border:1px solid transparent;
+  padding:12px;
+  border:1px solid #333;
+  border-radius:10px;
+  background:#171719;
   color:white;
-  background:
-    linear-gradient(#101018,#101018) padding-box,
-    linear-gradient(
-      90deg,
-      #ff0055,
-      #ff00ff,
-      #0088ff,
-      #00ffff,
-      #00ff66,
-      #ffff00
-    ) border-box;
-
   cursor:pointer;
-  font-weight:bold;
-  margin-bottom:20px;
+  font-size:15px;
 }
 
-.new-chat:hover{
-  box-shadow:
-    0 0 15px #ff00aa,
-    0 0 25px #0088ff;
-}
+.newchat:hover{background:#222}
 
 .history-title{
-  color:#777;
-  font-size:11px;
-  margin-bottom:10px;
+  margin:25px 5px 10px;
+  color:#888;
+  font-size:12px;
   text-transform:uppercase;
 }
 
-#history{
+.history{
   flex:1;
-  overflow-y:auto;
+  overflow:auto;
 }
 
 .chat-item{
-  padding:11px;
-  border-radius:10px;
-  margin-bottom:5px;
-  cursor:pointer;
   display:flex;
-  gap:6px;
-  color:#ccc;
+  align-items:center;
+  gap:8px;
+  padding:10px;
+  border-radius:9px;
+  cursor:pointer;
+  margin-bottom:4px;
 }
 
-.chat-item:hover{
-  background:#171720;
-}
-
+.chat-item:hover,
 .chat-item.active{
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255,0,85,.18),
-      rgba(0,200,255,.18)
-    );
-
-  border-left:2px solid #00ffff;
+  background:#1b1b1f;
 }
 
 .chat-name{
@@ -174,25 +102,46 @@ body::before{
   overflow:hidden;
   white-space:nowrap;
   text-overflow:ellipsis;
+  font-size:14px;
 }
 
-.actions{
+.chat-actions{
   display:none;
   gap:4px;
 }
 
-.chat-item:hover .actions{
+.chat-item:hover .chat-actions{
   display:flex;
 }
 
-.mini{
+.small-btn{
   border:0;
   background:transparent;
-  color:#888;
+  color:#aaa;
   cursor:pointer;
+  padding:3px;
 }
 
-.mini:hover{
+.small-btn:hover{color:white}
+
+.sidebar-bottom{
+  border-top:1px solid #222;
+  padding-top:12px;
+}
+
+.sidebar-btn{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#aaa;
+  padding:10px;
+  text-align:left;
+  cursor:pointer;
+  border-radius:8px;
+}
+
+.sidebar-btn:hover{
+  background:#19191b;
   color:white;
 }
 
@@ -200,329 +149,291 @@ body::before{
 
 .main{
   flex:1;
-  min-width:0;
   display:flex;
   flex-direction:column;
+  min-width:0;
 }
 
-.topbar{
+.header{
   height:65px;
+  border-bottom:1px solid #222;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-
-  padding:0 22px;
-
-  border-bottom:1px solid var(--border);
-  background:rgba(8,8,13,.82);
-  backdrop-filter:blur(12px);
-}
-
-.title{
-  font-size:18px;
+  padding:0 25px;
+  font-size:20px;
   font-weight:bold;
-
-  background:linear-gradient(
-    90deg,
-    #ff0055,
-    #ff00ff,
-    #00ffff,
-    #00ff66
-  );
-
-  background-size:250%;
-  -webkit-background-clip:text;
-  color:transparent;
-
-  animation:rgbText 4s linear infinite;
 }
 
-.settings-btn{
-  background:#11111a;
-  border:1px solid #292936;
-  color:#aaa;
-  padding:8px 11px;
-  border-radius:9px;
-  cursor:pointer;
-}
-
-.settings-btn:hover{
-  color:white;
-  border-color:#00ffff;
-}
-
-/* CHAT */
-
-#chat{
+.chat{
   flex:1;
   overflow-y:auto;
-  padding:30px 8%;
+  padding:30px 15%;
 }
+
+.empty{
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  text-align:center;
+}
+
+.empty h1{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.empty p{
+  color:#888;
+}
+
+/* MESSAGES */
 
 .message{
   display:flex;
-  flex-direction:column;
-  margin-bottom:22px;
+  margin-bottom:25px;
+  gap:14px;
 }
 
-.message.user{
-  align-items:flex-end;
-}
-
-.bubble{
-  max-width:78%;
-  padding:14px 17px;
-  border-radius:16px;
-  line-height:1.65;
-  white-space:pre-wrap;
-  word-break:break-word;
-}
-
-.ai .bubble{
-  background:#12121b;
-  border:1px solid #292936;
-}
-
-.user .bubble{
-  background:
-    linear-gradient(
-      135deg,
-      #ff0055,
-      #8b00ff,
-      #0066ff
-    );
-
-  box-shadow:
-    0 0 18px rgba(120,0,255,.22);
-}
-
-.tools{
+.avatar{
+  width:34px;
+  height:34px;
+  min-width:34px;
+  border-radius:50%;
   display:flex;
-  gap:8px;
-  margin-top:6px;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  font-weight:bold;
+  background:#222;
+}
+
+.ai-avatar{
+  background:linear-gradient(135deg,#7c3aed,#06b6d4);
+}
+
+.message-body{
+  flex:1;
+  min-width:0;
+}
+
+.message-role{
+  font-size:13px;
+  color:#888;
+  margin-bottom:6px;
+}
+
+.message-text{
+  line-height:1.6;
+  white-space:pre-wrap;
+  word-wrap:break-word;
+}
+
+.message-tools{
+  display:flex;
+  gap:6px;
+  margin-top:8px;
 }
 
 .tool{
-  border:0;
-  background:transparent;
-  color:#666;
+  background:#151515;
+  border:1px solid #292929;
+  color:#999;
+  border-radius:7px;
+  padding:5px 9px;
   cursor:pointer;
   font-size:12px;
 }
 
 .tool:hover{
-  color:#00ffff;
-}
-
-.thinking{
-  color:#888;
-  font-size:14px;
+  color:white;
+  background:#202020;
 }
 
 /* INPUT */
 
-.input-wrap{
-  padding:18px 8% 25px;
-
-  background:
-    linear-gradient(
-      transparent,
-      rgba(5,5,9,.97) 35%
-    );
-}
-
 .input-area{
-  display:flex;
-  gap:8px;
-  padding:7px;
-
-  border:1px solid transparent;
-  border-radius:17px;
-
-  background:
-    linear-gradient(#0d0d14,#0d0d14) padding-box,
-    linear-gradient(
-      90deg,
-      #ff0055,
-      #ff00ff,
-      #0066ff,
-      #00ffff,
-      #00ff66,
-      #ffff00,
-      #ff0055
-    ) border-box;
-
-  background-size:
-    100% 100%,
-    300% 100%;
-
-  animation:inputRGB 5s linear infinite;
+  padding:15px 15%;
+  border-top:1px solid #222;
+  background:rgba(5,5,5,.8);
 }
 
-@keyframes inputRGB{
-  to{
-    background-position:
-      0 0,
-      300% 0;
-  }
+.input-box{
+  border:1px solid #333;
+  background:#111;
+  border-radius:16px;
+  padding:8px;
 }
 
-#input{
-  flex:1;
-  min-width:0;
-
+textarea{
+  width:100%;
+  resize:none;
   background:transparent;
   border:0;
   outline:0;
-
   color:white;
-  padding:14px;
   font-size:15px;
+  padding:10px;
+  min-height:45px;
+  max-height:150px;
 }
 
-#input::placeholder{
-  color:#666;
+.input-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-#send{
-  width:90px;
+.left-tools{
+  display:flex;
+  gap:6px;
+}
+
+.icon-btn,
+.send-btn{
   border:0;
-  border-radius:12px;
-
-  color:white;
-  font-weight:bold;
+  border-radius:9px;
+  width:38px;
+  height:38px;
   cursor:pointer;
-
-  background:
-    linear-gradient(
-      90deg,
-      #ff0055,
-      #ff00ff,
-      #0066ff,
-      #00ffff
-    );
-
-  background-size:300%;
-
-  animation:rgbButton 4s linear infinite;
 }
 
-@keyframes rgbButton{
-  to{
-    background-position:300%;
-  }
+.icon-btn{
+  background:#191919;
+  color:#aaa;
 }
 
-#send.stop{
-  background:#191922;
-  border:1px solid #ff0055;
-  animation:none;
+.icon-btn:hover{
+  color:white;
+  background:#252525;
+}
+
+.send-btn{
+  background:white;
+  color:black;
+  font-weight:bold;
+}
+
+.send-btn:hover{
+  background:#ddd;
+}
+
+.send-btn.stop{
+  background:#ff4d4d;
+  color:white;
+}
+
+.file-name{
+  font-size:12px;
+  color:#888;
+  padding:3px 10px;
+}
+
+/* THINKING */
+
+.thinking{
+  display:flex;
+  gap:5px;
+  padding:5px 0;
+}
+
+.dot{
+  width:7px;
+  height:7px;
+  background:#888;
+  border-radius:50%;
+  animation:bounce 1s infinite;
+}
+
+.dot:nth-child(2){animation-delay:.15s}
+.dot:nth-child(3){animation-delay:.3s}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0);opacity:.4}
+  50%{transform:translateY(-5px);opacity:1}
 }
 
 /* SETTINGS */
 
-.panel{
+.settings{
   position:fixed;
   right:20px;
   top:75px;
-
   width:280px;
-
-  background:#0d0d14;
-  border:1px solid #292936;
+  background:#111;
+  border:1px solid #333;
   border-radius:14px;
-
   padding:18px;
-
   display:none;
-
-  z-index:20;
-
-  box-shadow:
-    0 20px 60px #000;
+  z-index:10;
 }
 
-.panel.show{
-  display:block;
-}
+.settings.show{display:block}
 
-.panel h3{
+.settings h3{
   margin-bottom:15px;
 }
 
-.row{
+.setting{
   padding:12px 0;
-
-  border-bottom:1px solid #20202a;
-
-  color:#bbb;
-
-  display:flex;
-  justify-content:space-between;
+  border-bottom:1px solid #222;
+  color:#aaa;
+  font-size:14px;
 }
 
-.danger{
-  margin-top:15px;
+.setting:last-child{border-bottom:0}
 
-  width:100%;
-
-  padding:10px;
-
-  border:1px solid #ff0055;
-  border-radius:9px;
-
-  background:transparent;
-
-  color:#ff6688;
-
-  cursor:pointer;
-}
-
-.danger:hover{
-  background:#ff005522;
+.status{
+  color:#43e97b;
 }
 
 /* MOBILE */
 
-@media(max-width:700px){
-
+@media(max-width:800px){
   .sidebar{
-    width:210px;
+    width:70px;
+    padding:10px;
   }
 
-  #chat{
-    padding:25px 5%;
+  .logo{
+    font-size:18px;
+    text-align:center;
   }
 
-  .input-wrap{
-    padding:12px 5% 18px;
+  .newchat{
+    font-size:0;
   }
 
-  .bubble{
-    max-width:88%;
+  .newchat:after{
+    content:"+";
+    font-size:20px;
   }
-}
 
-@media(max-width:520px){
-
-  .sidebar{
+  .history-title,
+  .chat-name,
+  .sidebar-bottom{
     display:none;
   }
 
-  .topbar{
-    height:58px;
+  .chat-item{
+    justify-content:center;
   }
 
-  #chat{
-    padding:20px 15px;
+  .chat-actions{
+    display:none!important;
   }
 
-  .input-wrap{
-    padding:10px 12px 15px;
+  .chat{
+    padding:20px 8%;
   }
 
-  .bubble{
-    max-width:92%;
+  .input-area{
+    padding:10px 5%;
+  }
+
+  .empty h1{
+    font-size:30px;
   }
 }
 </style>
@@ -532,160 +443,223 @@ body::before{
 
 <div class="app">
 
-<!-- SIDEBAR -->
+  <aside class="sidebar">
 
-<aside class="sidebar">
+    <div class="logo">⚡ Amzo AI</div>
 
-<div class="logo">
-⚡ Amzo AI
-</div>
+    <button class="newchat" onclick="newChat()">＋ New Chat</button>
 
-<button class="new-chat" onclick="newChat()">
-＋ New Chat
-</button>
+    <div class="history-title">Recent Chats</div>
 
-<div class="history-title">
-Recent Chats
-</div>
+    <div id="history" class="history"></div>
 
-<div id="history"></div>
+    <div class="sidebar-bottom">
+      <button class="sidebar-btn" onclick="toggleSettings()">⚙ Settings</button>
+      <button class="sidebar-btn" onclick="deleteAllChats()">🗑 Delete All</button>
+    </div>
 
-</aside>
+  </aside>
 
+  <main class="main">
 
-<!-- MAIN -->
+    <header class="header">
+      Amzo AI
+    </header>
 
-<main class="main">
+    <section id="chat" class="chat"></section>
 
-<div class="topbar">
+    <div class="input-area">
 
-<div class="title" id="title">
-New Chat
-</div>
+      <div class="input-box">
 
-<button
-class="settings-btn"
-onclick="toggleSettings()">
-⚙
-</button>
+        <textarea
+          id="input"
+          placeholder="Message Amzo AI..."
+          onkeydown="handleKey(event)"
+        ></textarea>
 
-</div>
+        <div id="fileName" class="file-name"></div>
 
+        <div class="input-row">
 
-<div id="chat">
+          <div class="left-tools">
 
-<div class="message ai">
+            <button class="icon-btn" onclick="document.getElementById('fileInput').click()" title="Attach file">
+              📎
+            </button>
 
-<div class="bubble">
-Hey! 👋 I'm Amzo AI.
+            <button class="icon-btn" onclick="startVoice()" title="Voice input">
+              🎤
+            </button>
 
-Ask me anything!
-</div>
+            <input
+              id="fileInput"
+              type="file"
+              accept="image/*,.txt,.pdf"
+              hidden
+              onchange="fileSelected(event)"
+            >
 
-</div>
+          </div>
 
-</div>
+          <button id="sendBtn" class="send-btn" onclick="handleSend()">
+            ➤
+          </button>
 
+        </div>
 
-<div class="input-wrap">
+      </div>
 
-<div class="input-area">
+    </div>
 
-<input
-id="input"
-type="text"
-placeholder="Message Amzo AI..."
-autocomplete="off"
->
-
-<button
-id="send"
-onclick="handleSend()">
-Send
-</button>
-
-</div>
+  </main>
 
 </div>
 
-</main>
+<div id="settings" class="settings">
+
+  <h3>Settings</h3>
+
+  <div class="setting">
+    AI Status:
+    <span class="status">● Online</span>
+  </div>
+
+  <div class="setting">
+    Memory: Recent conversation enabled
+  </div>
+
+  <div class="setting">
+    Theme: Dark
+  </div>
+
+  <div class="setting">
+    Voice: Browser supported
+  </div>
 
 </div>
-
-
-<!-- SETTINGS -->
-
-<div
-class="panel"
-id="panel">
-
-<h3>⚙ Settings</h3>
-
-<div class="row">
-<span>AI</span>
-<span>🟢 Online</span>
-</div>
-
-<div class="row">
-<span>Theme</span>
-<span>RGB Dark</span>
-</div>
-
-<div class="row">
-<span>Memory</span>
-<span>16 messages</span>
-</div>
-
-<button
-class="danger"
-onclick="deleteAll()">
-Delete All Chats
-</button>
-
-</div>
-
 
 <script>
 
-const input =
-document.getElementById("input");
-
-const chat =
-document.getElementById("chat");
-
-const sendBtn =
-document.getElementById("send");
-
-const history =
-document.getElementById("history");
-
-const title =
-document.getElementById("title");
-
-const panel =
-document.getElementById("panel");
-
+const API_URL =
+"https://ai-tool-api.amzoxamzoo.workers.dev/";
 
 let chats =
-JSON.parse(
-localStorage.getItem("amzoChats") || "[]"
-);
+JSON.parse(localStorage.getItem("amzo_chats") || "[]");
 
-let currentChat = null;
-
-let controller = null;
-
+let selectedId = null;
 let generating = false;
+let controller = null;
+let selectedFile = null;
 
 
 /* SAVE */
 
 function saveChats(){
-
   localStorage.setItem(
-    "amzoChats",
+    "amzo_chats",
     JSON.stringify(chats)
   );
+}
+
+
+/* NEW CHAT */
+
+function newChat(){
+
+  selectedId = null;
+
+  document.getElementById("input").value = "";
+
+  render();
+
+}
+
+
+/* SELECT CHAT */
+
+function selectChat(id){
+
+  selectedId = id;
+
+  render();
+
+}
+
+
+/* DELETE CHAT */
+
+function deleteChat(id){
+
+  chats = chats.filter(c => c.id !== id);
+
+  if(selectedId === id){
+    selectedId = null;
+  }
+
+  saveChats();
+  render();
+
+}
+
+
+/* DELETE ALL */
+
+function deleteAllChats(){
+
+  if(!chats.length) return;
+
+  if(confirm("Delete all chats?")){
+
+    chats = [];
+    selectedId = null;
+
+    saveChats();
+    render();
+
+  }
+
+}
+
+
+/* RENAME */
+
+function renameChat(id){
+
+  const chat = chats.find(c => c.id === id);
+
+  if(!chat) return;
+
+  const name =
+  prompt("Enter new chat name:", chat.title);
+
+  if(name && name.trim()){
+
+    chat.title = name.trim();
+
+    saveChats();
+    render();
+
+  }
+
+}
+
+
+/* CURRENT CHAT */
+
+function currentChat(){
+
+  return chats.find(c => c.id === selectedId);
+
+}
+
+
+/* RENDER */
+
+function render(){
+
+  renderHistory();
+  renderMessages();
 
 }
 
@@ -694,88 +668,63 @@ function saveChats(){
 
 function renderHistory(){
 
+  const history =
+  document.getElementById("history");
+
   history.innerHTML = "";
 
-  chats.forEach(c => {
+  chats.slice().reverse().forEach(chat => {
 
     const item =
-      document.createElement("div");
+    document.createElement("div");
 
     item.className =
-      "chat-item " +
-      (c.id === currentChat
-        ? "active"
-        : "");
+    "chat-item " +
+    (chat.id === selectedId ? "active" : "");
+
+    item.onclick =
+    () => selectChat(chat.id);
 
     const name =
-      document.createElement("div");
+    document.createElement("div");
 
-    name.className =
-      "chat-name";
-
-    name.textContent =
-      c.title;
+    name.className = "chat-name";
+    name.textContent = chat.title;
 
     const actions =
-      document.createElement("div");
+    document.createElement("div");
 
-    actions.className =
-      "actions";
+    actions.className = "chat-actions";
 
+    const rename =
+    document.createElement("button");
 
-    const edit =
-      document.createElement("button");
+    rename.className = "small-btn";
+    rename.textContent = "✎";
 
-    edit.className =
-      "mini";
-
-    edit.textContent =
-      "✏️";
-
-    edit.onclick = e => {
+    rename.onclick = e => {
 
       e.stopPropagation();
-
-      renameChat(c.id);
+      renameChat(chat.id);
 
     };
 
-
     const del =
-      document.createElement("button");
+    document.createElement("button");
 
-    del.className =
-      "mini";
-
-    del.textContent =
-      "🗑️";
+    del.className = "small-btn";
+    del.textContent = "×";
 
     del.onclick = e => {
 
       e.stopPropagation();
-
-      deleteChat(c.id);
-
-    };
-
-
-    actions.append(
-      edit,
-      del
-    );
-
-    item.append(
-      name,
-      actions
-    );
-
-
-    item.onclick = () => {
-
-      loadChat(c.id);
+      deleteChat(chat.id);
 
     };
 
+    actions.append(rename,del);
+
+    item.append(name,actions);
 
     history.appendChild(item);
 
@@ -784,280 +733,139 @@ function renderHistory(){
 }
 
 
-/* NEW CHAT */
+/* MESSAGES */
 
-function newChat(){
+function renderMessages(){
 
-  currentChat = null;
-
-  title.textContent =
-    "New Chat";
-
-  chat.innerHTML = `
-    <div class="message ai">
-      <div class="bubble">
-Hey! 👋 I'm Amzo AI.
-
-Ask me anything!
-      </div>
-    </div>
-  `;
-
-  renderHistory();
-
-  input.focus();
-
-}
-
-
-/* CREATE CHAT */
-
-function createChat(text){
-
-  const id =
-    Date.now();
-
-  let chatName =
-    text.trim();
-
-  if(chatName.length > 32){
-
-    chatName =
-      chatName.substring(0,32) +
-      "...";
-
-  }
-
-
-  const newItem = {
-
-    id:id,
-
-    title:
-      chatName || "New Chat",
-
-    messages:[]
-
-  };
-
-
-  chats.unshift(newItem);
-
-  currentChat =
-    id;
-
-  title.textContent =
-    newItem.title;
-
-  saveChats();
-
-  renderHistory();
-
-}
-
-
-/* LOAD */
-
-function loadChat(id){
-
-  const selected =
-    chats.find(
-      c => c.id === id
-    );
-
-  if(!selected)
-    return;
-
-
-  currentChat =
-    id;
-
-  title.textContent =
-    selected.title;
+  const chat =
+  document.getElementById("chat");
 
   chat.innerHTML = "";
 
+  const selected =
+  currentChat();
 
-  selected.messages.forEach(
-    message => {
+  if(!selected){
 
-      addMessage(
-        message.text,
-        message.type,
-        false
-      );
+    chat.innerHTML = `
+      <div class="empty">
+        <h1>⚡ Amzo AI</h1>
+        <p>Ask anything. Build anything.</p>
+      </div>
+    `;
 
-    }
-  );
+    return;
 
+  }
 
-  renderHistory();
+  selected.messages.forEach((msg,index) => {
 
-  chat.scrollTop =
-    chat.scrollHeight;
+    addMessageElement(
+      msg.type,
+      msg.text,
+      index,
+      false
+    );
+
+  });
+
+  chat.scrollTop = chat.scrollHeight;
 
 }
 
 
 /* ADD MESSAGE */
 
-function addMessage(
-  text,
+function addMessageElement(
   type,
-  shouldSave = true
+  text,
+  index,
+  typing
 ){
 
+  const chat =
+  document.getElementById("chat");
+
   const wrapper =
-    document.createElement("div");
+  document.createElement("div");
 
-  wrapper.className =
-    "message " + type;
+  wrapper.className = "message";
 
+  const avatar =
+  document.createElement("div");
 
-  const bubble =
-    document.createElement("div");
+  avatar.className =
+  "avatar " +
+  (type === "ai" ? "ai-avatar" : "");
 
-  bubble.className =
-    "bubble";
+  avatar.textContent =
+  type === "ai" ? "AI" : "You";
 
-  bubble.textContent =
-    text;
+  const body =
+  document.createElement("div");
 
+  body.className = "message-body";
 
-  wrapper.appendChild(
-    bubble
-  );
+  const role =
+  document.createElement("div");
 
+  role.className = "message-role";
+
+  role.textContent =
+  type === "ai" ? "Amzo AI" : "You";
+
+  const content =
+  document.createElement("div");
+
+  content.className = "message-text";
+
+  content.textContent = text;
+
+  body.append(role,content);
 
   if(type === "ai"){
 
     const tools =
-      document.createElement("div");
-
-    tools.className =
-      "tools";
-
-
-    const copy =
-      document.createElement("button");
-
-    copy.className =
-      "tool";
-
-    copy.textContent =
-      "📋 Copy";
-
-
-    copy.onclick = async () => {
-
-      try{
-
-        await navigator.clipboard.writeText(
-          text
-        );
-
-        copy.textContent =
-          "✓ Copied";
-
-        setTimeout(() => {
-
-          copy.textContent =
-            "📋 Copy";
-
-        },1200);
-
-      }catch{
-
-        copy.textContent =
-          "Copy failed";
-
-      }
-
-    };
-
-
-    tools.appendChild(copy);
-
-    wrapper.appendChild(
-      tools
-    );
-
-  }
-
-
-  chat.appendChild(
-    wrapper
-  );
-
-
-  chat.scrollTop =
-    chat.scrollHeight;
-
-
-  if(
-    shouldSave &&
-    currentChat
-  ){
-
-    const selected =
-      chats.find(
-        c => c.id === currentChat
-      );
-
-    if(selected){
-
-      selected.messages.push({
-        text:text,
-        type:type
-      });
-
-      saveChats();
-
-    }
-
-  }
-
-}
-
-
-/* THINKING */
-
-function showThinking(){
-
-  const thinking =
     document.createElement("div");
 
-  thinking.className =
-    "message ai";
+    tools.className = "message-tools";
 
-  thinking.id =
-    "thinking";
+    const copy =
+    document.createElement("button");
 
-  thinking.innerHTML = `
-    <div class="thinking">
-      🤖 Amzo AI is thinking...
-    </div>
-  `;
+    copy.className = "tool";
+    copy.textContent = "Copy";
 
-  chat.appendChild(
-    thinking
-  );
+    copy.onclick =
+    () => copyText(text);
 
-  chat.scrollTop =
-    chat.scrollHeight;
+    const speak =
+    document.createElement("button");
 
-}
+    speak.className = "tool";
+    speak.textContent = "🔊 Speak";
 
+    speak.onclick =
+    () => speakText(text);
 
-function removeThinking(){
+    const regen =
+    document.createElement("button");
 
-  const element =
-    document.getElementById(
-      "thinking"
-    );
+    regen.className = "tool";
+    regen.textContent = "↻ Regenerate";
 
-  if(element)
-    element.remove();
+    regen.onclick =
+    () => regenerate(index);
+
+    tools.append(copy,speak,regen);
+
+    body.appendChild(tools);
+
+  }
+
+  wrapper.append(avatar,body);
+
+  chat.appendChild(wrapper);
 
 }
 
@@ -1066,254 +874,334 @@ function removeThinking(){
 
 async function sendMessage(){
 
+  const input =
+  document.getElementById("input");
+
   const text =
-    input.value.trim();
+  input.value.trim();
 
-  if(!text || generating)
-    return;
+  if(!text || generating) return;
 
 
-  if(!currentChat){
+  let selected =
+  currentChat();
 
-    createChat(text);
+
+  if(!selected){
+
+    const id =
+    Date.now().toString();
+
+    selected = {
+
+      id:id,
+
+      title:
+      text.slice(0,35) +
+      (text.length > 35 ? "..." : ""),
+
+      messages:[]
+
+    };
+
+    chats.push(selected);
+
+    selectedId = id;
 
   }
 
 
-  addMessage(
-    text,
-    "user"
-  );
+  selected.messages.push({
+
+    type:"user",
+    text:text
+
+  });
 
   input.value = "";
+
+  if(selectedFile){
+
+    selected.messages[
+      selected.messages.length - 1
+    ].text +=
+    "\n[Attached: " +
+    selectedFile.name +
+    "]";
+
+  }
+
+
+  selectedFile = null;
+
+  document.getElementById(
+    "fileName"
+  ).textContent = "";
+
+
+  saveChats();
+  render();
+
 
   generating = true;
 
   controller =
-    new AbortController();
+  new AbortController();
+
+  updateSendButton();
 
 
-  sendBtn.textContent =
-    "Stop";
+  const thinking =
+  document.createElement("div");
 
-  sendBtn.className =
-    "stop";
+  thinking.className = "message";
 
+  thinking.innerHTML = `
+    <div class="avatar ai-avatar">AI</div>
+    <div class="message-body">
+      <div class="message-role">Amzo AI</div>
+      <div class="thinking">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+  `;
 
-  showThinking();
+  document.getElementById(
+    "chat"
+  ).appendChild(thinking);
 
 
   try{
 
-    const selected =
-      chats.find(
-        c => c.id === currentChat
-      );
-
-
     const response =
-      await fetch(
-        "https://ai-tool-api.amzoxamzoo.workers.dev/",
-        {
-          method:"POST",
+    await fetch(API_URL,{
 
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
+      method:"POST",
 
-          signal:
-            controller.signal,
+      headers:{
+        "Content-Type":
+        "application/json"
+      },
 
-          body:
-            JSON.stringify({
+      body:JSON.stringify({
 
-              messages:
-                selected.messages
+        messages:
+        selected.messages
 
-            })
+      }),
 
-        }
-      );
+      signal:
+      controller.signal
+
+    });
 
 
     const data =
-      await response.json();
+    await response.json();
 
 
-    removeThinking();
+    thinking.remove();
 
 
-    if(data.result){
+    if(data.error){
 
-      await typeResponse(
-        data.result
-      );
-
-    }else{
-
-      addMessage(
-        "Sorry, something went wrong.",
-        "ai"
-      );
+      throw new Error(data.error);
 
     }
 
 
-  }catch(error){
+    const answer =
+    data.result ||
+    "I couldn't generate a response.";
 
-    removeThinking();
+
+    selected.messages.push({
+
+      type:"ai",
+      text:answer
+
+    });
 
 
-    if(
-      error.name ===
-      "AbortError"
-    ){
+    saveChats();
 
-      addMessage(
-        "Generation stopped.",
-        "ai"
-      );
+    render();
 
-    }else{
 
-      addMessage(
-        "Could not connect to the AI server.",
-        "ai"
-      );
+    /* SPEAK OPTION IS MANUAL */
+
+  }
+
+  catch(error){
+
+    thinking.remove();
+
+    if(error.name !== "AbortError"){
+
+      selected.messages.push({
+
+        type:"ai",
+
+        text:
+        "Error: " +
+        error.message
+
+      });
+
+      saveChats();
+      render();
 
     }
 
   }
 
+  finally{
 
-  controller = null;
+    generating = false;
+    controller = null;
 
-  generating = false;
+    updateSendButton();
 
-  sendBtn.textContent =
-    "Send";
-
-  sendBtn.className = "";
-
-  input.focus();
+  }
 
 }
 
 
-/* TYPE RESPONSE */
+/* REGENERATE */
 
-async function typeResponse(text){
+async function regenerate(index){
 
-  const wrapper =
-    document.createElement("div");
+  if(generating) return;
 
-  wrapper.className =
-    "message ai";
+  const selected =
+  currentChat();
 
+  if(!selected) return;
 
-  const bubble =
-    document.createElement("div");
+  const aiMessage =
+  selected.messages[index];
 
-  bubble.className =
-    "bubble";
-
-
-  wrapper.appendChild(
-    bubble
-  );
-
-  chat.appendChild(
-    wrapper
-  );
+  if(!aiMessage ||
+     aiMessage.type !== "ai") return;
 
 
-  for(
-    let i = 0;
-    i < text.length;
-    i++
-  ){
+  const previousUser =
+  selected.messages[index - 1];
 
-    if(!generating)
-      break;
-
-    bubble.textContent +=
-      text[i];
+  if(!previousUser ||
+     previousUser.type !== "user") return;
 
 
-    if(i % 3 === 0){
+  selected.messages.splice(index,1);
 
-      await new Promise(
-        resolve =>
-          setTimeout(resolve,5)
-      );
-
-    }
+  saveChats();
+  render();
 
 
-    chat.scrollTop =
-      chat.scrollHeight;
+  generating = true;
+
+  controller =
+  new AbortController();
+
+  updateSendButton();
+
+
+  try{
+
+    const response =
+    await fetch(API_URL,{
+
+      method:"POST",
+
+      headers:{
+        "Content-Type":
+        "application/json"
+      },
+
+      body:JSON.stringify({
+
+        messages:
+        selected.messages
+
+      }),
+
+      signal:
+      controller.signal
+
+    });
+
+
+    const data =
+    await response.json();
+
+
+    if(data.error)
+      throw new Error(data.error);
+
+
+    selected.messages.push({
+
+      type:"ai",
+      text:
+      data.result ||
+      "No response."
+
+    });
+
+
+    saveChats();
+    render();
 
   }
 
+  catch(error){
 
-  const tools =
-    document.createElement("div");
-
-  tools.className =
-    "tools";
-
-
-  const copy =
-    document.createElement("button");
-
-  copy.className =
-    "tool";
-
-  copy.textContent =
-    "📋 Copy";
-
-
-  copy.onclick = async () => {
-
-    await navigator.clipboard.writeText(
-      text
-    );
-
-    copy.textContent =
-      "✓ Copied";
-
-  };
-
-
-  tools.appendChild(
-    copy
-  );
-
-  wrapper.appendChild(
-    tools
-  );
-
-
-  if(currentChat){
-
-    const selected =
-      chats.find(
-        c => c.id === currentChat
-      );
-
-    if(selected){
+    if(error.name !== "AbortError"){
 
       selected.messages.push({
-        text:text,
-        type:"ai"
+
+        type:"ai",
+
+        text:
+        "Error: " +
+        error.message
+
       });
 
       saveChats();
+      render();
 
     }
 
   }
+
+  finally{
+
+    generating = false;
+    controller = null;
+
+    updateSendButton();
+
+  }
+
+}
+
+
+/* STOP */
+
+function stopGeneration(){
+
+  if(controller){
+
+    controller.abort();
+
+  }
+
+  generating = false;
+
+  updateSendButton();
 
 }
 
@@ -1324,147 +1212,178 @@ function handleSend(){
 
   if(generating){
 
-    if(controller){
+    stopGeneration();
 
-      controller.abort();
+  }else{
 
-    }
+    sendMessage();
 
-    generating = false;
+  }
+
+}
+
+
+/* BUTTON STATE */
+
+function updateSendButton(){
+
+  const btn =
+  document.getElementById("sendBtn");
+
+  if(generating){
+
+    btn.textContent = "■";
+    btn.classList.add("stop");
+
+  }else{
+
+    btn.textContent = "➤";
+    btn.classList.remove("stop");
+
+  }
+
+}
+
+
+/* KEYBOARD */
+
+function handleKey(event){
+
+  if(event.key === "Enter" &&
+     !event.shiftKey){
+
+    event.preventDefault();
+
+    handleSend();
+
+  }
+
+}
+
+
+/* COPY */
+
+async function copyText(text){
+
+  try{
+
+    await navigator.clipboard.writeText(text);
+
+  }catch{
+
+    const area =
+    document.createElement("textarea");
+
+    area.value = text;
+
+    document.body.appendChild(area);
+
+    area.select();
+
+    document.execCommand("copy");
+
+    area.remove();
+
+  }
+
+}
+
+
+/* SPEAK */
+
+function speakText(text){
+
+  if(!("speechSynthesis" in window)){
+
+    alert("Voice is not supported in this browser.");
 
     return;
 
   }
 
+  speechSynthesis.cancel();
 
-  sendMessage();
+  const speech =
+  new SpeechSynthesisUtterance(text);
+
+  speech.lang =
+  /[\u0600-\u06FF]/.test(text)
+  ? "ur-PK"
+  : "en-US";
+
+  speech.rate = 1;
+
+  speechSynthesis.speak(speech);
 
 }
 
 
-/* ENTER */
+/* VOICE INPUT */
 
-input.addEventListener(
-  "keydown",
+function startVoice(){
+
+  const Recognition =
+  window.SpeechRecognition ||
+  window.webkitSpeechRecognition;
+
+  if(!Recognition){
+
+    alert(
+      "Voice input is not supported in this browser."
+    );
+
+    return;
+
+  }
+
+  const recognition =
+  new Recognition();
+
+  recognition.lang = "en-US";
+
+  recognition.interimResults = false;
+
+  recognition.start();
+
+
+  recognition.onresult =
   event => {
 
-    if(
-      event.key === "Enter" &&
-      !event.shiftKey
-    ){
+    const result =
+    event.results[0][0].transcript;
 
-      event.preventDefault();
+    document.getElementById(
+      "input"
+    ).value += result;
 
-      handleSend();
-
-    }
-
-  }
-);
+  };
 
 
-/* RENAME */
+  recognition.onerror =
+  () => {
 
-function renameChat(id){
+    alert("Voice input failed.");
 
-  const selected =
-    chats.find(
-      c => c.id === id
-    );
-
-  if(!selected)
-    return;
-
-
-  const name =
-    prompt(
-      "New chat name:",
-      selected.title
-    );
-
-
-  if(!name ||
-     !name.trim())
-    return;
-
-
-  selected.title =
-    name.trim().substring(
-      0,
-      50
-    );
-
-
-  if(currentChat === id){
-
-    title.textContent =
-      selected.title;
-
-  }
-
-
-  saveChats();
-
-  renderHistory();
+  };
 
 }
 
 
-/* DELETE CHAT */
+/* FILE */
 
-function deleteChat(id){
+function fileSelected(event){
 
-  if(
-    !confirm(
-      "Delete this chat?"
-    )
-  )
-    return;
+  const file =
+  event.target.files[0];
 
+  if(!file) return;
 
-  chats =
-    chats.filter(
-      c => c.id !== id
-    );
+  selectedFile = file;
 
-
-  if(currentChat === id){
-
-    currentChat = null;
-
-    newChat();
-
-  }
-
-
-  saveChats();
-
-  renderHistory();
-
-}
-
-
-/* DELETE ALL */
-
-function deleteAll(){
-
-  if(
-    !confirm(
-      "Delete all saved chats?"
-    )
-  )
-    return;
-
-
-  chats = [];
-
-  currentChat = null;
-
-  saveChats();
-
-  newChat();
-
-  toggleSettings();
+  document.getElementById(
+    "fileName"
+  ).textContent =
+  "📎 " + file.name;
 
 }
 
@@ -1473,48 +1392,16 @@ function deleteAll(){
 
 function toggleSettings(){
 
-  panel.classList.toggle(
-    "show"
-  );
+  document.getElementById(
+    "settings"
+  ).classList.toggle("show");
 
 }
 
 
-/* CLOSE SETTINGS */
-
-document.addEventListener(
-  "click",
-  event => {
-
-    if(
-      panel.classList.contains(
-        "show"
-      ) &&
-
-      !panel.contains(
-        event.target
-      ) &&
-
-      !event.target.classList.contains(
-        "settings-btn"
-      )
-    ){
-
-      panel.classList.remove(
-        "show"
-      );
-
-    }
-
-  }
-);
-
-
 /* START */
 
-renderHistory();
-
-input.focus();
+render();
 
 </script>
 
