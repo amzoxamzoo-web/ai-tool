@@ -1,654 +1,1050 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Amzo AI</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Amzo AI</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
 
-    :root {
-      --bg: #050509;
-      --panel: #0d0d14;
-      --panel2: #11111a;
-      --border: #272735;
-      --text: #fff;
-      --muted: #888;
-    }
+:root{
+  --bg:#050509;
+  --panel:#0d0d14;
+  --panel2:#11111a;
+  --border:#292936;
+  --text:#fff;
+  --muted:#888;
+}
 
-    body {
-      height: 100vh;
-      background: var(--bg);
-      color: var(--text);
-      overflow: hidden;
-    }
+body{
+  height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  overflow:hidden;
+}
 
-    body::before {
-      content: "";
-      position: fixed;
-      width: 700px;
-      height: 700px;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      background: conic-gradient(
-        #ff0055,
-        #ff00ff,
-        #6500ff,
-        #0088ff,
-        #00ffff,
-        #00ff77,
-        #ffff00,
-        #ff0055
-      );
-      filter: blur(150px);
-      opacity: .13;
-      animation: rotateRGB 10s linear infinite;
-      z-index: -1;
-    }
+/* RGB BACKGROUND */
+body:before{
+  content:"";
+  position:fixed;
+  width:800px;
+  height:800px;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  background:conic-gradient(
+    #ff0055,#ff00ff,#6500ff,#0088ff,
+    #00ffff,#00ff77,#ffff00,#ff0055
+  );
+  filter:blur(170px);
+  opacity:.12;
+  animation:rotateRGB 12s linear infinite;
+  z-index:-1;
+}
 
-    @keyframes rotateRGB {
-      from { transform: translate(-50%, -50%) rotate(0deg); }
-      to { transform: translate(-50%, -50%) rotate(360deg); }
-    }
+@keyframes rotateRGB{
+  from{transform:translate(-50%,-50%) rotate(0deg)}
+  to{transform:translate(-50%,-50%) rotate(360deg)}
+}
 
-    .app {
-      height: 100vh;
-      display: flex;
-    }
+.app{
+  height:100vh;
+  display:flex;
+}
 
-    /* SIDEBAR */
+/* SIDEBAR */
+.sidebar{
+  width:270px;
+  background:rgba(8,8,14,.97);
+  border-right:1px solid var(--border);
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+}
 
-    .sidebar {
-      width: 270px;
-      background: rgba(9, 9, 15, .96);
-      border-right: 1px solid var(--border);
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-    }
+.logo{
+  font-size:25px;
+  font-weight:bold;
+  margin-bottom:20px;
+  background:linear-gradient(
+    90deg,#ff0055,#ff00ff,#0088ff,
+    #00ffff,#00ff66,#ffff00
+  );
+  background-size:300%;
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:rgbText 4s linear infinite;
+}
 
-    .logo {
-      font-size: 25px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      background: linear-gradient(
-        90deg,
-        #ff0055,
-        #ff00ff,
-        #0088ff,
-        #00ffff,
-        #00ff66,
-        #ffff00
-      );
-      background-size: 300%;
-      -webkit-background-clip: text;
-      color: transparent;
-      animation: rgbText 4s linear infinite;
-    }
+@keyframes rgbText{
+  0%{background-position:0%}
+  100%{background-position:300%}
+}
 
-    @keyframes rgbText {
-      0% { background-position: 0%; }
-      100% { background-position: 300%; }
-    }
+.new-chat{
+  width:100%;
+  padding:13px;
+  border:1px solid transparent;
+  border-radius:12px;
+  color:white;
+  background:
+    linear-gradient(#101018,#101018) padding-box,
+    linear-gradient(
+      90deg,#ff0055,#ff00ff,#0088ff,
+      #00ffff,#00ff66,#ffff00
+    ) border-box;
+  cursor:pointer;
+  font-weight:bold;
+  margin-bottom:20px;
+}
 
-    .new-chat {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid transparent;
-      border-radius: 12px;
-      color: white;
-      background:
-        linear-gradient(#101018, #101018) padding-box,
-        linear-gradient(
-          90deg,
-          #ff0055,
-          #ff00ff,
-          #0088ff,
-          #00ffff,
-          #00ff66,
-          #ffff00
-        ) border-box;
-      cursor: pointer;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
+.new-chat:hover{
+  box-shadow:0 0 15px #ff00aa,0 0 25px #0088ff;
+}
 
-    .new-chat:hover {
-      box-shadow:
-        0 0 12px #ff00aa,
-        0 0 20px #0088ff;
-    }
+.history-title{
+  color:#777;
+  font-size:12px;
+  margin-bottom:10px;
+  text-transform:uppercase;
+}
 
-    .history-title {
-      color: #777;
-      font-size: 12px;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-    }
+#chatHistory{
+  overflow-y:auto;
+  flex:1;
+}
 
-    #chatHistory {
-      overflow-y: auto;
-      flex: 1;
-    }
+.chat-item{
+  padding:11px;
+  border-radius:10px;
+  margin-bottom:5px;
+  color:#ccc;
+  cursor:pointer;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  display:flex;
+  justify-content:space-between;
+  gap:5px;
+}
 
-    .chat-item {
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 5px;
-      color: #ccc;
-      cursor: pointer;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+.chat-name{
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
 
-    .chat-item:hover {
-      background: #171720;
-      color: white;
-    }
+.chat-actions{
+  display:none;
+  gap:4px;
+}
 
-    .chat-item.active {
-      background: linear-gradient(
-        90deg,
-        rgba(255,0,85,.18),
-        rgba(0,180,255,.18)
-      );
-      border-left: 2px solid #00ffff;
-    }
+.chat-item:hover .chat-actions{
+  display:flex;
+}
 
-    /* MAIN */
+.small-btn{
+  border:0;
+  background:transparent;
+  color:#888;
+  cursor:pointer;
+}
 
-    .main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
+.small-btn:hover{
+  color:white;
+}
 
-    .topbar {
-      height: 65px;
-      display: flex;
-      align-items: center;
-      padding: 0 22px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(8,8,13,.82);
-      backdrop-filter: blur(12px);
-    }
+.chat-item:hover{
+  background:#171720;
+  color:white;
+}
 
-    .top-title {
-      font-size: 18px;
-      font-weight: bold;
-      background: linear-gradient(
-        90deg,
-        #ff0055,
-        #ff00ff,
-        #00ffff,
-        #00ff66
-      );
-      background-size: 250%;
-      -webkit-background-clip: text;
-      color: transparent;
-      animation: rgbText 4s linear infinite;
-    }
+.chat-item.active{
+  background:linear-gradient(
+    90deg,
+    rgba(255,0,85,.18),
+    rgba(0,180,255,.18)
+  );
+  border-left:2px solid #00ffff;
+}
 
-    #chat {
-      flex: 1;
-      overflow-y: auto;
-      padding: 30px 8%;
-    }
+/* MAIN */
+.main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
 
-    .message {
-      display: flex;
-      margin-bottom: 22px;
-    }
+.topbar{
+  height:65px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 22px;
+  border-bottom:1px solid var(--border);
+  background:rgba(8,8,13,.82);
+  backdrop-filter:blur(12px);
+}
 
-    .message.user {
-      justify-content: flex-end;
-    }
+.top-title{
+  font-size:18px;
+  font-weight:bold;
+  background:linear-gradient(
+    90deg,#ff0055,#ff00ff,#00ffff,#00ff66
+  );
+  background-size:250%;
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:rgbText 4s linear infinite;
+}
 
-    .bubble {
-      max-width: 75%;
-      padding: 14px 17px;
-      border-radius: 16px;
-      line-height: 1.65;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
+.top-actions{
+  display:flex;
+  gap:8px;
+}
 
-    .ai .bubble {
-      background: #12121b;
-      border: 1px solid #292936;
-    }
+.icon-btn{
+  background:#11111a;
+  border:1px solid #292936;
+  color:#aaa;
+  border-radius:9px;
+  padding:8px 10px;
+  cursor:pointer;
+}
 
-    .user .bubble {
-      background: linear-gradient(
-        135deg,
-        #ff0055,
-        #8b00ff,
-        #0066ff
-      );
-      box-shadow: 0 0 15px rgba(120,0,255,.25);
-    }
+.icon-btn:hover{
+  color:white;
+  border-color:#00ffff;
+}
 
-    .typing {
-      color: #888;
-      font-size: 14px;
-    }
+/* CHAT */
+#chat{
+  flex:1;
+  overflow-y:auto;
+  padding:30px 8%;
+}
 
-    /* INPUT */
+.message{
+  display:flex;
+  margin-bottom:22px;
+  flex-direction:column;
+}
 
-    .input-wrap {
-      padding: 18px 8% 25px;
-      background: linear-gradient(
-        transparent,
-        rgba(5,5,9,.96) 35%
-      );
-    }
+.message.user{
+  align-items:flex-end;
+}
 
-    .input-area {
-      display: flex;
-      gap: 10px;
-      padding: 7px;
-      border: 1px solid transparent;
-      border-radius: 17px;
-      background:
-        linear-gradient(#0d0d14, #0d0d14) padding-box,
-        linear-gradient(
-          90deg,
-          #ff0055,
-          #ff00ff,
-          #0066ff,
-          #00ffff,
-          #00ff66,
-          #ffff00,
-          #ff0055
-        ) border-box;
-      background-size: 100% 100%, 300% 100%;
-      animation: inputRGB 5s linear infinite;
-    }
+.bubble{
+  max-width:75%;
+  padding:14px 17px;
+  border-radius:16px;
+  line-height:1.65;
+  white-space:pre-wrap;
+  word-wrap:break-word;
+}
 
-    @keyframes inputRGB {
-      0% { background-position: 0 0, 0% 0; }
-      100% { background-position: 0 0, 300% 0; }
-    }
+.ai .bubble{
+  background:#12121b;
+  border:1px solid #292936;
+}
 
-    #messageInput {
-      flex: 1;
-      min-width: 0;
-      padding: 14px;
-      border: none;
-      outline: none;
-      background: transparent;
-      color: white;
-      font-size: 15px;
-    }
+.user .bubble{
+  background:linear-gradient(
+    135deg,#ff0055,#8b00ff,#0066ff
+  );
+  box-shadow:0 0 15px rgba(120,0,255,.25);
+}
 
-    #messageInput::placeholder {
-      color: #666;
-    }
+.message-tools{
+  margin-top:6px;
+  display:flex;
+  gap:6px;
+}
 
-    #sendBtn {
-      width: 90px;
-      border: none;
-      border-radius: 12px;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      background: linear-gradient(
-        90deg,
-        #ff0055,
-        #ff00ff,
-        #0066ff,
-        #00ffff
-      );
-      background-size: 300%;
-      animation: rgbButton 4s linear infinite;
-    }
+.tool-btn{
+  border:0;
+  background:transparent;
+  color:#666;
+  font-size:12px;
+  cursor:pointer;
+}
 
-    @keyframes rgbButton {
-      0% { background-position: 0%; }
-      100% { background-position: 300%; }
-    }
+.tool-btn:hover{
+  color:#00ffff;
+}
 
-    #sendBtn:disabled {
-      opacity: .5;
-      cursor: wait;
-    }
+.typing{
+  color:#888;
+  font-size:14px;
+}
 
-    /* MOBILE */
+/* INPUT */
+.input-wrap{
+  padding:18px 8% 25px;
+  background:linear-gradient(
+    transparent,
+    rgba(5,5,9,.97) 35%
+  );
+}
 
-    @media (max-width: 700px) {
-      .sidebar {
-        width: 210px;
-      }
+.input-area{
+  display:flex;
+  gap:10px;
+  padding:7px;
+  border:1px solid transparent;
+  border-radius:17px;
+  background:
+    linear-gradient(#0d0d14,#0d0d14) padding-box,
+    linear-gradient(
+      90deg,#ff0055,#ff00ff,#0066ff,
+      #00ffff,#00ff66,#ffff00,#ff0055
+    ) border-box;
+  background-size:100% 100%,300% 100%;
+  animation:inputRGB 5s linear infinite;
+}
 
-      #chat {
-        padding: 25px 5%;
-      }
+@keyframes inputRGB{
+  0%{background-position:0 0,0% 0}
+  100%{background-position:0 0,300% 0}
+}
 
-      .input-wrap {
-        padding: 12px 5% 18px;
-      }
+#messageInput{
+  flex:1;
+  min-width:0;
+  padding:14px;
+  border:none;
+  outline:none;
+  background:transparent;
+  color:white;
+  font-size:15px;
+}
 
-      .bubble {
-        max-width: 88%;
-      }
-    }
+#messageInput::placeholder{
+  color:#666;
+}
 
-    @media (max-width: 520px) {
-      .sidebar {
-        display: none;
-      }
+#sendBtn{
+  width:90px;
+  border:none;
+  border-radius:12px;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  background:linear-gradient(
+    90deg,#ff0055,#ff00ff,#0066ff,#00ffff
+  );
+  background-size:300%;
+  animation:rgbButton 4s linear infinite;
+}
 
-      .topbar {
-        height: 58px;
-      }
+@keyframes rgbButton{
+  0%{background-position:0%}
+  100%{background-position:300%}
+}
 
-      #chat {
-        padding: 20px 15px;
-      }
+#sendBtn:disabled{
+  opacity:.5;
+  cursor:wait;
+}
 
-      .input-wrap {
-        padding: 10px 12px 15px;
-      }
-    }
-  </style>
+/* SETTINGS */
+.settings{
+  position:fixed;
+  right:20px;
+  top:75px;
+  width:280px;
+  background:#0d0d14;
+  border:1px solid #292936;
+  border-radius:14px;
+  padding:18px;
+  display:none;
+  z-index:10;
+  box-shadow:0 0 30px rgba(0,0,0,.5);
+}
+
+.settings.show{
+  display:block;
+}
+
+.settings h3{
+  margin-bottom:15px;
+}
+
+.setting-row{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid #20202a;
+  color:#bbb;
+}
+
+.danger{
+  margin-top:15px;
+  width:100%;
+  padding:10px;
+  border:1px solid #ff0055;
+  border-radius:9px;
+  background:transparent;
+  color:#ff6688;
+  cursor:pointer;
+}
+
+.danger:hover{
+  background:#ff005522;
+}
+
+/* MOBILE */
+@media(max-width:700px){
+  .sidebar{
+    width:210px;
+  }
+
+  #chat{
+    padding:25px 5%;
+  }
+
+  .input-wrap{
+    padding:12px 5% 18px;
+  }
+
+  .bubble{
+    max-width:88%;
+  }
+}
+
+@media(max-width:520px){
+  .sidebar{
+    display:none;
+  }
+
+  .topbar{
+    height:58px;
+  }
+
+  #chat{
+    padding:20px 15px;
+  }
+
+  .input-wrap{
+    padding:10px 12px 15px;
+  }
+
+  .bubble{
+    max-width:92%;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="app">
+<div class="app">
 
-    <aside class="sidebar">
+<aside class="sidebar">
 
-      <div class="logo">⚡ Amzo AI</div>
+<div class="logo">⚡ Amzo AI</div>
 
-      <button class="new-chat" onclick="newChat()">
-        ＋ New Chat
-      </button>
+<button class="new-chat" onclick="newChat()">
+＋ New Chat
+</button>
 
-      <div class="history-title">Recent Chats</div>
+<div class="history-title">Recent Chats</div>
 
-      <div id="chatHistory"></div>
+<div id="chatHistory"></div>
 
-    </aside>
+</aside>
 
-    <main class="main">
+<main class="main">
 
-      <div class="topbar">
-        <div class="top-title" id="chatTitle">
-          New Chat
-        </div>
-      </div>
+<div class="topbar">
 
-      <div id="chat">
+<div class="top-title" id="chatTitle">
+New Chat
+</div>
 
-        <div class="message ai">
-          <div class="bubble">
-            Hey! 👋 I'm Amzo AI.<br>
-            Ask me anything!
-          </div>
-        </div>
+<div class="top-actions">
 
-      </div>
+<button class="icon-btn" onclick="toggleSettings()">
+⚙
+</button>
 
-      <div class="input-wrap">
+</div>
 
-        <div class="input-area">
+</div>
 
-          <input
-            id="messageInput"
-            type="text"
-            placeholder="Message Amzo AI..."
-            autocomplete="off"
-          >
+<div id="chat">
 
-          <button id="sendBtn" onclick="sendMessage()">
-            Send
-          </button>
+<div class="message ai">
+<div class="bubble">
+Hey! 👋 I'm Amzo AI.
+Ask me anything!
+</div>
+</div>
 
-        </div>
+</div>
 
-      </div>
+<div class="input-wrap">
 
-    </main>
+<div class="input-area">
 
-  </div>
+<input
+id="messageInput"
+type="text"
+placeholder="Message Amzo AI..."
+autocomplete="off"
+>
 
-  <script>
+<button id="sendBtn" onclick="sendMessage()">
+Send
+</button>
 
-    const input = document.getElementById("messageInput");
-    const chat = document.getElementById("chat");
-    const sendBtn = document.getElementById("sendBtn");
-    const chatHistory = document.getElementById("chatHistory");
-    const chatTitle = document.getElementById("chatTitle");
+</div>
 
-    let currentChat = null;
-    let chats = JSON.parse(localStorage.getItem("amzoChats") || "[]");
+</div>
 
-    function saveChats() {
-      localStorage.setItem("amzoChats", JSON.stringify(chats));
-    }
+</main>
 
-    function renderHistory() {
+</div>
 
-      chatHistory.innerHTML = "";
+<!-- SETTINGS -->
 
-      chats.forEach((item, index) => {
+<div class="settings" id="settings">
 
-        const div = document.createElement("div");
+<h3>⚙ Settings</h3>
 
-        div.className =
-          "chat-item " +
-          (item.id === currentChat ? "active" : "");
+<div class="setting-row">
+<span>AI</span>
+<span>Online 🟢</span>
+</div>
 
-        div.textContent = item.title;
+<div class="setting-row">
+<span>Theme</span>
+<span>RGB Dark</span>
+</div>
 
-        div.onclick = () => loadChat(item.id);
+<div class="setting-row">
+<span>Chat Storage</span>
+<span>Local</span>
+</div>
 
-        chatHistory.appendChild(div);
+<button class="danger" onclick="clearAllChats()">
+Delete All Chats
+</button>
 
-      });
-    }
+</div>
 
-    function createChat(firstMessage) {
+<script>
 
-      const id = Date.now();
+const input =
+document.getElementById("messageInput");
 
-      const title =
-        firstMessage.length > 28
-          ? firstMessage.substring(0, 28) + "..."
-          : firstMessage;
+const chat =
+document.getElementById("chat");
 
-      chats.unshift({
-        id: id,
-        title: title,
-        messages: []
-      });
+const sendBtn =
+document.getElementById("sendBtn");
 
-      currentChat = id;
-      chatTitle.textContent = title;
+const chatHistory =
+document.getElementById("chatHistory");
 
-      saveChats();
-      renderHistory();
+const chatTitle =
+document.getElementById("chatTitle");
 
-      return chats[0];
-    }
+const settings =
+document.getElementById("settings");
 
-    function loadChat(id) {
+let currentChat = null;
 
-      const selected = chats.find(c => c.id === id);
+let chats =
+JSON.parse(
+localStorage.getItem("amzoChats") || "[]"
+);
 
-      if (!selected) return;
+/* SAVE */
 
-      currentChat = id;
-      chatTitle.textContent = selected.title;
+function saveChats(){
 
-      chat.innerHTML = "";
+localStorage.setItem(
+"amzoChats",
+JSON.stringify(chats)
+);
 
-      selected.messages.forEach(message => {
-        addMessage(message.text, message.type, false);
-      });
+}
 
-      renderHistory();
-      chat.scrollTop = chat.scrollHeight;
-    }
+/* HISTORY */
 
-    function newChat() {
+function renderHistory(){
 
-      currentChat = null;
-      chatTitle.textContent = "New Chat";
+chatHistory.innerHTML="";
 
-      chat.innerHTML = `
-        <div class="message ai">
-          <div class="bubble">
-            Hey! 👋 I'm Amzo AI.<br>
-            Ask me anything!
-          </div>
-        </div>
-      `;
+chats.forEach(item=>{
 
-      renderHistory();
-      input.focus();
-    }
+const div =
+document.createElement("div");
 
-    function addMessage(text, type, save = true) {
+div.className =
+"chat-item " +
+(item.id===currentChat ? "active":"");
 
-      const message = document.createElement("div");
-      message.className = "message " + type;
+const name =
+document.createElement("div");
 
-      const bubble = document.createElement("div");
-      bubble.className = "bubble";
-      bubble.textContent = text;
+name.className="chat-name";
 
-      message.appendChild(bubble);
-      chat.appendChild(message);
+name.textContent=item.title;
 
-      chat.scrollTop = chat.scrollHeight;
+const actions =
+document.createElement("div");
 
-      if (save && currentChat) {
+actions.className="chat-actions";
 
-        const selected =
-          chats.find(c => c.id === currentChat);
+const rename =
+document.createElement("button");
 
-        if (selected) {
-          selected.messages.push({
-            text: text,
-            type: type
-          });
+rename.className="small-btn";
+rename.textContent="✏️";
 
-          saveChats();
-        }
-      }
-    }
+rename.onclick=(e)=>{
+e.stopPropagation();
+renameChat(item.id);
+};
 
-    input.addEventListener("keydown", function(event) {
+const del =
+document.createElement("button");
 
-      if (event.key === "Enter") {
-        sendMessage();
-      }
+del.className="small-btn";
+del.textContent="🗑️";
 
-    });
+del.onclick=(e)=>{
+e.stopPropagation();
+deleteChat(item.id);
+};
 
-    async function sendMessage() {
+actions.appendChild(rename);
+actions.appendChild(del);
 
-      const message = input.value.trim();
+div.appendChild(name);
+div.appendChild(actions);
 
-      if (!message || sendBtn.disabled) return;
+div.onclick=()=>{
+loadChat(item.id);
+};
 
-      if (!currentChat) {
-        createChat(message);
-      }
+chatHistory.appendChild(div);
 
-      addMessage(message, "user");
+});
 
-      input.value = "";
+}
 
-      sendBtn.disabled = true;
-      sendBtn.textContent = "...";
+/* CREATE CHAT */
 
-      const typing = document.createElement("div");
+function createChat(firstMessage){
 
-      typing.className = "message ai";
-      typing.id = "typing";
+const id=Date.now();
 
-      typing.innerHTML =
-        '<div class="typing">🤖 Amzo AI is thinking...</div>';
+let title=firstMessage.trim();
 
-      chat.appendChild(typing);
+if(title.length>28){
+title=title.substring(0,28)+"...";
+}
 
-      chat.scrollTop = chat.scrollHeight;
+const newItem={
+id:id,
+title:title || "New Chat",
+messages:[]
+};
 
-      try {
+chats.unshift(newItem);
 
-        const response = await fetch(
-          "https://ai-tool-api.amzoxamzoo.workers.dev/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              topic: message
-            })
-          }
-        );
+currentChat=id;
 
-        const data = await response.json();
+chatTitle.textContent=newItem.title;
 
-        const typingElement =
-          document.getElementById("typing");
+saveChats();
 
-        if (typingElement) {
-          typingElement.remove();
-        }
+renderHistory();
 
-        if (data.result) {
+return newItem;
 
-          addMessage(data.result, "ai");
+}
 
-        } else if (data.error) {
+/* LOAD CHAT */
 
-          addMessage("Error: " + data.error, "ai");
+function loadChat(id){
 
-        } else {
+const selected=
+chats.find(c=>c.id===id);
 
-          addMessage("Something went wrong.", "ai");
+if(!selected)return;
 
-        }
+currentChat=id;
 
-      } catch (error) {
+chatTitle.textContent=
+selected.title;
 
-        const typingElement =
-          document.getElementById("typing");
+chat.innerHTML="";
 
-        if (typingElement) {
-          typingElement.remove();
-        }
+selected.messages.forEach(message=>{
 
-        addMessage(
-          "Could not connect to the AI server.",
-          "ai"
-        );
+addMessage(
+message.text,
+message.type,
+false
+);
 
-      }
+});
 
-      sendBtn.disabled = false;
-      sendBtn.textContent = "Send";
+renderHistory();
 
-      input.focus();
-    }
+chat.scrollTop=
+chat.scrollHeight;
 
-    renderHistory();
+}
 
-  </script>
+/* NEW CHAT */
+
+function newChat(){
+
+currentChat=null;
+
+chatTitle.textContent="New Chat";
+
+chat.innerHTML=`
+<div class="message ai">
+<div class="bubble">
+Hey! 👋 I'm Amzo AI.
+Ask me anything!
+</div>
+</div>
+`;
+
+renderHistory();
+
+input.focus();
+
+}
+
+/* ADD MESSAGE */
+
+function addMessage(text,type,save=true){
+
+const message =
+document.createElement("div");
+
+message.className=
+"message "+type;
+
+const bubble =
+document.createElement("div");
+
+bubble.className="bubble";
+
+bubble.textContent=text;
+
+message.appendChild(bubble);
+
+if(type==="ai"){
+
+const tools =
+document.createElement("div");
+
+tools.className="message-tools";
+
+const copy =
+document.createElement("button");
+
+copy.className="tool-btn";
+copy.textContent="📋 Copy";
+
+copy.onclick=()=>{
+navigator.clipboard.writeText(text);
+copy.textContent="✓ Copied";
+setTimeout(()=>{
+copy.textContent="📋 Copy";
+},1500);
+};
+
+tools.appendChild(copy);
+
+message.appendChild(tools);
+
+}
+
+chat.appendChild(message);
+
+chat.scrollTop=
+chat.scrollHeight;
+
+if(save && currentChat){
+
+const selected=
+chats.find(c=>c.id===currentChat);
+
+if(selected){
+
+selected.messages.push({
+text:text,
+type:type
+});
+
+saveChats();
+
+}
+
+}
+
+}
+
+/* SEND */
+
+async function sendMessage(){
+
+const message=
+input.value.trim();
+
+if(!message || sendBtn.disabled)return;
+
+/* CREATE CHAT */
+
+if(!currentChat){
+createChat(message);
+}
+
+/* USER MESSAGE */
+
+addMessage(message,"user");
+
+input.value="";
+
+sendBtn.disabled=true;
+sendBtn.textContent="...";
+
+/* THINKING */
+
+const typing=
+document.createElement("div");
+
+typing.className="message ai";
+typing.id="typing";
+
+typing.innerHTML=
+'<div class="typing">🤖 Amzo AI is thinking...</div>';
+
+chat.appendChild(typing);
+
+chat.scrollTop=
+chat.scrollHeight;
+
+try{
+
+const response=
+await fetch(
+"https://ai-tool-api.amzoxamzoo.workers.dev/",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+topic:message
+})
+}
+);
+
+const data=
+await response.json();
+
+const typingElement=
+document.getElementById("typing");
+
+if(typingElement){
+typingElement.remove();
+}
+
+if(data.result){
+
+addMessage(data.result,"ai");
+
+}else if(data.error){
+
+addMessage(
+"Error: "+data.error,
+"ai"
+);
+
+}else{
+
+addMessage(
+"Something went wrong.",
+"ai"
+);
+
+}
+
+}catch(error){
+
+const typingElement=
+document.getElementById("typing");
+
+if(typingElement){
+typingElement.remove();
+}
+
+addMessage(
+"Could not connect to the AI server.",
+"ai"
+);
+
+}
+
+sendBtn.disabled=false;
+sendBtn.textContent="Send";
+
+input.focus();
+
+}
+
+/* ENTER */
+
+input.addEventListener(
+"keydown",
+function(event){
+
+if(event.key==="Enter"){
+sendMessage();
+}
+
+});
+
+/* RENAME */
+
+function renameChat(id){
+
+const selected=
+chats.find(c=>c.id===id);
+
+if(!selected)return;
+
+const newName=
+prompt(
+"Enter new chat name:",
+selected.title
+);
+
+if(!newName)return;
+
+selected.title=
+newName.substring(0,50);
+
+if(currentChat===id){
+chatTitle.textContent=
+selected.title;
+}
+
+saveChats();
+renderHistory();
+
+}
+
+/* DELETE ONE */
+
+function deleteChat(id){
+
+const ok=
+confirm("Delete this chat?");
+
+if(!ok)return;
+
+chats=
+chats.filter(c=>c.id!==id);
+
+if(currentChat===id){
+
+currentChat=null;
+
+chatTitle.textContent=
+"New Chat";
+
+chat.innerHTML=`
+<div class="message ai">
+<div class="bubble">
+Hey! 👋 I'm Amzo AI.
+Ask me anything!
+</div>
+</div>
+`;
+
+}
+
+saveChats();
+renderHistory();
+
+}
+
+/* DELETE ALL */
+
+function clearAllChats(){
+
+const ok=
+confirm(
+"Delete all saved chats?"
+);
+
+if(!ok)return;
+
+chats=[];
+
+currentChat=null;
+
+saveChats();
+
+renderHistory();
+
+newChat();
+
+toggleSettings();
+
+}
+
+/* SETTINGS */
+
+function toggleSettings(){
+
+settings.classList.toggle("show");
+
+}
+
+/* CLOSE SETTINGS */
+
+document.addEventListener(
+"click",
+function(event){
+
+if(
+settings.classList.contains("show") &&
+!settings.contains(event.target) &&
+!event.target.classList.contains("icon-btn")
+){
+
+settings.classList.remove("show");
+
+}
+
+});
+
+/* START */
+
+renderHistory();
+
+input.focus();
+
+</script>
 
 </body>
 </html>
