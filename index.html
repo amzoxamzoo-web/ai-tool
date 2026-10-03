@@ -15,7 +15,7 @@
 
     body {
       min-height: 100vh;
-      background: #0b0b12;
+      background: #08080d;
       color: white;
       display: flex;
       justify-content: center;
@@ -25,40 +25,43 @@
 
     .box {
       width: 100%;
-      max-width: 650px;
-      background: #151521;
+      max-width: 700px;
+      background: #12121b;
       padding: 35px;
+      border: 1px solid #272735;
       border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 0 40px rgba(0,0,0,0.5);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
     }
 
     h1 {
       font-size: 38px;
       margin-bottom: 10px;
+      text-align: center;
     }
 
-    p {
-      color: #aaa;
+    .subtitle {
+      color: #999;
+      text-align: center;
       margin-bottom: 25px;
     }
 
     input {
       width: 100%;
-      padding: 15px;
-      border-radius: 10px;
-      border: 1px solid #333;
-      background: #0d0d15;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid #30303d;
+      background: #0b0b12;
       color: white;
       font-size: 16px;
+      outline: none;
       margin-bottom: 12px;
     }
 
     button {
       width: 100%;
-      padding: 15px;
+      padding: 16px;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       background: white;
       color: black;
       font-size: 16px;
@@ -66,16 +69,21 @@
       cursor: pointer;
     }
 
-    button:hover {
-      opacity: 0.85;
+    button:disabled {
+      opacity: .5;
+      cursor: wait;
     }
 
     #result {
       margin-top: 25px;
-      text-align: left;
-      line-height: 1.7;
+      padding: 20px;
+      border-radius: 14px;
+      background: #0b0b12;
+      border: 1px solid #272735;
       color: #ddd;
+      line-height: 1.7;
       white-space: pre-line;
+      min-height: 60px;
     }
   </style>
 </head>
@@ -83,46 +91,75 @@
 <body>
 
   <div class="box">
+
     <h1>AI Idea Generator</h1>
-    <p>Enter a topic and generate content ideas instantly.</p>
 
-    <input id="topic" placeholder="Example: Minecraft">
+    <p class="subtitle">
+      Enter a topic and get AI-generated content ideas.
+    </p>
 
-    <button onclick="generateIdeas()">Generate Ideas</button>
+    <input
+      id="topic"
+      type="text"
+      placeholder="Example: Minecraft"
+    >
 
-    <div id="result"></div>
+    <button id="generateBtn" onclick="generateIdeas()">
+      Generate Ideas
+    </button>
+
+    <div id="result">
+      Your AI-generated ideas will appear here.
+    </div>
+
   </div>
 
   <script>
-    function generateIdeas() {
+    async function generateIdeas() {
+
       const topic = document.getElementById("topic").value.trim();
       const result = document.getElementById("result");
+      const button = document.getElementById("generateBtn");
 
       if (!topic) {
         result.innerText = "Please enter a topic.";
         return;
       }
 
-      result.innerText =
-`1. 5 Things You Didn't Know About ${topic}
+      button.disabled = true;
+      button.innerText = "Generating...";
+      result.innerText = "AI is thinking...";
 
-2. The Biggest Mistakes Beginners Make With ${topic}
+      try {
+        const response = await fetch(
+          "https://ai-tool-api.amzoxamzoo.workers.dev/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              topic: topic
+            })
+          }
+        );
 
-3. ${topic} Challenge — Can You Do It?
+        const data = await response.json();
 
-4. ${topic} Tips That Actually Work
+        if (data.result) {
+          result.innerText = data.result;
+        } else if (data.error) {
+          result.innerText = "Error: " + data.error;
+        } else {
+          result.innerText = "Something went wrong.";
+        }
 
-5. What Happens If You Try ${topic} For 7 Days?
+      } catch (error) {
+        result.innerText = "Could not connect to the AI server.";
+      }
 
-6. ${topic}: Beginner vs Expert
-
-7. The Future of ${topic}
-
-8. 10 Crazy Facts About ${topic}
-
-9. ${topic} Explained in 60 Seconds
-
-10. I Tried ${topic} So You Don't Have To`;
+      button.disabled = false;
+      button.innerText = "Generate Ideas";
     }
   </script>
 
