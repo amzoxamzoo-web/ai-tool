@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Amzo AI</title>
 
 <style>
@@ -14,102 +13,179 @@
 }
 
 :root{
-  --bg:#050509;
-  --panel:#0c0c14;
-  --panel2:#11111c;
-  --text:#fff;
-  --muted:#9292a8;
-  --border:#242438;
+  --bg:#05050d;
+  --panel:rgba(12,12,25,.72);
+  --panel2:rgba(18,18,35,.82);
+  --text:#f5f7ff;
+  --muted:#9297b5;
   --cyan:#00eaff;
-  --pink:#ff00cc;
-  --purple:#8b5cf6;
-  --green:#00ff88;
+  --pink:#ff00c8;
+  --purple:#8b5cff;
+  --green:#00ff9d;
+  --danger:#ff416c;
+}
+
+html,body{
+  width:100%;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Segoe UI,Arial,sans-serif;
 }
 
 body{
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 20% 20%,rgba(0,234,255,.12),transparent 28%),
-    radial-gradient(circle at 80% 30%,rgba(255,0,204,.12),transparent 28%),
-    radial-gradient(circle at 50% 90%,rgba(139,92,246,.12),transparent 30%),
-    var(--bg);
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
   overflow-x:hidden;
 }
 
-/* RGB LIGHT */
-body::before{
-  content:"";
+/* ================= BACKGROUND ================= */
+
+.bg{
   position:fixed;
-  inset:-50%;
+  inset:0;
+  overflow:hidden;
   pointer-events:none;
-  background:conic-gradient(
-    from 0deg,
+  z-index:-5;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(0,234,255,.13),transparent 28%),
+    radial-gradient(circle at 85% 25%,rgba(255,0,200,.12),transparent 28%),
+    radial-gradient(circle at 50% 90%,rgba(139,92,255,.12),transparent 32%),
+    #05050d;
+}
+
+.bg::before{
+  content:"";
+  position:absolute;
+  width:700px;
+  height:700px;
+  left:-250px;
+  top:-250px;
+  border-radius:50%;
+  border:1px solid rgba(0,234,255,.16);
+  box-shadow:
+    0 0 80px rgba(0,234,255,.08),
+    inset 0 0 80px rgba(0,234,255,.05);
+  animation:floatOrb 12s ease-in-out infinite;
+}
+
+.bg::after{
+  content:"";
+  position:absolute;
+  width:650px;
+  height:650px;
+  right:-280px;
+  bottom:-280px;
+  border-radius:50%;
+  border:1px solid rgba(255,0,200,.14);
+  box-shadow:
+    0 0 90px rgba(255,0,200,.08),
+    inset 0 0 90px rgba(255,0,200,.05);
+  animation:floatOrb2 14s ease-in-out infinite;
+}
+
+.grid{
+  position:absolute;
+  inset:0;
+  opacity:.13;
+  background-image:
+    linear-gradient(rgba(0,234,255,.12) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,0,200,.12) 1px,transparent 1px);
+  background-size:55px 55px;
+  mask-image:linear-gradient(to bottom,transparent,#000 25%,#000 75%,transparent);
+}
+
+.scan{
+  position:absolute;
+  width:100%;
+  height:2px;
+  background:linear-gradient(
+    90deg,
     transparent,
-    rgba(0,234,255,.08),
-    transparent,
-    rgba(255,0,204,.08),
-    transparent,
-    rgba(139,92,246,.08),
+    var(--cyan),
+    var(--pink),
     transparent
   );
-  animation:rgbSpin 18s linear infinite;
-  z-index:-1;
+  opacity:.2;
+  animation:scan 8s linear infinite;
 }
 
-@keyframes rgbSpin{
-  to{transform:rotate(360deg)}
+@keyframes scan{
+  from{top:-10px}
+  to{top:100%}
 }
 
-/* AUTH */
+@keyframes floatOrb{
+  50%{transform:translate(90px,80px) scale(1.1)}
+}
+
+@keyframes floatOrb2{
+  50%{transform:translate(-80px,-70px) scale(.92)}
+}
+
+/* ================= LOGIN ================= */
+
 #authScreen{
-  min-height:100vh;
+  position:fixed;
+  inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:20px;
+  z-index:100;
+  background:
+    radial-gradient(circle at center,rgba(139,92,255,.12),transparent 45%),
+    rgba(2,2,8,.88);
+  backdrop-filter:blur(14px);
 }
 
 .authBox{
-  width:100%;
-  max-width:440px;
-  padding:34px;
-  border:1px solid var(--border);
-  border-radius:26px;
-  background:rgba(10,10,18,.88);
-  backdrop-filter:blur(20px);
+  width:min(440px,92%);
+  padding:38px;
+  border-radius:28px;
+  background:rgba(10,10,22,.82);
+  border:1px solid rgba(0,234,255,.3);
   box-shadow:
-    0 0 40px rgba(0,234,255,.08),
-    0 0 80px rgba(255,0,204,.06);
+    0 0 25px rgba(0,234,255,.13),
+    0 0 70px rgba(255,0,200,.08),
+    inset 0 0 40px rgba(139,92,255,.05);
+  position:relative;
+  overflow:hidden;
+}
+
+.authBox::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-30%;
+  width:60%;
+  height:2px;
+  background:var(--cyan);
+  box-shadow:0 0 20px var(--cyan);
+  animation:authLine 3s linear infinite;
+}
+
+@keyframes authLine{
+  to{left:110%}
 }
 
 .logo{
-  text-align:center;
-  font-size:42px;
+  font-size:38px;
   font-weight:900;
-  letter-spacing:4px;
-  background:linear-gradient(
-    90deg,
-    var(--cyan),
-    var(--purple),
-    var(--pink),
-    var(--cyan)
-  );
+  text-align:center;
+  letter-spacing:5px;
+  background:linear-gradient(90deg,var(--cyan),#fff,var(--pink),var(--purple),var(--cyan));
   background-size:300%;
   -webkit-background-clip:text;
   color:transparent;
-  animation:logoRGB 5s linear infinite;
+  animation:rgbText 5s linear infinite;
 }
 
-@keyframes logoRGB{
+@keyframes rgbText{
   to{background-position:300%}
 }
 
-.tagline{
+.authSubtitle{
   text-align:center;
   color:var(--muted);
-  margin:10px 0 28px;
+  margin:8px 0 28px;
 }
 
 .authTabs{
@@ -118,394 +194,828 @@ body::before{
   margin-bottom:20px;
 }
 
-.authTabs button{
+.authTab{
   flex:1;
-}
-
-input,textarea,select{
-  width:100%;
-  background:#080810;
-  color:white;
-  border:1px solid var(--border);
+  padding:12px;
   border-radius:12px;
-  padding:14px;
-  outline:none;
-  margin-bottom:12px;
-}
-
-input:focus,textarea:focus{
-  border-color:var(--cyan);
-  box-shadow:0 0 15px rgba(0,234,255,.15);
-}
-
-button{
-  border:1px solid var(--border);
-  background:#10101a;
-  color:white;
-  padding:12px 16px;
-  border-radius:12px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.03);
+  color:var(--muted);
   cursor:pointer;
+}
+
+.authTab.active{
+  color:white;
+  border-color:var(--cyan);
+  box-shadow:0 0 18px rgba(0,234,255,.16);
+}
+
+.input{
+  width:100%;
+  padding:14px 16px;
+  margin:7px 0;
+  border-radius:13px;
+  outline:none;
+  color:white;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.09);
   transition:.2s;
 }
 
-button:hover{
-  transform:translateY(-1px);
+.input:focus{
   border-color:var(--cyan);
-  box-shadow:0 0 18px rgba(0,234,255,.15);
+  box-shadow:0 0 18px rgba(0,234,255,.12);
 }
 
-.primary{
+.primaryBtn{
   width:100%;
-  background:linear-gradient(
-    90deg,
-    rgba(0,234,255,.18),
-    rgba(139,92,246,.18),
-    rgba(255,0,204,.18)
-  );
-  border-color:var(--cyan);
-  font-weight:bold;
+  padding:14px;
+  margin-top:12px;
+  border:0;
+  border-radius:14px;
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+  background:linear-gradient(90deg,var(--purple),var(--pink),var(--cyan));
+  background-size:200%;
+  box-shadow:0 0 25px rgba(139,92,255,.22);
+  transition:.25s;
 }
 
-.error{
-  color:#ff6b8a;
-  margin:10px 0;
-  min-height:20px;
+.primaryBtn:hover{
+  transform:translateY(-2px);
+  background-position:100%;
+  box-shadow:0 0 35px rgba(0,234,255,.3);
+}
+
+.authMessage{
+  min-height:22px;
+  margin-top:12px;
   text-align:center;
+  color:#ff8ca8;
+  font-size:13px;
 }
 
-.success{
-  color:var(--green);
-  margin:10px 0;
-  min-height:20px;
-  text-align:center;
-}
+/* ================= APP ================= */
 
-/* APP */
 #app{
   display:none;
   min-height:100vh;
 }
 
-.layout{
+.appShell{
   display:flex;
   min-height:100vh;
 }
 
+/* ================= SIDEBAR ================= */
+
 .sidebar{
-  width:240px;
-  border-right:1px solid var(--border);
-  background:rgba(7,7,12,.92);
-  backdrop-filter:blur(18px);
+  width:255px;
+  min-height:100vh;
   padding:18px;
   position:fixed;
+  left:0;
   top:0;
   bottom:0;
-  left:0;
-  overflow-y:auto;
+  z-index:20;
+  background:rgba(5,5,14,.82);
+  backdrop-filter:blur(24px);
+  border-right:1px solid rgba(0,234,255,.14);
+  box-shadow:
+    8px 0 40px rgba(0,0,0,.25),
+    inset -1px 0 rgba(255,0,200,.08);
 }
 
 .sideLogo{
-  font-size:26px;
+  padding:12px 10px 20px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.coreMini{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:radial-gradient(circle,#fff 0 5%,var(--cyan) 15%,var(--purple) 42%,transparent 70%);
+  box-shadow:
+    0 0 18px var(--cyan),
+    0 0 35px var(--purple);
+  animation:pulseCore 2s infinite;
+}
+
+@keyframes pulseCore{
+  50%{transform:scale(1.08)}
+}
+
+.sideBrand{
   font-weight:900;
-  text-align:center;
-  margin:8px 0 24px;
-  background:linear-gradient(
-    90deg,
-    var(--cyan),
-    var(--pink),
-    var(--purple)
-  );
-  -webkit-background-clip:text;
-  color:transparent;
+  font-size:21px;
+  letter-spacing:2px;
+}
+
+.sideBrand span{
+  color:var(--cyan);
+}
+
+.sideLabel{
+  font-size:10px;
+  color:#686d8c;
+  letter-spacing:2px;
+  margin:10px 9px 8px;
+  text-transform:uppercase;
 }
 
 .nav{
   display:flex;
   flex-direction:column;
-  gap:8px;
+  gap:5px;
 }
 
-.nav button{
-  text-align:left;
+.navBtn{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 13px;
+  border-radius:13px;
+  color:#9da2bd;
   background:transparent;
-  border-color:transparent;
+  border:1px solid transparent;
+  cursor:pointer;
+  font-size:14px;
+  transition:.2s;
+  text-align:left;
 }
 
-.nav button.active{
-  border-color:var(--cyan);
-  background:rgba(0,234,255,.07);
+.navBtn .icon{
+  width:27px;
+  text-align:center;
+  font-size:17px;
 }
+
+.navBtn:hover{
+  color:white;
+  background:rgba(0,234,255,.055);
+  border-color:rgba(0,234,255,.14);
+  transform:translateX(3px);
+}
+
+.navBtn.active{
+  color:white;
+  background:
+    linear-gradient(90deg,rgba(0,234,255,.11),rgba(255,0,200,.07));
+  border-color:rgba(0,234,255,.28);
+  box-shadow:
+    0 0 18px rgba(0,234,255,.08),
+    inset 3px 0 var(--cyan);
+}
+
+.navBtn.active .icon{
+  filter:drop-shadow(0 0 7px var(--cyan));
+}
+
+.sideBottom{
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:18px;
+}
+
+.levelMini{
+  padding:13px;
+  border-radius:16px;
+  border:1px solid rgba(139,92,255,.22);
+  background:linear-gradient(135deg,rgba(139,92,255,.08),rgba(0,234,255,.04));
+}
+
+.levelMiniTop{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+}
+
+.progress{
+  height:5px;
+  margin-top:9px;
+  border-radius:20px;
+  background:rgba(255,255,255,.07);
+  overflow:hidden;
+}
+
+.progressFill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));
+  box-shadow:0 0 10px var(--cyan);
+}
+
+/* ================= MAIN ================= */
 
 .main{
-  margin-left:240px;
-  width:calc(100% - 240px);
-  padding:28px;
+  width:calc(100% - 255px);
+  margin-left:255px;
+  padding:22px;
 }
 
 .topbar{
+  height:62px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  margin-bottom:25px;
-  gap:12px;
+  justify-content:space-between;
+  margin-bottom:18px;
 }
 
-.userMini{
-  border:1px solid var(--border);
-  padding:9px 14px;
-  border-radius:14px;
-  background:rgba(12,12,20,.7);
+.pageTitle{
+  font-size:25px;
+  font-weight:850;
 }
 
-/* PAGES */
-.page{
+.pageSub{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:3px;
+}
+
+.userChip{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 13px;
+  border-radius:13px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.035);
+}
+
+.avatar{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  font-weight:800;
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  box-shadow:0 0 15px rgba(255,0,200,.2);
+}
+
+.section{
   display:none;
+  animation:sectionIn .3s ease;
 }
 
-.page.active{
+.section.active{
   display:block;
 }
 
+@keyframes sectionIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:none}
+}
+
+/* ================= HOME ================= */
+
 .hero{
-  min-height:420px;
+  min-height:350px;
+  border-radius:27px;
+  position:relative;
+  overflow:hidden;
   display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
-}
-
-.core{
-  width:180px;
-  height:180px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:25px;
-  font-weight:900;
-  letter-spacing:3px;
-  border:2px solid var(--cyan);
   background:
-    radial-gradient(circle,
-      rgba(255,255,255,.08),
-      rgba(0,234,255,.08),
-      rgba(255,0,204,.06),
-      transparent 70%);
+    radial-gradient(circle,rgba(139,92,255,.13),transparent 38%),
+    rgba(10,10,23,.68);
+  border:1px solid rgba(0,234,255,.15);
+}
+
+.heroCore{
+  width:175px;
+  height:175px;
+  border-radius:50%;
+  position:relative;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(circle,#fff 0 3%,var(--cyan) 9%,var(--purple) 28%,#160d42 58%,transparent 70%);
   box-shadow:
-    0 0 25px var(--cyan),
-    0 0 70px rgba(255,0,204,.35),
-    inset 0 0 35px rgba(139,92,246,.4);
-  animation:corePulse 3s ease-in-out infinite;
+    0 0 35px var(--cyan),
+    0 0 90px rgba(139,92,255,.65),
+    0 0 150px rgba(255,0,200,.25);
+  animation:coreFloat 4s ease-in-out infinite;
 }
 
-@keyframes corePulse{
-  50%{
-    transform:scale(1.06);
-    box-shadow:
-      0 0 45px var(--cyan),
-      0 0 100px rgba(255,0,204,.4);
-  }
+.heroCore::before,
+.heroCore::after{
+  content:"";
+  position:absolute;
+  inset:-27px;
+  border-radius:50%;
+  border:1px solid rgba(0,234,255,.35);
+  transform:rotate(30deg) scaleX(1.5);
+  animation:ring 5s linear infinite;
 }
 
-.hero h1{
-  margin-top:28px;
-  font-size:38px;
+.heroCore::after{
+  inset:-48px;
+  border-color:rgba(255,0,200,.25);
+  transform:rotate(-25deg) scaleX(1.7);
+  animation-duration:7s;
 }
 
-.hero p{
+@keyframes ring{
+  to{transform:rotate(390deg) scaleX(1.5)}
+}
+
+@keyframes coreFloat{
+  50%{transform:translateY(-7px) scale(1.035)}
+}
+
+.heroText{
+  position:absolute;
+  bottom:25px;
+  left:20px;
+  right:20px;
+}
+
+.heroText h1{
+  font-size:31px;
+}
+
+.heroText p{
   color:var(--muted);
-  margin-top:10px;
+  margin-top:7px;
+}
+
+.rgbText{
+  background:linear-gradient(90deg,var(--cyan),#fff,var(--pink),var(--purple),var(--cyan));
+  background-size:300%;
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:rgbText 5s linear infinite;
 }
 
 .cards{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-  gap:15px;
-  margin-top:25px;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+  margin-top:15px;
 }
 
 .card{
-  background:rgba(12,12,20,.82);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:20px;
+  padding:18px;
+  border-radius:19px;
+  background:var(--panel);
+  border:1px solid rgba(255,255,255,.07);
+  box-shadow:0 8px 30px rgba(0,0,0,.16);
+  transition:.25s;
 }
 
-.card h3{
-  margin-bottom:8px;
+.card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(0,234,255,.2);
+  box-shadow:0 0 25px rgba(0,234,255,.07);
 }
 
-.muted{
+.cardIcon{
+  font-size:22px;
+}
+
+.cardTitle{
+  font-weight:800;
+  margin-top:9px;
+}
+
+.cardDesc{
   color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
 }
 
-/* CHAT */
-.chatBox{
-  border:1px solid var(--border);
-  border-radius:20px;
-  background:rgba(8,8,15,.8);
-  overflow:hidden;
+/* ================= GENERIC ================= */
+
+.panel{
+  background:var(--panel);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:21px;
+  padding:18px;
+  box-shadow:0 8px 35px rgba(0,0,0,.15);
 }
 
-.messages{
-  min-height:480px;
-  max-height:62vh;
-  overflow-y:auto;
-  padding:20px;
-}
-
-.message{
+.panelTitle{
+  font-size:17px;
+  font-weight:800;
   margin-bottom:14px;
-  display:flex;
 }
 
-.message.user{
+.actionRow{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:11px 15px;
+  border-radius:12px;
+  color:white;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  cursor:pointer;
+  transition:.2s;
+}
+
+.btn:hover{
+  border-color:var(--cyan);
+  box-shadow:0 0 17px rgba(0,234,255,.1);
+}
+
+.btn.primary{
+  background:linear-gradient(90deg,#6d42ff,#c000ff);
+  border-color:transparent;
+}
+
+.btn.green{
+  background:rgba(0,255,157,.08);
+  border-color:rgba(0,255,157,.3);
+}
+
+.btn.danger{
+  background:rgba(255,65,108,.08);
+  border-color:rgba(255,65,108,.3);
+}
+
+/* ================= CHAT ================= */
+
+.chatLayout{
+  display:grid;
+  grid-template-columns:1fr 260px;
+  gap:15px;
+}
+
+.chatPanel{
+  min-height:calc(100vh - 125px);
+  display:flex;
+  flex-direction:column;
+}
+
+.chatMessages{
+  flex:1;
+  min-height:450px;
+  max-height:calc(100vh - 250px);
+  overflow-y:auto;
+  padding:10px 3px;
+}
+
+.msg{
+  display:flex;
+  margin:10px 0;
+}
+
+.msg.user{
   justify-content:flex-end;
 }
 
 .bubble{
   max-width:80%;
-  padding:13px 15px;
+  padding:12px 15px;
   border-radius:16px;
+  line-height:1.5;
   white-space:pre-wrap;
-  line-height:1.55;
+  word-break:break-word;
 }
 
-.message.ai .bubble{
-  background:#10101b;
-  border:1px solid var(--border);
+.msg.ai .bubble{
+  background:rgba(0,234,255,.055);
+  border:1px solid rgba(0,234,255,.1);
 }
 
-.message.user .bubble{
-  background:rgba(0,234,255,.09);
-  border:1px solid rgba(0,234,255,.3);
+.msg.user .bubble{
+  background:linear-gradient(135deg,rgba(139,92,255,.3),rgba(255,0,200,.2));
+  border:1px solid rgba(255,0,200,.18);
+}
+
+.chatInputRow{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
 }
 
 .chatInput{
-  display:flex;
-  gap:10px;
-  padding:15px;
-  border-top:1px solid var(--border);
-}
-
-.chatInput textarea{
-  margin:0;
+  flex:1;
+  min-height:52px;
   resize:none;
+  padding:15px;
+  border-radius:15px;
+  outline:none;
+  color:white;
+  background:rgba(0,0,0,.3);
+  border:1px solid rgba(255,255,255,.08);
 }
 
-.chatInput button{
-  align-self:stretch;
-}
-
-/* PROFILE */
-.profileHeader{
-  display:flex;
-  align-items:center;
-  gap:18px;
-  margin-bottom:25px;
-}
-
-.avatar{
-  width:75px;
-  height:75px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:30px;
-  font-weight:bold;
-  border:2px solid var(--cyan);
-  box-shadow:0 0 25px rgba(0,234,255,.3);
-  background:#0c0c15;
-}
-
-.progress{
-  height:12px;
-  background:#08080e;
-  border-radius:20px;
-  overflow:hidden;
-  margin-top:12px;
-}
-
-.progressBar{
-  height:100%;
-  width:0%;
-  background:linear-gradient(
-    90deg,
-    var(--cyan),
-    var(--purple),
-    var(--pink)
-  );
-  transition:.5s;
-}
-
-/* CHAT HISTORY */
-.historyItem{
-  padding:14px;
-  border:1px solid var(--border);
-  border-radius:14px;
-  margin-bottom:10px;
-  cursor:pointer;
-  background:#0b0b14;
-}
-
-.historyItem:hover{
+.chatInput:focus{
   border-color:var(--cyan);
 }
 
+.sendBtn{
+  width:55px;
+  border:0;
+  border-radius:15px;
+  color:white;
+  cursor:pointer;
+  font-size:20px;
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+}
+
+.quickBtns{
+  display:grid;
+  gap:7px;
+}
+
+.quickBtn{
+  padding:10px;
+  text-align:left;
+  border-radius:11px;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.06);
+  color:#c6c9dc;
+  cursor:pointer;
+}
+
+.quickBtn:hover{
+  color:white;
+  border-color:rgba(0,234,255,.25);
+}
+
+/* ================= HISTORY ================= */
+
+.historyGrid{
+  display:grid;
+  gap:10px;
+}
+
+.historyItem{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:15px;
+  border-radius:15px;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.06);
+}
+
+.historyInfo{
+  cursor:pointer;
+  flex:1;
+}
+
 .historyTitle{
-  font-weight:bold;
+  font-weight:700;
 }
 
 .historyDate{
   color:var(--muted);
-  font-size:12px;
-  margin-top:5px;
+  font-size:11px;
+  margin-top:4px;
 }
 
-.danger{
-  border-color:#ff4f70;
-  color:#ff6b8a;
+/* ================= CREATE ================= */
+
+.createGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
 }
 
-/* MOBILE */
-@media(max-width:800px){
+.toolCard{
+  min-height:180px;
+  padding:23px;
+  border-radius:20px;
+  background:linear-gradient(145deg,rgba(15,15,31,.8),rgba(9,9,19,.8));
+  border:1px solid rgba(255,255,255,.07);
+  cursor:pointer;
+  transition:.25s;
+}
+
+.toolCard:hover{
+  transform:translateY(-5px);
+  border-color:var(--cyan);
+  box-shadow:0 0 30px rgba(0,234,255,.09);
+}
+
+.toolIcon{
+  font-size:34px;
+}
+
+.toolCard h3{
+  margin-top:14px;
+}
+
+.toolCard p{
+  color:var(--muted);
+  font-size:13px;
+  margin:7px 0 16px;
+}
+
+/* ================= OUTPUT ================= */
+
+.output{
+  margin-top:15px;
+  white-space:pre-wrap;
+  line-height:1.6;
+  color:#dce1f5;
+}
+
+.codeOutput{
+  white-space:pre-wrap;
+  overflow:auto;
+  padding:17px;
+  border-radius:14px;
+  background:#030308;
+  border:1px solid rgba(0,234,255,.1);
+  color:#c9faff;
+  font-family:Consolas,monospace;
+  font-size:13px;
+}
+
+/* ================= PROFILE ================= */
+
+.profileTop{
+  display:grid;
+  grid-template-columns:230px 1fr;
+  gap:15px;
+}
+
+.profileAvatar{
+  min-height:250px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.bigAvatar{
+  width:105px;
+  height:105px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:34px;
+  font-weight:900;
+  background:linear-gradient(135deg,var(--cyan),var(--purple),var(--pink));
+  box-shadow:
+    0 0 30px rgba(0,234,255,.3),
+    0 0 65px rgba(255,0,200,.15);
+}
+
+.profileName{
+  font-size:21px;
+  font-weight:800;
+  margin-top:14px;
+}
+
+.statGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.stat{
+  padding:17px;
+  border-radius:15px;
+  background:rgba(255,255,255,.035);
+}
+
+.statValue{
+  font-size:25px;
+  font-weight:900;
+}
+
+.statLabel{
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* ================= SETTINGS ================= */
+
+.setting{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:15px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.setting:last-child{
+  border-bottom:0;
+}
+
+.settingText h4{
+  font-size:14px;
+}
+
+.settingText p{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:200;
+  padding:13px 17px;
+  border-radius:13px;
+  background:rgba(12,12,25,.92);
+  border:1px solid var(--cyan);
+  box-shadow:0 0 25px rgba(0,234,255,.15);
+  transform:translateY(20px);
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:none;
+}
+
+/* ================= MOBILE ================= */
+
+.mobileMenu{
+  display:none;
+}
+
+@media(max-width:900px){
   .sidebar{
-    width:190px;
+    transform:translateX(-100%);
+    transition:.25s;
+  }
+
+  .sidebar.open{
+    transform:none;
   }
 
   .main{
-    margin-left:190px;
-    width:calc(100% - 190px);
-    padding:18px;
+    width:100%;
+    margin-left:0;
+    padding:15px;
+  }
+
+  .mobileMenu{
+    display:block;
+    border:1px solid rgba(0,234,255,.2);
+    background:rgba(255,255,255,.04);
+    color:white;
+    padding:9px 12px;
+    border-radius:10px;
+    cursor:pointer;
+  }
+
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .chatLayout{
+    grid-template-columns:1fr;
+  }
+
+  .profileTop{
+    grid-template-columns:1fr;
   }
 }
 
 @media(max-width:600px){
-  .sidebar{
-    position:relative;
-    width:100%;
+  .cards,
+  .createGrid,
+  .statGrid{
+    grid-template-columns:1fr;
+  }
+
+  .topbar{
     height:auto;
-    bottom:auto;
   }
 
-  .layout{
-    display:block;
+  .userChip{
+    display:none;
   }
 
-  .main{
-    margin-left:0;
-    width:100%;
+  .hero{
+    min-height:330px;
   }
 
-  .nav{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
+  .heroCore{
+    width:135px;
+    height:135px;
   }
 
-  .hero h1{
-    font-size:28px;
+  .authBox{
+    padding:25px;
   }
 }
 </style>
@@ -513,67 +1023,64 @@ button:hover{
 
 <body>
 
-<!-- ================= AUTH ================= -->
+<div class="bg">
+  <div class="grid"></div>
+  <div class="scan"></div>
+</div>
+
+<!-- ================= LOGIN ================= -->
 
 <div id="authScreen">
-
   <div class="authBox">
 
     <div class="logo">AMZO AI</div>
-
-    <div class="tagline">
-      Your personal AI universe 🌌
-    </div>
+    <div class="authSubtitle">Your personal AI universe</div>
 
     <div class="authTabs">
-      <button id="loginTab" class="primary"
-        onclick="showAuth('login')">
+      <button class="authTab active" id="loginTab" onclick="showAuth('login')">
         Login
       </button>
 
-      <button id="signupTab"
-        onclick="showAuth('signup')">
-        Sign Up
+      <button class="authTab" id="signupTab" onclick="showAuth('signup')">
+        Create Account
       </button>
     </div>
-
-    <!-- LOGIN -->
 
     <div id="loginForm">
 
       <input
-        id="loginIdentifier"
-        placeholder="Username or email"
+        id="loginUsername"
+        class="input"
+        placeholder="Username"
         autocomplete="username"
       >
 
       <input
         id="loginPassword"
+        class="input"
         type="password"
         placeholder="Password"
         autocomplete="current-password"
       >
 
-      <button
-        class="primary"
-        onclick="login()">
-        🚀 Login
+      <button class="primaryBtn" onclick="login()">
+        ENTER AMZO UNIVERSE
       </button>
 
     </div>
-
-    <!-- SIGNUP -->
 
     <div id="signupForm" style="display:none">
 
       <input
         id="signupUsername"
+        class="input"
         placeholder="Username"
         autocomplete="username"
       >
 
       <input
         id="signupEmail"
+        class="input"
         type="email"
         placeholder="Email"
         autocomplete="email"
@@ -581,98 +1088,107 @@ button:hover{
 
       <input
         id="signupPassword"
+        class="input"
         type="password"
         placeholder="Password"
         autocomplete="new-password"
       >
 
-      <button
-        class="primary"
-        onclick="signup()">
-        ✨ Create Account
+      <button class="primaryBtn" onclick="signup()">
+        CREATE AMZO ACCOUNT
       </button>
 
     </div>
 
-    <div id="authMessage"
-      class="error"></div>
-
-    <div class="muted"
-      style="text-align:center;font-size:12px">
-      Your account uses secure server-side sessions.
-    </div>
+    <div id="authMessage" class="authMessage"></div>
 
   </div>
-
 </div>
-
 
 <!-- ================= APP ================= -->
 
 <div id="app">
 
-  <div class="layout">
+  <div class="appShell">
 
     <!-- SIDEBAR -->
 
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
 
       <div class="sideLogo">
-        AMZO AI
+        <div class="coreMini"></div>
+        <div class="sideBrand">
+          AMZO<span>AI</span>
+        </div>
       </div>
 
-      <div class="nav">
+      <div class="sideLabel">Universe</div>
 
-        <button
-          class="active"
-          onclick="openPage('home',this)">
-          🏠 Home
+      <nav class="nav">
+
+        <button class="navBtn active" data-section="home" onclick="openSection('home',this)">
+          <span class="icon">⌂</span>
+          <span>Home</span>
         </button>
 
-        <button
-          onclick="openPage('chat',this)">
-          🤖 AI Chat
+        <button class="navBtn" data-section="chat" onclick="openSection('chat',this)">
+          <span class="icon">✦</span>
+          <span>AI Chat</span>
         </button>
 
-        <button
-          onclick="openPage('history',this)">
-          💬 Chat History
+        <button class="navBtn" data-section="history" onclick="openSection('history',this)">
+          <span class="icon">◷</span>
+          <span>Chat History</span>
         </button>
 
-        <button
-          onclick="openPage('create',this)">
-          ✨ Create
+        <button class="navBtn" data-section="create" onclick="openSection('create',this)">
+          <span class="icon">✧</span>
+          <span>Create</span>
         </button>
 
-        <button
-          onclick="openPage('code',this)">
-          💻 Code Lab
+        <button class="navBtn" data-section="code" onclick="openSection('code',this)">
+          <span class="icon">&lt;/&gt;</span>
+          <span>Code Lab</span>
         </button>
 
-        <button
-          onclick="openPage('fun',this)">
-          🎮 Fun Zone
+        <button class="navBtn" data-section="fun" onclick="openSection('fun',this)">
+          <span class="icon">🎮</span>
+          <span>Fun Zone</span>
         </button>
 
-        <button
-          onclick="openPage('learn',this)">
-          📚 Learn
+        <button class="navBtn" data-section="learn" onclick="openSection('learn',this)">
+          <span class="icon">◈</span>
+          <span>Learn</span>
         </button>
 
-        <button
-          onclick="openPage('profile',this)">
-          👤 Profile
+        <button class="navBtn" data-section="profile" onclick="openSection('profile',this)">
+          <span class="icon">◎</span>
+          <span>Profile</span>
         </button>
 
-        <button
-          onclick="openPage('settings',this)">
-          ⚙️ Settings
+        <button class="navBtn" data-section="settings" onclick="openSection('settings',this)">
+          <span class="icon">⚙</span>
+          <span>Settings</span>
         </button>
+
+      </nav>
+
+      <div class="sideBottom">
+
+        <div class="levelMini">
+          <div class="levelMiniTop">
+            <span>LEVEL <b id="sideLevel">1</b></span>
+            <span><b id="sideXP">0</b> XP</span>
+          </div>
+
+          <div class="progress">
+            <div id="sideProgress" class="progressFill"></div>
+          </div>
+        </div>
 
       </div>
 
     </aside>
-
 
     <!-- MAIN -->
 
@@ -681,413 +1197,515 @@ button:hover{
       <div class="topbar">
 
         <div>
-          <h2 id="pageTitle">
-            Amzo Universe
-          </h2>
+          <button class="mobileMenu" onclick="toggleSidebar()">☰</button>
         </div>
 
-        <div class="userMini">
-          👤 <span id="topUsername">User</span>
-          · ⭐ <span id="topXP">0</span> XP
+        <div style="flex:1;margin-left:12px">
+          <div id="pageTitle" class="pageTitle">Amzo Universe</div>
+          <div id="pageSub" class="pageSub">
+            Welcome to your AI universe
+          </div>
+        </div>
+
+        <div class="userChip">
+          <div class="avatar" id="topAvatar">A</div>
+          <span id="topUsername">Amzoo</span>
         </div>
 
       </div>
 
+      <!-- ================= HOME ================= -->
 
-      <!-- HOME -->
-
-      <section
-        id="home"
-        class="page active">
+      <section id="home" class="section active">
 
         <div class="hero">
 
-          <div class="core"
-            onclick="coreMessage()">
-            AMZO
+          <div class="heroCore"></div>
+
+          <div class="heroText">
+            <h1>
+              Welcome back,
+              <span class="rgbText" id="welcomeName">AMZOO</span>
+            </h1>
+
+            <p>
+              What will you create today?
+            </p>
           </div>
-
-          <h1>
-            Welcome back,
-            <span id="welcomeName">
-              Amzoo
-            </span>
-            ✨
-          </h1>
-
-          <p>
-            This is your universe. Build something nobody has built before.
-          </p>
 
         </div>
 
         <div class="cards">
 
-          <div class="card">
-            <h3>⭐ XP</h3>
-            <div id="homeXP">
-              0 XP
+          <div class="card" onclick="openSection('chat')">
+            <div class="cardIcon">🤖</div>
+            <div class="cardTitle">AI Chat</div>
+            <div class="cardDesc">
+              Talk with your Amzo AI.
             </div>
           </div>
 
-          <div class="card">
-            <h3>🚀 Level</h3>
-            <div id="homeLevel">
-              Level 1
+          <div class="card" onclick="openSection('create')">
+            <div class="cardIcon">🎨</div>
+            <div class="cardTitle">Create</div>
+            <div class="cardDesc">
+              Turn ideas into creations.
             </div>
           </div>
 
-          <div class="card">
-            <h3>💬 Chats</h3>
-            <div id="homeChats">
-              Loading...
+          <div class="card" onclick="openSection('code')">
+            <div class="cardIcon">💻</div>
+            <div class="cardTitle">Code Lab</div>
+            <div class="cardDesc">
+              Build with AI.
             </div>
           </div>
 
-          <div class="card">
-            <h3>🌌 Status</h3>
-            <div>
-              Online
+          <div class="card" onclick="dailySurprise()">
+            <div class="cardIcon">🎁</div>
+            <div class="cardTitle">Daily Surprise</div>
+            <div class="cardDesc">
+              Discover something random.
             </div>
           </div>
 
         </div>
 
-      </section>
+        <div class="panel" style="margin-top:15px">
 
+          <div class="panelTitle">⚡ Amzo Quick Actions</div>
 
-      <!-- CHAT -->
-
-      <section
-        id="chat"
-        class="page">
-
-        <h1>🤖 AI Chat</h1>
-
-        <p class="muted"
-          style="margin:8px 0 20px">
-          Talk with Amzo AI.
-        </p>
-
-        <div class="chatBox">
-
-          <div
-            id="messages"
-            class="messages">
-          </div>
-
-          <div class="chatInput">
-
-            <textarea
-              id="chatInput"
-              rows="2"
-              placeholder="Ask Amzo anything..."
-              onkeydown="chatKey(event)">
-            </textarea>
-
-            <button
-              onclick="sendChat()">
-              Send 🚀
+          <div class="actionRow">
+            <button class="btn primary" onclick="quickChat('Give me one amazing idea I can build with Amzo AI.')">
+              💡 Idea
             </button>
 
+            <button class="btn" onclick="quickChat('Teach me something interesting in a simple way.')">
+              🧠 Teach Me
+            </button>
+
+            <button class="btn" onclick="quickChat('Give me a fun challenge.')">
+              🎯 Challenge
+            </button>
+
+            <button class="btn" onclick="quickChat('Tell me one surprising fact.')">
+              🌌 Surprise
+            </button>
           </div>
 
         </div>
 
       </section>
 
+      <!-- ================= CHAT ================= -->
 
-      <!-- HISTORY -->
+      <section id="chat" class="section">
 
-      <section
-        id="history"
-        class="page">
+        <div class="chatLayout">
 
-        <div style="
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
-          gap:10px;
-          margin-bottom:20px;
-        ">
+          <div class="panel chatPanel">
 
-          <div>
-            <h1>💬 Chat History</h1>
-            <p class="muted">
-              Your saved conversations.
-            </p>
+            <div class="panelTitle">
+              ✦ Amzo AI
+            </div>
+
+            <div id="chatMessages" class="chatMessages">
+
+              <div class="msg ai">
+                <div class="bubble">
+                  Hey! I'm Amzo AI. 🚀<br><br>
+                  Ask me anything, build ideas with me, learn, code, create, or just talk.
+                  What are we building today?
+                </div>
+              </div>
+
+            </div>
+
+            <div class="chatInputRow">
+
+              <textarea
+                id="chatInput"
+                class="chatInput"
+                placeholder="Message Amzo AI..."
+                onkeydown="chatKey(event)"
+              ></textarea>
+
+              <button class="sendBtn" onclick="sendChat()">
+                ➤
+              </button>
+
+            </div>
+
           </div>
 
-          <button
-            onclick="loadChats()">
-            🔄 Refresh
-          </button>
+          <div class="panel">
 
-        </div>
+            <div class="panelTitle">Quick Prompts</div>
 
-        <div
-          id="historyList">
-          Loading...
+            <div class="quickBtns">
+
+              <button class="quickBtn" onclick="quickChat('Give me a unique AI product idea.')">
+                💡 AI idea
+              </button>
+
+              <button class="quickBtn" onclick="quickChat('Explain this like I am a beginner.')">
+                📚 Explain
+              </button>
+
+              <button class="quickBtn" onclick="quickChat('Help me build a website.')">
+                🌐 Website
+              </button>
+
+              <button class="quickBtn" onclick="quickChat('Write clean code for my idea.')">
+                💻 Coding
+              </button>
+
+              <button class="quickBtn" onclick="quickChat('Give me a fun challenge.')">
+                🎮 Challenge
+              </button>
+
+            </div>
+
+          </div>
+
         </div>
 
       </section>
 
+      <!-- ================= HISTORY ================= -->
 
-      <!-- CREATE -->
+      <section id="history" class="section">
 
-      <section
-        id="create"
-        class="page">
+        <div class="panel">
 
-        <h1>✨ Create</h1>
+          <div class="panelTitle">◷ Chat History</div>
 
-        <p class="muted"
-          style="margin:8px 0 20px">
-          Ask Amzo AI to create ideas, content or concepts.
-        </p>
+          <div id="historyList" class="historyGrid">
+            <div style="color:#9297b5">
+              Loading history...
+            </div>
+          </div>
 
-        <textarea
-          id="createInput"
-          rows="7"
-          placeholder="What do you want to create?">
-        </textarea>
-
-        <button
-          onclick="createSomething()">
-          ✨ Create
-        </button>
-
-        <div
-          id="createResult"
-          class="card"
-          style="margin-top:20px;white-space:pre-wrap">
         </div>
 
       </section>
 
+      <!-- ================= CREATE ================= -->
 
-      <!-- CODE -->
+      <section id="create" class="section">
 
-      <section
-        id="code"
-        class="page">
+        <div class="createGrid">
 
-        <h1>💻 Code Lab</h1>
-
-        <p class="muted"
-          style="margin:8px 0 20px">
-          Ask Amzo to write or explain code.
-        </p>
-
-        <textarea
-          id="codeInput"
-          rows="7"
-          placeholder="Example: Create a HTML calculator">
-        </textarea>
-
-        <button
-          onclick="generateCode()">
-          💻 Generate Code
-        </button>
-
-        <div
-          id="codeResult"
-          class="card"
-          style="margin-top:20px;white-space:pre-wrap">
-        </div>
-
-      </section>
-
-
-      <!-- FUN -->
-
-      <section
-        id="fun"
-        class="page">
-
-        <h1>🎮 Fun Zone</h1>
-
-        <div class="cards">
-
-          <div class="card">
-            <h3>🎲 Random Challenge</h3>
-            <p
-              id="challenge"
-              class="muted"
-              style="margin:12px 0">
-              Click below.
+          <div class="toolCard" onclick="createText()">
+            <div class="toolIcon">✍️</div>
+            <h3>AI Writer</h3>
+            <p>
+              Generate ideas, posts, stories and useful text.
             </p>
+            <button class="btn primary">
+              Open
+            </button>
+          </div>
 
-            <button
-              onclick="randomChallenge()">
+          <div class="toolCard" onclick="createImage()">
+            <div class="toolIcon">🎨</div>
+            <h3>AI Image</h3>
+            <p>
+              Generate an image from your idea.
+            </p>
+            <button class="btn primary">
               Generate
             </button>
           </div>
 
-          <div class="card">
-            <h3>🧠 Random Fact</h3>
-            <p
-              id="fact"
-              class="muted"
-              style="margin:12px 0">
-              Click below.
+          <div class="toolCard" onclick="createIdea()">
+            <div class="toolIcon">💡</div>
+            <h3>Idea Generator</h3>
+            <p>
+              Generate unique project and business ideas.
             </p>
+            <button class="btn primary">
+              Generate
+            </button>
+          </div>
 
-            <button
-              onclick="randomFact()">
-              Surprise me
+          <div class="toolCard" onclick="createPrompt()">
+            <div class="toolIcon">⚡</div>
+            <h3>Prompt Builder</h3>
+            <p>
+              Build stronger AI prompts.
+            </p>
+            <button class="btn primary">
+              Build
             </button>
           </div>
 
         </div>
 
+        <div id="createOutput" class="panel" style="margin-top:15px;display:none">
+
+          <div class="panelTitle">Creation</div>
+
+          <div id="createResult" class="output"></div>
+
+        </div>
+
       </section>
 
+      <!-- ================= CODE ================= -->
 
-      <!-- LEARN -->
+      <section id="code" class="section">
 
-      <section
-        id="learn"
-        class="page">
+        <div class="panel">
 
-        <h1>📚 Learn</h1>
+          <div class="panelTitle">
+            &lt;/&gt; Amzo Code Lab
+          </div>
+
+          <textarea
+            id="codePrompt"
+            class="chatInput"
+            style="width:100%;min-height:130px"
+            placeholder="Example: Build a modern calculator using HTML CSS and JavaScript."
+          ></textarea>
+
+          <div class="actionRow" style="margin-top:10px">
+            <button class="btn primary" onclick="generateCode()">
+              ⚡ Generate Code
+            </button>
+
+            <button class="btn" onclick="document.getElementById('codePrompt').value=''">
+              Clear
+            </button>
+          </div>
+
+          <div id="codeOutputPanel" style="display:none;margin-top:15px">
+
+            <div class="panelTitle">
+              Generated Code
+            </div>
+
+            <pre id="codeOutput" class="codeOutput"></pre>
+
+            <button class="btn" style="margin-top:10px" onclick="copyCode()">
+              📋 Copy Code
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ================= FUN ================= -->
+
+      <section id="fun" class="section">
 
         <div class="cards">
 
-          <div class="card">
-            <h3>🧮 Mathematics</h3>
-            <p class="muted">
-              Practice maths with Amzo AI.
-            </p>
+          <div class="card" onclick="funFact()">
+            <div class="cardIcon">🌌</div>
+            <div class="cardTitle">Random Fact</div>
+            <div class="cardDesc">
+              Get a surprising fact.
+            </div>
           </div>
 
-          <div class="card">
-            <h3>💻 Programming</h3>
-            <p class="muted">
-              Learn coding step by step.
-            </p>
+          <div class="card" onclick="funRiddle()">
+            <div class="cardIcon">🧩</div>
+            <div class="cardTitle">Riddle</div>
+            <div class="cardDesc">
+              Test your brain.
+            </div>
           </div>
 
-          <div class="card">
-            <h3>🌎 General Knowledge</h3>
-            <p class="muted">
-              Explore new topics.
-            </p>
+          <div class="card" onclick="funChallenge()">
+            <div class="cardIcon">🎯</div>
+            <div class="cardTitle">Challenge</div>
+            <div class="cardDesc">
+              Get a mini challenge.
+            </div>
+          </div>
+
+          <div class="card" onclick="funJoke()">
+            <div class="cardIcon">😂</div>
+            <div class="cardTitle">Joke</div>
+            <div class="cardDesc">
+              Ask Amzo for a joke.
+            </div>
+          </div>
+
+        </div>
+
+        <div id="funOutput" class="panel" style="margin-top:15px">
+
+          <div class="panelTitle">
+            🎮 Fun Zone
+          </div>
+
+          <div class="output">
+            Choose something above.
           </div>
 
         </div>
 
       </section>
 
+      <!-- ================= LEARN ================= -->
 
-      <!-- PROFILE -->
+      <section id="learn" class="section">
 
-      <section
-        id="profile"
-        class="page">
+        <div class="panel">
 
-        <h1>👤 Profile</h1>
-
-        <div class="profileHeader"
-          style="margin-top:25px">
-
-          <div
-            id="avatar"
-            class="avatar">
-            A
+          <div class="panelTitle">
+            📚 Amzo Learn
           </div>
 
-          <div>
-            <h2 id="profileUsername">
-              User
-            </h2>
+          <input
+            id="learnTopic"
+            class="input"
+            placeholder="What do you want to learn?"
+          >
 
-            <p
-              id="profileEmail"
-              class="muted">
-              user@example.com
-            </p>
-          </div>
+          <div class="actionRow">
 
-        </div>
+            <button class="btn primary" onclick="learnTopic()">
+              🧠 Teach Me
+            </button>
 
-        <div class="cards">
-
-          <div class="card">
-
-            <h3>⭐ XP</h3>
-
-            <div
-              id="profileXP"
-              style="font-size:28px;margin-top:8px">
-              0
-            </div>
+            <button class="btn" onclick="learnQuiz()">
+              🎯 Quiz Me
+            </button>
 
           </div>
 
-          <div class="card">
-
-            <h3>🚀 Level</h3>
-
-            <div
-              id="profileLevel"
-              style="font-size:28px;margin-top:8px">
-              1
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="card"
-          style="margin-top:15px">
-
-          <h3>
-            Level Progress
-          </h3>
-
-          <div class="progress">
-            <div
-              id="progressBar"
-              class="progressBar">
-            </div>
-          </div>
-
-          <p
-            id="progressText"
-            class="muted"
-            style="margin-top:8px">
-            0 / 100 XP
-          </p>
+          <div id="learnOutput" class="output"></div>
 
         </div>
 
       </section>
 
+      <!-- ================= PROFILE ================= -->
 
-      <!-- SETTINGS -->
+      <section id="profile" class="section">
 
-      <section
-        id="settings"
-        class="page">
+        <div class="profileTop">
 
-        <h1>⚙️ Settings</h1>
+          <div class="panel profileAvatar">
 
-        <div class="card"
-          style="margin-top:20px">
+            <div class="bigAvatar" id="profileAvatar">
+              A
+            </div>
 
-          <h3>Account</h3>
+            <div class="profileName" id="profileUsername">
+              Amzoo
+            </div>
 
-          <p class="muted"
-            style="margin:10px 0 18px">
-            Manage your Amzo AI session.
-          </p>
+            <div style="color:#9297b5;font-size:12px;margin-top:4px">
+              Amzo Explorer
+            </div>
 
-          <button
-            class="danger"
-            onclick="logout()">
-            🚪 Logout
-          </button>
+          </div>
+
+          <div class="panel">
+
+            <div class="panelTitle">
+              ⚡ Progress
+            </div>
+
+            <div class="statGrid">
+
+              <div class="stat">
+                <div class="statValue" id="profileLevel">
+                  1
+                </div>
+                <div class="statLabel">
+                  Level
+                </div>
+              </div>
+
+              <div class="stat">
+                <div class="statValue" id="profileXP">
+                  0
+                </div>
+                <div class="statLabel">
+                  XP
+                </div>
+              </div>
+
+              <div class="stat">
+                <div class="statValue" id="profileChats">
+                  0
+                </div>
+                <div class="statLabel">
+                  Chats
+                </div>
+              </div>
+
+            </div>
+
+            <div style="margin-top:20px;color:#9297b5;font-size:12px">
+              Level Progress
+            </div>
+
+            <div class="progress" style="height:8px;margin-top:8px">
+              <div id="profileProgress" class="progressFill"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ================= SETTINGS ================= -->
+
+      <section id="settings" class="section">
+
+        <div class="panel">
+
+          <div class="panelTitle">
+            ⚙ Settings
+          </div>
+
+          <div class="setting">
+
+            <div class="settingText">
+              <h4>RGB Interface</h4>
+              <p>Futuristic Amzo visual effects</p>
+            </div>
+
+            <button class="btn green" onclick="toggleRGB(this)">
+              ON
+            </button>
+
+          </div>
+
+          <div class="setting">
+
+            <div class="settingText">
+              <h4>Animations</h4>
+              <p>Background and interface animations</p>
+            </div>
+
+            <button class="btn green" onclick="toggleAnimations(this)">
+              ON
+            </button>
+
+          </div>
+
+          <div class="setting">
+
+            <div class="settingText">
+              <h4>Account</h4>
+              <p>Sign out of Amzo AI</p>
+            </div>
+
+            <button class="btn danger" onclick="logout()">
+              Logout
+            </button>
+
+          </div>
 
         </div>
 
@@ -1099,661 +1717,420 @@ button:hover{
 
 </div>
 
+<div id="toast" class="toast"></div>
 
 <script>
-
-/* =========================
-   CONFIG
-========================= */
+/* =========================================================
+   AMZO AI FRONTEND
+   ========================================================= */
 
 const API_URL =
 "https://ai-tool-api.amzoxamzoo.workers.dev/";
 
 let currentUser = null;
-let chatHistory = [];
 let currentChatId = null;
+let chatMessages = [];
+let lastCode = "";
 
+/* ================= API ================= */
 
-/* =========================
-   API
-========================= */
+async function api(action,body={}){
 
-async function api(action, body = {}) {
+  const response = await fetch(API_URL,{
+    method:"POST",
+    credentials:"include",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+      action,
+      ...body
+    })
+  });
 
-  const response =
-    await fetch(API_URL, {
-      method:"POST",
-      credentials:"include",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        action,
-        ...body
-      })
-    });
+  let data;
 
-  const data =
-    await response.json();
+  try{
+    data=await response.json();
+  }catch{
+    throw new Error("Invalid server response.");
+  }
 
   if(!response.ok){
-    throw new Error(
-      data.error ||
-      "Request failed."
-    );
+    throw new Error(data.error || "Request failed.");
   }
 
   return data;
 }
 
-
-/* =========================
-   AUTH UI
-========================= */
+/* ================= AUTH ================= */
 
 function showAuth(type){
 
-  const login =
-    document.getElementById(
-      "loginForm"
-    );
+  const login=document.getElementById("loginForm");
+  const signup=document.getElementById("signupForm");
 
-  const signup =
-    document.getElementById(
-      "signupForm"
-    );
+  const loginTab=document.getElementById("loginTab");
+  const signupTab=document.getElementById("signupTab");
 
-  const loginTab =
-    document.getElementById(
-      "loginTab"
-    );
+  document.getElementById("authMessage").textContent="";
 
-  const signupTab =
-    document.getElementById(
-      "signupTab"
-    );
+  if(type==="login"){
 
-  document.getElementById(
-    "authMessage"
-  ).textContent = "";
+    login.style.display="block";
+    signup.style.display="none";
 
-  if(type === "login"){
-
-    login.style.display =
-      "block";
-
-    signup.style.display =
-      "none";
-
-    loginTab.className =
-      "primary";
-
-    signupTab.className =
-      "";
+    loginTab.classList.add("active");
+    signupTab.classList.remove("active");
 
   }else{
 
-    login.style.display =
-      "none";
+    login.style.display="none";
+    signup.style.display="block";
 
-    signup.style.display =
-      "block";
+    loginTab.classList.remove("active");
+    signupTab.classList.add("active");
 
-    loginTab.className =
-      "";
-
-    signupTab.className =
-      "primary";
   }
 }
 
+function authMessage(text,error=true){
 
-/* =========================
-   LOGIN
-========================= */
+  const el=document.getElementById("authMessage");
+
+  el.textContent=text;
+  el.style.color=error ? "#ff8ca8" : "#66ffc5";
+}
 
 async function login(){
 
-  const identifier =
-    document.getElementById(
-      "loginIdentifier"
-    ).value.trim();
+  const username=
+    document.getElementById("loginUsername").value.trim();
 
-  const password =
-    document.getElementById(
-      "loginPassword"
-    ).value;
+  const password=
+    document.getElementById("loginPassword").value;
 
-  const message =
-    document.getElementById(
-      "authMessage"
-    );
+  if(!username || !password){
 
-  message.className =
-    "error";
+    authMessage("Enter username and password.");
+    return;
 
-  message.textContent =
-    "Logging in...";
+  }
 
   try{
 
-    const data =
-      await api(
-        "login",
-        {
-          identifier,
-          password
-        }
-      );
+    authMessage("Connecting to Amzo...",false);
 
-    currentUser =
-      data.user;
+    const data=await api("login",{
+      username,
+      password
+    });
 
-    message.className =
-      "success";
+    currentUser=data.user || data;
 
-    message.textContent =
-      "Login successful! 🚀";
-
-    setTimeout(
-      enterApp,
-      300
-    );
+    enterApp();
 
   }catch(error){
 
-    message.className =
-      "error";
+    authMessage(error.message);
 
-    message.textContent =
-      error.message;
   }
 }
-
-
-/* =========================
-   SIGNUP
-========================= */
 
 async function signup(){
 
-  const username =
-    document.getElementById(
-      "signupUsername"
-    ).value.trim();
+  const username=
+    document.getElementById("signupUsername").value.trim();
 
-  const email =
-    document.getElementById(
-      "signupEmail"
-    ).value.trim();
+  const email=
+    document.getElementById("signupEmail").value.trim();
 
-  const password =
-    document.getElementById(
-      "signupPassword"
-    ).value;
+  const password=
+    document.getElementById("signupPassword").value;
 
-  const message =
-    document.getElementById(
-      "authMessage"
-    );
+  if(!username || !email || !password){
 
-  message.className =
-    "error";
+    authMessage("Fill all fields.");
+    return;
 
-  message.textContent =
-    "Creating account...";
+  }
+
+  if(password.length<6){
+
+    authMessage("Password must be at least 6 characters.");
+    return;
+
+  }
 
   try{
 
-    const data =
-      await api(
-        "signup",
-        {
-          username,
-          email,
-          password
-        }
-      );
+    authMessage("Creating your Amzo account...",false);
 
-    currentUser =
-      data.user;
+    const data=await api("signup",{
+      username,
+      email,
+      password
+    });
 
-    message.className =
-      "success";
+    currentUser=data.user || data;
 
-    message.textContent =
-      "Account created! ✨";
-
-    setTimeout(
-      enterApp,
-      300
-    );
+    enterApp();
 
   }catch(error){
 
-    message.className =
-      "error";
+    authMessage(error.message);
 
-    message.textContent =
-      error.message;
   }
 }
-
-
-/* =========================
-   AUTH CHECK
-========================= */
 
 async function checkAuth(){
 
   try{
 
-    const data =
-      await api("me");
+    const data=await api("me");
 
-    if(
-      data.loggedIn &&
-      data.user
-    ){
+    if(data && (data.user || data.username || data.id)){
 
-      currentUser =
-        data.user;
-
+      currentUser=data.user || data;
       enterApp();
 
     }else{
 
-      showAuth("login");
+      showAuthScreen();
+
     }
 
-  }catch(error){
+  }catch{
 
-    showAuth("login");
+    showAuthScreen();
+
   }
 }
 
+function showAuthScreen(){
 
-/* =========================
-   ENTER APP
-========================= */
+  document.getElementById("authScreen").style.display="flex";
+  document.getElementById("app").style.display="none";
 
-async function enterApp(){
-
-  document.getElementById(
-    "authScreen"
-  ).style.display =
-    "none";
-
-  document.getElementById(
-    "app"
-  ).style.display =
-    "block";
-
-  updateUserUI();
-
-  loadChats();
 }
 
+function enterApp(){
 
-/* =========================
-   USER UI
-========================= */
+  document.getElementById("authScreen").style.display="none";
+  document.getElementById("app").style.display="block";
 
-function updateUserUI(){
+  setupUser();
+  refreshProfile();
 
-  if(!currentUser){
-    return;
-  }
-
-  const username =
-    currentUser.username;
-
-  const xp =
-    Number(currentUser.xp || 0);
-
-  const level =
-    Number(currentUser.level || 1);
-
-  document.getElementById(
-    "topUsername"
-  ).textContent =
-    username;
-
-  document.getElementById(
-    "topXP"
-  ).textContent =
-    xp;
-
-  document.getElementById(
-    "welcomeName"
-  ).textContent =
-    username;
-
-  document.getElementById(
-    "profileUsername"
-  ).textContent =
-    username;
-
-  document.getElementById(
-    "profileEmail"
-  ).textContent =
-    currentUser.email;
-
-  document.getElementById(
-    "avatar"
-  ).textContent =
-    username
-      .charAt(0)
-      .toUpperCase();
-
-  document.getElementById(
-    "profileXP"
-  ).textContent =
-    xp;
-
-  document.getElementById(
-    "profileLevel"
-  ).textContent =
-    "Level " + level;
-
-  document.getElementById(
-    "homeXP"
-  ).textContent =
-    xp + " XP";
-
-  document.getElementById(
-    "homeLevel"
-  ).textContent =
-    "Level " + level;
-
-  const currentLevelXP =
-    xp % 100;
-
-  document.getElementById(
-    "progressBar"
-  ).style.width =
-    currentLevelXP + "%";
-
-  document.getElementById(
-    "progressText"
-  ).textContent =
-    currentLevelXP +
-    " / 100 XP";
 }
-
-
-/* =========================
-   XP
-========================= */
-
-async function gainXP(amount){
-
-  try{
-
-    const data =
-      await api(
-        "xp",
-        {
-          amount
-        }
-      );
-
-    if(currentUser){
-
-      currentUser.xp =
-        data.xp;
-
-      currentUser.level =
-        data.level;
-
-      updateUserUI();
-    }
-
-  }catch(error){
-
-    console.log(
-      "XP error:",
-      error
-    );
-  }
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
 
 async function logout(){
 
   try{
-
     await api("logout");
+  }catch{}
 
-  }catch(error){
+  currentUser=null;
+  currentChatId=null;
+  chatMessages=[];
 
-    console.log(error);
-  }
-
-  currentUser = null;
-  chatHistory = [];
-  currentChatId = null;
-
-  document.getElementById(
-    "app"
-  ).style.display =
-    "none";
-
-  document.getElementById(
-    "authScreen"
-  ).style.display =
-    "flex";
+  document.getElementById("app").style.display="none";
+  document.getElementById("authScreen").style.display="flex";
 
   showAuth("login");
 
-  document.getElementById(
-    "loginPassword"
-  ).value = "";
-
-  alert("Logged out successfully.");
 }
 
+/* ================= USER ================= */
 
-/* =========================
-   PAGE SYSTEM
-========================= */
+function getUsername(){
 
-function openPage(
-  page,
-  button
-){
-
-  document.querySelectorAll(
-    ".page"
-  ).forEach(
-    item =>
-      item.classList.remove(
-        "active"
-      )
+  return (
+    currentUser?.username ||
+    currentUser?.name ||
+    "Amzoo"
   );
 
-  document.getElementById(
-    page
-  ).classList.add(
-    "active"
-  );
+}
 
-  document.querySelectorAll(
-    ".nav button"
-  ).forEach(
-    item =>
-      item.classList.remove(
-        "active"
-      )
-  );
+function setupUser(){
 
-  if(button){
-    button.classList.add(
-      "active"
-    );
+  const name=getUsername();
+
+  document.getElementById("topUsername").textContent=name;
+  document.getElementById("welcomeName").textContent=name.toUpperCase();
+
+  document.getElementById("topAvatar").textContent=
+    name.charAt(0).toUpperCase();
+
+  document.getElementById("profileAvatar").textContent=
+    name.charAt(0).toUpperCase();
+
+  document.getElementById("profileUsername").textContent=name;
+
+}
+
+/* ================= NAVIGATION ================= */
+
+const pageInfo={
+
+  home:["Amzo Universe","Your personal AI universe"],
+
+  chat:["AI Chat","Talk with Amzo AI"],
+
+  history:["Chat History","Your saved conversations"],
+
+  create:["Create","Turn ideas into creations"],
+
+  code:["Code Lab","Build with AI"],
+
+  fun:["Fun Zone","Relax and explore"],
+
+  learn:["Learn","Learn anything with Amzo"],
+
+  profile:["Profile","Your Amzo progress"],
+
+  settings:["Settings","Customize your experience"]
+
+};
+
+function openSection(id,button){
+
+  document.querySelectorAll(".section")
+    .forEach(x=>x.classList.remove("active"));
+
+  const target=document.getElementById(id);
+
+  if(target){
+    target.classList.add("active");
   }
 
-  const titles = {
-    home:"Amzo Universe",
-    chat:"AI Chat",
-    history:"Chat History",
-    create:"Create",
-    code:"Code Lab",
-    fun:"Fun Zone",
-    learn:"Learn",
-    profile:"Profile",
-    settings:"Settings"
-  };
+  document.querySelectorAll(".navBtn")
+    .forEach(x=>x.classList.remove("active"));
 
-  document.getElementById(
-    "pageTitle"
-  ).textContent =
-    titles[page] ||
-    "Amzo AI";
+  const nav=
+    button ||
+    document.querySelector(`.navBtn[data-section="${id}"]`);
 
-  if(page === "history"){
-    loadChats();
+  if(nav){
+    nav.classList.add("active");
   }
 
-  if(page === "profile"){
+  if(pageInfo[id]){
+
+    document.getElementById("pageTitle").textContent=
+      pageInfo[id][0];
+
+    document.getElementById("pageSub").textContent=
+      pageInfo[id][1];
+
+  }
+
+  if(id==="history"){
+    loadHistory();
+  }
+
+  if(id==="profile"){
     refreshProfile();
   }
+
+  document.getElementById("sidebar")
+    .classList.remove("open");
+
 }
 
+function toggleSidebar(){
 
-/* =========================
-   PROFILE
-========================= */
+  document.getElementById("sidebar")
+    .classList.toggle("open");
 
-async function refreshProfile(){
+}
 
-  try{
+/* ================= CHAT ================= */
 
-    const data =
-      await api(
-        "profile"
-      );
+function addMessage(text,type){
 
-    currentUser =
-      data.user;
+  const box=document.getElementById("chatMessages");
 
-    updateUserUI();
+  const row=document.createElement("div");
 
-  }catch(error){
+  row.className="msg "+type;
 
-    console.log(error);
+  const bubble=document.createElement("div");
+
+  bubble.className="bubble";
+
+  bubble.textContent=text;
+
+  row.appendChild(bubble);
+  box.appendChild(row);
+
+  box.scrollTop=box.scrollHeight;
+
+  return row;
+
+}
+
+function chatKey(event){
+
+  if(event.key==="Enter" && !event.shiftKey){
+
+    event.preventDefault();
+    sendChat();
+
   }
+
 }
 
+function extractAI(data){
 
-/* =========================
-   CHAT
-========================= */
-
-function addMessage(
-  text,
-  type
-){
-
-  const messages =
-    document.getElementById(
-      "messages"
-    );
-
-  const wrapper =
-    document.createElement(
-      "div"
-    );
-
-  wrapper.className =
-    "message " + type;
-
-  const bubble =
-    document.createElement(
-      "div"
-    );
-
-  bubble.className =
-    "bubble";
-
-  bubble.textContent =
-    text;
-
-  wrapper.appendChild(
-    bubble
+  return (
+    data?.result ||
+    data?.response ||
+    data?.text ||
+    data?.output ||
+    data?.message ||
+    "Amzo couldn't generate a response."
   );
 
-  messages.appendChild(
-    wrapper
-  );
-
-  messages.scrollTop =
-    messages.scrollHeight;
-
-  return wrapper;
 }
-
 
 async function sendChat(){
 
-  const input =
-    document.getElementById(
-      "chatInput"
-    );
+  const input=document.getElementById("chatInput");
 
-  const text =
-    input.value.trim();
+  const text=input.value.trim();
 
-  if(!text){
-    return;
-  }
+  if(!text)return;
 
-  input.value = "";
+  input.value="";
 
-  addMessage(
-    text,
-    "user"
-  );
+  addMessage(text,"user");
 
-  chatHistory.push({
+  chatMessages.push({
+    role:"user",
+    content:text,
     type:"user",
-    text
+    text:text
   });
 
-  const thinking =
-    addMessage(
-      "Amzo is thinking...",
-      "ai"
-    );
+  const thinking=addMessage("Amzo is thinking...","ai");
 
   try{
 
-    const data =
-      await api(
-        "chat",
-        {
-          messages:
-            chatHistory
-        }
-      );
+    const data=await api("chat",{
+      messages:chatMessages
+    });
+
+    const answer=extractAI(data);
 
     thinking.remove();
 
-    const answer =
-      data.result ||
-      data.response ||
-      "No response.";
+    addMessage(answer,"ai");
 
-    addMessage(
-      answer,
-      "ai"
-    );
-
-    chatHistory.push({
+    chatMessages.push({
+      role:"assistant",
+      content:answer,
       type:"assistant",
       text:answer
     });
@@ -1764,446 +2141,785 @@ async function sendChat(){
 
   }catch(error){
 
-    thinking.textContent =
-      "❌ " + error.message;
+    thinking.querySelector(".bubble").textContent=
+      "⚠️ "+error.message;
+
   }
+
 }
 
+function quickChat(text){
 
-function chatKey(event){
+  openSection("chat");
 
-  if(
-    event.key === "Enter" &&
-    !event.shiftKey
-  ){
+  document.getElementById("chatInput").value=text;
 
-    event.preventDefault();
+  sendChat();
 
-    sendChat();
-  }
 }
 
-
-/* =========================
-   SAVE CHAT
-========================= */
+/* ================= CHAT HISTORY ================= */
 
 async function saveCurrentChat(){
 
-  if(!chatHistory.length){
-    return;
-  }
+  if(!chatMessages.length)return;
 
   try{
 
-    const firstUser =
-      chatHistory.find(
-        message =>
-          message.type === "user"
-      );
-
-    const title =
-      firstUser?.text ||
+    const title=
+      chatMessages.find(x=>x.type==="user")?.text ||
       "New Chat";
 
-    const data =
-      await api(
-        "save_chat",
-        {
-          chatId:
-            currentChatId,
-          title:
-            title.slice(0,100),
-          messages:
-            chatHistory
-        }
-      );
+    const data=await api("save_chat",{
 
-    currentChatId =
-      data.chatId;
+      chatId:currentChatId,
 
-    loadChats();
+      title:title.slice(0,70),
+
+      messages:chatMessages
+
+    });
+
+    currentChatId=
+      data.chatId ||
+      data.id ||
+      currentChatId;
 
   }catch(error){
 
-    console.log(
-      "Save chat error:",
-      error
-    );
+    console.warn("Chat save failed:",error);
+
   }
+
 }
 
+async function loadHistory(){
 
-/* =========================
-   LOAD CHATS
-========================= */
+  const box=document.getElementById("historyList");
 
-async function loadChats(){
+  box.innerHTML=
+    `<div style="color:#9297b5">Loading...</div>`;
 
   try{
 
-    const data =
-      await api(
-        "load_chats"
-      );
+    const data=await api("load_chats");
 
-    const list =
-      document.getElementById(
-        "historyList"
-      );
-
-    if(!list){
-      return;
-    }
-
-    list.innerHTML = "";
-
-    const chats =
-      data.chats || [];
-
-    document.getElementById(
-      "homeChats"
-    ).textContent =
-      chats.length +
-      " saved chats";
-
-    if(!chats.length){
-
-      list.innerHTML =
-        '<div class="card">No chats yet. Start talking with Amzo AI 🚀</div>';
-
-      return;
-    }
-
-    chats.forEach(
-      chat => {
-
-        const item =
-          document.createElement(
-            "div"
-          );
-
-        item.className =
-          "historyItem";
-
-        const title =
-          document.createElement(
-            "div"
-          );
-
-        title.className =
-          "historyTitle";
-
-        title.textContent =
-          chat.title;
-
-        const date =
-          document.createElement(
-            "div"
-          );
-
-        date.className =
-          "historyDate";
-
-        date.textContent =
-          new Date(
-            chat.updated_at
-          ).toLocaleString();
-
-        item.appendChild(
-          title
-        );
-
-        item.appendChild(
-          date
-        );
-
-        item.onclick =
-          () =>
-            openChat(
-              chat.id
-            );
-
-        list.appendChild(
-          item
-        );
-      }
-    );
-
-  }catch(error){
-
-    const list =
-      document.getElementById(
-        "historyList"
-      );
-
-    if(list){
-
-      list.textContent =
-        error.message;
-    }
-  }
-}
-
-
-/* =========================
-   OPEN CHAT
-========================= */
-
-async function openChat(
-  chatId
-){
-
-  try{
-
-    const data =
-      await api(
-        "get_chat",
-        {
-          chatId
-        }
-      );
-
-    currentChatId =
-      chatId;
-
-    chatHistory =
-      data.chat.messages ||
+    const chats=
+      data.chats ||
+      data.results ||
+      data ||
       [];
 
-    const messages =
-      document.getElementById(
-        "messages"
-      );
+    if(!Array.isArray(chats) || chats.length===0){
 
-    messages.innerHTML = "";
+      box.innerHTML=
+        `<div style="color:#9297b5">
+          No saved chats yet. Start talking with Amzo AI.
+        </div>`;
 
-    chatHistory.forEach(
-      message => {
+      return;
 
-        addMessage(
-          message.text,
-          message.type === "user"
-            ? "user"
-            : "ai"
-        );
+    }
 
-      }
-    );
+    box.innerHTML="";
 
-    openPage(
-      "chat",
-      document.querySelector(
-        '.nav button[onclick*="chat"]'
-      )
-    );
+    chats.forEach(chat=>{
+
+      const item=document.createElement("div");
+
+      item.className="historyItem";
+
+      const info=document.createElement("div");
+
+      info.className="historyInfo";
+
+      info.innerHTML=`
+        <div class="historyTitle">
+          ${escapeHTML(chat.title || "New Chat")}
+        </div>
+        <div class="historyDate">
+          ${chat.updated_at
+            ? new Date(chat.updated_at).toLocaleString()
+            : "Saved chat"}
+        </div>
+      `;
+
+      info.onclick=()=>openSavedChat(chat.id);
+
+      const button=document.createElement("button");
+
+      button.className="btn danger";
+      button.textContent="Delete";
+
+      button.onclick=async()=>{
+
+        if(!confirm("Delete this chat?"))return;
+
+        try{
+
+          await api("delete_chat",{
+            chatId:chat.id
+          });
+
+          loadHistory();
+
+        }catch(error){
+
+          toast(error.message);
+
+        }
+
+      };
+
+      item.appendChild(info);
+      item.appendChild(button);
+
+      box.appendChild(item);
+
+    });
 
   }catch(error){
 
-    alert(
-      "Could not open chat: " +
-      error.message
-    );
+    box.innerHTML=
+      `<div style="color:#ff8ca8">
+        ${escapeHTML(error.message)}
+      </div>`;
+
   }
+
 }
 
-
-/* =========================
-   CREATE
-========================= */
-
-async function createSomething(){
-
-  const input =
-    document.getElementById(
-      "createInput"
-    );
-
-  const result =
-    document.getElementById(
-      "createResult"
-    );
-
-  const text =
-    input.value.trim();
-
-  if(!text){
-    return;
-  }
-
-  result.textContent =
-    "Creating...";
+async function openSavedChat(id){
 
   try{
 
-    const data =
-      await api(
-        "chat",
-        {
-          messages:[
-            {
-              type:"user",
-              text:text
-            }
-          ]
-        }
-      );
+    const data=await api("get_chat",{
+      chatId:id
+    });
 
-    result.textContent =
-      data.result ||
-      "Nothing created.";
+    const chat=data.chat || data;
+
+    currentChatId=id;
+
+    chatMessages=
+      typeof chat.messages==="string"
+      ? JSON.parse(chat.messages)
+      : (chat.messages || []);
+
+    document.getElementById("chatMessages").innerHTML="";
+
+    chatMessages.forEach(message=>{
+
+      const type=
+        message.type ||
+        (message.role==="user" ? "user" : "ai");
+
+      const text=
+        message.text ||
+        message.content ||
+        "";
+
+      if(text){
+        addMessage(text,type);
+      }
+
+    });
+
+    openSection("chat");
+
+    toast("Chat loaded");
+
+  }catch(error){
+
+    toast(error.message);
+
+  }
+
+}
+
+/* ================= CREATE ================= */
+
+async function createText(){
+
+  const prompt=
+    window.prompt(
+      "What do you want Amzo to write?"
+    );
+
+  if(!prompt)return;
+
+  showCreate("Amzo is creating...");
+
+  try{
+
+    const data=await api("chat",{
+      messages:[
+        {
+          role:"user",
+          content:
+            "Create high-quality text for this request:\n\n"+prompt
+        }
+      ]
+    });
+
+    showCreate(extractAI(data));
 
     await gainXP(5);
 
   }catch(error){
 
-    result.textContent =
-      "❌ " +
-      error.message;
+    showCreate("⚠️ "+error.message);
+
   }
+
 }
 
+async function createIdea(){
 
-/* =========================
-   CODE LAB
-========================= */
-
-async function generateCode(){
-
-  const input =
-    document.getElementById(
-      "codeInput"
-    );
-
-  const result =
-    document.getElementById(
-      "codeResult"
-    );
-
-  const text =
-    input.value.trim();
-
-  if(!text){
-    return;
-  }
-
-  result.textContent =
-    "Generating code...";
+  showCreate("Generating unique ideas...");
 
   try{
 
-    const data =
-      await api(
-        "chat",
+    const data=await api("chat",{
+      messages:[
         {
-          messages:[
-            {
-              type:"user",
-              text:
-                "You are a coding assistant. " +
-                "Give clean code and explain briefly.\n\n" +
-                text
-            }
-          ]
+          role:"user",
+          content:
+            "Generate 10 unique practical AI product ideas. Make them interesting, realistic and different from generic chatbot ideas."
         }
+      ]
+    });
+
+    showCreate(extractAI(data));
+
+    await gainXP(5);
+
+  }catch(error){
+
+    showCreate("⚠️ "+error.message);
+
+  }
+
+}
+
+async function createPrompt(){
+
+  const idea=
+    window.prompt(
+      "What do you want a prompt for?"
+    );
+
+  if(!idea)return;
+
+  showCreate("Building prompt...");
+
+  try{
+
+    const data=await api("chat",{
+      messages:[
+        {
+          role:"user",
+          content:
+            "Create a powerful, detailed AI prompt for:\n\n"+idea
+        }
+      ]
+    });
+
+    showCreate(extractAI(data));
+
+    await gainXP(5);
+
+  }catch(error){
+
+    showCreate("⚠️ "+error.message);
+
+  }
+
+}
+
+async function createImage(){
+
+  const prompt=
+    window.prompt(
+      "Describe the image you want to generate:"
+    );
+
+  if(!prompt)return;
+
+  showCreate("Generating image...");
+
+  try{
+
+    const data=await api("image",{
+      prompt
+    });
+
+    const imageURL=
+      data.image ||
+      data.url ||
+      data.result;
+
+    if(imageURL){
+
+      document.getElementById("createOutput")
+        .style.display="block";
+
+      document.getElementById("createResult")
+        .innerHTML=
+        `<img src="${imageURL}"
+          style="max-width:100%;border-radius:18px;border:1px solid rgba(0,234,255,.2)">`;
+
+    }else{
+
+      showCreate(
+        "Image request completed, but the backend did not return an image URL."
       );
 
-    result.textContent =
-      data.result ||
-      "No code generated.";
+    }
 
     await gainXP(10);
 
   }catch(error){
 
-    result.textContent =
-      "❌ " +
-      error.message;
+    showCreate("⚠️ "+error.message);
+
   }
+
 }
 
+function showCreate(text){
 
-/* =========================
-   FUN
-========================= */
+  document.getElementById("createOutput")
+    .style.display="block";
 
-const challenges = [
-  "Create something using only cardboard.",
-  "Learn one new programming concept today.",
-  "Build a tiny AI feature.",
-  "Write down 10 ideas for your future.",
-  "Learn something you have never understood before."
-];
+  document.getElementById("createResult")
+    .textContent=text;
 
-const facts = [
-  "Octopuses have three hearts.",
-  "A day on Venus is longer than its year.",
-  "Honey can remain preserved for extremely long periods.",
-  "Bananas are botanically berries.",
-  "The human brain contains billions of neurons."
-];
-
-function randomChallenge(){
-
-  document.getElementById(
-    "challenge"
-  ).textContent =
-    challenges[
-      Math.floor(
-        Math.random() *
-        challenges.length
-      )
-    ];
-
-  gainXP(2);
 }
 
-function randomFact(){
+/* ================= CODE ================= */
 
-  document.getElementById(
-    "fact"
-  ).textContent =
-    facts[
-      Math.floor(
-        Math.random() *
-        facts.length
-      )
-    ];
+async function generateCode(){
 
-  gainXP(2);
+  const prompt=
+    document.getElementById("codePrompt")
+      .value.trim();
+
+  if(!prompt){
+
+    toast("Describe what you want to build.");
+    return;
+
+  }
+
+  const output=
+    document.getElementById("codeOutput");
+
+  const panel=
+    document.getElementById("codeOutputPanel");
+
+  panel.style.display="block";
+
+  output.textContent="Amzo is coding...";
+
+  try{
+
+    const data=await api("chat",{
+      messages:[
+        {
+          role:"user",
+          content:
+`You are Amzo Code Lab.
+
+Create clean, complete, copy-paste-ready code for this request:
+
+${prompt}
+
+Explain briefly what the code does, then provide the complete code.
+Do not leave placeholders unless absolutely necessary.`
+        }
+      ]
+    });
+
+    lastCode=extractAI(data);
+
+    output.textContent=lastCode;
+
+    await gainXP(10);
+
+  }catch(error){
+
+    output.textContent="⚠️ "+error.message;
+
+  }
+
 }
 
+function copyCode(){
 
-/* =========================
-   AMZO CORE
-========================= */
+  if(!lastCode)return;
 
-function coreMessage(){
+  navigator.clipboard.writeText(lastCode)
+    .then(()=>toast("Code copied!"))
+    .catch(()=>toast("Copy failed."));
 
-  const messages = [
-    "AMZO CORE ONLINE ⚡",
-    "Your universe is ready 🌌",
-    "Keep building. 🚀",
-    "Something new can start here ✨",
-    "AMZO AI is with you 🤖"
-  ];
+}
 
-  alert(
-    messages[
-      Math.floor(
-        Math.random() *
-        messages.length
-      )
-    ]
+/* ================= LEARN ================= */
+
+async function learnTopic(){
+
+  const topic=
+    document.getElementById("learnTopic")
+      .value.trim();
+
+  if(!topic){
+
+    toast("Enter something to learn.");
+    return;
+
+  }
+
+  const output=
+    document.getElementById("learnOutput");
+
+  output.textContent="Amzo is preparing your lesson...";
+
+  try{
+
+    const data=await api("chat",{
+      messages:[
+        {
+          role:"user",
+          content:
+`Teach me about "${topic}".
+
+Start from beginner level.
+Use simple language.
+Give examples.
+Then give me 3 short questions to test myself.`
+        }
+      ]
+    });
+
+    output.textContent=extractAI(data);
+
+    await gainXP(5);
+
+  }catch(error){
+
+    output.textContent="⚠️ "+error.message;
+
+  }
+
+}
+
+async function learnQuiz(){
+
+  const topic=
+    document.getElementById("learnTopic")
+      .value.trim() ||
+    "general knowledge";
+
+  const output=
+    document.getElementById("learnOutput");
+
+  output.textContent="Creating quiz...";
+
+  try{
+
+    const data=await api("chat",{
+      messages:[
+        {
+          role:"user",
+          content:
+`Create a short quiz about ${topic}.
+Give 5 questions.
+Do not reveal the answers immediately.`
+        }
+      ]
+    });
+
+    output.textContent=extractAI(data);
+
+    await gainXP(5);
+
+  }catch(error){
+
+    output.textContent="⚠️ "+error.message;
+
+  }
+
+}
+
+/* ================= FUN ================= */
+
+function funFact(){
+
+  funAsk(
+    "Tell me one genuinely surprising but accurate science or technology fact."
   );
 
-  gainXP(1);
 }
 
+function funRiddle(){
 
-/* =========================
-   START
-========================= */
+  funAsk(
+    "Give me one clever short riddle. Do not give the answer until I ask."
+  );
+
+}
+
+function funChallenge(){
+
+  funAsk(
+    "Give me one fun 5-minute challenge I can do right now."
+  );
+
+}
+
+function funJoke(){
+
+  funAsk(
+    "Tell me a clean funny joke."
+  );
+
+}
+
+async function funAsk(prompt){
+
+  const output=
+    document.getElementById("funOutput");
+
+  output.innerHTML=
+    `<div class="panelTitle">🎮 Amzo</div>
+     <div class="output">Thinking...</div>`;
+
+  try{
+
+    const data=await api("chat",{
+      messages:[
+        {
+          role:"user",
+          content:prompt
+        }
+      ]
+    });
+
+    output.innerHTML=
+      `<div class="panelTitle">🎮 Amzo</div>
+       <div class="output"></div>`;
+
+    output.querySelector(".output")
+      .textContent=extractAI(data);
+
+    await gainXP(2);
+
+  }catch(error){
+
+    output.innerHTML=
+      `<div class="panelTitle">🎮 Amzo</div>
+       <div class="output">⚠️ ${escapeHTML(error.message)}</div>`;
+
+  }
+
+}
+
+function dailySurprise(){
+
+  const things=[
+    "Ask Amzo to invent a completely new app.",
+    "Go to Code Lab and build something tiny.",
+    "Learn one topic you've never studied.",
+    "Ask Amzo for a business idea.",
+    "Try a random riddle in Fun Zone.",
+    "Create an imaginary futuristic invention."
+  ];
+
+  const item=
+    things[Math.floor(Math.random()*things.length)];
+
+  toast("🎁 "+item);
+
+}
+
+/* ================= PROFILE / XP ================= */
+
+async function gainXP(amount){
+
+  try{
+
+    const data=await api("xp",{
+      amount
+    });
+
+    const user=data.user || data;
+
+    if(user){
+      currentUser={
+        ...currentUser,
+        ...user
+      };
+    }
+
+    updateXPUI(data);
+
+  }catch(error){
+
+    console.warn("XP update failed",error);
+
+  }
+
+}
+
+async function refreshProfile(){
+
+  try{
+
+    const data=await api("profile");
+
+    const user=data.user || data;
+
+    if(user){
+
+      currentUser={
+        ...currentUser,
+        ...user
+      };
+
+      setupUser();
+
+    }
+
+    updateXPUI(data);
+
+  }catch(error){
+
+    console.warn("Profile load failed",error);
+
+  }
+
+}
+
+function updateXPUI(data){
+
+  const user=data?.user || data || currentUser;
+
+  const xp=
+    Number(
+      user?.xp ??
+      currentUser?.xp ??
+      0
+    );
+
+  let level=
+    Number(
+      user?.level ??
+      currentUser?.level ??
+      Math.floor(xp/100)+1
+    );
+
+  currentUser={
+    ...currentUser,
+    xp,
+    level
+  };
+
+  document.getElementById("sideXP").textContent=xp;
+  document.getElementById("sideLevel").textContent=level;
+
+  document.getElementById("profileXP").textContent=xp;
+  document.getElementById("profileLevel").textContent=level;
+
+  const progress=xp%100;
+
+  document.getElementById("sideProgress")
+    .style.width=progress+"%";
+
+  document.getElementById("profileProgress")
+    .style.width=progress+"%";
+
+}
+
+/* ================= SETTINGS ================= */
+
+function toggleRGB(button){
+
+  document.body.classList.toggle("noRGB");
+
+  if(document.body.classList.contains("noRGB")){
+
+    button.textContent="OFF";
+
+  }else{
+
+    button.textContent="ON";
+
+  }
+
+}
+
+function toggleAnimations(button){
+
+  document.body.classList.toggle("noAnimations");
+
+  if(document.body.classList.contains("noAnimations")){
+
+    button.textContent="OFF";
+
+    document.documentElement.style.setProperty(
+      "--animation-speed",
+      "0s"
+    );
+
+    document.querySelectorAll("*")
+      .forEach(el=>{
+        el.style.animationPlayState="paused";
+      });
+
+  }else{
+
+    button.textContent="ON";
+
+    document.querySelectorAll("*")
+      .forEach(el=>{
+        el.style.animationPlayState="running";
+      });
+
+  }
+
+}
+
+/* ================= HELPERS ================= */
+
+function toast(message){
+
+  const el=document.getElementById("toast");
+
+  el.textContent=message;
+
+  el.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer=setTimeout(()=>{
+    el.classList.remove("show");
+  },2800);
+
+}
+
+function escapeHTML(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+/* ================= START ================= */
 
 checkAuth();
 
