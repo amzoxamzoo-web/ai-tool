@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Amzo AI</title>
 
 <style>
@@ -13,637 +13,521 @@
 }
 
 :root{
-  --bg:#05050a;
-  --panel:rgba(12,12,21,.78);
-  --panel2:rgba(255,255,255,.055);
-  --border:rgba(255,255,255,.10);
-  --text:#fff;
-  --muted:#9b9baa;
-  --purple:#8b5cff;
-  --blue:#00aaff;
-  --pink:#ff1680;
+  --bg:#07070d;
+  --panel:rgba(18,18,30,.82);
+  --panel2:rgba(25,25,42,.9);
+  --text:#f7f7ff;
+  --muted:#999ab0;
+  --border:rgba(255,255,255,.09);
+  --accent:#8b5cf6;
+  --accent2:#06b6d4;
 }
 
 body{
-  min-height:100vh;
-  overflow:hidden;
   font-family:Inter,Arial,sans-serif;
-  color:var(--text);
   background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
 }
 
-/* ================= RGB BACKGROUND ================= */
+/* RGB BACKGROUND */
 
-.rgb-bg{
+body::before{
+  content:"";
   position:fixed;
   inset:-30%;
-  z-index:-5;
+  z-index:-3;
   background:
-    radial-gradient(circle at 15% 25%,rgba(255,0,100,.25),transparent 22%),
-    radial-gradient(circle at 85% 20%,rgba(0,140,255,.24),transparent 24%),
-    radial-gradient(circle at 50% 90%,rgba(130,0,255,.25),transparent 25%);
-  filter:blur(65px);
-  animation:rgbMove 12s ease-in-out infinite alternate;
+    radial-gradient(circle at 20% 20%,rgba(139,92,246,.25),transparent 25%),
+    radial-gradient(circle at 80% 20%,rgba(6,182,212,.22),transparent 25%),
+    radial-gradient(circle at 50% 80%,rgba(236,72,153,.18),transparent 25%);
+  animation:rgbMove 12s linear infinite alternate;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:
+    linear-gradient(120deg,
+      transparent,
+      rgba(139,92,246,.03),
+      transparent,
+      rgba(6,182,212,.03),
+      transparent);
+  background-size:300% 300%;
+  animation:bgMove 10s linear infinite;
 }
 
 @keyframes rgbMove{
-  0%{
-    transform:translate(-4%,-3%) rotate(0deg) scale(1);
-  }
-  50%{
-    transform:translate(4%,3%) rotate(7deg) scale(1.08);
-  }
-  100%{
-    transform:translate(-2%,5%) rotate(-6deg) scale(1.02);
-  }
+  0%{transform:translate(-5%,-5%) rotate(0deg);}
+  50%{transform:translate(5%,3%) rotate(8deg);}
+  100%{transform:translate(-2%,7%) rotate(-5deg);}
 }
 
-.rgb-line{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:50;
-  border:1px solid transparent;
-  box-shadow:
-    inset 0 0 35px rgba(255,0,120,.35),
-    inset 0 0 65px rgba(0,130,255,.18);
-  animation:rgbBorder 5s linear infinite;
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  100%{background-position:100% 50%}
 }
 
-@keyframes rgbBorder{
-  0%{
-    box-shadow:
-      inset 0 0 30px #ff006a,
-      inset 0 0 70px rgba(255,0,100,.15);
-  }
-  33%{
-    box-shadow:
-      inset 0 0 30px #009dff,
-      inset 0 0 70px rgba(0,157,255,.15);
-  }
-  66%{
-    box-shadow:
-      inset 0 0 30px #8a00ff,
-      inset 0 0 70px rgba(138,0,255,.15);
-  }
-  100%{
-    box-shadow:
-      inset 0 0 30px #ff006a,
-      inset 0 0 70px rgba(255,0,100,.15);
-  }
-}
-
-/* ================= APP ================= */
+/* APP */
 
 .app{
-  height:100vh;
   display:flex;
+  min-height:100vh;
 }
 
-/* ================= SIDEBAR ================= */
+/* SIDEBAR */
 
 .sidebar{
-  width:275px;
-  flex-shrink:0;
-  padding:18px;
-  background:rgba(6,6,12,.82);
-  backdrop-filter:blur(22px);
+  width:245px;
+  background:rgba(8,8,15,.88);
+  backdrop-filter:blur(20px);
   border-right:1px solid var(--border);
-  display:flex;
-  flex-direction:column;
+  padding:18px 14px;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  z-index:20;
 }
 
 .logo{
-  font-size:25px;
-  font-weight:900;
-  margin-bottom:20px;
-  letter-spacing:-1px;
-  animation:logoGlow 5s linear infinite;
-}
-
-@keyframes logoGlow{
-  0%{text-shadow:0 0 18px #ff006a}
-  33%{text-shadow:0 0 18px #009dff}
-  66%{text-shadow:0 0 18px #8a00ff}
-  100%{text-shadow:0 0 18px #ff006a}
-}
-
-.new-chat{
-  width:100%;
-  padding:13px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  background:linear-gradient(
-    135deg,
-    rgba(139,92,255,.18),
-    rgba(0,170,255,.08)
-  );
-  color:#fff;
-  cursor:pointer;
-  font-size:14px;
-  transition:.25s;
-}
-
-.new-chat:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 25px rgba(120,70,255,.3);
-}
-
-.sidebar-title{
-  margin:25px 4px 9px;
-  color:#777784;
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:1px;
-}
-
-.chat-list{
-  flex:1;
-  overflow:auto;
-}
-
-.chat-item{
-  position:relative;
-  padding:11px 32px 11px 11px;
-  margin-bottom:5px;
-  border-radius:10px;
-  color:#bbb;
-  cursor:pointer;
-  font-size:13px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.chat-item:hover,
-.chat-item.active{
-  background:rgba(255,255,255,.07);
-  color:#fff;
-}
-
-.chat-delete{
-  position:absolute;
-  right:7px;
-  top:8px;
-  border:0;
-  background:transparent;
-  color:#777;
-  cursor:pointer;
-  opacity:0;
-}
-
-.chat-item:hover .chat-delete{
-  opacity:1;
-}
-
-.sidebar-bottom{
-  border-top:1px solid var(--border);
-  padding-top:12px;
-}
-
-.side-btn{
-  width:100%;
-  padding:10px;
-  margin-top:6px;
-  border:0;
-  border-radius:9px;
-  background:transparent;
-  color:#aaa;
-  text-align:left;
-  cursor:pointer;
-}
-
-.side-btn:hover{
-  background:rgba(255,255,255,.06);
-  color:#fff;
-}
-
-/* ================= MAIN ================= */
-
-.main{
-  flex:1;
-  min-width:0;
-  display:flex;
-  flex-direction:column;
-}
-
-.topbar{
-  height:64px;
-  flex-shrink:0;
-  padding:0 22px;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  background:rgba(5,5,10,.55);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
+  gap:10px;
+  padding:8px 10px 20px;
 }
 
-.top-title{
-  font-weight:700;
+.logoOrb{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:conic-gradient(#8b5cf6,#06b6d4,#ec4899,#8b5cf6);
+  animation:spin 4s linear infinite;
+  box-shadow:0 0 25px rgba(139,92,246,.5);
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+.logoText{
+  font-size:20px;
+  font-weight:800;
+}
+
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.nav button{
+  border:0;
+  background:transparent;
+  color:#b7b7c9;
+  padding:11px 12px;
+  border-radius:12px;
+  text-align:left;
+  cursor:pointer;
+  font-size:14px;
+  transition:.2s;
+}
+
+.nav button:hover,
+.nav button.active{
+  color:white;
+  background:linear-gradient(90deg,rgba(139,92,246,.22),rgba(6,182,212,.08));
+}
+
+.sidebarBottom{
+  position:absolute;
+  bottom:15px;
+  left:14px;
+  right:14px;
+}
+
+.status{
+  border:1px solid var(--border);
+  padding:11px;
+  border-radius:12px;
+  color:#9ca3af;
+  font-size:12px;
 }
 
 .online{
-  color:#55f39a;
-  font-size:12px;
+  color:#22c55e;
 }
 
-/* ================= CONTENT ================= */
+/* MAIN */
+
+.main{
+  margin-left:245px;
+  width:calc(100% - 245px);
+  min-height:100vh;
+}
+
+.topbar{
+  height:65px;
+  border-bottom:1px solid var(--border);
+  background:rgba(7,7,13,.65);
+  backdrop-filter:blur(18px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 24px;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.pageTitle{
+  font-weight:700;
+}
+
+.topActions button{
+  background:var(--panel);
+  color:white;
+  border:1px solid var(--border);
+  padding:9px 12px;
+  border-radius:10px;
+  cursor:pointer;
+}
 
 .content{
-  flex:1;
-  overflow-y:auto;
-  padding:35px max(18px,7%);
+  padding:30px;
+  max-width:1300px;
+  margin:auto;
 }
 
-.welcome{
-  max-width:950px;
-  margin:3vh auto 35px;
+/* HOME */
+
+.hero{
+  min-height:420px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
   text-align:center;
 }
 
-.welcome h1{
-  font-size:48px;
-  letter-spacing:-2px;
+.heroOrb{
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 35% 30%,white 0 3%,transparent 4%),
+    conic-gradient(#8b5cf6,#06b6d4,#ec4899,#8b5cf6);
+  box-shadow:
+    0 0 30px #8b5cf6,
+    0 0 70px rgba(6,182,212,.35);
+  animation:orb 4s ease-in-out infinite;
+  margin-bottom:28px;
+}
+
+@keyframes orb{
+  0%,100%{transform:scale(1) rotate(0deg)}
+  50%{transform:scale(1.08) rotate(180deg)}
+}
+
+.hero h1{
+  font-size:clamp(34px,6vw,65px);
   margin-bottom:12px;
-  animation:titleRGB 5s linear infinite;
 }
 
-@keyframes titleRGB{
-  0%{text-shadow:0 0 20px #ff006a}
-  33%{text-shadow:0 0 20px #009dff}
-  66%{text-shadow:0 0 20px #8a00ff}
-  100%{text-shadow:0 0 20px #ff006a}
+.gradientText{
+  background:linear-gradient(90deg,#8b5cf6,#06b6d4,#ec4899);
+  -webkit-background-clip:text;
+  color:transparent;
 }
 
-.welcome p{
+.hero p{
   color:var(--muted);
-  font-size:15px;
+  max-width:600px;
+  line-height:1.7;
 }
 
-/* ================= QUICK CARDS ================= */
+.sectionTitle{
+  font-size:22px;
+  margin:25px 0 15px;
+}
 
-.quick-grid{
-  max-width:950px;
-  margin:0 auto;
+/* CARDS */
+
+.grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:14px;
 }
 
-.quick{
-  padding:18px;
-  text-align:left;
+.card{
+  background:var(--panel);
   border:1px solid var(--border);
-  border-radius:15px;
-  background:rgba(255,255,255,.045);
-  color:#fff;
+  border-radius:17px;
+  padding:20px;
   cursor:pointer;
   transition:.25s;
+  backdrop-filter:blur(15px);
 }
 
-.quick:hover{
+.card:hover{
   transform:translateY(-4px);
-  background:rgba(255,255,255,.075);
-  box-shadow:0 0 25px rgba(100,80,255,.15);
+  border-color:rgba(139,92,246,.45);
+  box-shadow:0 10px 40px rgba(0,0,0,.25);
 }
 
-.quick-icon{
-  font-size:25px;
-  margin-bottom:10px;
+.cardIcon{
+  font-size:30px;
+  margin-bottom:13px;
 }
 
-.quick strong{
-  display:block;
-  margin-bottom:5px;
+.card h3{
+  margin-bottom:7px;
 }
 
-.quick span{
-  color:#858592;
-  font-size:12px;
+.card p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
 }
 
-/* ================= MESSAGES ================= */
+/* PANELS */
 
-.message{
-  max-width:900px;
-  margin:0 auto 18px;
+.panel{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
+  backdrop-filter:blur(15px);
+}
+
+.hidden{
+  display:none!important;
+}
+
+textarea,
+input,
+select{
+  width:100%;
+  background:#0d0d17;
+  border:1px solid var(--border);
+  color:white;
+  border-radius:12px;
+  padding:13px;
+  outline:none;
+  font-family:inherit;
+}
+
+textarea{
+  min-height:130px;
+  resize:vertical;
+}
+
+textarea:focus,
+input:focus,
+select:focus{
+  border-color:#8b5cf6;
+}
+
+.primary{
+  background:linear-gradient(90deg,#8b5cf6,#06b6d4);
+  color:white;
+  border:0;
+  border-radius:11px;
+  padding:12px 18px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.secondary{
+  background:#171725;
+  color:white;
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:11px 15px;
+  cursor:pointer;
+}
+
+/* CHAT */
+
+.chatWrap{
+  display:flex;
+  flex-direction:column;
+  height:calc(100vh - 125px);
+}
+
+.messages{
+  flex:1;
+  overflow-y:auto;
+  padding:10px 5px 20px;
+}
+
+.msg{
+  max-width:850px;
+  margin:12px auto;
   padding:15px 17px;
   border-radius:16px;
-  line-height:1.55;
+  line-height:1.65;
   white-space:pre-wrap;
 }
 
 .user{
-  background:rgba(255,255,255,.075);
+  background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(6,182,212,.12));
+  border:1px solid rgba(139,92,246,.2);
 }
 
 .ai{
-  background:rgba(13,13,22,.82);
-  border:1px solid rgba(255,255,255,.075);
+  background:rgba(20,20,32,.85);
+  border:1px solid var(--border);
 }
 
-.actions{
+.msgActions{
+  margin-top:10px;
   display:flex;
   gap:7px;
-  margin-top:10px;
 }
 
-.small{
+.msgActions button{
+  border:1px solid var(--border);
+  background:#11111c;
+  color:#aaa;
   padding:6px 9px;
   border-radius:8px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.045);
-  color:#aaa;
   cursor:pointer;
+  font-size:11px;
 }
 
-.small:hover{
-  color:#fff;
-}
-
-/* ================= IMAGE CARD ================= */
-
-.image-card{
-  max-width:900px;
-  margin:0 auto 20px;
-  padding:13px;
-  border-radius:18px;
-  background:rgba(10,10,18,.86);
-  border:1px solid var(--border);
-  box-shadow:0 0 35px rgba(100,40,255,.12);
-}
-
-.image-card img{
-  display:block;
+.chatInput{
+  display:flex;
+  gap:9px;
+  max-width:850px;
+  margin:auto;
   width:100%;
-  max-height:620px;
-  object-fit:contain;
-  border-radius:12px;
-  background:#050509;
 }
 
-.image-info{
-  color:#888;
-  font-size:12px;
-  margin-top:10px;
+.chatInput input{
+  flex:1;
+}
+
+/* CODE */
+
+.codeBox{
+  margin:12px 0;
+  border:1px solid #2b2b42;
+  border-radius:12px;
   overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-
-.image-actions{
-  display:flex;
-  gap:7px;
-  margin-top:10px;
-}
-
-/* ================= THINKING ================= */
-
-.thinking{
-  max-width:900px;
-  margin:0 auto 18px;
-  display:flex;
-  gap:5px;
-  padding:15px;
-}
-
-.dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#aaa;
-  animation:dot 1s infinite;
-}
-
-.dot:nth-child(2){animation-delay:.15s}
-.dot:nth-child(3){animation-delay:.3s}
-
-@keyframes dot{
-  0%,100%{
-    opacity:.2;
-    transform:translateY(0);
-  }
-  50%{
-    opacity:1;
-    transform:translateY(-4px);
-  }
-}
-
-/* ================= COMPOSER ================= */
-
-.composer-area{
-  flex-shrink:0;
-  padding:10px max(18px,7%) 18px;
-  background:linear-gradient(
-    transparent,
-    rgba(5,5,10,.7) 30%
-  );
-}
-
-.modes{
-  max-width:950px;
-  margin:0 auto 9px;
-  display:flex;
-  gap:7px;
-}
-
-.mode{
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.045);
-  color:#999;
-  padding:7px 12px;
-  border-radius:9px;
-  cursor:pointer;
-}
-
-.mode.active{
-  color:#fff;
-  background:rgba(130,80,255,.18);
-  box-shadow:0 0 15px rgba(130,80,255,.15);
-}
-
-.image-panel{
-  max-width:950px;
-  margin:0 auto 9px;
-  display:none;
-  padding:12px;
-  border:1px solid var(--border);
-  border-radius:14px;
-  background:rgba(10,10,18,.92);
-}
-
-.image-panel.show{
-  display:block;
-}
-
-.image-row{
-  display:flex;
-  gap:8px;
-}
-
-.image-input,
-.select{
-  min-width:0;
-  padding:11px;
-  border-radius:9px;
-  border:1px solid var(--border);
-  outline:none;
   background:#090910;
-  color:#fff;
 }
 
-.image-input{
-  flex:1;
-}
-
-.generate{
-  padding:11px 15px;
-  border:0;
-  border-radius:9px;
-  color:#fff;
-  cursor:pointer;
-  background:linear-gradient(
-    120deg,
-    #ff0077,
-    #7b00ff,
-    #008cff
-  );
-  background-size:200% 200%;
-  animation:gradient 4s ease infinite;
-}
-
-@keyframes gradient{
-  0%{background-position:0 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0 50%}
-}
-
-.composer{
-  max-width:950px;
-  margin:0 auto;
-  display:flex;
-  gap:8px;
-  padding:8px;
-  border:1px solid var(--border);
-  border-radius:17px;
-  background:rgba(12,12,20,.88);
-  box-shadow:0 0 30px rgba(0,0,0,.3);
-}
-
-textarea{
-  flex:1;
-  min-height:48px;
-  max-height:150px;
-  resize:none;
-  outline:none;
-  border:0;
-  background:transparent;
-  color:#fff;
-  padding:13px;
-  font:inherit;
-}
-
-.send{
-  width:50px;
-  border:0;
-  border-radius:12px;
-  background:linear-gradient(135deg,#7b00ff,#008cff);
-  color:#fff;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.send:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 20px #6500ff;
-}
-
-/* ================= MODAL ================= */
-
-.modal{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:rgba(0,0,0,.65);
-  backdrop-filter:blur(8px);
-}
-
-.modal.show{
-  display:flex;
-}
-
-.modal-box{
-  width:min(450px,92vw);
-  padding:22px;
-  border-radius:18px;
-  background:#101019;
-  border:1px solid var(--border);
-  box-shadow:0 0 50px rgba(100,50,255,.2);
-}
-
-.modal-box h2{
-  margin-bottom:18px;
-}
-
-.setting{
+.codeTop{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:13px 0;
-  border-bottom:1px solid rgba(255,255,255,.06);
-  color:#ccc;
+  padding:8px 12px;
+  background:#12121d;
+  color:#aaa;
+  font-size:12px;
 }
 
-.modal-close{
-  margin-top:17px;
-  width:100%;
-  padding:11px;
-  border:0;
-  border-radius:10px;
-  background:rgba(255,255,255,.08);
-  color:#fff;
-  cursor:pointer;
+.codeBox pre{
+  padding:15px;
+  overflow:auto;
+  color:#e5e7eb;
+  font-family:Consolas,monospace;
+  font-size:13px;
 }
 
-/* ================= MOBILE ================= */
+/* FUN */
+
+.funResult{
+  min-height:80px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:20px;
+  margin-top:15px;
+}
+
+/* TOOLS */
+
+.toolArea{
+  display:flex;
+  flex-direction:column;
+  gap:13px;
+}
+
+/* IMAGE */
+
+.imagePlaceholder{
+  min-height:250px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border:1px dashed #343449;
+  border-radius:15px;
+  color:#777;
+  text-align:center;
+}
+
+.generatedImage{
+  max-width:100%;
+  border-radius:15px;
+  margin-top:15px;
+}
+
+/* FOOTER */
+
+.footer{
+  text-align:center;
+  padding:35px;
+  color:#666;
+  font-size:12px;
+}
+
+/* MOBILE */
+
+.mobileMenu{
+  display:none;
+}
 
 @media(max-width:800px){
-
   .sidebar{
-    display:none;
+    transform:translateX(-100%);
+    transition:.25s;
   }
 
-  .welcome h1{
-    font-size:35px;
+  .sidebar.open{
+    transform:translateX(0);
   }
 
-  .quick-grid{
-    grid-template-columns:1fr;
+  .main{
+    margin-left:0;
+    width:100%;
   }
 
-  .image-row{
-    flex-wrap:wrap;
-  }
-
-  .image-input{
-    flex-basis:100%;
-  }
-
-  .select,
-  .generate{
-    flex:1;
+  .mobileMenu{
+    display:block;
+    background:none;
+    color:white;
+    border:0;
+    font-size:22px;
+    cursor:pointer;
   }
 
   .content{
-    padding:22px 12px;
+    padding:18px;
   }
 
-  .composer-area{
-    padding:8px 10px 12px;
+  .hero{
+    min-height:350px;
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,1fr);
   }
 }
 </style>
@@ -651,1367 +535,1289 @@ textarea{
 
 <body>
 
-<div class="rgb-bg"></div>
-<div class="rgb-line"></div>
-
 <div class="app">
 
-<!-- ================= SIDEBAR ================= -->
+<!-- SIDEBAR -->
 
-<aside class="sidebar">
+<aside class="sidebar" id="sidebar">
 
-  <div class="logo">⚡ Amzo AI</div>
-
-  <button class="new-chat" onclick="newChat()">
-    ＋ New Chat
-  </button>
-
-  <div class="sidebar-title">
-    Recent Chats
+  <div class="logo">
+    <div class="logoOrb"></div>
+    <div class="logoText">Amzo AI</div>
   </div>
 
-  <div id="chatList" class="chat-list"></div>
+  <nav class="nav">
 
-  <div class="sidebar-bottom">
+    <button class="active" data-page="home">🏠 Home</button>
+    <button data-page="chat">💬 AI Chat</button>
+    <button data-page="create">🎨 Create</button>
+    <button data-page="code">💻 Code Lab</button>
+    <button data-page="fun">🎮 Fun Zone</button>
+    <button data-page="tools">🧰 AI Tools</button>
+    <button data-page="learn">📚 Learn</button>
+    <button data-page="lab">🧪 Amzo Lab</button>
+    <button data-page="profile">👤 Profile</button>
+    <button data-page="settings">⚙️ Settings</button>
 
-    <button class="side-btn" onclick="showGallery()">
-      🖼️ Image Gallery
-    </button>
+  </nav>
 
-    <button class="side-btn" onclick="openSettings()">
-      ⚙️ Settings
-    </button>
-
+  <div class="sidebarBottom">
+    <div class="status">
+      <span class="online">● Online</span><br>
+      Amzo AI is ready
+    </div>
   </div>
 
 </aside>
 
-<!-- ================= MAIN ================= -->
-
 <main class="main">
 
 <header class="topbar">
-
-  <div class="top-title">
-    <span id="topName">Amzo AI</span>
+  <div>
+    <button class="mobileMenu" onclick="toggleSidebar()">☰</button>
+    <span class="pageTitle" id="pageTitle">Home</span>
   </div>
 
-  <div class="online">
-    ● Online
+  <div class="topActions">
+    <button onclick="showPage('chat')">+ New Chat</button>
   </div>
-
 </header>
 
-<section id="content" class="content"></section>
+<div class="content">
 
-<!-- ================= COMPOSER ================= -->
+<!-- HOME -->
 
-<div class="composer-area">
+<section id="home" class="page">
 
-  <div class="modes">
+  <div class="hero">
 
-    <button
-      id="chatMode"
-      class="mode active"
-      onclick="setMode('chat')"
-    >
-      💬 Chat
-    </button>
+    <div class="heroOrb"></div>
 
-    <button
-      id="imageMode"
-      class="mode"
-      onclick="setMode('image')"
-    >
-      🖼️ Image
-    </button>
+    <h1>Welcome to <span class="gradientText">Amzo AI</span></h1>
+
+    <p>
+      Chat, create, code, play, learn and experiment —
+      all inside one AI platform.
+    </p>
 
   </div>
 
-  <div id="imagePanel" class="image-panel">
+  <h2 class="sectionTitle">🚀 Explore Amzo</h2>
 
-    <div class="image-row">
+  <div class="grid">
+
+    <div class="card" onclick="showPage('chat')">
+      <div class="cardIcon">💬</div>
+      <h3>AI Chat</h3>
+      <p>Talk with Amzo AI about anything.</p>
+    </div>
+
+    <div class="card" onclick="showPage('create')">
+      <div class="cardIcon">🎨</div>
+      <h3>Create</h3>
+      <p>Turn ideas into creative content.</p>
+    </div>
+
+    <div class="card" onclick="showPage('code')">
+      <div class="cardIcon">💻</div>
+      <h3>Code Lab</h3>
+      <p>Generate and understand code.</p>
+    </div>
+
+    <div class="card" onclick="showPage('fun')">
+      <div class="cardIcon">🎮</div>
+      <h3>Fun Zone</h3>
+      <p>Games, challenges and random fun.</p>
+    </div>
+
+    <div class="card" onclick="showPage('tools')">
+      <div class="cardIcon">🧰</div>
+      <h3>AI Tools</h3>
+      <p>Useful everyday AI tools.</p>
+    </div>
+
+    <div class="card" onclick="showPage('learn')">
+      <div class="cardIcon">📚</div>
+      <h3>Learn</h3>
+      <p>Practice and learn new things.</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CHAT -->
+
+<section id="chat" class="page hidden">
+
+  <div class="chatWrap">
+
+    <div id="messages" class="messages">
+
+      <div class="msg ai">
+        👋 Hey! I'm <b>Amzo AI</b>.<br>
+        Ask me anything.
+      </div>
+
+    </div>
+
+    <div class="chatInput">
 
       <input
-        id="imagePrompt"
-        class="image-input"
-        placeholder="Describe the image you want..."
+        id="chatInput"
+        placeholder="Message Amzo AI..."
+        onkeydown="handleChatKey(event)"
       >
 
-      <select id="imageSize" class="select">
-
-        <option value="1024x1024">
-          1024 × 1024
-        </option>
-
-        <option value="1280x720">
-          1280 × 720
-        </option>
-
-        <option value="720x1280">
-          720 × 1280
-        </option>
-
-      </select>
-
-      <button
-        class="generate"
-        onclick="generateImage()"
-      >
-        ✨ Generate
-      </button>
+      <button class="primary" onclick="sendChat()">Send</button>
 
     </div>
 
   </div>
 
-  <div class="composer">
+</section>
 
-    <textarea
-      id="input"
-      placeholder="Message Amzo AI..."
-      onkeydown="handleKey(event)"
-    ></textarea>
+<!-- CREATE -->
 
-    <button
-      class="send"
-      onclick="sendMessage()"
-    >
-      ➤
+<section id="create" class="page hidden">
+
+  <h1>🎨 Create Studio</h1>
+  <p style="color:var(--muted);margin:8px 0 20px">
+    Turn your ideas into content.
+  </p>
+
+  <div class="grid">
+
+    <div class="card" onclick="creator('YouTube Shorts idea')">
+      <div class="cardIcon">🎬</div>
+      <h3>Video Idea</h3>
+      <p>Generate a fresh video concept.</p>
+    </div>
+
+    <div class="card" onclick="creator('YouTube title ideas')">
+      <div class="cardIcon">📺</div>
+      <h3>Titles</h3>
+      <p>Create clickable title ideas.</p>
+    </div>
+
+    <div class="card" onclick="creator('short story')">
+      <div class="cardIcon">📖</div>
+      <h3>Story</h3>
+      <p>Create an original story.</p>
+    </div>
+
+    <div class="card" onclick="creator('character idea')">
+      <div class="cardIcon">🧙</div>
+      <h3>Character</h3>
+      <p>Build an original character.</p>
+    </div>
+
+  </div>
+
+  <div class="panel" style="margin-top:20px">
+
+    <textarea id="createInput"
+      placeholder="Tell Amzo what you want to create..."></textarea>
+
+    <br><br>
+
+    <button class="primary" onclick="createContent()">
+      ✨ Create
+    </button>
+
+    <div id="createResult" style="margin-top:20px;line-height:1.7"></div>
+
+  </div>
+
+</section>
+
+<!-- CODE -->
+
+<section id="code" class="page hidden">
+
+  <h1>💻 Code Lab</h1>
+
+  <p style="color:var(--muted);margin:8px 0 20px">
+    Generate, explain or fix code with Amzo AI.
+  </p>
+
+  <div class="panel">
+
+    <textarea id="codeInput"
+      placeholder="Example: Make a Python calculator"></textarea>
+
+    <br><br>
+
+    <button class="primary" onclick="generateCode()">
+      ⚡ Generate Code
+    </button>
+
+    <div id="codeResult" style="margin-top:20px"></div>
+
+  </div>
+
+</section>
+
+<!-- FUN -->
+
+<section id="fun" class="page hidden">
+
+  <h1>🎮 Fun Zone</h1>
+
+  <p style="color:var(--muted);margin:8px 0 20px">
+    Take a break and play something.
+  </p>
+
+  <div class="grid">
+
+    <div class="card" onclick="startRPS()">
+      <div class="cardIcon">✊</div>
+      <h3>Rock Paper Scissors</h3>
+      <p>Play against Amzo.</p>
+    </div>
+
+    <div class="card" onclick="randomFact()">
+      <div class="cardIcon">🤯</div>
+      <h3>Random Fact</h3>
+      <p>Discover something interesting.</p>
+    </div>
+
+    <div class="card" onclick="randomChallenge()">
+      <div class="cardIcon">🔥</div>
+      <h3>Challenge</h3>
+      <p>Get a random challenge.</p>
+    </div>
+
+    <div class="card" onclick="riddle()">
+      <div class="cardIcon">🧩</div>
+      <h3>Riddle</h3>
+      <p>Test your brain.</p>
+    </div>
+
+  </div>
+
+  <div class="panel funResult" id="funResult">
+    Choose something 👆
+  </div>
+
+</section>
+
+<!-- TOOLS -->
+
+<section id="tools" class="page hidden">
+
+  <h1>🧰 AI Tools</h1>
+
+  <p style="color:var(--muted);margin:8px 0 20px">
+    Small tools for everyday work.
+  </p>
+
+  <div class="grid">
+
+    <div class="card" onclick="tool('summarize')">
+      <div class="cardIcon">📝</div>
+      <h3>Summarizer</h3>
+      <p>Turn long text into short notes.</p>
+    </div>
+
+    <div class="card" onclick="tool('translate')">
+      <div class="cardIcon">🌐</div>
+      <h3>Translator</h3>
+      <p>Translate text.</p>
+    </div>
+
+    <div class="card" onclick="tool('improve')">
+      <div class="cardIcon">✨</div>
+      <h3>Improve Text</h3>
+      <p>Make writing clearer.</p>
+    </div>
+
+    <div class="card" onclick="tool('ideas')">
+      <div class="cardIcon">💡</div>
+      <h3>Idea Generator</h3>
+      <p>Generate new ideas.</p>
+    </div>
+
+  </div>
+
+  <div class="panel" style="margin-top:20px">
+
+    <textarea id="toolInput"
+      placeholder="Enter your text..."></textarea>
+
+    <br><br>
+
+    <select id="toolSelect">
+      <option value="summarize">Summarize</option>
+      <option value="translate">Translate to English</option>
+      <option value="improve">Improve writing</option>
+      <option value="ideas">Generate ideas</option>
+    </select>
+
+    <br><br>
+
+    <button class="primary" onclick="runTool()">Run Tool</button>
+
+    <div id="toolResult" style="margin-top:20px;line-height:1.7"></div>
+
+  </div>
+
+</section>
+
+<!-- LEARN -->
+
+<section id="learn" class="page hidden">
+
+  <h1>📚 Learn</h1>
+
+  <p style="color:var(--muted);margin:8px 0 20px">
+    Learn through practice.
+  </p>
+
+  <div class="grid">
+
+    <div class="card" onclick="learn('math')">
+      <div class="cardIcon">➗</div>
+      <h3>Math</h3>
+      <p>Practice a random problem.</p>
+    </div>
+
+    <div class="card" onclick="learn('english')">
+      <div class="cardIcon">🔤</div>
+      <h3>English</h3>
+      <p>Practice English.</p>
+    </div>
+
+    <div class="card" onclick="learn('coding')">
+      <div class="cardIcon">👨‍💻</div>
+      <h3>Coding</h3>
+      <p>Learn programming concepts.</p>
+    </div>
+
+    <div class="card" onclick="learn('general knowledge')">
+      <div class="cardIcon">🧠</div>
+      <h3>General Knowledge</h3>
+      <p>Learn something new.</p>
+    </div>
+
+  </div>
+
+  <div class="panel" style="margin-top:20px">
+    <div id="learnResult">Choose a topic 👆</div>
+  </div>
+
+</section>
+
+<!-- LAB -->
+
+<section id="lab" class="page hidden">
+
+  <h1>🧪 Amzo Lab</h1>
+
+  <p style="color:var(--muted);margin:8px 0 20px">
+    Experimental features and random AI experiences.
+  </p>
+
+  <div class="grid">
+
+    <div class="card" onclick="surprise()">
+      <div class="cardIcon">🎁</div>
+      <h3>Surprise Me</h3>
+      <p>Amzo chooses something random.</p>
+    </div>
+
+    <div class="card" onclick="mystery()">
+      <div class="cardIcon">🔮</div>
+      <h3>Mystery Box</h3>
+      <p>Open a random mystery.</p>
+    </div>
+
+    <div class="card" onclick="aiChallenge()">
+      <div class="cardIcon">⚡</div>
+      <h3>AI Challenge</h3>
+      <p>Try today's challenge.</p>
+    </div>
+
+  </div>
+
+  <div class="panel funResult" id="labResult">
+    Choose an experiment 👆
+  </div>
+
+</section>
+
+<!-- PROFILE -->
+
+<section id="profile" class="page hidden">
+
+  <h1>👤 Profile</h1>
+
+  <div class="panel" style="margin-top:20px">
+
+    <h2>Amzo Explorer</h2>
+
+    <br>
+
+    <p>⭐ XP: <b id="xp">0</b></p>
+
+    <p style="margin-top:10px">
+      🏆 Level: <b id="level">1</b>
+    </p>
+
+    <p style="margin-top:10px">
+      🔥 Daily streak: <b>1 day</b>
+    </p>
+
+  </div>
+
+</section>
+
+<!-- SETTINGS -->
+
+<section id="settings" class="page hidden">
+
+  <h1>⚙️ Settings</h1>
+
+  <div class="panel" style="margin-top:20px">
+
+    <label>Theme</label>
+
+    <br><br>
+
+    <button class="secondary" onclick="toggleTheme()">
+      🌙 Toggle Theme
+    </button>
+
+    <br><br>
+
+    <label>Animations</label>
+
+    <br><br>
+
+    <button class="secondary" onclick="toggleAnimation()">
+      ✨ Toggle RGB Animation
+    </button>
+
+    <br><br>
+
+    <button class="secondary" onclick="clearLocalData()">
+      🗑️ Clear Local Data
     </button>
 
   </div>
 
+</section>
+
+</div>
+
+<div class="footer">
+  Made with ⚡ by Amzo AI
 </div>
 
 </main>
-</div>
-
-<!-- ================= SETTINGS ================= -->
-
-<div id="settingsModal" class="modal">
-
-  <div class="modal-box">
-
-    <h2>⚙️ Settings</h2>
-
-    <div class="setting">
-      <span>RGB Animations</span>
-      <input
-        id="rgbToggle"
-        type="checkbox"
-        checked
-        onchange="toggleRGB(this)"
-      >
-    </div>
-
-    <div class="setting">
-      <span>AI Speech</span>
-      <input
-        id="speechToggle"
-        type="checkbox"
-        checked
-      >
-    </div>
-
-    <div class="setting">
-      <span>Chat History</span>
-      <button
-        class="small"
-        onclick="clearChats()"
-      >
-        Clear
-      </button>
-    </div>
-
-    <div class="setting">
-      <span>Image History</span>
-      <button
-        class="small"
-        onclick="clearImages()"
-      >
-        Clear
-      </button>
-    </div>
-
-    <button
-      class="modal-close"
-      onclick="closeSettings()"
-    >
-      Close
-    </button>
-
-  </div>
 
 </div>
 
 <script>
 
-/* =====================================================
+/* =========================
    CONFIG
-===================================================== */
+========================= */
 
-const API =
-  "https://ai-tool-api.amzoxamzoo.workers.dev/";
+const API_URL =
+"https://ai-tool-api.amzoxamzoo.workers.dev/";
 
-/* =====================================================
-   STATE
-===================================================== */
 
-let chats =
-  JSON.parse(
-    localStorage.getItem("amzo_chats") || "[]"
-  );
+/* =========================
+   NAVIGATION
+========================= */
 
-let gallery =
-  JSON.parse(
-    localStorage.getItem("amzo_gallery") || "[]"
-  );
+const pages =
+document.querySelectorAll(".page");
 
-let currentChat = null;
-let mode = "chat";
-let busy = false;
+const navButtons =
+document.querySelectorAll(".nav button");
 
-/* =====================================================
-   STORAGE
-===================================================== */
+function showPage(id){
 
-function saveChats(){
+  pages.forEach(page=>{
+    page.classList.add("hidden");
+  });
 
-  localStorage.setItem(
-    "amzo_chats",
-    JSON.stringify(chats)
-  );
+  const target =
+  document.getElementById(id);
 
-}
+  if(target){
+    target.classList.remove("hidden");
+  }
 
-function saveGallery(){
+  navButtons.forEach(btn=>{
+    btn.classList.toggle(
+      "active",
+      btn.dataset.page === id
+    );
+  });
 
-  localStorage.setItem(
-    "amzo_gallery",
-    JSON.stringify(gallery)
-  );
-
-}
-
-/* =====================================================
-   NEW CHAT
-===================================================== */
-
-function newChat(){
-
-  const chat = {
-    id:Date.now(),
-    name:"New Chat",
-    messages:[]
+  const names={
+    home:"Home",
+    chat:"AI Chat",
+    create:"Create",
+    code:"Code Lab",
+    fun:"Fun Zone",
+    tools:"AI Tools",
+    learn:"Learn",
+    lab:"Amzo Lab",
+    profile:"Profile",
+    settings:"Settings"
   };
 
-  chats.unshift(chat);
+  document.getElementById("pageTitle")
+    .textContent=names[id] || "Amzo AI";
 
-  currentChat = chat;
-
-  saveChats();
-
-  renderSidebar();
-  render();
-
+  document
+    .getElementById("sidebar")
+    .classList.remove("open");
 }
 
-/* =====================================================
-   AUTOMATIC CHAT NAME
-===================================================== */
-
-function autoRename(text){
-
-  let name =
-    text
-      .replace(/\s+/g," ")
-      .trim();
-
-  if(!name)
-    return "New Chat";
-
-  if(name.length > 32)
-    name =
-      name.slice(0,32).trim() + "...";
-
-  return name;
-
-}
-
-/* =====================================================
-   RENDER SIDEBAR
-===================================================== */
-
-function renderSidebar(){
-
-  const list =
-    document.getElementById("chatList");
-
-  list.innerHTML = "";
-
-  chats.forEach(chat => {
-
-    const item =
-      document.createElement("div");
-
-    item.className =
-      "chat-item " +
-      (
-        currentChat &&
-        currentChat.id === chat.id
-          ? "active"
-          : ""
-      );
-
-    const title =
-      document.createElement("span");
-
-    title.textContent =
-      chat.name;
-
-    title.ondblclick = () =>
-      renameChat(chat);
-
-    const del =
-      document.createElement("button");
-
-    del.className =
-      "chat-delete";
-
-    del.textContent =
-      "×";
-
-    del.onclick = event => {
-
-      event.stopPropagation();
-
-      deleteChat(chat.id);
-
-    };
-
-    item.appendChild(title);
-    item.appendChild(del);
-
-    item.onclick = () => {
-
-      currentChat = chat;
-
-      renderSidebar();
-      render();
-
-    };
-
-    list.appendChild(item);
-
+navButtons.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    showPage(btn.dataset.page);
   });
+});
 
+function toggleSidebar(){
+  document
+    .getElementById("sidebar")
+    .classList.toggle("open");
 }
 
-/* =====================================================
-   RENAME
-===================================================== */
 
-function renameChat(chat){
-
-  const name =
-    prompt(
-      "Enter chat name:",
-      chat.name
-    );
-
-  if(!name)
-    return;
-
-  chat.name =
-    name.trim().slice(0,50);
-
-  saveChats();
-
-  renderSidebar();
-
-}
-
-/* =====================================================
-   DELETE CHAT
-===================================================== */
-
-function deleteChat(id){
-
-  chats =
-    chats.filter(
-      chat => chat.id !== id
-    );
-
-  if(
-    currentChat &&
-    currentChat.id === id
-  ){
-
-    currentChat =
-      chats[0] || null;
-
-  }
-
-  saveChats();
-
-  renderSidebar();
-  render();
-
-}
-
-/* =====================================================
-   RENDER MAIN
-===================================================== */
-
-function render(){
-
-  const content =
-    document.getElementById("content");
-
-  content.innerHTML = "";
-
-  if(!currentChat){
-
-    showWelcome();
-    return;
-
-  }
-
-  document.getElementById("topName")
-    .textContent =
-      currentChat.name;
-
-  if(
-    currentChat.messages.length === 0
-  ){
-
-    showWelcome();
-    return;
-
-  }
-
-  currentChat.messages.forEach(message => {
-
-    if(message.type === "image"){
-
-      addImageCard(
-        message.image,
-        message.prompt,
-        false,
-        message.id
-      );
-
-    }else{
-
-      addMessage(
-        message.type,
-        message.text,
-        false
-      );
-
-    }
-
-  });
-
-  scrollBottom();
-
-}
-
-/* =====================================================
-   WELCOME
-===================================================== */
-
-function showWelcome(){
-
-  const content =
-    document.getElementById("content");
-
-  content.innerHTML = `
-
-    <div class="welcome">
-
-      <h1>What can I help you with?</h1>
-
-      <p>
-        Chat, create images, learn, write and explore.
-      </p>
-
-    </div>
-
-    <div class="quick-grid">
-
-      <button
-        class="quick"
-        onclick="quickChat('Explain artificial intelligence in simple words.')"
-      >
-        <div class="quick-icon">🧠</div>
-        <strong>Ask anything</strong>
-        <span>Get an AI answer</span>
-      </button>
-
-      <button
-        class="quick"
-        onclick="quickImage()"
-      >
-        <div class="quick-icon">🖼️</div>
-        <strong>Create an image</strong>
-        <span>Turn your idea into an image</span>
-      </button>
-
-      <button
-        class="quick"
-        onclick="quickChat('Help me write something creative.')"
-      >
-        <div class="quick-icon">✍️</div>
-        <strong>Write</strong>
-        <span>Ideas, scripts and text</span>
-      </button>
-
-      <button
-        class="quick"
-        onclick="quickChat('Teach me something interesting today.')"
-      >
-        <div class="quick-icon">📚</div>
-        <strong>Learn</strong>
-        <span>Understand a new topic</span>
-      </button>
-
-      <button
-        class="quick"
-        onclick="quickChat('Give me a useful coding example and explain it.')"
-      >
-        <div class="quick-icon">💻</div>
-        <strong>Coding</strong>
-        <span>Build and understand code</span>
-      </button>
-
-      <button
-        class="quick"
-        onclick="quickChat('Give me three creative ideas for a project.')"
-      >
-        <div class="quick-icon">💡</div>
-        <strong>Ideas</strong>
-        <span>Explore new possibilities</span>
-      </button>
-
-    </div>
-  `;
-
-}
-
-/* =====================================================
-   QUICK CHAT
-===================================================== */
-
-function quickChat(text){
-
-  if(!currentChat)
-    newChat();
-
-  document.getElementById("input")
-    .value = text;
-
-  sendMessage();
-
-}
-
-/* =====================================================
-   QUICK IMAGE
-===================================================== */
-
-function quickImage(){
-
-  setMode("image");
-
-  document.getElementById("imagePrompt")
-    .focus();
-
-}
-
-/* =====================================================
-   MODE
-===================================================== */
-
-function setMode(newMode){
-
-  mode = newMode;
-
-  document.getElementById("chatMode")
-    .classList.toggle(
-      "active",
-      mode === "chat"
-    );
-
-  document.getElementById("imageMode")
-    .classList.toggle(
-      "active",
-      mode === "image"
-    );
-
-  document.getElementById("imagePanel")
-    .classList.toggle(
-      "show",
-      mode === "image"
-    );
-
-}
-
-/* =====================================================
+/* =========================
    CHAT
-===================================================== */
+========================= */
 
-async function sendMessage(){
+let chatHistory=[];
 
-  if(mode !== "chat")
-    return;
+function addMessage(text,type){
 
-  if(busy)
-    return;
+  const messages =
+  document.getElementById("messages");
+
+  const div =
+  document.createElement("div");
+
+  div.className="msg "+type;
+
+  div.textContent=text;
+
+  messages.appendChild(div);
+
+  messages.scrollTop=
+    messages.scrollHeight;
+
+  return div;
+}
+
+function handleChatKey(e){
+
+  if(e.key==="Enter"){
+    e.preventDefault();
+    sendChat();
+  }
+}
+
+async function sendChat(){
 
   const input =
-    document.getElementById("input");
+  document.getElementById("chatInput");
+
+  const text =
+  input.value.trim();
+
+  if(!text) return;
+
+  input.value="";
+
+  addMessage(text,"user");
+
+  chatHistory.push({
+    type:"user",
+    text:text
+  });
+
+  const thinking =
+  addMessage("Amzo is thinking...","ai");
+
+  try{
+
+    const response =
+    await fetch(API_URL,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        messages:chatHistory
+      })
+    });
+
+    const data =
+    await response.json();
+
+    thinking.remove();
+
+    const answer =
+      data.result ||
+      data.response ||
+      data.error ||
+      "No response.";
+
+    addMessage(answer,"ai");
+
+    chatHistory.push({
+      type:"assistant",
+      text:answer
+    });
+
+    gainXP(5);
+
+  }catch(error){
+
+    thinking.textContent =
+      "❌ Connection error. Check the AI backend.";
+
+    console.error(error);
+
+  }
+}
+
+
+/* =========================
+   CREATE
+========================= */
+
+function creator(type){
+
+  const input =
+    document.getElementById("createInput");
+
+  input.value =
+    "Give me a creative "+type+".";
+
+  input.focus();
+}
+
+async function createContent(){
+
+  const input =
+    document.getElementById("createInput");
+
+  const result =
+    document.getElementById("createResult");
 
   const text =
     input.value.trim();
 
-  if(!text)
+  if(!text){
+    result.textContent="Write something first.";
     return;
-
-  if(!currentChat)
-    newChat();
-
-  if(
-    currentChat.name === "New Chat"
-  ){
-
-    currentChat.name =
-      autoRename(text);
-
   }
 
-  currentChat.messages.push({
-    type:"user",
-    text
-  });
-
-  input.value = "";
-
-  saveChats();
-  renderSidebar();
-  render();
-
-  busy = true;
-
-  const loading =
-    document.createElement("div");
-
-  loading.className =
-    "thinking";
-
-  loading.innerHTML = `
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-  `;
-
-  document
-    .getElementById("content")
-    .appendChild(loading);
-
-  scrollBottom();
+  result.textContent="✨ Creating...";
 
   try{
 
     const response =
-      await fetch(API,{
+      await fetch(API_URL,{
         method:"POST",
         headers:{
-          "Content-Type":
-            "application/json"
+          "Content-Type":"application/json"
         },
         body:JSON.stringify({
-          action:"chat",
-          messages:
-            currentChat.messages
+          messages:[
+            {
+              type:"user",
+              text:text
+            }
+          ]
         })
       });
 
     const data =
       await response.json();
 
-    loading.remove();
+    result.textContent =
+      data.result ||
+      data.error ||
+      "No result.";
 
-    if(data.error){
+    gainXP(5);
 
-      currentChat.messages.push({
-        type:"ai",
-        text:
-          "Error: " +
-          data.error
-      });
+  }catch(e){
 
-    }else{
-
-      currentChat.messages.push({
-        type:"ai",
-        text:
-          data.result ||
-          "No response received."
-      });
-
-    }
-
-    saveChats();
-    render();
-
-  }catch(error){
-
-    loading.remove();
-
-    currentChat.messages.push({
-      type:"ai",
-      text:
-        "Connection error. Please try again."
-    });
-
-    saveChats();
-    render();
+    result.textContent=
+      "❌ AI connection failed.";
 
   }
-
-  busy = false;
-
 }
 
-/* =====================================================
-   MESSAGE
-===================================================== */
 
-function addMessage(
-  type,
-  text,
-  scroll = true
-){
+/* =========================
+   CODE LAB
+========================= */
 
-  const content =
-    document.getElementById("content");
+async function generateCode(){
 
-  const div =
-    document.createElement("div");
+  const input =
+    document.getElementById("codeInput");
 
-  div.className =
-    "message " +
-    (
-      type === "user"
-        ? "user"
-        : "ai"
-    );
+  const result =
+    document.getElementById("codeResult");
 
-  div.textContent =
-    text;
+  const text =
+    input.value.trim();
 
-  if(type === "ai"){
+  if(!text){
+    result.textContent=
+      "Tell me what code you want.";
+    return;
+  }
 
-    const actions =
-      document.createElement("div");
+  result.textContent="💻 Generating code...";
 
-    actions.className =
-      "actions";
+  try{
 
-    const copy =
-      document.createElement("button");
+    const response =
+      await fetch(API_URL,{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          messages:[
+            {
+              type:"user",
+              text:
+                "Give me working code for this request. "+
+                "Put the code inside a fenced code block:\n"+
+                text
+            }
+          ]
+        })
+      });
 
-    copy.className =
-      "small";
+    const data =
+      await response.json();
 
-    copy.textContent =
-      "📋 Copy";
-
-    copy.onclick = () => {
-
-      navigator.clipboard.writeText(
-        text
+    result.innerHTML=
+      renderMarkdown(
+        data.result ||
+        data.error ||
+        "No result."
       );
 
-    };
+    gainXP(10);
 
-    const speak =
-      document.createElement("button");
+  }catch(e){
 
-    speak.className =
-      "small";
+    result.textContent=
+      "❌ Code generation failed.";
 
-    speak.textContent =
-      "🔊 Speak";
+  }
+}
 
-    speak.onclick = () => {
 
-      if(
-        !document.getElementById(
-          "speechToggle"
-        )?.checked
+/* =========================
+   SAFE MARKDOWN
+========================= */
+
+function escapeHTML(text){
+
+  return text
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
+}
+
+function renderMarkdown(text){
+
+  const parts =
+    text.split(/```([\w+-]*)\n?([\s\S]*?)```/g);
+
+  let html="";
+
+  for(let i=0;i<parts.length;i++){
+
+    if(i%3===0){
+
+      html +=
+        "<div style='line-height:1.7;white-space:pre-wrap'>"+
+        escapeHTML(parts[i])+
+        "</div>";
+
+    }else if(i%3===1){
+
+      const language =
+        parts[i] || "code";
+
+      const code =
+        parts[i+1];
+
+      const safe =
+        escapeHTML(code.trim());
+
+      const id =
+        "code_"+Math.random()
+          .toString(36)
+          .slice(2);
+
+      html += `
+        <div class="codeBox">
+          <div class="codeTop">
+            <span>${escapeHTML(language)}</span>
+            <button class="secondary"
+              onclick="copyCode('${id}')">
+              📋 Copy Code
+            </button>
+          </div>
+
+          <pre><code id="${id}">${safe}</code></pre>
+        </div>
+      `;
+    }
+  }
+
+  return html;
+}
+
+function copyCode(id){
+
+  const code =
+    document.getElementById(id);
+
+  if(!code)return;
+
+  navigator.clipboard.writeText(
+    code.textContent
+  );
+
+  gainXP(2);
+
+  alert("Code copied! 📋");
+}
+
+
+/* =========================
+   FUN
+========================= */
+
+function startRPS(){
+
+  const choices=[
+    "Rock 🪨",
+    "Paper 📄",
+    "Scissors ✂️"
+  ];
+
+  const ai =
+    choices[
+      Math.floor(
+        Math.random()*3
       )
-        return;
+    ];
 
-      speechSynthesis.cancel();
+  const result =
+    document.getElementById("funResult");
 
-      const voice =
-        new SpeechSynthesisUtterance(
-          text
-        );
-
-      speechSynthesis.speak(
-        voice
-      );
-
-    };
-
-    actions.appendChild(copy);
-    actions.appendChild(speak);
-
-    div.appendChild(actions);
-
-  }
-
-  content.appendChild(div);
-
-  if(scroll)
-    scrollBottom();
-
-}
-
-/* =====================================================
-   IMAGE GENERATION
-===================================================== */
-
-async function generateImage(){
-
-  if(busy)
-    return;
-
-  const prompt =
-    document.getElementById(
-      "imagePrompt"
-    ).value.trim();
-
-  if(!prompt){
-
-    alert(
-      "Write an image prompt first."
-    );
-
-    return;
-
-  }
-
-  if(!currentChat)
-    newChat();
-
-  const size =
-    document.getElementById(
-      "imageSize"
-    ).value.split("x");
-
-  const width =
-    Number(size[0]);
-
-  const height =
-    Number(size[1]);
-
-  busy = true;
-
-  const content =
-    document.getElementById("content");
-
-  const loading =
-    document.createElement("div");
-
-  loading.className =
-    "thinking";
-
-  loading.innerHTML = `
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
+  result.innerHTML=`
+    <div>
+      <h2>✊ 📄 ✂️</h2>
+      <p style="margin:12px">
+        Amzo chose <b>${ai}</b>
+      </p>
+      <button class="primary"
+        onclick="startRPS()">
+        Play Again
+      </button>
+    </div>
   `;
 
-  content.appendChild(loading);
+  gainXP(3);
+}
 
-  scrollBottom();
+function randomFact(){
+
+  const facts=[
+    "🐙 Octopuses have three hearts.",
+    "🌌 A day on Venus is longer than its year.",
+    "🦈 Some sharks existed before trees.",
+    "🍌 Bananas are botanically berries.",
+    "🌍 Earth is not a perfect sphere."
+  ];
+
+  document.getElementById("funResult")
+    .textContent=
+      facts[
+        Math.floor(Math.random()*facts.length)
+      ];
+
+  gainXP(3);
+}
+
+function randomChallenge(){
+
+  const challenges=[
+    "⚡ Name 5 countries in 10 seconds.",
+    "🧠 Solve 25 × 16 without a calculator.",
+    "🎨 Draw something using only 3 shapes.",
+    "💻 Write one line of code.",
+    "📚 Learn one new word today."
+  ];
+
+  document.getElementById("funResult")
+    .textContent=
+      challenges[
+        Math.floor(
+          Math.random()*challenges.length
+        )
+      ];
+
+  gainXP(3);
+}
+
+function riddle(){
+
+  document.getElementById("funResult")
+    .innerHTML=
+    "🧩 <b>Riddle:</b><br><br>"+
+    "What has keys but cannot open locks?<br><br>"+
+    "💡 Answer: A keyboard.";
+
+  gainXP(3);
+}
+
+
+/* =========================
+   TOOLS
+========================= */
+
+function tool(type){
+
+  const select =
+    document.getElementById("toolSelect");
+
+  select.value=type;
+
+  document
+    .getElementById("toolInput")
+    .focus();
+}
+
+async function runTool(){
+
+  const text =
+    document.getElementById("toolInput")
+      .value.trim();
+
+  const type =
+    document.getElementById("toolSelect")
+      .value;
+
+  const result =
+    document.getElementById("toolResult");
+
+  if(!text){
+    result.textContent=
+      "Enter some text first.";
+    return;
+  }
+
+  result.textContent="⚡ Working...";
+
+  let instruction="";
+
+  if(type==="summarize")
+    instruction=
+      "Summarize this text clearly and briefly:\n";
+
+  if(type==="translate")
+    instruction=
+      "Translate this text into English:\n";
+
+  if(type==="improve")
+    instruction=
+      "Improve this writing while keeping its meaning:\n";
+
+  if(type==="ideas")
+    instruction=
+      "Generate useful ideas based on this:\n";
 
   try{
 
     const response =
-      await fetch(API,{
+      await fetch(API_URL,{
         method:"POST",
         headers:{
-          "Content-Type":
-            "application/json"
+          "Content-Type":"application/json"
         },
         body:JSON.stringify({
-          action:"image",
-          prompt,
-          width,
-          height
+          messages:[
+            {
+              type:"user",
+              text:instruction+text
+            }
+          ]
         })
       });
 
     const data =
       await response.json();
 
-    loading.remove();
-
-    if(data.error){
-
-      addMessage(
-        "ai",
-        "Image error: " +
-        data.error
+    result.innerHTML=
+      renderMarkdown(
+        data.result ||
+        data.error ||
+        "No result."
       );
 
-      busy = false;
-      return;
+    gainXP(5);
 
-    }
+  }catch(e){
 
-    let imageURL;
-
-    if(
-      typeof data.image === "string" &&
-      data.image.startsWith("data:")
-    ){
-
-      imageURL =
-        data.image;
-
-    }else{
-
-      imageURL =
-        "data:" +
-        (
-          data.contentType ||
-          "image/png"
-        ) +
-        ";base64," +
-        data.image;
-
-    }
-
-    const imageID =
-      Date.now();
-
-    currentChat.messages.push({
-      type:"image",
-      id:imageID,
-      image:imageURL,
-      prompt
-    });
-
-    gallery.unshift({
-      id:imageID,
-      image:imageURL,
-      prompt,
-      date:
-        new Date().toLocaleString()
-    });
-
-    saveChats();
-    saveGallery();
-
-    document.getElementById(
-      "imagePrompt"
-    ).value = "";
-
-    render();
-
-  }catch(error){
-
-    loading.remove();
-
-    addMessage(
-      "ai",
-      "Image generation failed: " +
-      error.message
-    );
+    result.textContent=
+      "❌ Tool failed.";
 
   }
-
-  busy = false;
-
 }
 
-/* =====================================================
-   IMAGE CARD
-===================================================== */
 
-function addImageCard(
-  imageURL,
-  prompt,
-  scroll = true,
-  imageID = null
-){
+/* =========================
+   LEARN
+========================= */
 
-  const content =
-    document.getElementById("content");
+async function learn(topic){
 
-  const card =
-    document.createElement("div");
+  const result =
+    document.getElementById("learnResult");
 
-  card.className =
-    "image-card";
+  result.textContent=
+    "🧠 Preparing your lesson...";
 
-  const img =
-    document.createElement("img");
+  try{
 
-  img.src =
-    imageURL;
+    const response =
+      await fetch(API_URL,{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          messages:[
+            {
+              type:"user",
+              text:
+                "Teach me one useful beginner "+
+                topic+" lesson with an example "+
+                "and one practice question."
+            }
+          ]
+        })
+      });
 
-  const info =
-    document.createElement("div");
+    const data =
+      await response.json();
 
-  info.className =
-    "image-info";
-
-  info.textContent =
-    prompt ||
-    "Generated image";
-
-  const actions =
-    document.createElement("div");
-
-  actions.className =
-    "image-actions";
-
-  const save =
-    document.createElement("button");
-
-  save.className =
-    "small";
-
-  save.textContent =
-    "⬇️ Save";
-
-  save.onclick = () => {
-
-    const a =
-      document.createElement("a");
-
-    a.href =
-      imageURL;
-
-    a.download =
-      "amzo-ai-image.png";
-
-    a.click();
-
-  };
-
-  const open =
-    document.createElement("button");
-
-  open.className =
-    "small";
-
-  open.textContent =
-    "🔍 Open";
-
-  open.onclick = () =>
-    window.open(
-      imageURL,
-      "_blank"
-    );
-
-  const deleteBtn =
-    document.createElement("button");
-
-  deleteBtn.className =
-    "small";
-
-  deleteBtn.textContent =
-    "🗑️ Delete";
-
-  deleteBtn.onclick = () => {
-
-    deleteImage(
-      imageID
-    );
-
-  };
-
-  actions.appendChild(save);
-  actions.appendChild(open);
-  actions.appendChild(deleteBtn);
-
-  card.appendChild(img);
-  card.appendChild(info);
-  card.appendChild(actions);
-
-  content.appendChild(card);
-
-  if(scroll)
-    scrollBottom();
-
-}
-
-/* =====================================================
-   DELETE IMAGE
-===================================================== */
-
-function deleteImage(id){
-
-  if(!id)
-    return;
-
-  if(
-    !confirm(
-      "Delete this image?"
-    )
-  )
-    return;
-
-  if(currentChat){
-
-    currentChat.messages =
-      currentChat.messages.filter(
-        m =>
-          !(
-            m.type === "image" &&
-            m.id === id
-          )
+    result.innerHTML=
+      renderMarkdown(
+        data.result ||
+        data.error ||
+        "No lesson."
       );
 
-  }
+    gainXP(5);
 
-  gallery =
-    gallery.filter(
-      image =>
-        image.id !== id
-    );
+  }catch(e){
 
-  saveChats();
-  saveGallery();
-
-  render();
-
-}
-
-/* =====================================================
-   GALLERY
-===================================================== */
-
-function showGallery(){
-
-  const content =
-    document.getElementById("content");
-
-  content.innerHTML = `
-
-    <div class="welcome">
-
-      <h1>🖼️ Image Gallery</h1>
-
-      <p>
-        Your generated images
-      </p>
-
-    </div>
-
-  `;
-
-  if(!gallery.length){
-
-    const empty =
-      document.createElement("div");
-
-    empty.className =
-      "message ai";
-
-    empty.textContent =
-      "No generated images yet. Create your first one!";
-
-    content.appendChild(empty);
-
-    return;
+    result.textContent=
+      "❌ Learning request failed.";
 
   }
-
-  gallery.forEach(image => {
-
-    addImageCard(
-      image.image,
-      image.prompt,
-      false,
-      image.id
-    );
-
-  });
-
 }
 
-/* =====================================================
-   CLEAR IMAGES
-===================================================== */
 
-function clearImages(){
+/* =========================
+   LAB
+========================= */
 
-  if(
-    !confirm(
-      "Delete all image history?"
-    )
-  )
-    return;
+function surprise(){
 
-  gallery = [];
+  const things=[
+    "🎨 Create a strange fictional invention.",
+    "🧠 Learn one surprising science fact.",
+    "🎮 Play a quick game.",
+    "💻 Build a tiny coding project.",
+    "📚 Learn something you've never heard of."
+  ];
 
-  chats.forEach(chat => {
+  document.getElementById("labResult")
+    .textContent=
+      things[
+        Math.floor(
+          Math.random()*things.length
+        )
+      ];
 
-    chat.messages =
-      chat.messages.filter(
-        message =>
-          message.type !== "image"
-      );
-
-  });
-
-  saveGallery();
-  saveChats();
-
-  render();
-
+  gainXP(5);
 }
 
-/* =====================================================
-   CLEAR CHATS
-===================================================== */
+function mystery(){
 
-function clearChats(){
+  const mysteries=[
+    "🌌 What exists beyond the observable universe?",
+    "🧬 Why do humans dream?",
+    "🌊 What is hiding in the deepest ocean?",
+    "🪐 Could life exist elsewhere?"
+  ];
 
-  if(
-    !confirm(
-      "Delete all chats?"
-    )
-  )
-    return;
+  document.getElementById("labResult")
+    .textContent=
+      mysteries[
+        Math.floor(
+          Math.random()*mysteries.length
+        )
+      ];
 
-  chats = [];
-  currentChat = null;
-
-  saveChats();
-
-  renderSidebar();
-  render();
-
+  gainXP(5);
 }
 
-/* =====================================================
+function aiChallenge(){
+
+  document.getElementById("labResult")
+    .innerHTML=
+      "🔥 <b>Today's AI Challenge</b><br><br>"+
+      "Ask Amzo to teach you something "+
+      "you know nothing about — then explain "+
+      "it back in your own words.";
+
+  gainXP(5);
+}
+
+
+/* =========================
+   PROFILE XP
+========================= */
+
+let xp =
+  Number(localStorage.getItem("amzoXP") || 0);
+
+function gainXP(amount){
+
+  xp+=amount;
+
+  localStorage.setItem(
+    "amzoXP",
+    xp
+  );
+
+  updateProfile();
+}
+
+function updateProfile(){
+
+  document.getElementById("xp")
+    .textContent=xp;
+
+  document.getElementById("level")
+    .textContent=
+      Math.floor(xp/100)+1;
+}
+
+updateProfile();
+
+
+/* =========================
    SETTINGS
-===================================================== */
+========================= */
 
-function openSettings(){
+let animationOn=true;
 
-  document
-    .getElementById("settingsModal")
-    .classList.add("show");
+function toggleAnimation(){
 
+  animationOn=!animationOn;
+
+  document.body.style.setProperty(
+    "--animation-state",
+    animationOn ? "running":"paused"
+  );
+
+  document.body.classList.toggle(
+    "noAnimation",
+    !animationOn
+  );
+
+  if(!animationOn){
+    document.body.style.setProperty(
+      "--bg",
+      "#07070d"
+    );
+    alert("RGB animation OFF");
+  }else{
+    alert("RGB animation ON 🌈");
+  }
 }
 
-function closeSettings(){
+function toggleTheme(){
 
-  document
-    .getElementById("settingsModal")
-    .classList.remove("show");
+  const light =
+    document.body.dataset.theme==="light";
 
-}
+  if(!light){
 
-/* =====================================================
-   RGB TOGGLE
-===================================================== */
+    document.body.dataset.theme="light";
 
-function toggleRGB(input){
+    document.body.style.background="#f4f4f8";
+    document.body.style.color="#111";
 
-  const bg =
-    document.querySelector(".rgb-bg");
-
-  const line =
-    document.querySelector(".rgb-line");
-
-  if(input.checked){
-
-    bg.style.display =
-      "block";
-
-    line.style.display =
-      "block";
+    alert("Light theme enabled.");
 
   }else{
 
-    bg.style.display =
-      "none";
+    document.body.dataset.theme="dark";
 
-    line.style.display =
-      "none";
+    document.body.style.background="";
+    document.body.style.color="";
+
+    alert("Dark theme enabled.");
 
   }
-
 }
 
-/* =====================================================
-   KEYBOARD
-===================================================== */
-
-function handleKey(event){
+function clearLocalData(){
 
   if(
-    event.key === "Enter" &&
-    !event.shiftKey
+    confirm(
+      "Clear Amzo local data?"
+    )
   ){
 
-    event.preventDefault();
+    localStorage.clear();
 
-    sendMessage();
+    xp=0;
 
-  }
+    updateProfile();
 
-}
-
-/* =====================================================
-   SCROLL
-===================================================== */
-
-function scrollBottom(){
-
-  const content =
-    document.getElementById(
-      "content"
+    alert(
+      "Local data cleared."
     );
-
-  setTimeout(() => {
-
-    content.scrollTop =
-      content.scrollHeight;
-
-  },20);
-
+  }
 }
 
-/* =====================================================
-   STARTUP
-===================================================== */
 
-if(chats.length){
+/* =========================
+   START
+========================= */
 
-  currentChat =
-    chats[0];
-
-}else{
-
-  newChat();
-
-}
-
-renderSidebar();
-render();
+showPage("home");
 
 </script>
 
