@@ -13,121 +13,124 @@
 }
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#050505;
-  color:white;
   min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#fff;
+  background:#050509;
   overflow:hidden;
 }
 
+/* RGB BACKGROUND */
 body::before{
   content:"";
   position:fixed;
   inset:-50%;
+  z-index:-3;
   background:
-    radial-gradient(circle at 20% 20%,#ff0055,transparent 25%),
-    radial-gradient(circle at 80% 20%,#0066ff,transparent 25%),
-    radial-gradient(circle at 50% 80%,#00ff99,transparent 25%);
-  filter:blur(100px);
-  opacity:.25;
-  animation:bgMove 12s infinite alternate;
-  z-index:-1;
+    radial-gradient(circle at 20% 30%,rgba(255,0,100,.25),transparent 25%),
+    radial-gradient(circle at 80% 20%,rgba(0,150,255,.25),transparent 25%),
+    radial-gradient(circle at 50% 80%,rgba(120,0,255,.25),transparent 25%);
+  filter:blur(70px);
+  animation:rgbMove 10s linear infinite alternate;
 }
 
-@keyframes bgMove{
-  from{transform:rotate(0deg) scale(1)}
-  to{transform:rotate(15deg) scale(1.15)}
+@keyframes rgbMove{
+  0%{transform:translate(-5%,-5%) rotate(0deg);}
+  50%{transform:translate(5%,3%) rotate(8deg);}
+  100%{transform:translate(-2%,6%) rotate(-8deg);}
+}
+
+/* RGB BORDER */
+.rgb-border{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:20;
+  border:2px solid transparent;
+  animation:borderRGB 5s linear infinite;
+}
+
+@keyframes borderRGB{
+  0%{box-shadow:inset 0 0 30px #ff0055;}
+  33%{box-shadow:inset 0 0 30px #00aaff;}
+  66%{box-shadow:inset 0 0 30px #8a00ff;}
+  100%{box-shadow:inset 0 0 30px #ff0055;}
 }
 
 .app{
-  display:flex;
   height:100vh;
+  display:flex;
 }
 
+/* SIDEBAR */
 .sidebar{
   width:260px;
-  background:rgba(10,10,10,.88);
-  border-right:1px solid #222;
-  padding:15px;
-  display:flex;
-  flex-direction:column;
+  padding:18px;
+  background:rgba(10,10,18,.82);
+  backdrop-filter:blur(20px);
+  border-right:1px solid rgba(255,255,255,.08);
 }
 
 .logo{
-  font-size:24px;
-  font-weight:bold;
+  font-size:25px;
+  font-weight:800;
   margin-bottom:20px;
+  animation:logoRGB 4s linear infinite;
+}
+
+@keyframes logoRGB{
+  0%{text-shadow:0 0 15px #ff0055;}
+  33%{text-shadow:0 0 15px #00aaff;}
+  66%{text-shadow:0 0 15px #9b00ff;}
+  100%{text-shadow:0 0 15px #ff0055;}
 }
 
 .new-chat{
   width:100%;
-  padding:12px;
-  border:1px solid #333;
-  border-radius:10px;
-  background:#151515;
-  color:white;
+  padding:13px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:12px;
+  background:rgba(255,255,255,.06);
+  color:#fff;
   cursor:pointer;
-  margin-bottom:15px;
+  transition:.25s;
 }
 
 .new-chat:hover{
-  background:#222;
+  transform:translateY(-2px);
+  box-shadow:0 0 20px rgba(0,180,255,.35);
 }
 
-.recent-title{
+.sidebar-title{
+  margin:25px 5px 10px;
+  color:#aaa;
   font-size:12px;
-  color:#888;
-  margin-bottom:8px;
+  text-transform:uppercase;
 }
 
 .chat-list{
-  overflow-y:auto;
-  flex:1;
+  max-height:60vh;
+  overflow:auto;
 }
 
 .chat-item{
-  padding:10px;
-  border-radius:8px;
+  padding:11px;
+  border-radius:10px;
   margin-bottom:5px;
   cursor:pointer;
-  color:#ccc;
-  display:flex;
-  justify-content:space-between;
-  gap:5px;
+  color:#ddd;
+  font-size:14px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 .chat-item:hover,
 .chat-item.active{
-  background:#1c1c1c;
-  color:white;
+  background:rgba(255,255,255,.09);
 }
 
-.chat-name{
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
-  flex:1;
-}
-
-.chat-actions{
-  display:none;
-}
-
-.chat-item:hover .chat-actions{
-  display:flex;
-}
-
-.chat-actions button{
-  border:0;
-  background:none;
-  color:#888;
-  cursor:pointer;
-}
-
-.chat-actions button:hover{
-  color:white;
-}
-
+/* MAIN */
 .main{
   flex:1;
   display:flex;
@@ -137,97 +140,125 @@ body::before{
 
 .topbar{
   height:65px;
-  border-bottom:1px solid #222;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 20px;
-  background:rgba(5,5,5,.75);
+  padding:0 22px;
+  background:rgba(5,5,10,.55);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.07);
 }
 
-.title{
-  font-size:20px;
-  font-weight:bold;
+.status{
+  color:#65ff9b;
+  font-size:13px;
 }
 
-.settings-btn{
-  border:1px solid #333;
-  background:#111;
-  color:white;
-  padding:9px 12px;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-.settings-btn:hover{
-  background:#222;
-}
-
-.messages{
+.chat{
   flex:1;
   overflow-y:auto;
-  padding:30px 8%;
+  padding:30px max(20px,8%);
 }
 
+.welcome{
+  text-align:center;
+  margin-top:10vh;
+}
+
+.welcome h1{
+  font-size:46px;
+  margin-bottom:10px;
+  animation:titleRGB 5s linear infinite;
+}
+
+@keyframes titleRGB{
+  0%{color:#ff4d88;}
+  33%{color:#55ccff;}
+  66%{color:#b56cff;}
+  100%{color:#ff4d88;}
+}
+
+.welcome p{
+  color:#999;
+}
+
+/* MESSAGES */
 .message{
   max-width:850px;
   margin:0 auto 20px;
-  display:flex;
-}
-
-.message.user{
-  justify-content:flex-end;
-}
-
-.bubble{
-  padding:14px 16px;
-  border-radius:14px;
-  line-height:1.5;
+  padding:15px 18px;
+  border-radius:17px;
+  line-height:1.55;
   white-space:pre-wrap;
-  word-break:break-word;
 }
 
-.user .bubble{
-  background:#2563eb;
-  max-width:75%;
+.user{
+  background:rgba(255,255,255,.08);
 }
 
-.ai .bubble{
-  background:#171717;
-  border:1px solid #292929;
-  max-width:80%;
+.ai{
+  background:rgba(20,20,30,.7);
+  border:1px solid rgba(255,255,255,.07);
 }
 
-.ai-actions{
-  margin-top:8px;
+.message-actions{
+  margin-top:10px;
   display:flex;
-  gap:6px;
+  gap:7px;
 }
 
-.ai-actions button{
-  background:#111;
-  color:#aaa;
-  border:1px solid #333;
+.small-btn{
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);
+  color:#bbb;
+  padding:5px 9px;
   border-radius:7px;
-  padding:5px 8px;
   cursor:pointer;
 }
 
-.ai-actions button:hover{
-  color:white;
+.small-btn:hover{
+  color:#fff;
 }
 
+/* IMAGE */
+.image-card{
+  max-width:850px;
+  margin:0 auto 25px;
+  padding:15px;
+  border-radius:18px;
+  background:rgba(10,10,18,.75);
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 0 30px rgba(130,0,255,.12);
+}
+
+.image-card img{
+  display:block;
+  width:100%;
+  max-height:650px;
+  object-fit:contain;
+  border-radius:12px;
+}
+
+.image-tools{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+
+/* THINKING */
 .thinking{
   display:flex;
   gap:5px;
-  align-items:center;
+  padding:15px;
+  max-width:850px;
+  margin:auto;
 }
 
 .dot{
   width:7px;
   height:7px;
-  background:#aaa;
   border-radius:50%;
+  background:#aaa;
   animation:dot 1s infinite;
 }
 
@@ -235,1143 +266,789 @@ body::before{
 .dot:nth-child(3){animation-delay:.3s}
 
 @keyframes dot{
-  0%,100%{opacity:.2}
-  50%{opacity:1}
+  0%,100%{opacity:.2;transform:translateY(0)}
+  50%{opacity:1;transform:translateY(-4px)}
 }
 
-.input-area{
-  padding:15px 8%;
-  border-top:1px solid #222;
-  background:rgba(5,5,5,.85);
+/* COMPOSER */
+.composer-wrap{
+  padding:15px max(20px,8%) 20px;
 }
 
-.input-box{
-  max-width:850px;
+.mode-buttons{
+  display:flex;
+  gap:8px;
+  margin-bottom:9px;
+}
+
+.mode{
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.05);
+  color:#aaa;
+  padding:7px 12px;
+  border-radius:9px;
+  cursor:pointer;
+}
+
+.mode.active{
+  color:#fff;
+  background:rgba(130,70,255,.2);
+  box-shadow:0 0 15px rgba(130,70,255,.2);
+}
+
+.composer{
+  max-width:950px;
   margin:auto;
   display:flex;
-  align-items:flex-end;
-  gap:8px;
-  background:#111;
-  border:1px solid #333;
-  border-radius:14px;
-  padding:8px;
+  gap:9px;
+  padding:9px;
+  border-radius:17px;
+  background:rgba(15,15,24,.85);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 0 35px rgba(0,0,0,.4);
 }
 
-textarea{
+.composer textarea{
   flex:1;
   resize:none;
-  min-height:44px;
+  min-height:48px;
   max-height:150px;
   border:0;
   outline:0;
   background:transparent;
-  color:white;
-  padding:12px;
+  color:#fff;
+  padding:13px;
   font-size:15px;
-  font-family:inherit;
-}
-
-.icon-btn{
-  width:42px;
-  height:42px;
-  border-radius:10px;
-  border:1px solid #333;
-  background:#181818;
-  color:white;
-  cursor:pointer;
-}
-
-.icon-btn:hover{
-  background:#252525;
 }
 
 .send{
-  background:#2563eb;
-  border-color:#2563eb;
-}
-
-.send:hover{
-  background:#1d4ed8;
-}
-
-.stop{
-  background:#8b0000;
-  border-color:#8b0000;
-  display:none;
-}
-
-.settings-panel{
-  position:fixed;
-  right:20px;
-  top:75px;
-  width:300px;
-  background:#101010;
-  border:1px solid #333;
+  width:50px;
+  border:0;
   border-radius:12px;
-  padding:18px;
-  display:none;
-  z-index:10;
-  box-shadow:0 20px 60px rgba(0,0,0,.5);
-}
-
-.settings-panel.show{
-  display:block;
-}
-
-.settings-panel h3{
-  margin-bottom:15px;
-}
-
-.setting{
-  padding:12px 0;
-  border-bottom:1px solid #222;
-  color:#bbb;
-}
-
-.online{
-  color:#00ff88;
-}
-
-.mobile-menu{
-  display:none;
-}
-
-@media(max-width:700px){
-
-.sidebar{
-  position:fixed;
-  left:-270px;
-  top:0;
-  bottom:0;
-  z-index:20;
+  color:#fff;
+  cursor:pointer;
+  background:linear-gradient(135deg,#7b00ff,#008cff);
   transition:.25s;
 }
 
-.sidebar.open{
-  left:0;
+.send:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 20px #6200ff;
 }
 
-.mobile-menu{
+/* IMAGE PANEL */
+.image-panel{
+  max-width:950px;
+  margin:0 auto 12px;
+  padding:15px;
+  display:none;
+  border-radius:15px;
+  background:rgba(15,15,24,.9);
+  border:1px solid rgba(255,255,255,.1);
+}
+
+.image-panel.show{
   display:block;
-  border:1px solid #333;
-  background:#111;
-  color:white;
-  padding:8px 10px;
-  border-radius:8px;
 }
 
-.messages{
-  padding:20px 12px;
+.image-row{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
 }
 
-.input-area{
-  padding:10px;
+.image-input{
+  flex:1;
+  min-width:200px;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.12);
+  outline:0;
+  background:#0b0b12;
+  color:#fff;
 }
 
-.user .bubble,
-.ai .bubble{
-  max-width:90%;
+.select{
+  padding:12px;
+  border-radius:10px;
+  background:#0b0b12;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.12);
 }
+
+.generate{
+  padding:12px 18px;
+  border:0;
+  border-radius:10px;
+  color:#fff;
+  cursor:pointer;
+  background:linear-gradient(135deg,#ff0077,#7100ff,#008cff);
+  background-size:200% 200%;
+  animation:gradientMove 4s ease infinite;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0 50%}
+}
+
+/* MOBILE */
+@media(max-width:750px){
+  .sidebar{
+    display:none;
+  }
+
+  .welcome h1{
+    font-size:35px;
+  }
+
+  .chat{
+    padding:20px 12px;
+  }
+
+  .composer-wrap{
+    padding:10px;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<div class="rgb-border"></div>
+
 <div class="app">
 
-  <aside class="sidebar" id="sidebar">
+<aside class="sidebar">
+  <div class="logo">⚡ Amzo AI</div>
 
-    <div class="logo">🤖 Amzo AI</div>
+  <button class="new-chat" onclick="newChat()">＋ New Chat</button>
 
-    <button class="new-chat" onclick="newChat()">
-      + New Chat
+  <div class="sidebar-title">Recent Chats</div>
+  <div id="chatList" class="chat-list"></div>
+</aside>
+
+<main class="main">
+
+<header class="topbar">
+  <strong>Amzo AI</strong>
+  <span class="status">● Online</span>
+</header>
+
+<section id="chat" class="chat">
+
+  <div id="welcome" class="welcome">
+    <h1>What can I help you with?</h1>
+    <p>Chat with AI or create an image.</p>
+  </div>
+
+</section>
+
+<div class="composer-wrap">
+
+  <div class="mode-buttons">
+    <button id="chatMode" class="mode active" onclick="setMode('chat')">
+      💬 Chat
     </button>
 
-    <div class="recent-title">
-      RECENT CHATS
-    </div>
+    <button id="imageMode" class="mode" onclick="setMode('image')">
+      🖼️ Image
+    </button>
+  </div>
 
-    <div class="chat-list" id="chatList"></div>
+  <div id="imagePanel" class="image-panel">
 
-  </aside>
+    <div class="image-row">
 
-  <main class="main">
-
-    <div class="topbar">
-
-      <div style="display:flex;align-items:center;gap:10px">
-
-        <button
-          class="mobile-menu"
-          onclick="toggleSidebar()"
-        >
-          ☰
-        </button>
-
-        <div class="title">
-          Amzo AI
-        </div>
-
-      </div>
-
-      <button
-        class="settings-btn"
-        onclick="toggleSettings()"
+      <input
+        id="imagePrompt"
+        class="image-input"
+        placeholder="Describe the image you want..."
       >
-        ⚙ Settings
+
+      <select id="imageSize" class="select">
+        <option value="1024x1024">1024 × 1024</option>
+        <option value="1280x720">1280 × 720</option>
+        <option value="720x1280">720 × 1280</option>
+      </select>
+
+      <button class="generate" onclick="generateImage()">
+        ✨ Generate
       </button>
 
     </div>
 
-    <div class="messages" id="messages"></div>
+  </div>
 
-    <div class="input-area">
+  <div class="composer">
 
-      <div class="input-box">
+    <textarea
+      id="input"
+      placeholder="Message Amzo AI..."
+      onkeydown="handleKey(event)"
+    ></textarea>
 
-        <textarea
-          id="input"
-          placeholder="Message Amzo AI..."
-          rows="1"
-        ></textarea>
+    <button class="send" onclick="sendMessage()">➤</button>
 
-        <button
-          class="icon-btn"
-          id="micBtn"
-          onclick="startVoice()"
-          title="Voice input"
-        >
-          🎤
-        </button>
-
-        <button
-          class="icon-btn send"
-          id="sendBtn"
-          onclick="sendMessage()"
-          title="Send"
-        >
-          ➤
-        </button>
-
-        <button
-          class="icon-btn stop"
-          id="stopBtn"
-          onclick="stopGeneration()"
-          title="Stop"
-        >
-          ■
-        </button>
-
-      </div>
-
-      <div style="
-        text-align:center;
-        color:#666;
-        font-size:11px;
-        margin-top:8px;
-      ">
-        Enter = Send • Shift + Enter = New line
-      </div>
-
-    </div>
-
-  </main>
+  </div>
 
 </div>
 
-<div class="settings-panel" id="settingsPanel">
-
-  <h3>⚙ Settings</h3>
-
-  <div class="setting">
-    🟢 AI Status:
-    <span class="online">Online</span>
-  </div>
-
-  <div class="setting">
-    🧠 Memory:
-    Recent chat enabled
-  </div>
-
-  <div class="setting">
-    🎤 Voice Input:
-    Browser Speech Recognition
-  </div>
-
-  <div class="setting">
-    🔊 AI Voice:
-    Browser Speech Synthesis
-  </div>
-
+</main>
 </div>
 
 <script>
 
-const API_URL =
+const API =
 "https://ai-tool-api.amzoxamzoo.workers.dev/";
 
-let chats =
-JSON.parse(localStorage.getItem("amzo_chats") || "[]");
+let mode = "chat";
+let chats = JSON.parse(
+  localStorage.getItem("amzo_chats") || "[]"
+);
 
-let selected =
-Number(localStorage.getItem("amzo_selected") || 0);
-
-let controller = null;
-
+let currentChat = null;
 
 /* =========================
-   CHAT STORAGE
+   CHAT MANAGEMENT
 ========================= */
 
 function saveChats(){
-
-localStorage.setItem(
-"amzo_chats",
-JSON.stringify(chats)
-);
-
-localStorage.setItem(
-"amzo_selected",
-selected
-);
-
+  localStorage.setItem(
+    "amzo_chats",
+    JSON.stringify(chats)
+  );
 }
-
-
-/* =========================
-   CREATE CHAT
-========================= */
 
 function newChat(){
 
-chats.unshift({
+  const chat = {
+    id:Date.now(),
+    name:"New Chat",
+    messages:[]
+  };
 
-name:"New Chat",
+  chats.unshift(chat);
+  currentChat = chat;
 
-messages:[]
-
-});
-
-selected=0;
-
-saveChats();
-
-renderChatList();
-
-renderMessages();
-
-document.getElementById("input").focus();
-
+  saveChats();
+  renderChatList();
+  renderChat();
 }
-
-
-/* =========================
-   CURRENT CHAT
-========================= */
-
-function currentChat(){
-
-if(!chats.length){
-
-chats.push({
-name:"New Chat",
-messages:[]
-});
-
-}
-
-if(!chats[selected]){
-selected=0;
-}
-
-return chats[selected];
-
-}
-
-
-/* =========================
-   CHAT LIST
-========================= */
 
 function renderChatList(){
 
-const list =
-document.getElementById("chatList");
+  const list =
+    document.getElementById("chatList");
 
-list.innerHTML="";
+  list.innerHTML = "";
 
-chats.forEach((chat,index)=>{
+  chats.forEach(c => {
 
-const item =
-document.createElement("div");
+    const div =
+      document.createElement("div");
 
-item.className =
-"chat-item " +
-(index===selected ? "active" : "");
+    div.className =
+      "chat-item " +
+      (currentChat?.id === c.id ? "active" : "");
 
-item.innerHTML = `
+    div.textContent = c.name;
 
-<div
-class="chat-name"
-onclick="selectChat(${index})"
->
-${escapeHtml(chat.name)}
-</div>
+    div.onclick = () => {
 
-<div class="chat-actions">
+      currentChat = c;
 
-<button
-onclick="renameChat(event,${index})"
->
-✏
-</button>
+      renderChatList();
+      renderChat();
 
-<button
-onclick="deleteChat(event,${index})"
->
-🗑
-</button>
+    };
 
-</div>
+    list.appendChild(div);
 
-`;
-
-list.appendChild(item);
-
-});
-
+  });
 }
 
+function renderChat(){
 
-function selectChat(index){
+  const box =
+    document.getElementById("chat");
 
-selected=index;
+  box.innerHTML = "";
 
-saveChats();
+  if(!currentChat || currentChat.messages.length === 0){
 
-renderChatList();
+    box.innerHTML = `
+      <div id="welcome" class="welcome">
+        <h1>What can I help you with?</h1>
+        <p>Chat with AI or create an image.</p>
+      </div>
+    `;
 
-renderMessages();
+    return;
+  }
 
-closeSidebar();
+  currentChat.messages.forEach(m => {
 
+    if(m.type === "image"){
+
+      addImageToUI(
+        m.image,
+        false
+      );
+
+    }else{
+
+      addMessage(
+        m.type,
+        m.text,
+        false
+      );
+
+    }
+
+  });
 }
-
 
 /* =========================
-   RENAME CHAT
+   MODE
 ========================= */
 
-function renameChat(event,index){
+function setMode(newMode){
 
-event.stopPropagation();
+  mode = newMode;
 
-const name =
-prompt(
-"Enter new chat name:",
-chats[index].name
-);
+  document
+    .getElementById("chatMode")
+    .classList.toggle(
+      "active",
+      mode === "chat"
+    );
 
-if(name && name.trim()){
+  document
+    .getElementById("imageMode")
+    .classList.toggle(
+      "active",
+      mode === "image"
+    );
 
-chats[index].name =
-name.trim();
-
-saveChats();
-
-renderChatList();
+  document
+    .getElementById("imagePanel")
+    .classList.toggle(
+      "show",
+      mode === "image"
+    );
 
 }
-
-}
-
 
 /* =========================
-   DELETE CHAT
-========================= */
-
-function deleteChat(event,index){
-
-event.stopPropagation();
-
-if(!confirm("Delete this chat?")){
-return;
-}
-
-chats.splice(index,1);
-
-if(!chats.length){
-
-chats.push({
-name:"New Chat",
-messages:[]
-});
-
-}
-
-if(selected>=chats.length){
-selected=chats.length-1;
-}
-
-saveChats();
-
-renderChatList();
-
-renderMessages();
-
-}
-
-
-/* =========================
-   RENDER MESSAGES
-========================= */
-
-function renderMessages(){
-
-const box =
-document.getElementById("messages");
-
-box.innerHTML="";
-
-const chat =
-currentChat();
-
-if(!chat.messages.length){
-
-const welcome =
-document.createElement("div");
-
-welcome.style.textAlign="center";
-welcome.style.color="#777";
-welcome.style.marginTop="80px";
-
-welcome.innerHTML = `
-<div style="font-size:42px;margin-bottom:10px">
-🤖
-</div>
-<h2 style="color:white;margin-bottom:8px">
-Amzo AI
-</h2>
-<p>
-Ask me anything.
-</p>
-`;
-
-box.appendChild(welcome);
-
-return;
-
-}
-
-chat.messages.forEach((message,index)=>{
-
-addMessageToScreen(
-message.type,
-message.text,
-index
-);
-
-});
-
-scrollBottom();
-
-}
-
-
-/* =========================
-   ADD MESSAGE
-========================= */
-
-function addMessageToScreen(
-type,
-text,
-index=-1
-){
-
-const box =
-document.getElementById("messages");
-
-const row =
-document.createElement("div");
-
-row.className =
-"message " +
-(type==="user" ? "user" : "ai");
-
-const bubble =
-document.createElement("div");
-
-bubble.className="bubble";
-
-bubble.textContent=text;
-
-row.appendChild(bubble);
-
-if(type==="ai" && index>=0){
-
-const actions =
-document.createElement("div");
-
-actions.className="ai-actions";
-
-actions.innerHTML=`
-
-<button onclick="copyMessage(${index})">
-📋 Copy
-</button>
-
-<button onclick="speakMessage(${index})">
-🔊 Speak
-</button>
-
-`;
-
-bubble.appendChild(actions);
-
-}
-
-box.appendChild(row);
-
-}
-
-
-/* =========================
-   THINKING
-========================= */
-
-function showThinking(){
-
-const box =
-document.getElementById("messages");
-
-const row =
-document.createElement("div");
-
-row.className="message ai";
-
-row.id="thinkingMessage";
-
-row.innerHTML=`
-
-<div class="bubble thinking">
-
-<span class="dot"></span>
-<span class="dot"></span>
-<span class="dot"></span>
-
-</div>
-
-`;
-
-box.appendChild(row);
-
-scrollBottom();
-
-}
-
-
-function removeThinking(){
-
-const thinking =
-document.getElementById("thinkingMessage");
-
-if(thinking){
-thinking.remove();
-}
-
-}
-
-
-/* =========================
-   SEND MESSAGE
+   CHAT
 ========================= */
 
 async function sendMessage(){
 
-const input =
-document.getElementById("input");
+  if(mode !== "chat") return;
 
-const text =
-input.value.trim();
+  const input =
+    document.getElementById("input");
 
-if(!text){
-return;
-}
+  const text =
+    input.value.trim();
 
-const chat =
-currentChat();
+  if(!text) return;
 
-if(!chat.messages.length){
+  if(!currentChat){
+    newChat();
+  }
 
-chat.name =
-text.slice(0,35);
+  if(currentChat.name === "New Chat"){
+    currentChat.name =
+      text.slice(0,35);
+  }
 
-}
+  currentChat.messages.push({
+    type:"user",
+    text
+  });
 
-chat.messages.push({
+  saveChats();
+  renderChatList();
 
-type:"user",
+  addMessage("user",text);
 
-text:text
+  input.value = "";
 
-});
+  const thinking =
+    document.createElement("div");
 
-input.value="";
+  thinking.className = "thinking";
 
-saveChats();
+  thinking.innerHTML = `
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  `;
 
-renderChatList();
+  document
+    .getElementById("chat")
+    .appendChild(thinking);
 
-renderMessages();
+  scrollBottom();
 
-showThinking();
+  try{
 
-document.getElementById("sendBtn").style.display="none";
+    const response =
+      await fetch(API,{
+        method:"POST",
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
+        body:JSON.stringify({
+          action:"chat",
+          messages:
+            currentChat.messages
+        })
+      });
 
-document.getElementById("stopBtn").style.display="block";
+    const data =
+      await response.json();
 
-controller =
-new AbortController();
+    thinking.remove();
 
-try{
+    if(data.error){
+      addMessage(
+        "ai",
+        "Error: " + data.error
+      );
+      return;
+    }
 
-const response =
-await fetch(
-API_URL,
-{
+    const answer =
+      data.result || "No response.";
 
-method:"POST",
+    currentChat.messages.push({
+      type:"ai",
+      text:answer
+    });
 
-headers:{
-"Content-Type":"application/json"
-},
+    saveChats();
 
-body:JSON.stringify({
+    addMessage("ai",answer);
 
-messages:
-chat.messages.slice(-16)
+  }catch(error){
 
-}),
+    thinking.remove();
 
-signal:
-controller.signal
+    addMessage(
+      "ai",
+      "Connection error. Please try again."
+    );
 
-});
-
-const data =
-await response.json();
-
-removeThinking();
-
-if(!response.ok){
-
-throw new Error(
-data.error ||
-"AI request failed"
-);
-
-}
-
-const answer =
-data.result ||
-"No response received.";
-
-chat.messages.push({
-
-type:"assistant",
-
-text:answer
-
-});
-
-saveChats();
-
-renderMessages();
-
-}catch(error){
-
-removeThinking();
-
-if(error.name!=="AbortError"){
-
-chat.messages.push({
-
-type:"assistant",
-
-text:
-"Error: " +
-error.message
-
-});
-
-saveChats();
-
-renderMessages();
+  }
 
 }
-
-}
-
-document.getElementById("sendBtn").style.display="block";
-
-document.getElementById("stopBtn").style.display="none";
-
-controller=null;
-
-}
-
 
 /* =========================
-   STOP
+   MESSAGE UI
 ========================= */
 
-function stopGeneration(){
-
-if(controller){
-
-controller.abort();
-
-controller=null;
-
-}
-
-document.getElementById("sendBtn").style.display="block";
-
-document.getElementById("stopBtn").style.display="none";
-
-removeThinking();
-
-}
-
-
-/* =========================
-   COPY
-========================= */
-
-function copyMessage(index){
-
-const chat =
-currentChat();
-
-const message =
-chat.messages[index];
-
-if(!message){
-return;
-}
-
-navigator.clipboard.writeText(
-message.text
-);
-
-}
-
-
-/* =========================
-   AI SPEAK
-========================= */
-
-function speakMessage(index){
-
-const chat =
-currentChat();
-
-const message =
-chat.messages[index];
-
-if(!message){
-return;
-}
-
-if(!("speechSynthesis" in window)){
-
-alert(
-"Your browser does not support AI voice."
-);
-
-return;
-
-}
-
-speechSynthesis.cancel();
-
-const utterance =
-new SpeechSynthesisUtterance(
-message.text
-);
-
-utterance.lang="en-US";
-
-speechSynthesis.speak(
-utterance
-);
-
-}
-
-
-/* =========================
-   VOICE INPUT
-========================= */
-
-function startVoice(){
-
-const SpeechRecognition =
-window.SpeechRecognition ||
-window.webkitSpeechRecognition;
-
-if(!SpeechRecognition){
-
-alert(
-"Voice input is not supported by this browser. Try Google Chrome."
-);
-
-return;
-
-}
-
-const micButton =
-document.getElementById("micBtn");
-
-micButton.disabled=true;
-
-micButton.textContent="🔴";
-
-
-const recognition =
-new SpeechRecognition();
-
-recognition.lang="en-US";
-
-recognition.continuous=false;
-
-recognition.interimResults=false;
-
-recognition.maxAlternatives=1;
-
-
-/* START */
-
-recognition.onstart=function(){
-
-console.log(
-"🎤 Speech recognition started"
-);
-
-};
-
-
-/* RESULT */
-
-recognition.onresult=function(event){
-
-try{
-
-const result =
-event.results[0][0].transcript;
-
-const input =
-document.getElementById("input");
-
-if(input.value.trim()){
-
-input.value += " " + result;
-
-}else{
-
-input.value=result;
-
-}
-
-input.focus();
-
-}catch(error){
-
-console.error(
-"Result error:",
-error
-);
-
-}
-
-};
-
-
-/* ERROR */
-
-recognition.onerror=function(event){
-
-console.error(
-"Speech recognition error:",
-event.error
-);
-
-let message="Voice input failed.";
-
-switch(event.error){
-
-case "not-allowed":
-case "permission-denied":
-
-message =
-"Chrome denied microphone access. Check the microphone permission for this website.";
-
-break;
-
-
-case "audio-capture":
-
-message =
-"No microphone was detected by Windows.";
-
-break;
-
-
-case "network":
-
-message =
-"Chrome's speech recognition service has a network/service problem.";
-
-break;
-
-
-case "service-not-allowed":
-
-message =
-"Chrome's speech recognition service is not available.";
-
-break;
-
-
-case "no-speech":
-
-message =
-"No speech detected. Speak after the microphone starts.";
-
-break;
-
-
-case "aborted":
-
-message =
-"Voice recognition was stopped.";
-
-break;
-
-
-default:
-
-message =
-"Voice error: " +
-event.error;
-
-}
-
-alert(message);
-
-};
-
-
-/* END */
-
-recognition.onend=function(){
-
-console.log(
-"🎤 Speech recognition ended"
-);
-
-micButton.disabled=false;
-
-micButton.textContent="🎤";
-
-};
-
-
-/* START RECOGNITION */
-
-try{
-
-recognition.start();
-
-}catch(error){
-
-console.error(
-"Could not start recognition:",
-error
-);
-
-micButton.disabled=false;
-
-micButton.textContent="🎤";
-
-alert(
-"Could not start microphone: " +
-error.message
-);
-
-}
-
-}
-
-
-/* =========================
-   ENTER SEND
-========================= */
-
-document
-.getElementById("input")
-.addEventListener(
-"keydown",
-function(event){
-
-if(
-event.key==="Enter" &&
-!event.shiftKey
+function addMessage(
+  type,
+  text,
+  scroll=true
 ){
 
-event.preventDefault();
+  const box =
+    document.getElementById("chat");
 
-sendMessage();
+  const div =
+    document.createElement("div");
 
+  div.className =
+    "message " +
+    (type === "user" ? "user" : "ai");
+
+  div.textContent = text;
+
+  if(type === "ai"){
+
+    const actions =
+      document.createElement("div");
+
+    actions.className =
+      "message-actions";
+
+    const copy =
+      document.createElement("button");
+
+    copy.className = "small-btn";
+    copy.textContent = "📋 Copy";
+
+    copy.onclick = () =>
+      navigator.clipboard.writeText(text);
+
+    const speak =
+      document.createElement("button");
+
+    speak.className = "small-btn";
+    speak.textContent = "🔊 Speak";
+
+    speak.onclick = () => {
+
+      speechSynthesis.cancel();
+
+      const utterance =
+        new SpeechSynthesisUtterance(text);
+
+      speechSynthesis.speak(
+        utterance
+      );
+
+    };
+
+    actions.appendChild(copy);
+    actions.appendChild(speak);
+
+    div.appendChild(actions);
+
+  }
+
+  box.appendChild(div);
+
+  if(scroll)
+    scrollBottom();
 }
-
-}
-);
-
 
 /* =========================
-   SETTINGS
+   IMAGE GENERATION
 ========================= */
 
-function toggleSettings(){
+async function generateImage(){
 
-document
-.getElementById("settingsPanel")
-.classList.toggle("show");
+  const prompt =
+    document
+      .getElementById("imagePrompt")
+      .value
+      .trim();
+
+  if(!prompt){
+
+    alert(
+      "Please enter an image prompt."
+    );
+
+    return;
+
+  }
+
+  if(!currentChat){
+    newChat();
+  }
+
+  const size =
+    document
+      .getElementById("imageSize")
+      .value
+      .split("x");
+
+  const width =
+    Number(size[0]);
+
+  const height =
+    Number(size[1]);
+
+  const thinking =
+    document.createElement("div");
+
+  thinking.className =
+    "thinking";
+
+  thinking.innerHTML = `
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  `;
+
+  document
+    .getElementById("chat")
+    .appendChild(thinking);
+
+  scrollBottom();
+
+  try{
+
+    const response =
+      await fetch(API,{
+        method:"POST",
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
+        body:JSON.stringify({
+          action:"image",
+          prompt,
+          width,
+          height
+        })
+      });
+
+    const data =
+      await response.json();
+
+    thinking.remove();
+
+    if(data.error){
+
+      addMessage(
+        "ai",
+        "Image error: " +
+        data.error
+      );
+
+      return;
+
+    }
+
+    let imageURL;
+
+    if(data.image.startsWith("data:")){
+
+      imageURL = data.image;
+
+    }else{
+
+      imageURL =
+        "data:" +
+        (data.contentType || "image/png") +
+        ";base64," +
+        data.image;
+
+    }
+
+    currentChat.messages.push({
+      type:"image",
+      image:imageURL
+    });
+
+    saveChats();
+
+    addImageToUI(
+      imageURL,
+      true
+    );
+
+  }catch(error){
+
+    thinking.remove();
+
+    addMessage(
+      "ai",
+      "Image generation failed: " +
+      error.message
+    );
+
+  }
 
 }
-
 
 /* =========================
-   MOBILE SIDEBAR
+   IMAGE UI
 ========================= */
 
-function toggleSidebar(){
+function addImageToUI(
+  imageURL,
+  scroll=true
+){
 
-document
-.getElementById("sidebar")
-.classList.toggle("open");
+  const box =
+    document.getElementById("chat");
+
+  const card =
+    document.createElement("div");
+
+  card.className =
+    "image-card";
+
+  const img =
+    document.createElement("img");
+
+  img.src = imageURL;
+
+  const tools =
+    document.createElement("div");
+
+  tools.className =
+    "image-tools";
+
+  const save =
+    document.createElement("button");
+
+  save.className =
+    "small-btn";
+
+  save.textContent =
+    "⬇️ Save Image";
+
+  save.onclick = () => {
+
+    const a =
+      document.createElement("a");
+
+    a.href = imageURL;
+    a.download =
+      "amzo-ai-image.png";
+
+    a.click();
+
+  };
+
+  const open =
+    document.createElement("button");
+
+  open.className =
+    "small-btn";
+
+  open.textContent =
+    "🔍 Open";
+
+  open.onclick = () =>
+    window.open(
+      imageURL,
+      "_blank"
+    );
+
+  tools.appendChild(save);
+  tools.appendChild(open);
+
+  card.appendChild(img);
+  card.appendChild(tools);
+
+  box.appendChild(card);
+
+  if(scroll)
+    scrollBottom();
 
 }
 
-function closeSidebar(){
+/* =========================
+   KEYBOARD
+========================= */
 
-document
-.getElementById("sidebar")
-.classList.remove("open");
+function handleKey(event){
+
+  if(
+    event.key === "Enter" &&
+    !event.shiftKey
+  ){
+
+    event.preventDefault();
+
+    sendMessage();
+
+  }
 
 }
-
 
 /* =========================
    SCROLL
@@ -1379,54 +1056,30 @@ document
 
 function scrollBottom(){
 
-const box =
-document.getElementById("messages");
+  const box =
+    document.getElementById("chat");
 
-box.scrollTop =
-box.scrollHeight;
-
-}
-
-
-/* =========================
-   ESCAPE HTML
-========================= */
-
-function escapeHtml(text){
-
-const div =
-document.createElement("div");
-
-div.textContent=text;
-
-return div.innerHTML;
+  box.scrollTop =
+    box.scrollHeight;
 
 }
 
-
 /* =========================
-   INITIALIZE
+   START
 ========================= */
 
-if(!chats.length){
+if(chats.length){
 
-chats.push({
+  currentChat = chats[0];
 
-name:"New Chat",
+}else{
 
-messages:[]
-
-});
-
-selected=0;
-
-saveChats();
+  newChat();
 
 }
 
 renderChatList();
-
-renderMessages();
+renderChat();
 
 </script>
 
