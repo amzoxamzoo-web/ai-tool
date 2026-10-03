@@ -6,21 +6,14 @@
 <title>Amzo AI</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 :root{
   --bg:#07070d;
   --panel:rgba(18,18,30,.82);
-  --panel2:rgba(25,25,42,.9);
   --text:#f7f7ff;
   --muted:#999ab0;
   --border:rgba(255,255,255,.09);
-  --accent:#8b5cf6;
-  --accent2:#06b6d4;
 }
 
 body{
@@ -30,8 +23,6 @@ body{
   min-height:100vh;
   overflow-x:hidden;
 }
-
-/* RGB BACKGROUND */
 
 body::before{
   content:"";
@@ -50,21 +41,22 @@ body::after{
   position:fixed;
   inset:0;
   z-index:-2;
-  background:
-    linear-gradient(120deg,
-      transparent,
-      rgba(139,92,246,.03),
-      transparent,
-      rgba(6,182,212,.03),
-      transparent);
+  background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(139,92,246,.03),
+    transparent,
+    rgba(6,182,212,.03),
+    transparent
+  );
   background-size:300% 300%;
   animation:bgMove 10s linear infinite;
 }
 
 @keyframes rgbMove{
-  0%{transform:translate(-5%,-5%) rotate(0deg);}
-  50%{transform:translate(5%,3%) rotate(8deg);}
-  100%{transform:translate(-2%,7%) rotate(-5deg);}
+  0%{transform:translate(-5%,-5%) rotate(0deg)}
+  50%{transform:translate(5%,3%) rotate(8deg)}
+  100%{transform:translate(-2%,7%) rotate(-5deg)}
 }
 
 @keyframes bgMove{
@@ -72,14 +64,136 @@ body::after{
   100%{background-position:100% 50%}
 }
 
-/* APP */
+/* =========================
+   AUTH SCREEN
+========================= */
+
+#authScreen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.authBox{
+  width:100%;
+  max-width:430px;
+  background:rgba(15,15,25,.9);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:30px;
+  backdrop-filter:blur(25px);
+  box-shadow:0 25px 100px rgba(0,0,0,.45);
+}
+
+.authLogo{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.authOrb{
+  width:75px;
+  height:75px;
+  margin:auto;
+  border-radius:50%;
+  background:conic-gradient(#8b5cf6,#06b6d4,#ec4899,#8b5cf6);
+  animation:spin 4s linear infinite;
+  box-shadow:0 0 35px rgba(139,92,246,.5);
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+.authLogo h1{
+  margin-top:16px;
+  font-size:30px;
+}
+
+.gradientText{
+  background:linear-gradient(90deg,#8b5cf6,#06b6d4,#ec4899);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.authTabs{
+  display:flex;
+  gap:8px;
+  margin-bottom:20px;
+}
+
+.authTabs button{
+  flex:1;
+  padding:11px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#11111c;
+  color:#aaa;
+  cursor:pointer;
+}
+
+.authTabs button.active{
+  background:linear-gradient(90deg,#8b5cf6,#06b6d4);
+  color:white;
+}
+
+.authForm{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.authForm input{
+  width:100%;
+  background:#0d0d17;
+  border:1px solid var(--border);
+  color:white;
+  border-radius:12px;
+  padding:13px;
+  outline:none;
+}
+
+.authForm input:focus{
+  border-color:#8b5cf6;
+}
+
+.authButton{
+  background:linear-gradient(90deg,#8b5cf6,#06b6d4);
+  color:white;
+  border:0;
+  border-radius:11px;
+  padding:13px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.authMessage{
+  min-height:20px;
+  color:#f87171;
+  font-size:13px;
+  text-align:center;
+}
+
+.authInfo{
+  color:#777;
+  text-align:center;
+  font-size:12px;
+  margin-top:15px;
+}
+
+/* =========================
+   APP
+========================= */
+
+.hidden{
+  display:none!important;
+}
 
 .app{
   display:flex;
   min-height:100vh;
 }
-
-/* SIDEBAR */
 
 .sidebar{
   width:245px;
@@ -107,11 +221,6 @@ body::after{
   border-radius:50%;
   background:conic-gradient(#8b5cf6,#06b6d4,#ec4899,#8b5cf6);
   animation:spin 4s linear infinite;
-  box-shadow:0 0 25px rgba(139,92,246,.5);
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
 }
 
 .logoText{
@@ -134,13 +243,16 @@ body::after{
   text-align:left;
   cursor:pointer;
   font-size:14px;
-  transition:.2s;
 }
 
 .nav button:hover,
 .nav button.active{
   color:white;
-  background:linear-gradient(90deg,rgba(139,92,246,.22),rgba(6,182,212,.08));
+  background:linear-gradient(
+    90deg,
+    rgba(139,92,246,.22),
+    rgba(6,182,212,.08)
+  );
 }
 
 .sidebarBottom{
@@ -161,8 +273,6 @@ body::after{
 .online{
   color:#22c55e;
 }
-
-/* MAIN */
 
 .main{
   margin-left:245px;
@@ -188,6 +298,12 @@ body::after{
   font-weight:700;
 }
 
+.topActions{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
 .topActions button{
   background:var(--panel);
   color:white;
@@ -195,6 +311,11 @@ body::after{
   padding:9px 12px;
   border-radius:10px;
   cursor:pointer;
+}
+
+.userBadge{
+  color:#aaa;
+  font-size:13px;
 }
 
 .content{
@@ -238,12 +359,6 @@ body::after{
   margin-bottom:12px;
 }
 
-.gradientText{
-  background:linear-gradient(90deg,#8b5cf6,#06b6d4,#ec4899);
-  -webkit-background-clip:text;
-  color:transparent;
-}
-
 .hero p{
   color:var(--muted);
   max-width:600px;
@@ -276,7 +391,6 @@ body::after{
 .card:hover{
   transform:translateY(-4px);
   border-color:rgba(139,92,246,.45);
-  box-shadow:0 10px 40px rgba(0,0,0,.25);
 }
 
 .cardIcon{
@@ -302,10 +416,6 @@ body::after{
   border-radius:18px;
   padding:22px;
   backdrop-filter:blur(15px);
-}
-
-.hidden{
-  display:none!important;
 }
 
 textarea,
@@ -375,29 +485,16 @@ select:focus{
 }
 
 .user{
-  background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(6,182,212,.12));
-  border:1px solid rgba(139,92,246,.2);
+  background:linear-gradient(
+    135deg,
+    rgba(139,92,246,.25),
+    rgba(6,182,212,.12)
+  );
 }
 
 .ai{
   background:rgba(20,20,32,.85);
   border:1px solid var(--border);
-}
-
-.msgActions{
-  margin-top:10px;
-  display:flex;
-  gap:7px;
-}
-
-.msgActions button{
-  border:1px solid var(--border);
-  background:#11111c;
-  color:#aaa;
-  padding:6px 9px;
-  border-radius:8px;
-  cursor:pointer;
-  font-size:11px;
 }
 
 .chatInput{
@@ -440,8 +537,6 @@ select:focus{
   font-size:13px;
 }
 
-/* FUN */
-
 .funResult{
   min-height:80px;
   display:flex;
@@ -452,34 +547,11 @@ select:focus{
   margin-top:15px;
 }
 
-/* TOOLS */
-
-.toolArea{
-  display:flex;
-  flex-direction:column;
-  gap:13px;
-}
-
-/* IMAGE */
-
-.imagePlaceholder{
-  min-height:250px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  border:1px dashed #343449;
-  border-radius:15px;
-  color:#777;
-  text-align:center;
-}
-
 .generatedImage{
   max-width:100%;
   border-radius:15px;
   margin-top:15px;
 }
-
-/* FOOTER */
 
 .footer{
   text-align:center;
@@ -488,10 +560,14 @@ select:focus{
   font-size:12px;
 }
 
-/* MOBILE */
-
 .mobileMenu{
   display:none;
+}
+
+.profileEmail{
+  color:var(--muted);
+  margin-top:5px;
+  font-size:13px;
 }
 
 @media(max-width:800px){
@@ -510,12 +586,13 @@ select:focus{
   }
 
   .mobileMenu{
-    display:block;
+    display:inline-block;
     background:none;
     color:white;
     border:0;
     font-size:22px;
     cursor:pointer;
+    margin-right:8px;
   }
 
   .content{
@@ -529,15 +606,130 @@ select:focus{
   .grid{
     grid-template-columns:repeat(2,1fr);
   }
+
+  .userBadge{
+    display:none;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<!-- =========================
+     AUTH
+========================= -->
 
-<!-- SIDEBAR -->
+<div id="authScreen">
+
+  <div class="authBox">
+
+    <div class="authLogo">
+      <div class="authOrb"></div>
+      <h1><span class="gradientText">Amzo AI</span></h1>
+      <p style="color:#999ab0;margin-top:8px">
+        Your personal AI universe
+      </p>
+    </div>
+
+    <div class="authTabs">
+      <button id="loginTab"
+        class="active"
+        onclick="showAuth('login')">
+        Login
+      </button>
+
+      <button id="signupTab"
+        onclick="showAuth('signup')">
+        Sign Up
+      </button>
+    </div>
+
+    <!-- LOGIN -->
+
+    <form id="loginForm"
+      class="authForm"
+      onsubmit="login(event)">
+
+      <input
+        id="loginIdentifier"
+        placeholder="Username or email"
+        autocomplete="username"
+        required
+      >
+
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Password"
+        autocomplete="current-password"
+        required
+      >
+
+      <button class="authButton"
+        type="submit">
+        🚀 Login
+      </button>
+
+    </form>
+
+    <!-- SIGNUP -->
+
+    <form id="signupForm"
+      class="authForm hidden"
+      onsubmit="signup(event)">
+
+      <input
+        id="signupUsername"
+        placeholder="Username"
+        autocomplete="username"
+        minlength="3"
+        maxlength="30"
+        required
+      >
+
+      <input
+        id="signupEmail"
+        type="email"
+        placeholder="Email"
+        autocomplete="email"
+        required
+      >
+
+      <input
+        id="signupPassword"
+        type="password"
+        placeholder="Password — 8+ characters"
+        autocomplete="new-password"
+        minlength="8"
+        required
+      >
+
+      <button class="authButton"
+        type="submit">
+        ✨ Create Account
+      </button>
+
+    </form>
+
+    <div id="authMessage"
+      class="authMessage">
+    </div>
+
+    <div class="authInfo">
+      Your account uses secure server-side sessions.
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     APP
+========================= -->
+
+<div id="app" class="app hidden">
 
 <aside class="sidebar" id="sidebar">
 
@@ -573,14 +765,34 @@ select:focus{
 <main class="main">
 
 <header class="topbar">
+
   <div>
-    <button class="mobileMenu" onclick="toggleSidebar()">☰</button>
-    <span class="pageTitle" id="pageTitle">Home</span>
+    <button
+      class="mobileMenu"
+      onclick="toggleSidebar()">
+      ☰
+    </button>
+
+    <span
+      class="pageTitle"
+      id="pageTitle">
+      Home
+    </span>
   </div>
 
   <div class="topActions">
-    <button onclick="showPage('chat')">+ New Chat</button>
+
+    <span
+      id="userBadge"
+      class="userBadge">
+    </span>
+
+    <button onclick="showPage('chat')">
+      + New Chat
+    </button>
+
   </div>
+
 </header>
 
 <div class="content">
@@ -593,7 +805,12 @@ select:focus{
 
     <div class="heroOrb"></div>
 
-    <h1>Welcome to <span class="gradientText">Amzo AI</span></h1>
+    <h1>
+      Welcome to
+      <span class="gradientText">
+        Amzo AI
+      </span>
+    </h1>
 
     <p>
       Chat, create, code, play, learn and experiment —
@@ -602,7 +819,9 @@ select:focus{
 
   </div>
 
-  <h2 class="sectionTitle">🚀 Explore Amzo</h2>
+  <h2 class="sectionTitle">
+    🚀 Explore Amzo
+  </h2>
 
   <div class="grid">
 
@@ -646,6 +865,7 @@ select:focus{
 
 </section>
 
+
 <!-- CHAT -->
 
 <section id="chat" class="page hidden">
@@ -669,7 +889,11 @@ select:focus{
         onkeydown="handleChatKey(event)"
       >
 
-      <button class="primary" onclick="sendChat()">Send</button>
+      <button
+        class="primary"
+        onclick="sendChat()">
+        Send
+      </button>
 
     </div>
 
@@ -677,36 +901,42 @@ select:focus{
 
 </section>
 
+
 <!-- CREATE -->
 
 <section id="create" class="page hidden">
 
   <h1>🎨 Create Studio</h1>
+
   <p style="color:var(--muted);margin:8px 0 20px">
     Turn your ideas into content.
   </p>
 
   <div class="grid">
 
-    <div class="card" onclick="creator('YouTube Shorts idea')">
+    <div class="card"
+      onclick="creator('YouTube Shorts idea')">
       <div class="cardIcon">🎬</div>
       <h3>Video Idea</h3>
       <p>Generate a fresh video concept.</p>
     </div>
 
-    <div class="card" onclick="creator('YouTube title ideas')">
+    <div class="card"
+      onclick="creator('YouTube title ideas')">
       <div class="cardIcon">📺</div>
       <h3>Titles</h3>
       <p>Create clickable title ideas.</p>
     </div>
 
-    <div class="card" onclick="creator('short story')">
+    <div class="card"
+      onclick="creator('short story')">
       <div class="cardIcon">📖</div>
       <h3>Story</h3>
       <p>Create an original story.</p>
     </div>
 
-    <div class="card" onclick="creator('character idea')">
+    <div class="card"
+      onclick="creator('character idea')">
       <div class="cardIcon">🧙</div>
       <h3>Character</h3>
       <p>Build an original character.</p>
@@ -716,20 +946,28 @@ select:focus{
 
   <div class="panel" style="margin-top:20px">
 
-    <textarea id="createInput"
-      placeholder="Tell Amzo what you want to create..."></textarea>
+    <textarea
+      id="createInput"
+      placeholder="Tell Amzo what you want to create...">
+    </textarea>
 
     <br><br>
 
-    <button class="primary" onclick="createContent()">
+    <button
+      class="primary"
+      onclick="createContent()">
       ✨ Create
     </button>
 
-    <div id="createResult" style="margin-top:20px;line-height:1.7"></div>
+    <div
+      id="createResult"
+      style="margin-top:20px;line-height:1.7">
+    </div>
 
   </div>
 
 </section>
+
 
 <!-- CODE -->
 
@@ -743,20 +981,28 @@ select:focus{
 
   <div class="panel">
 
-    <textarea id="codeInput"
-      placeholder="Example: Make a Python calculator"></textarea>
+    <textarea
+      id="codeInput"
+      placeholder="Example: Make a Python calculator">
+    </textarea>
 
     <br><br>
 
-    <button class="primary" onclick="generateCode()">
+    <button
+      class="primary"
+      onclick="generateCode()">
       ⚡ Generate Code
     </button>
 
-    <div id="codeResult" style="margin-top:20px"></div>
+    <div
+      id="codeResult"
+      style="margin-top:20px">
+    </div>
 
   </div>
 
 </section>
+
 
 <!-- FUN -->
 
@@ -796,11 +1042,14 @@ select:focus{
 
   </div>
 
-  <div class="panel funResult" id="funResult">
+  <div
+    class="panel funResult"
+    id="funResult">
     Choose something 👆
   </div>
 
 </section>
+
 
 <!-- TOOLS -->
 
@@ -842,27 +1091,50 @@ select:focus{
 
   <div class="panel" style="margin-top:20px">
 
-    <textarea id="toolInput"
-      placeholder="Enter your text..."></textarea>
+    <textarea
+      id="toolInput"
+      placeholder="Enter your text...">
+    </textarea>
 
     <br><br>
 
     <select id="toolSelect">
-      <option value="summarize">Summarize</option>
-      <option value="translate">Translate to English</option>
-      <option value="improve">Improve writing</option>
-      <option value="ideas">Generate ideas</option>
+
+      <option value="summarize">
+        Summarize
+      </option>
+
+      <option value="translate">
+        Translate to English
+      </option>
+
+      <option value="improve">
+        Improve writing
+      </option>
+
+      <option value="ideas">
+        Generate ideas
+      </option>
+
     </select>
 
     <br><br>
 
-    <button class="primary" onclick="runTool()">Run Tool</button>
+    <button
+      class="primary"
+      onclick="runTool()">
+      Run Tool
+    </button>
 
-    <div id="toolResult" style="margin-top:20px;line-height:1.7"></div>
+    <div
+      id="toolResult"
+      style="margin-top:20px;line-height:1.7">
+    </div>
 
   </div>
 
 </section>
+
 
 <!-- LEARN -->
 
@@ -894,7 +1166,8 @@ select:focus{
       <p>Learn programming concepts.</p>
     </div>
 
-    <div class="card" onclick="learn('general knowledge')">
+    <div class="card"
+      onclick="learn('general knowledge')">
       <div class="cardIcon">🧠</div>
       <h3>General Knowledge</h3>
       <p>Learn something new.</p>
@@ -902,11 +1175,18 @@ select:focus{
 
   </div>
 
-  <div class="panel" style="margin-top:20px">
-    <div id="learnResult">Choose a topic 👆</div>
+  <div
+    class="panel"
+    style="margin-top:20px">
+
+    <div id="learnResult">
+      Choose a topic 👆
+    </div>
+
   </div>
 
 </section>
+
 
 <!-- LAB -->
 
@@ -940,11 +1220,14 @@ select:focus{
 
   </div>
 
-  <div class="panel funResult" id="labResult">
+  <div
+    class="panel funResult"
+    id="labResult">
     Choose an experiment 👆
   </div>
 
 </section>
+
 
 <!-- PROFILE -->
 
@@ -952,25 +1235,48 @@ select:focus{
 
   <h1>👤 Profile</h1>
 
-  <div class="panel" style="margin-top:20px">
+  <div
+    class="panel"
+    style="margin-top:20px">
 
-    <h2>Amzo Explorer</h2>
+    <h2 id="profileUsername">
+      Amzo Explorer
+    </h2>
+
+    <div
+      id="profileEmail"
+      class="profileEmail">
+    </div>
 
     <br>
 
-    <p>⭐ XP: <b id="xp">0</b></p>
-
-    <p style="margin-top:10px">
-      🏆 Level: <b id="level">1</b>
+    <p>
+      ⭐ XP:
+      <b id="xp">0</b>
     </p>
 
     <p style="margin-top:10px">
-      🔥 Daily streak: <b>1 day</b>
+      🏆 Level:
+      <b id="level">1</b>
     </p>
+
+    <p style="margin-top:10px">
+      🔥 Daily streak:
+      <b>1 day</b>
+    </p>
+
+    <br>
+
+    <button
+      class="secondary"
+      onclick="logout()">
+      🚪 Logout
+    </button>
 
   </div>
 
 </section>
+
 
 <!-- SETTINGS -->
 
@@ -978,13 +1284,17 @@ select:focus{
 
   <h1>⚙️ Settings</h1>
 
-  <div class="panel" style="margin-top:20px">
+  <div
+    class="panel"
+    style="margin-top:20px">
 
     <label>Theme</label>
 
     <br><br>
 
-    <button class="secondary" onclick="toggleTheme()">
+    <button
+      class="secondary"
+      onclick="toggleTheme()">
       🌙 Toggle Theme
     </button>
 
@@ -994,14 +1304,18 @@ select:focus{
 
     <br><br>
 
-    <button class="secondary" onclick="toggleAnimation()">
+    <button
+      class="secondary"
+      onclick="toggleAnimation()">
       ✨ Toggle RGB Animation
     </button>
 
     <br><br>
 
-    <button class="secondary" onclick="clearLocalData()">
-      🗑️ Clear Local Data
+    <button
+      class="secondary"
+      onclick="logout()">
+      🚪 Logout
     </button>
 
   </div>
@@ -1018,6 +1332,7 @@ select:focus{
 
 </div>
 
+
 <script>
 
 /* =========================
@@ -1026,6 +1341,340 @@ select:focus{
 
 const API_URL =
 "https://ai-tool-api.amzoxamzoo.workers.dev/";
+
+
+/* =========================
+   AUTH UI
+========================= */
+
+function showAuth(type){
+
+  const loginForm =
+    document.getElementById("loginForm");
+
+  const signupForm =
+    document.getElementById("signupForm");
+
+  const loginTab =
+    document.getElementById("loginTab");
+
+  const signupTab =
+    document.getElementById("signupTab");
+
+  const message =
+    document.getElementById("authMessage");
+
+  message.textContent="";
+
+  if(type==="login"){
+
+    loginForm.classList.remove("hidden");
+    signupForm.classList.add("hidden");
+
+    loginTab.classList.add("active");
+    signupTab.classList.remove("active");
+
+  }else{
+
+    loginForm.classList.add("hidden");
+    signupForm.classList.remove("hidden");
+
+    loginTab.classList.remove("active");
+    signupTab.classList.add("active");
+
+  }
+}
+
+
+function setAuthMessage(text,error=true){
+
+  const message =
+    document.getElementById("authMessage");
+
+  message.textContent=text;
+
+  message.style.color =
+    error ? "#f87171" : "#22c55e";
+}
+
+
+/* =========================
+   SIGNUP
+========================= */
+
+async function signup(event){
+
+  event.preventDefault();
+
+  const username =
+    document.getElementById("signupUsername")
+      .value.trim();
+
+  const email =
+    document.getElementById("signupEmail")
+      .value.trim();
+
+  const password =
+    document.getElementById("signupPassword")
+      .value;
+
+  setAuthMessage("Creating account...",false);
+
+  try{
+
+    const response =
+      await fetch(API_URL,{
+        method:"POST",
+        credentials:"include",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          action:"signup",
+          username,
+          email,
+          password
+        })
+      });
+
+    const data =
+      await response.json();
+
+    if(!response.ok){
+
+      setAuthMessage(
+        data.error || "Signup failed."
+      );
+
+      return;
+    }
+
+    setAuthMessage(
+      "Account created! Opening Amzo AI...",
+      false
+    );
+
+    setTimeout(()=>{
+      enterApp(data.user);
+    },500);
+
+  }catch(error){
+
+    console.error(error);
+
+    setAuthMessage(
+      "Connection error. Please try again."
+    );
+  }
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+async function login(event){
+
+  event.preventDefault();
+
+  const identifier =
+    document.getElementById("loginIdentifier")
+      .value.trim();
+
+  const password =
+    document.getElementById("loginPassword")
+      .value;
+
+  setAuthMessage("Logging in...",false);
+
+  try{
+
+    const response =
+      await fetch(API_URL,{
+        method:"POST",
+        credentials:"include",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          action:"login",
+          identifier,
+          password
+        })
+      });
+
+    const data =
+      await response.json();
+
+    if(!response.ok){
+
+      setAuthMessage(
+        data.error || "Login failed."
+      );
+
+      return;
+    }
+
+    setAuthMessage(
+      "Login successful!",
+      false
+    );
+
+    setTimeout(()=>{
+      enterApp(data.user);
+    },300);
+
+  }catch(error){
+
+    console.error(error);
+
+    setAuthMessage(
+      "Connection error. Please try again."
+    );
+  }
+}
+
+
+/* =========================
+   SESSION CHECK
+========================= */
+
+async function checkSession(){
+
+  try{
+
+    const response =
+      await fetch(API_URL,{
+        method:"POST",
+        credentials:"include",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          action:"me"
+        })
+      });
+
+    const data =
+      await response.json();
+
+    if(data.loggedIn && data.user){
+
+      enterApp(data.user);
+
+    }else{
+
+      showAuthScreen();
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    showAuthScreen();
+  }
+}
+
+
+function showAuthScreen(){
+
+  document
+    .getElementById("authScreen")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("app")
+    .classList.add("hidden");
+}
+
+
+function enterApp(user){
+
+  document
+    .getElementById("authScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("app")
+    .classList.remove("hidden");
+
+  currentUser=user;
+
+  updateUserUI();
+
+  showPage("home");
+}
+
+
+/* =========================
+   USER
+========================= */
+
+let currentUser=null;
+
+function updateUserUI(){
+
+  if(!currentUser)return;
+
+  document.getElementById("userBadge")
+    .textContent=
+      "👤 "+currentUser.username;
+
+  document.getElementById("profileUsername")
+    .textContent=
+      currentUser.username;
+
+  document.getElementById("profileEmail")
+    .textContent=
+      currentUser.email;
+
+  document.getElementById("xp")
+    .textContent=
+      currentUser.xp || 0;
+
+  document.getElementById("level")
+    .textContent=
+      currentUser.level || 1;
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+async function logout(){
+
+  try{
+
+    await fetch(API_URL,{
+      method:"POST",
+      credentials:"include",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        action:"logout"
+      })
+    });
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+  currentUser=null;
+
+  document.getElementById("loginForm")
+    .reset();
+
+  document.getElementById("signupForm")
+    .reset();
+
+  showAuthScreen();
+  showAuth("login");
+}
 
 
 /* =========================
@@ -1045,7 +1694,7 @@ function showPage(id){
   });
 
   const target =
-  document.getElementById(id);
+    document.getElementById(id);
 
   if(target){
     target.classList.remove("hidden");
@@ -1054,7 +1703,7 @@ function showPage(id){
   navButtons.forEach(btn=>{
     btn.classList.toggle(
       "active",
-      btn.dataset.page === id
+      btn.dataset.page===id
     );
   });
 
@@ -1072,7 +1721,8 @@ function showPage(id){
   };
 
   document.getElementById("pageTitle")
-    .textContent=names[id] || "Amzo AI";
+    .textContent=
+      names[id] || "Amzo AI";
 
   document
     .getElementById("sidebar")
@@ -1086,6 +1736,7 @@ navButtons.forEach(btn=>{
 });
 
 function toggleSidebar(){
+
   document
     .getElementById("sidebar")
     .classList.toggle("open");
@@ -1101,10 +1752,10 @@ let chatHistory=[];
 function addMessage(text,type){
 
   const messages =
-  document.getElementById("messages");
+    document.getElementById("messages");
 
   const div =
-  document.createElement("div");
+    document.createElement("div");
 
   div.className="msg "+type;
 
@@ -1129,12 +1780,12 @@ function handleChatKey(e){
 async function sendChat(){
 
   const input =
-  document.getElementById("chatInput");
+    document.getElementById("chatInput");
 
   const text =
-  input.value.trim();
+    input.value.trim();
 
-  if(!text) return;
+  if(!text)return;
 
   input.value="";
 
@@ -1146,29 +1797,33 @@ async function sendChat(){
   });
 
   const thinking =
-  addMessage("Amzo is thinking...","ai");
+    addMessage(
+      "Amzo is thinking...",
+      "ai"
+    );
 
   try{
 
     const response =
-    await fetch(API_URL,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        messages:chatHistory
-      })
-    });
+      await fetch(API_URL,{
+        method:"POST",
+        credentials:"include",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          action:"chat",
+          messages:chatHistory
+        })
+      });
 
     const data =
-    await response.json();
+      await response.json();
 
     thinking.remove();
 
     const answer =
       data.result ||
-      data.response ||
       data.error ||
       "No response.";
 
@@ -1183,11 +1838,10 @@ async function sendChat(){
 
   }catch(error){
 
-    thinking.textContent =
-      "❌ Connection error. Check the AI backend.";
+    thinking.textContent=
+      "❌ Connection error.";
 
     console.error(error);
-
   }
 }
 
@@ -1201,7 +1855,7 @@ function creator(type){
   const input =
     document.getElementById("createInput");
 
-  input.value =
+  input.value=
     "Give me a creative "+type+".";
 
   input.focus();
@@ -1219,21 +1873,27 @@ async function createContent(){
     input.value.trim();
 
   if(!text){
-    result.textContent="Write something first.";
+
+    result.textContent=
+      "Write something first.";
+
     return;
   }
 
-  result.textContent="✨ Creating...";
+  result.textContent=
+    "✨ Creating...";
 
   try{
 
     const response =
       await fetch(API_URL,{
         method:"POST",
+        credentials:"include",
         headers:{
           "Content-Type":"application/json"
         },
         body:JSON.stringify({
+          action:"chat",
           messages:[
             {
               type:"user",
@@ -1246,24 +1906,25 @@ async function createContent(){
     const data =
       await response.json();
 
-    result.textContent =
-      data.result ||
-      data.error ||
-      "No result.";
+    result.innerHTML=
+      renderMarkdown(
+        data.result ||
+        data.error ||
+        "No result."
+      );
 
     gainXP(5);
 
-  }catch(e){
+  }catch(error){
 
     result.textContent=
       "❌ AI connection failed.";
-
   }
 }
 
 
 /* =========================
-   CODE LAB
+   CODE
 ========================= */
 
 async function generateCode(){
@@ -1278,22 +1939,27 @@ async function generateCode(){
     input.value.trim();
 
   if(!text){
+
     result.textContent=
       "Tell me what code you want.";
+
     return;
   }
 
-  result.textContent="💻 Generating code...";
+  result.textContent=
+    "💻 Generating code...";
 
   try{
 
     const response =
       await fetch(API_URL,{
         method:"POST",
+        credentials:"include",
         headers:{
           "Content-Type":"application/json"
         },
         body:JSON.stringify({
+          action:"chat",
           messages:[
             {
               type:"user",
@@ -1318,22 +1984,21 @@ async function generateCode(){
 
     gainXP(10);
 
-  }catch(e){
+  }catch(error){
 
     result.textContent=
       "❌ Code generation failed.";
-
   }
 }
 
 
 /* =========================
-   SAFE MARKDOWN
+   MARKDOWN
 ========================= */
 
 function escapeHTML(text){
 
-  return text
+  return String(text)
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;");
@@ -1342,7 +2007,9 @@ function escapeHTML(text){
 function renderMarkdown(text){
 
   const parts =
-    text.split(/```([\w+-]*)\n?([\s\S]*?)```/g);
+    String(text).split(
+      /```([\w+-]*)\n?([\s\S]*?)```/g
+    );
 
   let html="";
 
@@ -1350,38 +2017,43 @@ function renderMarkdown(text){
 
     if(i%3===0){
 
-      html +=
+      html+=
         "<div style='line-height:1.7;white-space:pre-wrap'>"+
         escapeHTML(parts[i])+
         "</div>";
 
     }else if(i%3===1){
 
-      const language =
+      const language=
         parts[i] || "code";
 
-      const code =
+      const code=
         parts[i+1];
 
-      const safe =
+      const safe=
         escapeHTML(code.trim());
 
-      const id =
+      const id=
         "code_"+Math.random()
           .toString(36)
           .slice(2);
 
-      html += `
+      html+=`
         <div class="codeBox">
+
           <div class="codeTop">
             <span>${escapeHTML(language)}</span>
-            <button class="secondary"
+
+            <button
+              class="secondary"
               onclick="copyCode('${id}')">
               📋 Copy Code
             </button>
+
           </div>
 
           <pre><code id="${id}">${safe}</code></pre>
+
         </div>
       `;
     }
@@ -1392,7 +2064,7 @@ function renderMarkdown(text){
 
 function copyCode(id){
 
-  const code =
+  const code=
     document.getElementById(id);
 
   if(!code)return;
@@ -1419,28 +2091,25 @@ function startRPS(){
     "Scissors ✂️"
   ];
 
-  const ai =
+  const ai=
     choices[
-      Math.floor(
-        Math.random()*3
-      )
+      Math.floor(Math.random()*3)
     ];
 
-  const result =
-    document.getElementById("funResult");
-
-  result.innerHTML=`
-    <div>
-      <h2>✊ 📄 ✂️</h2>
-      <p style="margin:12px">
-        Amzo chose <b>${ai}</b>
-      </p>
-      <button class="primary"
-        onclick="startRPS()">
-        Play Again
-      </button>
-    </div>
-  `;
+  document.getElementById("funResult")
+    .innerHTML=`
+      <div>
+        <h2>✊ 📄 ✂️</h2>
+        <p style="margin:12px">
+          Amzo chose <b>${ai}</b>
+        </p>
+        <button
+          class="primary"
+          onclick="startRPS()">
+          Play Again
+        </button>
+      </div>
+    `;
 
   gainXP(3);
 }
@@ -1477,9 +2146,7 @@ function randomChallenge(){
   document.getElementById("funResult")
     .textContent=
       challenges[
-        Math.floor(
-          Math.random()*challenges.length
-        )
+        Math.floor(Math.random()*challenges.length)
       ];
 
   gainXP(3);
@@ -1489,9 +2156,9 @@ function riddle(){
 
   document.getElementById("funResult")
     .innerHTML=
-    "🧩 <b>Riddle:</b><br><br>"+
-    "What has keys but cannot open locks?<br><br>"+
-    "💡 Answer: A keyboard.";
+      "🧩 <b>Riddle:</b><br><br>"+
+      "What has keys but cannot open locks?<br><br>"+
+      "💡 Answer: A keyboard.";
 
   gainXP(3);
 }
@@ -1503,36 +2170,36 @@ function riddle(){
 
 function tool(type){
 
-  const select =
-    document.getElementById("toolSelect");
+  document.getElementById("toolSelect")
+    .value=type;
 
-  select.value=type;
-
-  document
-    .getElementById("toolInput")
+  document.getElementById("toolInput")
     .focus();
 }
 
 async function runTool(){
 
-  const text =
+  const text=
     document.getElementById("toolInput")
       .value.trim();
 
-  const type =
+  const type=
     document.getElementById("toolSelect")
       .value;
 
-  const result =
+  const result=
     document.getElementById("toolResult");
 
   if(!text){
+
     result.textContent=
       "Enter some text first.";
+
     return;
   }
 
-  result.textContent="⚡ Working...";
+  result.textContent=
+    "⚡ Working...";
 
   let instruction="";
 
@@ -1554,13 +2221,15 @@ async function runTool(){
 
   try{
 
-    const response =
+    const response=
       await fetch(API_URL,{
         method:"POST",
+        credentials:"include",
         headers:{
           "Content-Type":"application/json"
         },
         body:JSON.stringify({
+          action:"chat",
           messages:[
             {
               type:"user",
@@ -1570,7 +2239,7 @@ async function runTool(){
         })
       });
 
-    const data =
+    const data=
       await response.json();
 
     result.innerHTML=
@@ -1582,11 +2251,10 @@ async function runTool(){
 
     gainXP(5);
 
-  }catch(e){
+  }catch(error){
 
     result.textContent=
       "❌ Tool failed.";
-
   }
 }
 
@@ -1597,7 +2265,7 @@ async function runTool(){
 
 async function learn(topic){
 
-  const result =
+  const result=
     document.getElementById("learnResult");
 
   result.textContent=
@@ -1605,26 +2273,29 @@ async function learn(topic){
 
   try{
 
-    const response =
+    const response=
       await fetch(API_URL,{
         method:"POST",
+        credentials:"include",
         headers:{
           "Content-Type":"application/json"
         },
         body:JSON.stringify({
+          action:"chat",
           messages:[
             {
               type:"user",
               text:
                 "Teach me one useful beginner "+
-                topic+" lesson with an example "+
+                topic+
+                " lesson with an example "+
                 "and one practice question."
             }
           ]
         })
       });
 
-    const data =
+    const data=
       await response.json();
 
     result.innerHTML=
@@ -1636,11 +2307,10 @@ async function learn(topic){
 
     gainXP(5);
 
-  }catch(e){
+  }catch(error){
 
     result.textContent=
       "❌ Learning request failed.";
-
   }
 }
 
@@ -1662,9 +2332,7 @@ function surprise(){
   document.getElementById("labResult")
     .textContent=
       things[
-        Math.floor(
-          Math.random()*things.length
-        )
+        Math.floor(Math.random()*things.length)
       ];
 
   gainXP(5);
@@ -1682,9 +2350,7 @@ function mystery(){
   document.getElementById("labResult")
     .textContent=
       mysteries[
-        Math.floor(
-          Math.random()*mysteries.length
-        )
+        Math.floor(Math.random()*mysteries.length)
       ];
 
   gainXP(5);
@@ -1704,35 +2370,21 @@ function aiChallenge(){
 
 
 /* =========================
-   PROFILE XP
+   XP
 ========================= */
-
-let xp =
-  Number(localStorage.getItem("amzoXP") || 0);
 
 function gainXP(amount){
 
-  xp+=amount;
+  if(!currentUser)return;
 
-  localStorage.setItem(
-    "amzoXP",
-    xp
-  );
+  currentUser.xp=
+    Number(currentUser.xp || 0)+amount;
 
-  updateProfile();
+  currentUser.level=
+    Math.floor(currentUser.xp/100)+1;
+
+  updateUserUI();
 }
-
-function updateProfile(){
-
-  document.getElementById("xp")
-    .textContent=xp;
-
-  document.getElementById("level")
-    .textContent=
-      Math.floor(xp/100)+1;
-}
-
-updateProfile();
 
 
 /* =========================
@@ -1755,20 +2407,16 @@ function toggleAnimation(){
     !animationOn
   );
 
-  if(!animationOn){
-    document.body.style.setProperty(
-      "--bg",
-      "#07070d"
-    );
-    alert("RGB animation OFF");
-  }else{
-    alert("RGB animation ON 🌈");
-  }
+  alert(
+    animationOn
+      ? "RGB animation ON 🌈"
+      : "RGB animation OFF"
+  );
 }
 
 function toggleTheme(){
 
-  const light =
+  const light=
     document.body.dataset.theme==="light";
 
   if(!light){
@@ -1788,27 +2436,6 @@ function toggleTheme(){
     document.body.style.color="";
 
     alert("Dark theme enabled.");
-
-  }
-}
-
-function clearLocalData(){
-
-  if(
-    confirm(
-      "Clear Amzo local data?"
-    )
-  ){
-
-    localStorage.clear();
-
-    xp=0;
-
-    updateProfile();
-
-    alert(
-      "Local data cleared."
-    );
   }
 }
 
@@ -1817,7 +2444,7 @@ function clearLocalData(){
    START
 ========================= */
 
-showPage("home");
+checkSession();
 
 </script>
 
