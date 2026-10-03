@@ -3,71 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Amzo AI</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 :root{
-  --bg:#07070d;
-  --panel:rgba(18,18,30,.82);
-  --text:#f7f7ff;
-  --muted:#999ab0;
-  --border:rgba(255,255,255,.09);
+  --bg:#050509;
+  --panel:#0c0c14;
+  --panel2:#11111c;
+  --text:#fff;
+  --muted:#9292a8;
+  --border:#242438;
+  --cyan:#00eaff;
+  --pink:#ff00cc;
+  --purple:#8b5cf6;
+  --green:#00ff88;
 }
 
 body{
-  font-family:Inter,Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
   min-height:100vh;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(0,234,255,.12),transparent 28%),
+    radial-gradient(circle at 80% 30%,rgba(255,0,204,.12),transparent 28%),
+    radial-gradient(circle at 50% 90%,rgba(139,92,246,.12),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
   overflow-x:hidden;
 }
 
+/* RGB LIGHT */
 body::before{
   content:"";
   position:fixed;
-  inset:-30%;
-  z-index:-3;
-  background:
-    radial-gradient(circle at 20% 20%,rgba(139,92,246,.25),transparent 25%),
-    radial-gradient(circle at 80% 20%,rgba(6,182,212,.22),transparent 25%),
-    radial-gradient(circle at 50% 80%,rgba(236,72,153,.18),transparent 25%);
-  animation:rgbMove 12s linear infinite alternate;
-}
-
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  background:linear-gradient(
-    120deg,
+  inset:-50%;
+  pointer-events:none;
+  background:conic-gradient(
+    from 0deg,
     transparent,
-    rgba(139,92,246,.03),
+    rgba(0,234,255,.08),
     transparent,
-    rgba(6,182,212,.03),
+    rgba(255,0,204,.08),
+    transparent,
+    rgba(139,92,246,.08),
     transparent
   );
-  background-size:300% 300%;
-  animation:bgMove 10s linear infinite;
+  animation:rgbSpin 18s linear infinite;
+  z-index:-1;
 }
 
-@keyframes rgbMove{
-  0%{transform:translate(-5%,-5%) rotate(0deg)}
-  50%{transform:translate(5%,3%) rotate(8deg)}
-  100%{transform:translate(-2%,7%) rotate(-5deg)}
+@keyframes rgbSpin{
+  to{transform:rotate(360deg)}
 }
 
-@keyframes bgMove{
-  0%{background-position:0% 50%}
-  100%{background-position:100% 50%}
-}
-
-/* =========================
-   AUTH SCREEN
-========================= */
-
+/* AUTH */
 #authScreen{
   min-height:100vh;
   display:flex;
@@ -78,43 +73,43 @@ body::after{
 
 .authBox{
   width:100%;
-  max-width:430px;
-  background:rgba(15,15,25,.9);
+  max-width:440px;
+  padding:34px;
   border:1px solid var(--border);
-  border-radius:24px;
-  padding:30px;
-  backdrop-filter:blur(25px);
-  box-shadow:0 25px 100px rgba(0,0,0,.45);
+  border-radius:26px;
+  background:rgba(10,10,18,.88);
+  backdrop-filter:blur(20px);
+  box-shadow:
+    0 0 40px rgba(0,234,255,.08),
+    0 0 80px rgba(255,0,204,.06);
 }
 
-.authLogo{
+.logo{
   text-align:center;
-  margin-bottom:25px;
-}
-
-.authOrb{
-  width:75px;
-  height:75px;
-  margin:auto;
-  border-radius:50%;
-  background:conic-gradient(#8b5cf6,#06b6d4,#ec4899,#8b5cf6);
-  animation:spin 4s linear infinite;
-  box-shadow:0 0 35px rgba(139,92,246,.5);
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
-
-.authLogo h1{
-  margin-top:16px;
-  font-size:30px;
-}
-
-.gradientText{
-  background:linear-gradient(90deg,#8b5cf6,#06b6d4,#ec4899);
+  font-size:42px;
+  font-weight:900;
+  letter-spacing:4px;
+  background:linear-gradient(
+    90deg,
+    var(--cyan),
+    var(--purple),
+    var(--pink),
+    var(--cyan)
+  );
+  background-size:300%;
   -webkit-background-clip:text;
   color:transparent;
+  animation:logoRGB 5s linear infinite;
+}
+
+@keyframes logoRGB{
+  to{background-position:300%}
+}
+
+.tagline{
+  text-align:center;
+  color:var(--muted);
+  margin:10px 0 28px;
 }
 
 .authTabs{
@@ -125,206 +120,151 @@ body::after{
 
 .authTabs button{
   flex:1;
-  padding:11px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  background:#11111c;
-  color:#aaa;
-  cursor:pointer;
 }
 
-.authTabs button.active{
-  background:linear-gradient(90deg,#8b5cf6,#06b6d4);
-  color:white;
-}
-
-.authForm{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.authForm input{
+input,textarea,select{
   width:100%;
-  background:#0d0d17;
+  background:#080810;
+  color:white;
   border:1px solid var(--border);
-  color:white;
   border-radius:12px;
-  padding:13px;
+  padding:14px;
   outline:none;
+  margin-bottom:12px;
 }
 
-.authForm input:focus{
-  border-color:#8b5cf6;
+input:focus,textarea:focus{
+  border-color:var(--cyan);
+  box-shadow:0 0 15px rgba(0,234,255,.15);
 }
 
-.authButton{
-  background:linear-gradient(90deg,#8b5cf6,#06b6d4);
+button{
+  border:1px solid var(--border);
+  background:#10101a;
   color:white;
-  border:0;
-  border-radius:11px;
-  padding:13px;
+  padding:12px 16px;
+  border-radius:12px;
   cursor:pointer;
-  font-weight:700;
+  transition:.2s;
 }
 
-.authMessage{
+button:hover{
+  transform:translateY(-1px);
+  border-color:var(--cyan);
+  box-shadow:0 0 18px rgba(0,234,255,.15);
+}
+
+.primary{
+  width:100%;
+  background:linear-gradient(
+    90deg,
+    rgba(0,234,255,.18),
+    rgba(139,92,246,.18),
+    rgba(255,0,204,.18)
+  );
+  border-color:var(--cyan);
+  font-weight:bold;
+}
+
+.error{
+  color:#ff6b8a;
+  margin:10px 0;
   min-height:20px;
-  color:#f87171;
-  font-size:13px;
   text-align:center;
 }
 
-.authInfo{
-  color:#777;
+.success{
+  color:var(--green);
+  margin:10px 0;
+  min-height:20px;
   text-align:center;
-  font-size:12px;
-  margin-top:15px;
 }
 
-/* =========================
-   APP
-========================= */
-
-.hidden{
-  display:none!important;
+/* APP */
+#app{
+  display:none;
+  min-height:100vh;
 }
 
-.app{
+.layout{
   display:flex;
   min-height:100vh;
 }
 
 .sidebar{
-  width:245px;
-  background:rgba(8,8,15,.88);
-  backdrop-filter:blur(20px);
+  width:240px;
   border-right:1px solid var(--border);
-  padding:18px 14px;
+  background:rgba(7,7,12,.92);
+  backdrop-filter:blur(18px);
+  padding:18px;
   position:fixed;
-  left:0;
   top:0;
   bottom:0;
-  z-index:20;
+  left:0;
+  overflow-y:auto;
 }
 
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:8px 10px 20px;
-}
-
-.logoOrb{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  background:conic-gradient(#8b5cf6,#06b6d4,#ec4899,#8b5cf6);
-  animation:spin 4s linear infinite;
-}
-
-.logoText{
-  font-size:20px;
-  font-weight:800;
+.sideLogo{
+  font-size:26px;
+  font-weight:900;
+  text-align:center;
+  margin:8px 0 24px;
+  background:linear-gradient(
+    90deg,
+    var(--cyan),
+    var(--pink),
+    var(--purple)
+  );
+  -webkit-background-clip:text;
+  color:transparent;
 }
 
 .nav{
   display:flex;
   flex-direction:column;
-  gap:5px;
+  gap:8px;
 }
 
 .nav button{
-  border:0;
-  background:transparent;
-  color:#b7b7c9;
-  padding:11px 12px;
-  border-radius:12px;
   text-align:left;
-  cursor:pointer;
-  font-size:14px;
+  background:transparent;
+  border-color:transparent;
 }
 
-.nav button:hover,
 .nav button.active{
-  color:white;
-  background:linear-gradient(
-    90deg,
-    rgba(139,92,246,.22),
-    rgba(6,182,212,.08)
-  );
-}
-
-.sidebarBottom{
-  position:absolute;
-  bottom:15px;
-  left:14px;
-  right:14px;
-}
-
-.status{
-  border:1px solid var(--border);
-  padding:11px;
-  border-radius:12px;
-  color:#9ca3af;
-  font-size:12px;
-}
-
-.online{
-  color:#22c55e;
+  border-color:var(--cyan);
+  background:rgba(0,234,255,.07);
 }
 
 .main{
-  margin-left:245px;
-  width:calc(100% - 245px);
-  min-height:100vh;
+  margin-left:240px;
+  width:calc(100% - 240px);
+  padding:28px;
 }
 
 .topbar{
-  height:65px;
-  border-bottom:1px solid var(--border);
-  background:rgba(7,7,13,.65);
-  backdrop-filter:blur(18px);
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  padding:0 24px;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-
-.pageTitle{
-  font-weight:700;
-}
-
-.topActions{
-  display:flex;
-  gap:8px;
   align-items:center;
+  margin-bottom:25px;
+  gap:12px;
 }
 
-.topActions button{
-  background:var(--panel);
-  color:white;
+.userMini{
   border:1px solid var(--border);
-  padding:9px 12px;
-  border-radius:10px;
-  cursor:pointer;
+  padding:9px 14px;
+  border-radius:14px;
+  background:rgba(12,12,20,.7);
 }
 
-.userBadge{
-  color:#aaa;
-  font-size:13px;
+/* PAGES */
+.page{
+  display:none;
 }
 
-.content{
-  padding:30px;
-  max-width:1300px;
-  margin:auto;
+.page.active{
+  display:block;
 }
-
-/* HOME */
 
 .hero{
   min-height:420px;
@@ -335,249 +275,223 @@ body::after{
   text-align:center;
 }
 
-.heroOrb{
-  width:130px;
-  height:130px;
+.core{
+  width:180px;
+  height:180px;
   border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:3px;
+  border:2px solid var(--cyan);
   background:
-    radial-gradient(circle at 35% 30%,white 0 3%,transparent 4%),
-    conic-gradient(#8b5cf6,#06b6d4,#ec4899,#8b5cf6);
+    radial-gradient(circle,
+      rgba(255,255,255,.08),
+      rgba(0,234,255,.08),
+      rgba(255,0,204,.06),
+      transparent 70%);
   box-shadow:
-    0 0 30px #8b5cf6,
-    0 0 70px rgba(6,182,212,.35);
-  animation:orb 4s ease-in-out infinite;
-  margin-bottom:28px;
+    0 0 25px var(--cyan),
+    0 0 70px rgba(255,0,204,.35),
+    inset 0 0 35px rgba(139,92,246,.4);
+  animation:corePulse 3s ease-in-out infinite;
 }
 
-@keyframes orb{
-  0%,100%{transform:scale(1) rotate(0deg)}
-  50%{transform:scale(1.08) rotate(180deg)}
+@keyframes corePulse{
+  50%{
+    transform:scale(1.06);
+    box-shadow:
+      0 0 45px var(--cyan),
+      0 0 100px rgba(255,0,204,.4);
+  }
 }
 
 .hero h1{
-  font-size:clamp(34px,6vw,65px);
-  margin-bottom:12px;
+  margin-top:28px;
+  font-size:38px;
 }
 
 .hero p{
   color:var(--muted);
-  max-width:600px;
-  line-height:1.7;
+  margin-top:10px;
 }
 
-.sectionTitle{
-  font-size:22px;
-  margin:25px 0 15px;
-}
-
-/* CARDS */
-
-.grid{
+.cards{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:14px;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:15px;
+  margin-top:25px;
 }
 
 .card{
-  background:var(--panel);
+  background:rgba(12,12,20,.82);
   border:1px solid var(--border);
-  border-radius:17px;
+  border-radius:18px;
   padding:20px;
-  cursor:pointer;
-  transition:.25s;
-  backdrop-filter:blur(15px);
-}
-
-.card:hover{
-  transform:translateY(-4px);
-  border-color:rgba(139,92,246,.45);
-}
-
-.cardIcon{
-  font-size:30px;
-  margin-bottom:13px;
 }
 
 .card h3{
-  margin-bottom:7px;
+  margin-bottom:8px;
 }
 
-.card p{
+.muted{
   color:var(--muted);
-  font-size:13px;
-  line-height:1.5;
-}
-
-/* PANELS */
-
-.panel{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:22px;
-  backdrop-filter:blur(15px);
-}
-
-textarea,
-input,
-select{
-  width:100%;
-  background:#0d0d17;
-  border:1px solid var(--border);
-  color:white;
-  border-radius:12px;
-  padding:13px;
-  outline:none;
-  font-family:inherit;
-}
-
-textarea{
-  min-height:130px;
-  resize:vertical;
-}
-
-textarea:focus,
-input:focus,
-select:focus{
-  border-color:#8b5cf6;
-}
-
-.primary{
-  background:linear-gradient(90deg,#8b5cf6,#06b6d4);
-  color:white;
-  border:0;
-  border-radius:11px;
-  padding:12px 18px;
-  cursor:pointer;
-  font-weight:700;
-}
-
-.secondary{
-  background:#171725;
-  color:white;
-  border:1px solid var(--border);
-  border-radius:11px;
-  padding:11px 15px;
-  cursor:pointer;
 }
 
 /* CHAT */
-
-.chatWrap{
-  display:flex;
-  flex-direction:column;
-  height:calc(100vh - 125px);
+.chatBox{
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:rgba(8,8,15,.8);
+  overflow:hidden;
 }
 
 .messages{
-  flex:1;
+  min-height:480px;
+  max-height:62vh;
   overflow-y:auto;
-  padding:10px 5px 20px;
+  padding:20px;
 }
 
-.msg{
-  max-width:850px;
-  margin:12px auto;
-  padding:15px 17px;
+.message{
+  margin-bottom:14px;
+  display:flex;
+}
+
+.message.user{
+  justify-content:flex-end;
+}
+
+.bubble{
+  max-width:80%;
+  padding:13px 15px;
   border-radius:16px;
-  line-height:1.65;
   white-space:pre-wrap;
+  line-height:1.55;
 }
 
-.user{
-  background:linear-gradient(
-    135deg,
-    rgba(139,92,246,.25),
-    rgba(6,182,212,.12)
-  );
-}
-
-.ai{
-  background:rgba(20,20,32,.85);
+.message.ai .bubble{
+  background:#10101b;
   border:1px solid var(--border);
+}
+
+.message.user .bubble{
+  background:rgba(0,234,255,.09);
+  border:1px solid rgba(0,234,255,.3);
 }
 
 .chatInput{
   display:flex;
-  gap:9px;
-  max-width:850px;
-  margin:auto;
-  width:100%;
-}
-
-.chatInput input{
-  flex:1;
-}
-
-/* CODE */
-
-.codeBox{
-  margin:12px 0;
-  border:1px solid #2b2b42;
-  border-radius:12px;
-  overflow:hidden;
-  background:#090910;
-}
-
-.codeTop{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:8px 12px;
-  background:#12121d;
-  color:#aaa;
-  font-size:12px;
-}
-
-.codeBox pre{
+  gap:10px;
   padding:15px;
-  overflow:auto;
-  color:#e5e7eb;
-  font-family:Consolas,monospace;
-  font-size:13px;
+  border-top:1px solid var(--border);
 }
 
-.funResult{
-  min-height:80px;
+.chatInput textarea{
+  margin:0;
+  resize:none;
+}
+
+.chatInput button{
+  align-self:stretch;
+}
+
+/* PROFILE */
+.profileHeader{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  margin-bottom:25px;
+}
+
+.avatar{
+  width:75px;
+  height:75px;
+  border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
-  text-align:center;
-  font-size:20px;
-  margin-top:15px;
+  font-size:30px;
+  font-weight:bold;
+  border:2px solid var(--cyan);
+  box-shadow:0 0 25px rgba(0,234,255,.3);
+  background:#0c0c15;
 }
 
-.generatedImage{
-  max-width:100%;
-  border-radius:15px;
-  margin-top:15px;
+.progress{
+  height:12px;
+  background:#08080e;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:12px;
 }
 
-.footer{
-  text-align:center;
-  padding:35px;
-  color:#666;
-  font-size:12px;
+.progressBar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(
+    90deg,
+    var(--cyan),
+    var(--purple),
+    var(--pink)
+  );
+  transition:.5s;
 }
 
-.mobileMenu{
-  display:none;
+/* CHAT HISTORY */
+.historyItem{
+  padding:14px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  margin-bottom:10px;
+  cursor:pointer;
+  background:#0b0b14;
 }
 
-.profileEmail{
+.historyItem:hover{
+  border-color:var(--cyan);
+}
+
+.historyTitle{
+  font-weight:bold;
+}
+
+.historyDate{
   color:var(--muted);
+  font-size:12px;
   margin-top:5px;
-  font-size:13px;
 }
 
+.danger{
+  border-color:#ff4f70;
+  color:#ff6b8a;
+}
+
+/* MOBILE */
 @media(max-width:800px){
   .sidebar{
-    transform:translateX(-100%);
-    transition:.25s;
+    width:190px;
   }
 
-  .sidebar.open{
-    transform:translateX(0);
+  .main{
+    margin-left:190px;
+    width:calc(100% - 190px);
+    padding:18px;
+  }
+}
+
+@media(max-width:600px){
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+    bottom:auto;
+  }
+
+  .layout{
+    display:block;
   }
 
   .main{
@@ -585,30 +499,13 @@ select:focus{
     width:100%;
   }
 
-  .mobileMenu{
-    display:inline-block;
-    background:none;
-    color:white;
-    border:0;
-    font-size:22px;
-    cursor:pointer;
-    margin-right:8px;
-  }
-
-  .content{
-    padding:18px;
-  }
-
-  .hero{
-    min-height:350px;
-  }
-
-  .grid{
+  .nav{
+    display:grid;
     grid-template-columns:repeat(2,1fr);
   }
 
-  .userBadge{
-    display:none;
+  .hero h1{
+    font-size:28px;
   }
 }
 </style>
@@ -616,25 +513,20 @@ select:focus{
 
 <body>
 
-<!-- =========================
-     AUTH
-========================= -->
+<!-- ================= AUTH ================= -->
 
 <div id="authScreen">
 
   <div class="authBox">
 
-    <div class="authLogo">
-      <div class="authOrb"></div>
-      <h1><span class="gradientText">Amzo AI</span></h1>
-      <p style="color:#999ab0;margin-top:8px">
-        Your personal AI universe
-      </p>
+    <div class="logo">AMZO AI</div>
+
+    <div class="tagline">
+      Your personal AI universe 🌌
     </div>
 
     <div class="authTabs">
-      <button id="loginTab"
-        class="active"
+      <button id="loginTab" class="primary"
         onclick="showAuth('login')">
         Login
       </button>
@@ -647,15 +539,12 @@ select:focus{
 
     <!-- LOGIN -->
 
-    <form id="loginForm"
-      class="authForm"
-      onsubmit="login(event)">
+    <div id="loginForm">
 
       <input
         id="loginIdentifier"
         placeholder="Username or email"
         autocomplete="username"
-        required
       >
 
       <input
@@ -663,29 +552,24 @@ select:focus{
         type="password"
         placeholder="Password"
         autocomplete="current-password"
-        required
       >
 
-      <button class="authButton"
-        type="submit">
+      <button
+        class="primary"
+        onclick="login()">
         🚀 Login
       </button>
 
-    </form>
+    </div>
 
     <!-- SIGNUP -->
 
-    <form id="signupForm"
-      class="authForm hidden"
-      onsubmit="signup(event)">
+    <div id="signupForm" style="display:none">
 
       <input
         id="signupUsername"
         placeholder="Username"
         autocomplete="username"
-        minlength="3"
-        maxlength="30"
-        required
       >
 
       <input
@@ -693,30 +577,28 @@ select:focus{
         type="email"
         placeholder="Email"
         autocomplete="email"
-        required
       >
 
       <input
         id="signupPassword"
         type="password"
-        placeholder="Password — 8+ characters"
+        placeholder="Password"
         autocomplete="new-password"
-        minlength="8"
-        required
       >
 
-      <button class="authButton"
-        type="submit">
+      <button
+        class="primary"
+        onclick="signup()">
         ✨ Create Account
       </button>
 
-    </form>
-
-    <div id="authMessage"
-      class="authMessage">
     </div>
 
-    <div class="authInfo">
+    <div id="authMessage"
+      class="error"></div>
+
+    <div class="muted"
+      style="text-align:center;font-size:12px">
       Your account uses secure server-side sessions.
     </div>
 
@@ -725,610 +607,495 @@ select:focus{
 </div>
 
 
-<!-- =========================
-     APP
-========================= -->
+<!-- ================= APP ================= -->
 
-<div id="app" class="app hidden">
+<div id="app">
 
-<aside class="sidebar" id="sidebar">
+  <div class="layout">
 
-  <div class="logo">
-    <div class="logoOrb"></div>
-    <div class="logoText">Amzo AI</div>
-  </div>
+    <!-- SIDEBAR -->
 
-  <nav class="nav">
+    <aside class="sidebar">
 
-    <button class="active" data-page="home">🏠 Home</button>
-    <button data-page="chat">💬 AI Chat</button>
-    <button data-page="create">🎨 Create</button>
-    <button data-page="code">💻 Code Lab</button>
-    <button data-page="fun">🎮 Fun Zone</button>
-    <button data-page="tools">🧰 AI Tools</button>
-    <button data-page="learn">📚 Learn</button>
-    <button data-page="lab">🧪 Amzo Lab</button>
-    <button data-page="profile">👤 Profile</button>
-    <button data-page="settings">⚙️ Settings</button>
-
-  </nav>
-
-  <div class="sidebarBottom">
-    <div class="status">
-      <span class="online">● Online</span><br>
-      Amzo AI is ready
-    </div>
-  </div>
-
-</aside>
-
-<main class="main">
-
-<header class="topbar">
-
-  <div>
-    <button
-      class="mobileMenu"
-      onclick="toggleSidebar()">
-      ☰
-    </button>
-
-    <span
-      class="pageTitle"
-      id="pageTitle">
-      Home
-    </span>
-  </div>
-
-  <div class="topActions">
-
-    <span
-      id="userBadge"
-      class="userBadge">
-    </span>
-
-    <button onclick="showPage('chat')">
-      + New Chat
-    </button>
-
-  </div>
-
-</header>
-
-<div class="content">
-
-<!-- HOME -->
-
-<section id="home" class="page">
-
-  <div class="hero">
-
-    <div class="heroOrb"></div>
-
-    <h1>
-      Welcome to
-      <span class="gradientText">
-        Amzo AI
-      </span>
-    </h1>
-
-    <p>
-      Chat, create, code, play, learn and experiment —
-      all inside one AI platform.
-    </p>
-
-  </div>
-
-  <h2 class="sectionTitle">
-    🚀 Explore Amzo
-  </h2>
-
-  <div class="grid">
-
-    <div class="card" onclick="showPage('chat')">
-      <div class="cardIcon">💬</div>
-      <h3>AI Chat</h3>
-      <p>Talk with Amzo AI about anything.</p>
-    </div>
-
-    <div class="card" onclick="showPage('create')">
-      <div class="cardIcon">🎨</div>
-      <h3>Create</h3>
-      <p>Turn ideas into creative content.</p>
-    </div>
-
-    <div class="card" onclick="showPage('code')">
-      <div class="cardIcon">💻</div>
-      <h3>Code Lab</h3>
-      <p>Generate and understand code.</p>
-    </div>
-
-    <div class="card" onclick="showPage('fun')">
-      <div class="cardIcon">🎮</div>
-      <h3>Fun Zone</h3>
-      <p>Games, challenges and random fun.</p>
-    </div>
-
-    <div class="card" onclick="showPage('tools')">
-      <div class="cardIcon">🧰</div>
-      <h3>AI Tools</h3>
-      <p>Useful everyday AI tools.</p>
-    </div>
-
-    <div class="card" onclick="showPage('learn')">
-      <div class="cardIcon">📚</div>
-      <h3>Learn</h3>
-      <p>Practice and learn new things.</p>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- CHAT -->
-
-<section id="chat" class="page hidden">
-
-  <div class="chatWrap">
-
-    <div id="messages" class="messages">
-
-      <div class="msg ai">
-        👋 Hey! I'm <b>Amzo AI</b>.<br>
-        Ask me anything.
+      <div class="sideLogo">
+        AMZO AI
       </div>
 
-    </div>
+      <div class="nav">
 
-    <div class="chatInput">
+        <button
+          class="active"
+          onclick="openPage('home',this)">
+          🏠 Home
+        </button>
 
-      <input
-        id="chatInput"
-        placeholder="Message Amzo AI..."
-        onkeydown="handleChatKey(event)"
-      >
+        <button
+          onclick="openPage('chat',this)">
+          🤖 AI Chat
+        </button>
 
-      <button
-        class="primary"
-        onclick="sendChat()">
-        Send
-      </button>
+        <button
+          onclick="openPage('history',this)">
+          💬 Chat History
+        </button>
 
-    </div>
+        <button
+          onclick="openPage('create',this)">
+          ✨ Create
+        </button>
+
+        <button
+          onclick="openPage('code',this)">
+          💻 Code Lab
+        </button>
+
+        <button
+          onclick="openPage('fun',this)">
+          🎮 Fun Zone
+        </button>
+
+        <button
+          onclick="openPage('learn',this)">
+          📚 Learn
+        </button>
+
+        <button
+          onclick="openPage('profile',this)">
+          👤 Profile
+        </button>
+
+        <button
+          onclick="openPage('settings',this)">
+          ⚙️ Settings
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+      <div class="topbar">
+
+        <div>
+          <h2 id="pageTitle">
+            Amzo Universe
+          </h2>
+        </div>
+
+        <div class="userMini">
+          👤 <span id="topUsername">User</span>
+          · ⭐ <span id="topXP">0</span> XP
+        </div>
+
+      </div>
+
+
+      <!-- HOME -->
+
+      <section
+        id="home"
+        class="page active">
+
+        <div class="hero">
+
+          <div class="core"
+            onclick="coreMessage()">
+            AMZO
+          </div>
+
+          <h1>
+            Welcome back,
+            <span id="welcomeName">
+              Amzoo
+            </span>
+            ✨
+          </h1>
+
+          <p>
+            This is your universe. Build something nobody has built before.
+          </p>
+
+        </div>
+
+        <div class="cards">
+
+          <div class="card">
+            <h3>⭐ XP</h3>
+            <div id="homeXP">
+              0 XP
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>🚀 Level</h3>
+            <div id="homeLevel">
+              Level 1
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>💬 Chats</h3>
+            <div id="homeChats">
+              Loading...
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>🌌 Status</h3>
+            <div>
+              Online
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- CHAT -->
+
+      <section
+        id="chat"
+        class="page">
+
+        <h1>🤖 AI Chat</h1>
+
+        <p class="muted"
+          style="margin:8px 0 20px">
+          Talk with Amzo AI.
+        </p>
+
+        <div class="chatBox">
+
+          <div
+            id="messages"
+            class="messages">
+          </div>
+
+          <div class="chatInput">
+
+            <textarea
+              id="chatInput"
+              rows="2"
+              placeholder="Ask Amzo anything..."
+              onkeydown="chatKey(event)">
+            </textarea>
+
+            <button
+              onclick="sendChat()">
+              Send 🚀
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- HISTORY -->
+
+      <section
+        id="history"
+        class="page">
+
+        <div style="
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          gap:10px;
+          margin-bottom:20px;
+        ">
+
+          <div>
+            <h1>💬 Chat History</h1>
+            <p class="muted">
+              Your saved conversations.
+            </p>
+          </div>
+
+          <button
+            onclick="loadChats()">
+            🔄 Refresh
+          </button>
+
+        </div>
+
+        <div
+          id="historyList">
+          Loading...
+        </div>
+
+      </section>
+
+
+      <!-- CREATE -->
+
+      <section
+        id="create"
+        class="page">
+
+        <h1>✨ Create</h1>
+
+        <p class="muted"
+          style="margin:8px 0 20px">
+          Ask Amzo AI to create ideas, content or concepts.
+        </p>
+
+        <textarea
+          id="createInput"
+          rows="7"
+          placeholder="What do you want to create?">
+        </textarea>
+
+        <button
+          onclick="createSomething()">
+          ✨ Create
+        </button>
+
+        <div
+          id="createResult"
+          class="card"
+          style="margin-top:20px;white-space:pre-wrap">
+        </div>
+
+      </section>
+
+
+      <!-- CODE -->
+
+      <section
+        id="code"
+        class="page">
+
+        <h1>💻 Code Lab</h1>
+
+        <p class="muted"
+          style="margin:8px 0 20px">
+          Ask Amzo to write or explain code.
+        </p>
+
+        <textarea
+          id="codeInput"
+          rows="7"
+          placeholder="Example: Create a HTML calculator">
+        </textarea>
+
+        <button
+          onclick="generateCode()">
+          💻 Generate Code
+        </button>
+
+        <div
+          id="codeResult"
+          class="card"
+          style="margin-top:20px;white-space:pre-wrap">
+        </div>
+
+      </section>
+
+
+      <!-- FUN -->
+
+      <section
+        id="fun"
+        class="page">
+
+        <h1>🎮 Fun Zone</h1>
+
+        <div class="cards">
+
+          <div class="card">
+            <h3>🎲 Random Challenge</h3>
+            <p
+              id="challenge"
+              class="muted"
+              style="margin:12px 0">
+              Click below.
+            </p>
+
+            <button
+              onclick="randomChallenge()">
+              Generate
+            </button>
+          </div>
+
+          <div class="card">
+            <h3>🧠 Random Fact</h3>
+            <p
+              id="fact"
+              class="muted"
+              style="margin:12px 0">
+              Click below.
+            </p>
+
+            <button
+              onclick="randomFact()">
+              Surprise me
+            </button>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- LEARN -->
+
+      <section
+        id="learn"
+        class="page">
+
+        <h1>📚 Learn</h1>
+
+        <div class="cards">
+
+          <div class="card">
+            <h3>🧮 Mathematics</h3>
+            <p class="muted">
+              Practice maths with Amzo AI.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>💻 Programming</h3>
+            <p class="muted">
+              Learn coding step by step.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>🌎 General Knowledge</h3>
+            <p class="muted">
+              Explore new topics.
+            </p>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- PROFILE -->
+
+      <section
+        id="profile"
+        class="page">
+
+        <h1>👤 Profile</h1>
+
+        <div class="profileHeader"
+          style="margin-top:25px">
+
+          <div
+            id="avatar"
+            class="avatar">
+            A
+          </div>
+
+          <div>
+            <h2 id="profileUsername">
+              User
+            </h2>
+
+            <p
+              id="profileEmail"
+              class="muted">
+              user@example.com
+            </p>
+          </div>
+
+        </div>
+
+        <div class="cards">
+
+          <div class="card">
+
+            <h3>⭐ XP</h3>
+
+            <div
+              id="profileXP"
+              style="font-size:28px;margin-top:8px">
+              0
+            </div>
+
+          </div>
+
+          <div class="card">
+
+            <h3>🚀 Level</h3>
+
+            <div
+              id="profileLevel"
+              style="font-size:28px;margin-top:8px">
+              1
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="card"
+          style="margin-top:15px">
+
+          <h3>
+            Level Progress
+          </h3>
+
+          <div class="progress">
+            <div
+              id="progressBar"
+              class="progressBar">
+            </div>
+          </div>
+
+          <p
+            id="progressText"
+            class="muted"
+            style="margin-top:8px">
+            0 / 100 XP
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- SETTINGS -->
+
+      <section
+        id="settings"
+        class="page">
+
+        <h1>⚙️ Settings</h1>
+
+        <div class="card"
+          style="margin-top:20px">
+
+          <h3>Account</h3>
+
+          <p class="muted"
+            style="margin:10px 0 18px">
+            Manage your Amzo AI session.
+          </p>
+
+          <button
+            class="danger"
+            onclick="logout()">
+            🚪 Logout
+          </button>
+
+        </div>
+
+      </section>
+
+    </main>
 
   </div>
-
-</section>
-
-
-<!-- CREATE -->
-
-<section id="create" class="page hidden">
-
-  <h1>🎨 Create Studio</h1>
-
-  <p style="color:var(--muted);margin:8px 0 20px">
-    Turn your ideas into content.
-  </p>
-
-  <div class="grid">
-
-    <div class="card"
-      onclick="creator('YouTube Shorts idea')">
-      <div class="cardIcon">🎬</div>
-      <h3>Video Idea</h3>
-      <p>Generate a fresh video concept.</p>
-    </div>
-
-    <div class="card"
-      onclick="creator('YouTube title ideas')">
-      <div class="cardIcon">📺</div>
-      <h3>Titles</h3>
-      <p>Create clickable title ideas.</p>
-    </div>
-
-    <div class="card"
-      onclick="creator('short story')">
-      <div class="cardIcon">📖</div>
-      <h3>Story</h3>
-      <p>Create an original story.</p>
-    </div>
-
-    <div class="card"
-      onclick="creator('character idea')">
-      <div class="cardIcon">🧙</div>
-      <h3>Character</h3>
-      <p>Build an original character.</p>
-    </div>
-
-  </div>
-
-  <div class="panel" style="margin-top:20px">
-
-    <textarea
-      id="createInput"
-      placeholder="Tell Amzo what you want to create...">
-    </textarea>
-
-    <br><br>
-
-    <button
-      class="primary"
-      onclick="createContent()">
-      ✨ Create
-    </button>
-
-    <div
-      id="createResult"
-      style="margin-top:20px;line-height:1.7">
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- CODE -->
-
-<section id="code" class="page hidden">
-
-  <h1>💻 Code Lab</h1>
-
-  <p style="color:var(--muted);margin:8px 0 20px">
-    Generate, explain or fix code with Amzo AI.
-  </p>
-
-  <div class="panel">
-
-    <textarea
-      id="codeInput"
-      placeholder="Example: Make a Python calculator">
-    </textarea>
-
-    <br><br>
-
-    <button
-      class="primary"
-      onclick="generateCode()">
-      ⚡ Generate Code
-    </button>
-
-    <div
-      id="codeResult"
-      style="margin-top:20px">
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- FUN -->
-
-<section id="fun" class="page hidden">
-
-  <h1>🎮 Fun Zone</h1>
-
-  <p style="color:var(--muted);margin:8px 0 20px">
-    Take a break and play something.
-  </p>
-
-  <div class="grid">
-
-    <div class="card" onclick="startRPS()">
-      <div class="cardIcon">✊</div>
-      <h3>Rock Paper Scissors</h3>
-      <p>Play against Amzo.</p>
-    </div>
-
-    <div class="card" onclick="randomFact()">
-      <div class="cardIcon">🤯</div>
-      <h3>Random Fact</h3>
-      <p>Discover something interesting.</p>
-    </div>
-
-    <div class="card" onclick="randomChallenge()">
-      <div class="cardIcon">🔥</div>
-      <h3>Challenge</h3>
-      <p>Get a random challenge.</p>
-    </div>
-
-    <div class="card" onclick="riddle()">
-      <div class="cardIcon">🧩</div>
-      <h3>Riddle</h3>
-      <p>Test your brain.</p>
-    </div>
-
-  </div>
-
-  <div
-    class="panel funResult"
-    id="funResult">
-    Choose something 👆
-  </div>
-
-</section>
-
-
-<!-- TOOLS -->
-
-<section id="tools" class="page hidden">
-
-  <h1>🧰 AI Tools</h1>
-
-  <p style="color:var(--muted);margin:8px 0 20px">
-    Small tools for everyday work.
-  </p>
-
-  <div class="grid">
-
-    <div class="card" onclick="tool('summarize')">
-      <div class="cardIcon">📝</div>
-      <h3>Summarizer</h3>
-      <p>Turn long text into short notes.</p>
-    </div>
-
-    <div class="card" onclick="tool('translate')">
-      <div class="cardIcon">🌐</div>
-      <h3>Translator</h3>
-      <p>Translate text.</p>
-    </div>
-
-    <div class="card" onclick="tool('improve')">
-      <div class="cardIcon">✨</div>
-      <h3>Improve Text</h3>
-      <p>Make writing clearer.</p>
-    </div>
-
-    <div class="card" onclick="tool('ideas')">
-      <div class="cardIcon">💡</div>
-      <h3>Idea Generator</h3>
-      <p>Generate new ideas.</p>
-    </div>
-
-  </div>
-
-  <div class="panel" style="margin-top:20px">
-
-    <textarea
-      id="toolInput"
-      placeholder="Enter your text...">
-    </textarea>
-
-    <br><br>
-
-    <select id="toolSelect">
-
-      <option value="summarize">
-        Summarize
-      </option>
-
-      <option value="translate">
-        Translate to English
-      </option>
-
-      <option value="improve">
-        Improve writing
-      </option>
-
-      <option value="ideas">
-        Generate ideas
-      </option>
-
-    </select>
-
-    <br><br>
-
-    <button
-      class="primary"
-      onclick="runTool()">
-      Run Tool
-    </button>
-
-    <div
-      id="toolResult"
-      style="margin-top:20px;line-height:1.7">
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- LEARN -->
-
-<section id="learn" class="page hidden">
-
-  <h1>📚 Learn</h1>
-
-  <p style="color:var(--muted);margin:8px 0 20px">
-    Learn through practice.
-  </p>
-
-  <div class="grid">
-
-    <div class="card" onclick="learn('math')">
-      <div class="cardIcon">➗</div>
-      <h3>Math</h3>
-      <p>Practice a random problem.</p>
-    </div>
-
-    <div class="card" onclick="learn('english')">
-      <div class="cardIcon">🔤</div>
-      <h3>English</h3>
-      <p>Practice English.</p>
-    </div>
-
-    <div class="card" onclick="learn('coding')">
-      <div class="cardIcon">👨‍💻</div>
-      <h3>Coding</h3>
-      <p>Learn programming concepts.</p>
-    </div>
-
-    <div class="card"
-      onclick="learn('general knowledge')">
-      <div class="cardIcon">🧠</div>
-      <h3>General Knowledge</h3>
-      <p>Learn something new.</p>
-    </div>
-
-  </div>
-
-  <div
-    class="panel"
-    style="margin-top:20px">
-
-    <div id="learnResult">
-      Choose a topic 👆
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- LAB -->
-
-<section id="lab" class="page hidden">
-
-  <h1>🧪 Amzo Lab</h1>
-
-  <p style="color:var(--muted);margin:8px 0 20px">
-    Experimental features and random AI experiences.
-  </p>
-
-  <div class="grid">
-
-    <div class="card" onclick="surprise()">
-      <div class="cardIcon">🎁</div>
-      <h3>Surprise Me</h3>
-      <p>Amzo chooses something random.</p>
-    </div>
-
-    <div class="card" onclick="mystery()">
-      <div class="cardIcon">🔮</div>
-      <h3>Mystery Box</h3>
-      <p>Open a random mystery.</p>
-    </div>
-
-    <div class="card" onclick="aiChallenge()">
-      <div class="cardIcon">⚡</div>
-      <h3>AI Challenge</h3>
-      <p>Try today's challenge.</p>
-    </div>
-
-  </div>
-
-  <div
-    class="panel funResult"
-    id="labResult">
-    Choose an experiment 👆
-  </div>
-
-</section>
-
-
-<!-- PROFILE -->
-
-<section id="profile" class="page hidden">
-
-  <h1>👤 Profile</h1>
-
-  <div
-    class="panel"
-    style="margin-top:20px">
-
-    <h2 id="profileUsername">
-      Amzo Explorer
-    </h2>
-
-    <div
-      id="profileEmail"
-      class="profileEmail">
-    </div>
-
-    <br>
-
-    <p>
-      ⭐ XP:
-      <b id="xp">0</b>
-    </p>
-
-    <p style="margin-top:10px">
-      🏆 Level:
-      <b id="level">1</b>
-    </p>
-
-    <p style="margin-top:10px">
-      🔥 Daily streak:
-      <b>1 day</b>
-    </p>
-
-    <br>
-
-    <button
-      class="secondary"
-      onclick="logout()">
-      🚪 Logout
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- SETTINGS -->
-
-<section id="settings" class="page hidden">
-
-  <h1>⚙️ Settings</h1>
-
-  <div
-    class="panel"
-    style="margin-top:20px">
-
-    <label>Theme</label>
-
-    <br><br>
-
-    <button
-      class="secondary"
-      onclick="toggleTheme()">
-      🌙 Toggle Theme
-    </button>
-
-    <br><br>
-
-    <label>Animations</label>
-
-    <br><br>
-
-    <button
-      class="secondary"
-      onclick="toggleAnimation()">
-      ✨ Toggle RGB Animation
-    </button>
-
-    <br><br>
-
-    <button
-      class="secondary"
-      onclick="logout()">
-      🚪 Logout
-    </button>
-
-  </div>
-
-</section>
-
-</div>
-
-<div class="footer">
-  Made with ⚡ by Amzo AI
-</div>
-
-</main>
 
 </div>
 
@@ -1342,6 +1109,43 @@ select:focus{
 const API_URL =
 "https://ai-tool-api.amzoxamzoo.workers.dev/";
 
+let currentUser = null;
+let chatHistory = [];
+let currentChatId = null;
+
+
+/* =========================
+   API
+========================= */
+
+async function api(action, body = {}) {
+
+  const response =
+    await fetch(API_URL, {
+      method:"POST",
+      credentials:"include",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        action,
+        ...body
+      })
+    });
+
+  const data =
+    await response.json();
+
+  if(!response.ok){
+    throw new Error(
+      data.error ||
+      "Request failed."
+    );
+  }
+
+  return data;
+}
+
 
 /* =========================
    AUTH UI
@@ -1349,122 +1153,57 @@ const API_URL =
 
 function showAuth(type){
 
-  const loginForm =
-    document.getElementById("loginForm");
+  const login =
+    document.getElementById(
+      "loginForm"
+    );
 
-  const signupForm =
-    document.getElementById("signupForm");
+  const signup =
+    document.getElementById(
+      "signupForm"
+    );
 
   const loginTab =
-    document.getElementById("loginTab");
+    document.getElementById(
+      "loginTab"
+    );
 
   const signupTab =
-    document.getElementById("signupTab");
+    document.getElementById(
+      "signupTab"
+    );
 
-  const message =
-    document.getElementById("authMessage");
+  document.getElementById(
+    "authMessage"
+  ).textContent = "";
 
-  message.textContent="";
+  if(type === "login"){
 
-  if(type==="login"){
+    login.style.display =
+      "block";
 
-    loginForm.classList.remove("hidden");
-    signupForm.classList.add("hidden");
+    signup.style.display =
+      "none";
 
-    loginTab.classList.add("active");
-    signupTab.classList.remove("active");
+    loginTab.className =
+      "primary";
+
+    signupTab.className =
+      "";
 
   }else{
 
-    loginForm.classList.add("hidden");
-    signupForm.classList.remove("hidden");
+    login.style.display =
+      "none";
 
-    loginTab.classList.remove("active");
-    signupTab.classList.add("active");
+    signup.style.display =
+      "block";
 
-  }
-}
+    loginTab.className =
+      "";
 
-
-function setAuthMessage(text,error=true){
-
-  const message =
-    document.getElementById("authMessage");
-
-  message.textContent=text;
-
-  message.style.color =
-    error ? "#f87171" : "#22c55e";
-}
-
-
-/* =========================
-   SIGNUP
-========================= */
-
-async function signup(event){
-
-  event.preventDefault();
-
-  const username =
-    document.getElementById("signupUsername")
-      .value.trim();
-
-  const email =
-    document.getElementById("signupEmail")
-      .value.trim();
-
-  const password =
-    document.getElementById("signupPassword")
-      .value;
-
-  setAuthMessage("Creating account...",false);
-
-  try{
-
-    const response =
-      await fetch(API_URL,{
-        method:"POST",
-        credentials:"include",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-          action:"signup",
-          username,
-          email,
-          password
-        })
-      });
-
-    const data =
-      await response.json();
-
-    if(!response.ok){
-
-      setAuthMessage(
-        data.error || "Signup failed."
-      );
-
-      return;
-    }
-
-    setAuthMessage(
-      "Account created! Opening Amzo AI...",
-      false
-    );
-
-    setTimeout(()=>{
-      enterApp(data.user);
-    },500);
-
-  }catch(error){
-
-    console.error(error);
-
-    setAuthMessage(
-      "Connection error. Please try again."
-    );
+    signupTab.className =
+      "primary";
   }
 }
 
@@ -1473,169 +1212,310 @@ async function signup(event){
    LOGIN
 ========================= */
 
-async function login(event){
-
-  event.preventDefault();
+async function login(){
 
   const identifier =
-    document.getElementById("loginIdentifier")
-      .value.trim();
+    document.getElementById(
+      "loginIdentifier"
+    ).value.trim();
 
   const password =
-    document.getElementById("loginPassword")
-      .value;
+    document.getElementById(
+      "loginPassword"
+    ).value;
 
-  setAuthMessage("Logging in...",false);
+  const message =
+    document.getElementById(
+      "authMessage"
+    );
+
+  message.className =
+    "error";
+
+  message.textContent =
+    "Logging in...";
 
   try{
 
-    const response =
-      await fetch(API_URL,{
-        method:"POST",
-        credentials:"include",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-          action:"login",
+    const data =
+      await api(
+        "login",
+        {
           identifier,
           password
-        })
-      });
-
-    const data =
-      await response.json();
-
-    if(!response.ok){
-
-      setAuthMessage(
-        data.error || "Login failed."
+        }
       );
 
-      return;
-    }
+    currentUser =
+      data.user;
 
-    setAuthMessage(
-      "Login successful!",
-      false
+    message.className =
+      "success";
+
+    message.textContent =
+      "Login successful! 🚀";
+
+    setTimeout(
+      enterApp,
+      300
     );
-
-    setTimeout(()=>{
-      enterApp(data.user);
-    },300);
 
   }catch(error){
 
-    console.error(error);
+    message.className =
+      "error";
 
-    setAuthMessage(
-      "Connection error. Please try again."
-    );
+    message.textContent =
+      error.message;
   }
 }
 
 
 /* =========================
-   SESSION CHECK
+   SIGNUP
 ========================= */
 
-async function checkSession(){
+async function signup(){
+
+  const username =
+    document.getElementById(
+      "signupUsername"
+    ).value.trim();
+
+  const email =
+    document.getElementById(
+      "signupEmail"
+    ).value.trim();
+
+  const password =
+    document.getElementById(
+      "signupPassword"
+    ).value;
+
+  const message =
+    document.getElementById(
+      "authMessage"
+    );
+
+  message.className =
+    "error";
+
+  message.textContent =
+    "Creating account...";
 
   try{
 
-    const response =
-      await fetch(API_URL,{
-        method:"POST",
-        credentials:"include",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-          action:"me"
-        })
-      });
+    const data =
+      await api(
+        "signup",
+        {
+          username,
+          email,
+          password
+        }
+      );
+
+    currentUser =
+      data.user;
+
+    message.className =
+      "success";
+
+    message.textContent =
+      "Account created! ✨";
+
+    setTimeout(
+      enterApp,
+      300
+    );
+
+  }catch(error){
+
+    message.className =
+      "error";
+
+    message.textContent =
+      error.message;
+  }
+}
+
+
+/* =========================
+   AUTH CHECK
+========================= */
+
+async function checkAuth(){
+
+  try{
 
     const data =
-      await response.json();
+      await api("me");
 
-    if(data.loggedIn && data.user){
+    if(
+      data.loggedIn &&
+      data.user
+    ){
 
-      enterApp(data.user);
+      currentUser =
+        data.user;
+
+      enterApp();
 
     }else{
 
-      showAuthScreen();
-
+      showAuth("login");
     }
 
   }catch(error){
 
-    console.error(error);
-
-    showAuthScreen();
+    showAuth("login");
   }
 }
 
 
-function showAuthScreen(){
+/* =========================
+   ENTER APP
+========================= */
 
-  document
-    .getElementById("authScreen")
-    .classList.remove("hidden");
+async function enterApp(){
 
-  document
-    .getElementById("app")
-    .classList.add("hidden");
-}
+  document.getElementById(
+    "authScreen"
+  ).style.display =
+    "none";
 
-
-function enterApp(user){
-
-  document
-    .getElementById("authScreen")
-    .classList.add("hidden");
-
-  document
-    .getElementById("app")
-    .classList.remove("hidden");
-
-  currentUser=user;
+  document.getElementById(
+    "app"
+  ).style.display =
+    "block";
 
   updateUserUI();
 
-  showPage("home");
+  loadChats();
 }
 
 
 /* =========================
-   USER
+   USER UI
 ========================= */
-
-let currentUser=null;
 
 function updateUserUI(){
 
-  if(!currentUser)return;
+  if(!currentUser){
+    return;
+  }
 
-  document.getElementById("userBadge")
-    .textContent=
-      "👤 "+currentUser.username;
+  const username =
+    currentUser.username;
 
-  document.getElementById("profileUsername")
-    .textContent=
-      currentUser.username;
+  const xp =
+    Number(currentUser.xp || 0);
 
-  document.getElementById("profileEmail")
-    .textContent=
-      currentUser.email;
+  const level =
+    Number(currentUser.level || 1);
 
-  document.getElementById("xp")
-    .textContent=
-      currentUser.xp || 0;
+  document.getElementById(
+    "topUsername"
+  ).textContent =
+    username;
 
-  document.getElementById("level")
-    .textContent=
-      currentUser.level || 1;
+  document.getElementById(
+    "topXP"
+  ).textContent =
+    xp;
+
+  document.getElementById(
+    "welcomeName"
+  ).textContent =
+    username;
+
+  document.getElementById(
+    "profileUsername"
+  ).textContent =
+    username;
+
+  document.getElementById(
+    "profileEmail"
+  ).textContent =
+    currentUser.email;
+
+  document.getElementById(
+    "avatar"
+  ).textContent =
+    username
+      .charAt(0)
+      .toUpperCase();
+
+  document.getElementById(
+    "profileXP"
+  ).textContent =
+    xp;
+
+  document.getElementById(
+    "profileLevel"
+  ).textContent =
+    "Level " + level;
+
+  document.getElementById(
+    "homeXP"
+  ).textContent =
+    xp + " XP";
+
+  document.getElementById(
+    "homeLevel"
+  ).textContent =
+    "Level " + level;
+
+  const currentLevelXP =
+    xp % 100;
+
+  document.getElementById(
+    "progressBar"
+  ).style.width =
+    currentLevelXP + "%";
+
+  document.getElementById(
+    "progressText"
+  ).textContent =
+    currentLevelXP +
+    " / 100 XP";
+}
+
+
+/* =========================
+   XP
+========================= */
+
+async function gainXP(amount){
+
+  try{
+
+    const data =
+      await api(
+        "xp",
+        {
+          amount
+        }
+      );
+
+    if(currentUser){
+
+      currentUser.xp =
+        data.xp;
+
+      currentUser.level =
+        data.level;
+
+      updateUserUI();
+    }
+
+  }catch(error){
+
+    console.log(
+      "XP error:",
+      error
+    );
+  }
 }
 
 
@@ -1647,99 +1527,126 @@ async function logout(){
 
   try{
 
-    await fetch(API_URL,{
-      method:"POST",
-      credentials:"include",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        action:"logout"
-      })
-    });
+    await api("logout");
 
   }catch(error){
 
-    console.error(error);
-
+    console.log(error);
   }
 
-  currentUser=null;
+  currentUser = null;
+  chatHistory = [];
+  currentChatId = null;
 
-  document.getElementById("loginForm")
-    .reset();
+  document.getElementById(
+    "app"
+  ).style.display =
+    "none";
 
-  document.getElementById("signupForm")
-    .reset();
+  document.getElementById(
+    "authScreen"
+  ).style.display =
+    "flex";
 
-  showAuthScreen();
   showAuth("login");
+
+  document.getElementById(
+    "loginPassword"
+  ).value = "";
+
+  alert("Logged out successfully.");
 }
 
 
 /* =========================
-   NAVIGATION
+   PAGE SYSTEM
 ========================= */
 
-const pages =
-document.querySelectorAll(".page");
+function openPage(
+  page,
+  button
+){
 
-const navButtons =
-document.querySelectorAll(".nav button");
+  document.querySelectorAll(
+    ".page"
+  ).forEach(
+    item =>
+      item.classList.remove(
+        "active"
+      )
+  );
 
-function showPage(id){
+  document.getElementById(
+    page
+  ).classList.add(
+    "active"
+  );
 
-  pages.forEach(page=>{
-    page.classList.add("hidden");
-  });
+  document.querySelectorAll(
+    ".nav button"
+  ).forEach(
+    item =>
+      item.classList.remove(
+        "active"
+      )
+  );
 
-  const target =
-    document.getElementById(id);
-
-  if(target){
-    target.classList.remove("hidden");
+  if(button){
+    button.classList.add(
+      "active"
+    );
   }
 
-  navButtons.forEach(btn=>{
-    btn.classList.toggle(
-      "active",
-      btn.dataset.page===id
-    );
-  });
-
-  const names={
-    home:"Home",
+  const titles = {
+    home:"Amzo Universe",
     chat:"AI Chat",
+    history:"Chat History",
     create:"Create",
     code:"Code Lab",
     fun:"Fun Zone",
-    tools:"AI Tools",
     learn:"Learn",
-    lab:"Amzo Lab",
     profile:"Profile",
     settings:"Settings"
   };
 
-  document.getElementById("pageTitle")
-    .textContent=
-      names[id] || "Amzo AI";
+  document.getElementById(
+    "pageTitle"
+  ).textContent =
+    titles[page] ||
+    "Amzo AI";
 
-  document
-    .getElementById("sidebar")
-    .classList.remove("open");
+  if(page === "history"){
+    loadChats();
+  }
+
+  if(page === "profile"){
+    refreshProfile();
+  }
 }
 
-navButtons.forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    showPage(btn.dataset.page);
-  });
-});
 
-function toggleSidebar(){
+/* =========================
+   PROFILE
+========================= */
 
-  document
-    .getElementById("sidebar")
-    .classList.toggle("open");
+async function refreshProfile(){
+
+  try{
+
+    const data =
+      await api(
+        "profile"
+      );
+
+    currentUser =
+      data.user;
+
+    updateUserUI();
+
+  }catch(error){
+
+    console.log(error);
+  }
 }
 
 
@@ -1747,53 +1654,74 @@ function toggleSidebar(){
    CHAT
 ========================= */
 
-let chatHistory=[];
-
-function addMessage(text,type){
+function addMessage(
+  text,
+  type
+){
 
   const messages =
-    document.getElementById("messages");
+    document.getElementById(
+      "messages"
+    );
 
-  const div =
-    document.createElement("div");
+  const wrapper =
+    document.createElement(
+      "div"
+    );
 
-  div.className="msg "+type;
+  wrapper.className =
+    "message " + type;
 
-  div.textContent=text;
+  const bubble =
+    document.createElement(
+      "div"
+    );
 
-  messages.appendChild(div);
+  bubble.className =
+    "bubble";
 
-  messages.scrollTop=
+  bubble.textContent =
+    text;
+
+  wrapper.appendChild(
+    bubble
+  );
+
+  messages.appendChild(
+    wrapper
+  );
+
+  messages.scrollTop =
     messages.scrollHeight;
 
-  return div;
+  return wrapper;
 }
 
-function handleChatKey(e){
-
-  if(e.key==="Enter"){
-    e.preventDefault();
-    sendChat();
-  }
-}
 
 async function sendChat(){
 
   const input =
-    document.getElementById("chatInput");
+    document.getElementById(
+      "chatInput"
+    );
 
   const text =
     input.value.trim();
 
-  if(!text)return;
+  if(!text){
+    return;
+  }
 
-  input.value="";
+  input.value = "";
 
-  addMessage(text,"user");
+  addMessage(
+    text,
+    "user"
+  );
 
   chatHistory.push({
     type:"user",
-    text:text
+    text
   });
 
   const thinking =
@@ -1804,44 +1732,278 @@ async function sendChat(){
 
   try{
 
-    const response =
-      await fetch(API_URL,{
-        method:"POST",
-        credentials:"include",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-          action:"chat",
-          messages:chatHistory
-        })
-      });
-
     const data =
-      await response.json();
+      await api(
+        "chat",
+        {
+          messages:
+            chatHistory
+        }
+      );
 
     thinking.remove();
 
     const answer =
       data.result ||
-      data.error ||
+      data.response ||
       "No response.";
 
-    addMessage(answer,"ai");
+    addMessage(
+      answer,
+      "ai"
+    );
 
     chatHistory.push({
       type:"assistant",
       text:answer
     });
 
-    gainXP(5);
+    await saveCurrentChat();
+
+    await gainXP(5);
 
   }catch(error){
 
-    thinking.textContent=
-      "❌ Connection error.";
+    thinking.textContent =
+      "❌ " + error.message;
+  }
+}
 
-    console.error(error);
+
+function chatKey(event){
+
+  if(
+    event.key === "Enter" &&
+    !event.shiftKey
+  ){
+
+    event.preventDefault();
+
+    sendChat();
+  }
+}
+
+
+/* =========================
+   SAVE CHAT
+========================= */
+
+async function saveCurrentChat(){
+
+  if(!chatHistory.length){
+    return;
+  }
+
+  try{
+
+    const firstUser =
+      chatHistory.find(
+        message =>
+          message.type === "user"
+      );
+
+    const title =
+      firstUser?.text ||
+      "New Chat";
+
+    const data =
+      await api(
+        "save_chat",
+        {
+          chatId:
+            currentChatId,
+          title:
+            title.slice(0,100),
+          messages:
+            chatHistory
+        }
+      );
+
+    currentChatId =
+      data.chatId;
+
+    loadChats();
+
+  }catch(error){
+
+    console.log(
+      "Save chat error:",
+      error
+    );
+  }
+}
+
+
+/* =========================
+   LOAD CHATS
+========================= */
+
+async function loadChats(){
+
+  try{
+
+    const data =
+      await api(
+        "load_chats"
+      );
+
+    const list =
+      document.getElementById(
+        "historyList"
+      );
+
+    if(!list){
+      return;
+    }
+
+    list.innerHTML = "";
+
+    const chats =
+      data.chats || [];
+
+    document.getElementById(
+      "homeChats"
+    ).textContent =
+      chats.length +
+      " saved chats";
+
+    if(!chats.length){
+
+      list.innerHTML =
+        '<div class="card">No chats yet. Start talking with Amzo AI 🚀</div>';
+
+      return;
+    }
+
+    chats.forEach(
+      chat => {
+
+        const item =
+          document.createElement(
+            "div"
+          );
+
+        item.className =
+          "historyItem";
+
+        const title =
+          document.createElement(
+            "div"
+          );
+
+        title.className =
+          "historyTitle";
+
+        title.textContent =
+          chat.title;
+
+        const date =
+          document.createElement(
+            "div"
+          );
+
+        date.className =
+          "historyDate";
+
+        date.textContent =
+          new Date(
+            chat.updated_at
+          ).toLocaleString();
+
+        item.appendChild(
+          title
+        );
+
+        item.appendChild(
+          date
+        );
+
+        item.onclick =
+          () =>
+            openChat(
+              chat.id
+            );
+
+        list.appendChild(
+          item
+        );
+      }
+    );
+
+  }catch(error){
+
+    const list =
+      document.getElementById(
+        "historyList"
+      );
+
+    if(list){
+
+      list.textContent =
+        error.message;
+    }
+  }
+}
+
+
+/* =========================
+   OPEN CHAT
+========================= */
+
+async function openChat(
+  chatId
+){
+
+  try{
+
+    const data =
+      await api(
+        "get_chat",
+        {
+          chatId
+        }
+      );
+
+    currentChatId =
+      chatId;
+
+    chatHistory =
+      data.chat.messages ||
+      [];
+
+    const messages =
+      document.getElementById(
+        "messages"
+      );
+
+    messages.innerHTML = "";
+
+    chatHistory.forEach(
+      message => {
+
+        addMessage(
+          message.text,
+          message.type === "user"
+            ? "user"
+            : "ai"
+        );
+
+      }
+    );
+
+    openPage(
+      "chat",
+      document.querySelector(
+        '.nav button[onclick*="chat"]'
+      )
+    );
+
+  }catch(error){
+
+    alert(
+      "Could not open chat: " +
+      error.message
+    );
   }
 }
 
@@ -1850,232 +2012,114 @@ async function sendChat(){
    CREATE
 ========================= */
 
-function creator(type){
+async function createSomething(){
 
   const input =
-    document.getElementById("createInput");
-
-  input.value=
-    "Give me a creative "+type+".";
-
-  input.focus();
-}
-
-async function createContent(){
-
-  const input =
-    document.getElementById("createInput");
+    document.getElementById(
+      "createInput"
+    );
 
   const result =
-    document.getElementById("createResult");
+    document.getElementById(
+      "createResult"
+    );
 
   const text =
     input.value.trim();
 
   if(!text){
-
-    result.textContent=
-      "Write something first.";
-
     return;
   }
 
-  result.textContent=
-    "✨ Creating...";
+  result.textContent =
+    "Creating...";
 
   try{
 
-    const response =
-      await fetch(API_URL,{
-        method:"POST",
-        credentials:"include",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-          action:"chat",
+    const data =
+      await api(
+        "chat",
+        {
           messages:[
             {
               type:"user",
               text:text
             }
           ]
-        })
-      });
-
-    const data =
-      await response.json();
-
-    result.innerHTML=
-      renderMarkdown(
-        data.result ||
-        data.error ||
-        "No result."
+        }
       );
 
-    gainXP(5);
+    result.textContent =
+      data.result ||
+      "Nothing created.";
+
+    await gainXP(5);
 
   }catch(error){
 
-    result.textContent=
-      "❌ AI connection failed.";
+    result.textContent =
+      "❌ " +
+      error.message;
   }
 }
 
 
 /* =========================
-   CODE
+   CODE LAB
 ========================= */
 
 async function generateCode(){
 
   const input =
-    document.getElementById("codeInput");
+    document.getElementById(
+      "codeInput"
+    );
 
   const result =
-    document.getElementById("codeResult");
+    document.getElementById(
+      "codeResult"
+    );
 
   const text =
     input.value.trim();
 
   if(!text){
-
-    result.textContent=
-      "Tell me what code you want.";
-
     return;
   }
 
-  result.textContent=
-    "💻 Generating code...";
+  result.textContent =
+    "Generating code...";
 
   try{
 
-    const response =
-      await fetch(API_URL,{
-        method:"POST",
-        credentials:"include",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-          action:"chat",
+    const data =
+      await api(
+        "chat",
+        {
           messages:[
             {
               type:"user",
               text:
-                "Give me working code for this request. "+
-                "Put the code inside a fenced code block:\n"+
+                "You are a coding assistant. " +
+                "Give clean code and explain briefly.\n\n" +
                 text
             }
           ]
-        })
-      });
-
-    const data =
-      await response.json();
-
-    result.innerHTML=
-      renderMarkdown(
-        data.result ||
-        data.error ||
-        "No result."
+        }
       );
 
-    gainXP(10);
+    result.textContent =
+      data.result ||
+      "No code generated.";
+
+    await gainXP(10);
 
   }catch(error){
 
-    result.textContent=
-      "❌ Code generation failed.";
+    result.textContent =
+      "❌ " +
+      error.message;
   }
-}
-
-
-/* =========================
-   MARKDOWN
-========================= */
-
-function escapeHTML(text){
-
-  return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;");
-}
-
-function renderMarkdown(text){
-
-  const parts =
-    String(text).split(
-      /```([\w+-]*)\n?([\s\S]*?)```/g
-    );
-
-  let html="";
-
-  for(let i=0;i<parts.length;i++){
-
-    if(i%3===0){
-
-      html+=
-        "<div style='line-height:1.7;white-space:pre-wrap'>"+
-        escapeHTML(parts[i])+
-        "</div>";
-
-    }else if(i%3===1){
-
-      const language=
-        parts[i] || "code";
-
-      const code=
-        parts[i+1];
-
-      const safe=
-        escapeHTML(code.trim());
-
-      const id=
-        "code_"+Math.random()
-          .toString(36)
-          .slice(2);
-
-      html+=`
-        <div class="codeBox">
-
-          <div class="codeTop">
-            <span>${escapeHTML(language)}</span>
-
-            <button
-              class="secondary"
-              onclick="copyCode('${id}')">
-              📋 Copy Code
-            </button>
-
-          </div>
-
-          <pre><code id="${id}">${safe}</code></pre>
-
-        </div>
-      `;
-    }
-  }
-
-  return html;
-}
-
-function copyCode(id){
-
-  const code=
-    document.getElementById(id);
-
-  if(!code)return;
-
-  navigator.clipboard.writeText(
-    code.textContent
-  );
-
-  gainXP(2);
-
-  alert("Code copied! 📋");
 }
 
 
@@ -2083,360 +2127,77 @@ function copyCode(id){
    FUN
 ========================= */
 
-function startRPS(){
+const challenges = [
+  "Create something using only cardboard.",
+  "Learn one new programming concept today.",
+  "Build a tiny AI feature.",
+  "Write down 10 ideas for your future.",
+  "Learn something you have never understood before."
+];
 
-  const choices=[
-    "Rock 🪨",
-    "Paper 📄",
-    "Scissors ✂️"
-  ];
+const facts = [
+  "Octopuses have three hearts.",
+  "A day on Venus is longer than its year.",
+  "Honey can remain preserved for extremely long periods.",
+  "Bananas are botanically berries.",
+  "The human brain contains billions of neurons."
+];
 
-  const ai=
-    choices[
-      Math.floor(Math.random()*3)
+function randomChallenge(){
+
+  document.getElementById(
+    "challenge"
+  ).textContent =
+    challenges[
+      Math.floor(
+        Math.random() *
+        challenges.length
+      )
     ];
 
-  document.getElementById("funResult")
-    .innerHTML=`
-      <div>
-        <h2>✊ 📄 ✂️</h2>
-        <p style="margin:12px">
-          Amzo chose <b>${ai}</b>
-        </p>
-        <button
-          class="primary"
-          onclick="startRPS()">
-          Play Again
-        </button>
-      </div>
-    `;
-
-  gainXP(3);
+  gainXP(2);
 }
 
 function randomFact(){
 
-  const facts=[
-    "🐙 Octopuses have three hearts.",
-    "🌌 A day on Venus is longer than its year.",
-    "🦈 Some sharks existed before trees.",
-    "🍌 Bananas are botanically berries.",
-    "🌍 Earth is not a perfect sphere."
+  document.getElementById(
+    "fact"
+  ).textContent =
+    facts[
+      Math.floor(
+        Math.random() *
+        facts.length
+      )
+    ];
+
+  gainXP(2);
+}
+
+
+/* =========================
+   AMZO CORE
+========================= */
+
+function coreMessage(){
+
+  const messages = [
+    "AMZO CORE ONLINE ⚡",
+    "Your universe is ready 🌌",
+    "Keep building. 🚀",
+    "Something new can start here ✨",
+    "AMZO AI is with you 🤖"
   ];
-
-  document.getElementById("funResult")
-    .textContent=
-      facts[
-        Math.floor(Math.random()*facts.length)
-      ];
-
-  gainXP(3);
-}
-
-function randomChallenge(){
-
-  const challenges=[
-    "⚡ Name 5 countries in 10 seconds.",
-    "🧠 Solve 25 × 16 without a calculator.",
-    "🎨 Draw something using only 3 shapes.",
-    "💻 Write one line of code.",
-    "📚 Learn one new word today."
-  ];
-
-  document.getElementById("funResult")
-    .textContent=
-      challenges[
-        Math.floor(Math.random()*challenges.length)
-      ];
-
-  gainXP(3);
-}
-
-function riddle(){
-
-  document.getElementById("funResult")
-    .innerHTML=
-      "🧩 <b>Riddle:</b><br><br>"+
-      "What has keys but cannot open locks?<br><br>"+
-      "💡 Answer: A keyboard.";
-
-  gainXP(3);
-}
-
-
-/* =========================
-   TOOLS
-========================= */
-
-function tool(type){
-
-  document.getElementById("toolSelect")
-    .value=type;
-
-  document.getElementById("toolInput")
-    .focus();
-}
-
-async function runTool(){
-
-  const text=
-    document.getElementById("toolInput")
-      .value.trim();
-
-  const type=
-    document.getElementById("toolSelect")
-      .value;
-
-  const result=
-    document.getElementById("toolResult");
-
-  if(!text){
-
-    result.textContent=
-      "Enter some text first.";
-
-    return;
-  }
-
-  result.textContent=
-    "⚡ Working...";
-
-  let instruction="";
-
-  if(type==="summarize")
-    instruction=
-      "Summarize this text clearly and briefly:\n";
-
-  if(type==="translate")
-    instruction=
-      "Translate this text into English:\n";
-
-  if(type==="improve")
-    instruction=
-      "Improve this writing while keeping its meaning:\n";
-
-  if(type==="ideas")
-    instruction=
-      "Generate useful ideas based on this:\n";
-
-  try{
-
-    const response=
-      await fetch(API_URL,{
-        method:"POST",
-        credentials:"include",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-          action:"chat",
-          messages:[
-            {
-              type:"user",
-              text:instruction+text
-            }
-          ]
-        })
-      });
-
-    const data=
-      await response.json();
-
-    result.innerHTML=
-      renderMarkdown(
-        data.result ||
-        data.error ||
-        "No result."
-      );
-
-    gainXP(5);
-
-  }catch(error){
-
-    result.textContent=
-      "❌ Tool failed.";
-  }
-}
-
-
-/* =========================
-   LEARN
-========================= */
-
-async function learn(topic){
-
-  const result=
-    document.getElementById("learnResult");
-
-  result.textContent=
-    "🧠 Preparing your lesson...";
-
-  try{
-
-    const response=
-      await fetch(API_URL,{
-        method:"POST",
-        credentials:"include",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-          action:"chat",
-          messages:[
-            {
-              type:"user",
-              text:
-                "Teach me one useful beginner "+
-                topic+
-                " lesson with an example "+
-                "and one practice question."
-            }
-          ]
-        })
-      });
-
-    const data=
-      await response.json();
-
-    result.innerHTML=
-      renderMarkdown(
-        data.result ||
-        data.error ||
-        "No lesson."
-      );
-
-    gainXP(5);
-
-  }catch(error){
-
-    result.textContent=
-      "❌ Learning request failed.";
-  }
-}
-
-
-/* =========================
-   LAB
-========================= */
-
-function surprise(){
-
-  const things=[
-    "🎨 Create a strange fictional invention.",
-    "🧠 Learn one surprising science fact.",
-    "🎮 Play a quick game.",
-    "💻 Build a tiny coding project.",
-    "📚 Learn something you've never heard of."
-  ];
-
-  document.getElementById("labResult")
-    .textContent=
-      things[
-        Math.floor(Math.random()*things.length)
-      ];
-
-  gainXP(5);
-}
-
-function mystery(){
-
-  const mysteries=[
-    "🌌 What exists beyond the observable universe?",
-    "🧬 Why do humans dream?",
-    "🌊 What is hiding in the deepest ocean?",
-    "🪐 Could life exist elsewhere?"
-  ];
-
-  document.getElementById("labResult")
-    .textContent=
-      mysteries[
-        Math.floor(Math.random()*mysteries.length)
-      ];
-
-  gainXP(5);
-}
-
-function aiChallenge(){
-
-  document.getElementById("labResult")
-    .innerHTML=
-      "🔥 <b>Today's AI Challenge</b><br><br>"+
-      "Ask Amzo to teach you something "+
-      "you know nothing about — then explain "+
-      "it back in your own words.";
-
-  gainXP(5);
-}
-
-
-/* =========================
-   XP
-========================= */
-
-function gainXP(amount){
-
-  if(!currentUser)return;
-
-  currentUser.xp=
-    Number(currentUser.xp || 0)+amount;
-
-  currentUser.level=
-    Math.floor(currentUser.xp/100)+1;
-
-  updateUserUI();
-}
-
-
-/* =========================
-   SETTINGS
-========================= */
-
-let animationOn=true;
-
-function toggleAnimation(){
-
-  animationOn=!animationOn;
-
-  document.body.style.setProperty(
-    "--animation-state",
-    animationOn ? "running":"paused"
-  );
-
-  document.body.classList.toggle(
-    "noAnimation",
-    !animationOn
-  );
 
   alert(
-    animationOn
-      ? "RGB animation ON 🌈"
-      : "RGB animation OFF"
+    messages[
+      Math.floor(
+        Math.random() *
+        messages.length
+      )
+    ]
   );
-}
 
-function toggleTheme(){
-
-  const light=
-    document.body.dataset.theme==="light";
-
-  if(!light){
-
-    document.body.dataset.theme="light";
-
-    document.body.style.background="#f4f4f8";
-    document.body.style.color="#111";
-
-    alert("Light theme enabled.");
-
-  }else{
-
-    document.body.dataset.theme="dark";
-
-    document.body.style.background="";
-    document.body.style.color="";
-
-    alert("Dark theme enabled.");
-  }
+  gainXP(1);
 }
 
 
@@ -2444,7 +2205,7 @@ function toggleTheme(){
    START
 ========================= */
 
-checkSession();
+checkAuth();
 
 </script>
 
