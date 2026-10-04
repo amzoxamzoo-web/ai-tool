@@ -86,185 +86,6 @@ body:after{
   to{transform:translate(-120px,-100px);}
 }
 
-/* ================= LOGIN ================= */
-
-.auth{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:25px;
-  position:relative;
-}
-
-.auth-card{
-  width:min(460px,100%);
-  padding:38px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(9,12,24,.82);
-  backdrop-filter:blur(30px);
-  border-radius:30px;
-  box-shadow:
-    0 0 40px rgba(0,247,255,.08),
-    0 0 100px rgba(139,92,255,.08);
-  position:relative;
-  overflow:hidden;
-}
-
-.auth-card:before{
-  content:"";
-  position:absolute;
-  width:180px;
-  height:180px;
-  border-radius:50%;
-  background:var(--cyan);
-  filter:blur(90px);
-  opacity:.12;
-  top:-100px;
-  left:-80px;
-}
-
-.auth-logo{
-  text-align:center;
-  margin-bottom:28px;
-}
-
-.core-mini{
-  width:78px;
-  height:78px;
-  margin:auto;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:25px;
-  font-weight:900;
-  background:radial-gradient(circle,#fff 0%,var(--cyan) 12%,#3d26ff 40%,transparent 70%);
-  box-shadow:
-    0 0 25px var(--cyan),
-    0 0 55px var(--purple),
-    0 0 90px rgba(255,43,214,.5);
-  animation:pulseCore 2.2s infinite;
-}
-
-@keyframes pulseCore{
-  50%{transform:scale(1.08);filter:hue-rotate(40deg);}
-}
-
-.auth-logo h1{
-  margin-top:17px;
-  font-size:30px;
-}
-
-.auth-logo p{
-  color:var(--muted);
-  margin-top:6px;
-}
-
-.auth-tabs{
-  display:flex;
-  padding:5px;
-  background:rgba(255,255,255,.05);
-  border-radius:15px;
-  margin-bottom:22px;
-}
-
-.auth-tabs button{
-  flex:1;
-  border:0;
-  background:transparent;
-  color:var(--muted);
-  padding:11px;
-  border-radius:11px;
-}
-
-.auth-tabs button.active{
-  color:white;
-  background:linear-gradient(90deg,rgba(0,247,255,.18),rgba(139,92,255,.18));
-  box-shadow:inset 0 0 15px rgba(0,247,255,.08);
-}
-
-.field{
-  margin-bottom:15px;
-}
-
-.field label{
-  display:block;
-  font-size:13px;
-  color:#b7bfd8;
-  margin-bottom:7px;
-}
-
-.input-wrap{
-  position:relative;
-}
-
-.input-wrap input,
-.auth-form select{
-  width:100%;
-  padding:14px 15px;
-  color:white;
-  background:rgba(255,255,255,.045);
-  border:1px solid var(--line);
-  outline:none;
-  border-radius:13px;
-}
-
-.input-wrap input:focus,
-.auth-form select:focus{
-  border-color:var(--cyan);
-  box-shadow:0 0 18px rgba(0,247,255,.12);
-}
-
-.password-toggle{
-  position:absolute;
-  right:12px;
-  top:50%;
-  transform:translateY(-50%);
-  border:0;
-  background:none;
-  color:var(--muted);
-}
-
-.auth-btn{
-  width:100%;
-  margin-top:8px;
-  padding:15px;
-  border:0;
-  border-radius:14px;
-  color:#03040a;
-  font-weight:800;
-  background:linear-gradient(90deg,var(--cyan),#8b8cff,var(--pink));
-  box-shadow:0 0 25px rgba(0,247,255,.22);
-  transition:.2s;
-}
-
-.auth-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 35px rgba(0,247,255,.35);
-}
-
-.auth-message{
-  min-height:20px;
-  text-align:center;
-  color:#ff7f9e;
-  font-size:13px;
-  margin-top:12px;
-}
-
-.lang-auth{
-  margin-top:20px;
-}
-
-.lang-auth select{
-  width:100%;
-  padding:11px;
-  background:#111528;
-  color:white;
-  border:1px solid var(--line);
-  border-radius:12px;
-}
-
 /* ================= APP ================= */
 
 .app{
@@ -313,6 +134,13 @@ body:after{
   margin-top:2px;
 }
 
+@keyframes pulseCore{
+  50%{
+    transform:scale(1.08);
+    filter:hue-rotate(40deg);
+  }
+}
+
 .nav{
   display:flex;
   flex-direction:column;
@@ -340,7 +168,11 @@ body:after{
 
 .nav button.active{
   color:white;
-  background:linear-gradient(90deg,rgba(0,247,255,.12),rgba(139,92,255,.10));
+  background:linear-gradient(
+    90deg,
+    rgba(0,247,255,.12),
+    rgba(139,92,255,.10)
+  );
   border-color:rgba(0,247,255,.16);
   box-shadow:0 0 20px rgba(0,247,255,.07);
 }
@@ -348,10 +180,6 @@ body:after{
 .nav-icon{
   width:22px;
   text-align:center;
-}
-
-.locked{
-  opacity:.45;
 }
 
 .sidebar-bottom{
@@ -387,7 +215,12 @@ body:after{
 .xp-fill{
   height:100%;
   width:0%;
-  background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));
+  background:linear-gradient(
+    90deg,
+    var(--cyan),
+    var(--purple),
+    var(--pink)
+  );
   box-shadow:0 0 12px var(--cyan);
   transition:.5s;
 }
@@ -494,7 +327,14 @@ body:after{
   font-size:30px;
   font-weight:900;
   background:
-    radial-gradient(circle,#fff 0%,var(--cyan) 4%,rgba(0,247,255,.5) 14%,rgba(139,92,255,.3) 35%,transparent 70%);
+    radial-gradient(
+      circle,
+      #fff 0%,
+      var(--cyan) 4%,
+      rgba(0,247,255,.5) 14%,
+      rgba(139,92,255,.3) 35%,
+      transparent 70%
+    );
   box-shadow:
     0 0 35px var(--cyan),
     0 0 80px var(--purple),
@@ -503,8 +343,13 @@ body:after{
 }
 
 @keyframes core{
-  0%,100%{transform:scale(1) rotate(0deg);}
-  50%{transform:scale(1.08) rotate(8deg);}
+  0%,100%{
+    transform:scale(1) rotate(0deg);
+  }
+
+  50%{
+    transform:scale(1.08) rotate(8deg);
+  }
 }
 
 .hero h1{
@@ -513,7 +358,14 @@ body:after{
 }
 
 .gradient-text{
-  background:linear-gradient(90deg,var(--cyan),#fff,var(--pink),var(--purple));
+  background:
+    linear-gradient(
+      90deg,
+      var(--cyan),
+      #fff,
+      var(--pink),
+      var(--purple)
+    );
   -webkit-background-clip:text;
   color:transparent;
 }
@@ -564,7 +416,12 @@ body:after{
 
 .msg.user{
   margin-left:auto;
-  background:linear-gradient(135deg,rgba(0,247,255,.15),rgba(139,92,255,.18));
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,247,255,.15),
+      rgba(139,92,255,.18)
+    );
   border:1px solid rgba(0,247,255,.15);
 }
 
@@ -597,7 +454,12 @@ body:after{
   border-radius:15px;
   color:#03040a;
   font-weight:800;
-  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  background:
+    linear-gradient(
+      135deg,
+      var(--cyan),
+      var(--purple)
+    );
 }
 
 /* ================= TOOLS ================= */
@@ -657,7 +519,13 @@ body:after{
   justify-content:center;
   font-size:28px;
   font-weight:900;
-  background:linear-gradient(135deg,var(--cyan),var(--purple),var(--pink));
+  background:
+    linear-gradient(
+      135deg,
+      var(--cyan),
+      var(--purple),
+      var(--pink)
+    );
   box-shadow:0 0 35px rgba(0,247,255,.25);
 }
 
@@ -741,14 +609,6 @@ body:after{
   border-radius:10px;
 }
 
-.danger{
-  color:#ff6688;
-  border-color:rgba(255,80,120,.25);
-  background:rgba(255,80,120,.06);
-  padding:10px 14px;
-  border-radius:10px;
-}
-
 /* ================= TOAST ================= */
 
 .toast{
@@ -792,11 +652,6 @@ html[dir="rtl"] .nav button{
 html[dir="rtl"] .msg.user{
   margin-left:0;
   margin-right:auto;
-}
-
-html[dir="rtl"] .password-toggle{
-  right:auto;
-  left:12px;
 }
 
 /* ================= MOBILE ================= */
@@ -849,10 +704,6 @@ html[dir="rtl"] .password-toggle{
     height:140px;
   }
 
-  .auth-card{
-    padding:25px;
-  }
-
   .setting{
     align-items:flex-start;
     flex-direction:column;
@@ -863,109 +714,15 @@ html[dir="rtl"] .password-toggle{
 
 <body>
 
-<!-- ================= AUTH ================= -->
-
-<section id="auth" class="auth">
-  <div class="auth-card">
-
-    <div class="auth-logo">
-      <div class="core-mini">A</div>
-      <h1>Amzo <span class="gradient-text">AI</span></h1>
-      <p id="authSubtitle">Your personal AI universe</p>
-    </div>
-
-    <div class="auth-tabs">
-      <button id="loginTab" class="active" onclick="showAuth('login')">Login</button>
-      <button id="signupTab" onclick="showAuth('signup')">Register</button>
-    </div>
-
-    <!-- LOGIN -->
-
-    <form id="loginForm" class="auth-form" onsubmit="login(event)">
-
-      <div class="field">
-        <label id="loginEmailLabel">Email</label>
-        <div class="input-wrap">
-          <input id="loginEmail" type="email" required autocomplete="email">
-        </div>
-      </div>
-
-      <div class="field">
-        <label id="loginPasswordLabel">Password</label>
-        <div class="input-wrap">
-          <input id="loginPassword" type="password" required autocomplete="current-password">
-          <button type="button" class="password-toggle" onclick="togglePassword('loginPassword',this)">Show</button>
-        </div>
-      </div>
-
-      <button class="auth-btn" id="loginButton">Enter Amzo AI</button>
-
-    </form>
-
-    <!-- REGISTER -->
-
-    <form id="signupForm" class="auth-form hidden" onsubmit="signup(event)">
-
-      <div class="field">
-        <label id="usernameLabel">Username</label>
-        <input id="signupUsername" type="text" minlength="3" required autocomplete="username">
-      </div>
-
-      <div class="field">
-        <label id="signupEmailLabel">Email</label>
-        <input id="signupEmail" type="email" required autocomplete="email">
-      </div>
-
-      <div class="field">
-        <label id="signupPasswordLabel">Password</label>
-        <div class="input-wrap">
-          <input id="signupPassword" type="password" minlength="6" required autocomplete="new-password">
-          <button type="button" class="password-toggle" onclick="togglePassword('signupPassword',this)">Show</button>
-        </div>
-      </div>
-
-      <div class="field">
-        <label id="confirmPasswordLabel">Confirm password</label>
-        <div class="input-wrap">
-          <input id="signupConfirm" type="password" minlength="6" required autocomplete="new-password">
-          <button type="button" class="password-toggle" onclick="togglePassword('signupConfirm',this)">Show</button>
-        </div>
-      </div>
-
-      <button class="auth-btn" id="signupButton">Create Amzo Account</button>
-
-    </form>
-
-    <div id="authMessage" class="auth-message"></div>
-
-    <div class="lang-auth">
-      <select id="authLanguage" onchange="setLanguage(this.value)">
-        <option value="en">🇬🇧 English</option>
-        <option value="ur">🇵🇰 اردو</option>
-        <option value="ar">🇸🇦 العربية</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="de">🇩🇪 Deutsch</option>
-        <option value="zh">🇨🇳 中文</option>
-        <option value="ja">🇯🇵 日本語</option>
-        <option value="ko">🇰🇷 한국어</option>
-        <option value="tr">🇹🇷 Türkçe</option>
-        <option value="hi">🇮🇳 हिन्दी</option>
-      </select>
-    </div>
-
-  </div>
-</section>
-
-
 <!-- ================= APP ================= -->
 
-<section id="app" class="app hidden">
+<section id="app" class="app">
 
   <aside class="sidebar" id="sidebar">
 
     <div class="brand">
       <div class="brand-core"></div>
+
       <div class="brand-text">
         <b>Amzo AI</b>
         <span>AI Universe</span>
@@ -974,49 +731,85 @@ html[dir="rtl"] .password-toggle{
 
     <nav class="nav">
 
-      <button class="active" data-page="home" onclick="openPage('home')">
+      <button class="active"
+        data-page="home"
+        onclick="openPage('home')">
+
         <span class="nav-icon">⌂</span>
         <span data-i18n="home">Home</span>
+
       </button>
 
-      <button data-page="chat" onclick="openPage('chat')">
+      <button
+        data-page="chat"
+        onclick="openPage('chat')">
+
         <span class="nav-icon">✦</span>
         <span data-i18n="chat">AI Chat</span>
+
       </button>
 
-      <button data-page="history" onclick="openPage('history')">
+      <button
+        data-page="history"
+        onclick="openPage('history')">
+
         <span class="nav-icon">◷</span>
         <span data-i18n="history">Chat History</span>
+
       </button>
 
-      <button data-page="create" onclick="openPage('create')">
+      <button
+        data-page="create"
+        onclick="openPage('create')">
+
         <span class="nav-icon">✧</span>
         <span data-i18n="create">Create</span>
+
       </button>
 
-      <button data-page="code" onclick="openPage('code')">
+      <button
+        data-page="code"
+        onclick="openPage('code')">
+
         <span class="nav-icon">⌘</span>
         <span data-i18n="code">Code Lab</span>
+
       </button>
 
-      <button data-page="fun" onclick="openPage('fun')">
+      <button
+        data-page="fun"
+        onclick="openPage('fun')">
+
         <span class="nav-icon">☄</span>
         <span data-i18n="fun">Fun Zone</span>
+
       </button>
 
-      <button data-page="learn" onclick="openPage('learn')">
+      <button
+        data-page="learn"
+        onclick="openPage('learn')">
+
         <span class="nav-icon">◆</span>
         <span data-i18n="learn">Learn</span>
+
       </button>
 
-      <button data-page="profile" onclick="openPage('profile')">
+      <button
+        data-page="profile"
+        onclick="openPage('profile')">
+
         <span class="nav-icon">◉</span>
         <span data-i18n="profile">Profile</span>
+
       </button>
 
-      <button data-page="settings" onclick="openPage('settings')">
+      <button
+        data-page="settings"
+        onclick="openPage('settings')">
+
         <span class="nav-icon">⚙</span>
         <span data-i18n="settings">Settings</span>
+
       </button>
 
     </nav>
@@ -1024,14 +817,19 @@ html[dir="rtl"] .password-toggle{
     <div class="sidebar-bottom">
 
       <div class="xp-mini">
+
         <div class="xp-row">
           <span id="sideLevel">Level 1</span>
           <span id="sideXP">0 XP</span>
         </div>
 
         <div class="xp-bar">
-          <div id="sideXPFill" class="xp-fill"></div>
+          <div
+            id="sideXPFill"
+            class="xp-fill">
+          </div>
         </div>
+
       </div>
 
     </div>
@@ -1044,16 +842,31 @@ html[dir="rtl"] .password-toggle{
     <div class="topbar">
 
       <div class="page-title">
-        <h2 id="pageTitle">Amzo Core</h2>
-        <p id="pageSubtitle">Your AI universe starts here.</p>
+
+        <h2 id="pageTitle">
+          Amzo Core
+        </h2>
+
+        <p id="pageSubtitle">
+          Your AI universe starts here.
+        </p>
+
       </div>
 
       <div class="top-actions">
 
-        <button class="icon-btn mobile-menu" onclick="toggleSidebar()">☰</button>
+        <button
+          class="icon-btn mobile-menu"
+          onclick="toggleSidebar()">
+
+          ☰
+
+        </button>
 
         <div class="user-pill">
-          <span id="topUsername">Guest</span>
+          <span id="topUsername">
+            Guest
+          </span>
         </div>
 
       </div>
@@ -1061,15 +874,24 @@ html[dir="rtl"] .password-toggle{
     </div>
 
 
-    <!-- HOME -->
+    <!-- ================= HOME ================= -->
 
-    <div id="page-home" class="page active">
+    <div
+      id="page-home"
+      class="page active">
 
       <div class="card hero">
 
-        <div class="hero-core">AMZO</div>
+        <div class="hero-core">
+          AMZO
+        </div>
 
-        <h1>Welcome to <span class="gradient-text">Amzo AI</span></h1>
+        <h1>
+          Welcome to
+          <span class="gradient-text">
+            Amzo AI
+          </span>
+        </h1>
 
         <p id="homeWelcome">
           Your personal AI universe is online.
@@ -1082,18 +904,39 @@ html[dir="rtl"] .password-toggle{
       <div class="grid grid-3">
 
         <div class="card stat">
-          <strong id="homeLevel">1</strong>
-          <span data-i18n="level">Level</span>
+
+          <strong id="homeLevel">
+            1
+          </strong>
+
+          <span data-i18n="level">
+            Level
+          </span>
+
         </div>
 
         <div class="card stat">
-          <strong id="homeXP">0</strong>
-          <span>XP</span>
+
+          <strong id="homeXP">
+            0
+          </strong>
+
+          <span>
+            XP
+          </span>
+
         </div>
 
         <div class="card stat">
-          <strong id="homeUnlocked">2</strong>
-          <span data-i18n="unlocked">Unlocked</span>
+
+          <strong id="homeUnlocked">
+            2
+          </strong>
+
+          <span data-i18n="unlocked">
+            Unlocked
+          </span>
+
         </div>
 
       </div>
@@ -1101,27 +944,44 @@ html[dir="rtl"] .password-toggle{
     </div>
 
 
-    <!-- CHAT -->
+    <!-- ================= CHAT ================= -->
 
-    <div id="page-chat" class="page">
+    <div
+      id="page-chat"
+      class="page">
 
       <div class="card chat-box">
 
-        <div id="messages" class="messages">
+        <div
+          id="messages"
+          class="messages">
 
-          <div class="msg ai" id="chatWelcome">
-            Hi! I'm Amzo AI. What do you want to build today?
+          <div
+            class="msg ai"
+            id="chatWelcome">
+
+            Hi! I'm Amzo AI.
+            What do you want to build today?
+
           </div>
 
         </div>
 
         <div class="chat-input">
 
-          <textarea id="chatInput"
+          <textarea
+            id="chatInput"
             placeholder="Ask Amzo AI anything..."
-            onkeydown="chatKey(event)"></textarea>
+            onkeydown="chatKey(event)">
+          </textarea>
 
-          <button onclick="sendChat()" id="sendButton">Send</button>
+          <button
+            onclick="sendChat()"
+            id="sendButton">
+
+            Send
+
+          </button>
 
         </div>
 
@@ -1130,57 +990,125 @@ html[dir="rtl"] .password-toggle{
     </div>
 
 
-    <!-- HISTORY -->
+    <!-- ================= HISTORY ================= -->
 
-    <div id="page-history" class="page">
+    <div
+      id="page-history"
+      class="page">
 
       <div class="card">
 
-        <h2 data-i18n="history">Chat History</h2>
+        <h2 data-i18n="history">
+          Chat History
+        </h2>
 
-        <p style="color:var(--muted);margin-top:8px" id="historyText">
+        <p
+          style="color:var(--muted);margin-top:8px"
+          id="historyText">
+
           Your saved conversations will appear here.
+
         </p>
 
-        <div id="historyList" style="margin-top:20px"></div>
+        <div
+          id="historyList"
+          style="margin-top:20px">
+        </div>
 
       </div>
 
     </div>
 
 
-    <!-- CREATE -->
+    <!-- ================= CREATE ================= -->
 
-    <div id="page-create" class="page">
+    <div
+      id="page-create"
+      class="page">
 
       <div class="grid grid-2">
 
         <div class="tool">
-          <div class="tool-icon">✍️</div>
-          <h3>AI Writer</h3>
-          <p>Generate ideas, posts, scripts and other written content.</p>
-          <button onclick="useTool('writer')">Open</button>
+
+          <div class="tool-icon">
+            ✍️
+          </div>
+
+          <h3>
+            AI Writer
+          </h3>
+
+          <p>
+            Generate ideas, posts, scripts and other written content.
+          </p>
+
+          <button onclick="useTool('writer')">
+            Open
+          </button>
+
         </div>
 
-        <div class="tool">
-          <div class="tool-icon">💡</div>
-          <h3>Idea Generator</h3>
-          <p>Generate creative ideas using Amzo AI.</p>
-          <button onclick="useTool('ideas')">Open</button>
-        </div>
 
         <div class="tool">
-          <div class="tool-icon">🎨</div>
-          <h3>AI Image</h3>
-          <p>Create an image prompt and send it to the AI system.</p>
-          <button onclick="useTool('image')">Open</button>
+
+          <div class="tool-icon">
+            💡
+          </div>
+
+          <h3>
+            Idea Generator
+          </h3>
+
+          <p>
+            Generate creative ideas using Amzo AI.
+          </p>
+
+          <button onclick="useTool('ideas')">
+            Open
+          </button>
+
         </div>
 
+
         <div class="tool">
-          <div class="tool-icon">⚡</div>
-          <h3>Prompt Builder</h3>
-          <p>Create better prompts for AI tools.</p>
-          <button onclick="useTool('prompt')">Open</button>
+
+          <div class="tool-icon">
+            🎨
+          </div>
+
+          <h3>
+            AI Image
+          </h3>
+
+          <p>
+            Create an image prompt and send it to the AI system.
+          </p>
+
+          <button onclick="useTool('image')">
+            Open
+          </button>
+
+        </div>
+
+
+        <div class="tool">
+
+          <div class="tool-icon">
+            ⚡
+          </div>
+
+          <h3>
+            Prompt Builder
+          </h3>
+
+          <p>
+            Create better prompts for AI tools.
+          </p>
+
+          <button onclick="useTool('prompt')">
+            Open
+          </button>
+
         </div>
 
       </div>
@@ -1188,38 +1116,84 @@ html[dir="rtl"] .password-toggle{
     </div>
 
 
-    <!-- CODE -->
+    <!-- ================= CODE ================= -->
 
-    <div id="page-code" class="page">
+    <div
+      id="page-code"
+      class="page">
 
-      <div id="codeLocked" class="card lock-card hidden">
-        <div class="lock-big">🔒</div>
-        <h2>Code Lab Locked</h2>
-        <p>Reach Level 4 to unlock Code Lab.</p>
+      <div
+        id="codeLocked"
+        class="card lock-card hidden">
+
+        <div class="lock-big">
+          🔒
+        </div>
+
+        <h2>
+          Code Lab Locked
+        </h2>
+
+        <p>
+          Reach Level 4 to unlock Code Lab.
+        </p>
+
       </div>
+
 
       <div id="codeContent">
 
         <div class="card">
 
-          <h2>⌘ Code Lab</h2>
+          <h2>
+            ⌘ Code Lab
+          </h2>
 
-          <p style="color:var(--muted);margin:8px 0 15px">
+          <p
+            style="color:var(--muted);margin:8px 0 15px">
+
             Ask Amzo AI to help you build code.
+
           </p>
 
-          <textarea id="codePrompt"
-            style="width:100%;height:180px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;color:white;padding:15px;outline:none"
-            placeholder="Example: Build a simple HTML calculator"></textarea>
+          <textarea
+            id="codePrompt"
+            style="
+              width:100%;
+              height:180px;
+              background:rgba(255,255,255,.04);
+              border:1px solid var(--line);
+              border-radius:14px;
+              color:white;
+              padding:15px;
+              outline:none
+            "
+            placeholder="Example: Build a simple HTML calculator">
+          </textarea>
 
           <button
             onclick="runCodeLab()"
-            style="margin-top:12px;padding:12px 18px;border:0;border-radius:12px;background:linear-gradient(90deg,var(--cyan),var(--purple));font-weight:800">
+            style="
+              margin-top:12px;
+              padding:12px 18px;
+              border:0;
+              border-radius:12px;
+              background:linear-gradient(90deg,var(--cyan),var(--purple));
+              font-weight:800
+            ">
+
             Generate
+
           </button>
 
-          <pre id="codeResult"
-            style="margin-top:18px;white-space:pre-wrap;color:#d8ddf2"></pre>
+          <pre
+            id="codeResult"
+            style="
+              margin-top:18px;
+              white-space:pre-wrap;
+              color:#d8ddf2
+            ">
+          </pre>
 
         </div>
 
@@ -1228,26 +1202,46 @@ html[dir="rtl"] .password-toggle{
     </div>
 
 
-    <!-- FUN -->
+    <!-- ================= FUN ================= -->
 
-    <div id="page-fun" class="page">
+    <div
+      id="page-fun"
+      class="page">
 
       <div class="card">
 
-        <h2>☄ Fun Zone</h2>
+        <h2>
+          ☄ Fun Zone
+        </h2>
 
-        <p style="color:var(--muted);margin:8px 0 20px">
+        <p
+          style="color:var(--muted);margin:8px 0 20px">
+
           Random challenges and surprises.
+
         </p>
 
-        <div id="funContent"
+        <div
+          id="funContent"
           style="font-size:20px;line-height:1.6">
+
           Press the button for a challenge.
+
         </div>
 
-        <button onclick="newFun()"
-          style="margin-top:20px;padding:12px 18px;border:0;border-radius:12px;background:linear-gradient(90deg,var(--cyan),var(--pink));font-weight:800">
+        <button
+          onclick="newFun()"
+          style="
+            margin-top:20px;
+            padding:12px 18px;
+            border:0;
+            border-radius:12px;
+            background:linear-gradient(90deg,var(--cyan),var(--pink));
+            font-weight:800
+          ">
+
           New Challenge
+
         </button>
 
       </div>
@@ -1255,42 +1249,100 @@ html[dir="rtl"] .password-toggle{
     </div>
 
 
-    <!-- LEARN -->
+    <!-- ================= LEARN ================= -->
 
-    <div id="page-learn" class="page">
+    <div
+      id="page-learn"
+      class="page">
 
-      <div id="learnLocked" class="card lock-card hidden">
-        <div class="lock-big">🔒</div>
-        <h2>Learn Locked</h2>
-        <p>Reach Level 7 to unlock AI Universe learning.</p>
+      <div
+        id="learnLocked"
+        class="card lock-card hidden">
+
+        <div class="lock-big">
+          🔒
+        </div>
+
+        <h2>
+          Learn Locked
+        </h2>
+
+        <p>
+          Reach Level 7 to unlock AI Universe learning.
+        </p>
+
       </div>
+
 
       <div id="learnContent">
 
         <div class="grid grid-2">
 
           <div class="tool">
-            <div class="tool-icon">🧠</div>
-            <h3>AI Basics</h3>
-            <p>Learn how modern AI systems work.</p>
+
+            <div class="tool-icon">
+              🧠
+            </div>
+
+            <h3>
+              AI Basics
+            </h3>
+
+            <p>
+              Learn how modern AI systems work.
+            </p>
+
           </div>
 
-          <div class="tool">
-            <div class="tool-icon">💻</div>
-            <h3>Technology</h3>
-            <p>Explore coding and technology concepts.</p>
-          </div>
 
           <div class="tool">
-            <div class="tool-icon">🌍</div>
-            <h3>Languages</h3>
-            <p>Explore different languages and cultures.</p>
+
+            <div class="tool-icon">
+              💻
+            </div>
+
+            <h3>
+              Technology
+            </h3>
+
+            <p>
+              Explore coding and technology concepts.
+            </p>
+
           </div>
 
+
           <div class="tool">
-            <div class="tool-icon">🚀</div>
-            <h3>Future Skills</h3>
-            <p>Build useful skills for the future.</p>
+
+            <div class="tool-icon">
+              🌍
+            </div>
+
+            <h3>
+              Languages
+            </h3>
+
+            <p>
+              Explore different languages and cultures.
+            </p>
+
+          </div>
+
+
+          <div class="tool">
+
+            <div class="tool-icon">
+              🚀
+            </div>
+
+            <h3>
+              Future Skills
+            </h3>
+
+            <p>
+              Build useful skills for the future.
+            </p>
+
           </div>
 
         </div>
@@ -1300,113 +1352,199 @@ html[dir="rtl"] .password-toggle{
     </div>
 
 
-    <!-- PROFILE -->
+    <!-- ================= PROFILE ================= -->
 
-    <div id="page-profile" class="page">
+    <div
+      id="page-profile"
+      class="page">
 
       <div class="card">
 
         <div class="profile-head">
 
-          <div class="avatar" id="avatar">A</div>
+          <div
+            class="avatar"
+            id="avatar">
+
+            A
+
+          </div>
 
           <div class="profile-info">
 
-            <h2 id="profileUsername">Amzo</h2>
+            <h2 id="profileUsername">
+              Guest
+            </h2>
 
-            <p id="profileEmail">email</p>
+            <p id="profileEmail">
+              Guest Mode
+            </p>
 
             <br>
 
-            <span class="level-badge" id="profileLevel">
+            <span
+              class="level-badge"
+              id="profileLevel">
+
               Level 1
+
             </span>
 
           </div>
 
         </div>
 
+
         <div class="big-xp">
 
           <div class="xp-row">
-            <span id="profileXP">0 XP</span>
-            <span id="nextLevelText">100 XP to next level</span>
+
+            <span id="profileXP">
+              0 XP
+            </span>
+
+            <span id="nextLevelText">
+              100 XP to next level
+            </span>
+
           </div>
 
           <div class="xp-bar">
-            <div id="profileXPFill" class="xp-fill"></div>
+
+            <div
+              id="profileXPFill"
+              class="xp-fill">
+            </div>
+
           </div>
 
         </div>
 
       </div>
 
+
       <br>
+
 
       <div class="card">
 
-        <h2>🆙 Level Unlocks</h2>
+        <h2>
+          🆙 Level Unlocks
+        </h2>
 
-        <div id="unlockList" style="margin-top:18px"></div>
+        <div
+          id="unlockList"
+          style="margin-top:18px">
+        </div>
 
       </div>
 
     </div>
 
 
-    <!-- SETTINGS -->
+    <!-- ================= SETTINGS ================= -->
 
-    <div id="page-settings" class="page">
+    <div
+      id="page-settings"
+      class="page">
 
       <div class="card">
 
-        <h2 data-i18n="settings">Settings</h2>
+        <h2 data-i18n="settings">
+          Settings
+        </h2>
 
         <br>
+
 
         <div class="setting">
 
           <div class="setting-info">
-            <b data-i18n="language">Language</b>
-            <span>Change Amzo AI interface language.</span>
+
+            <b data-i18n="language">
+              Language
+            </b>
+
+            <span>
+              Change Amzo AI interface language.
+            </span>
+
           </div>
 
-          <select id="languageSelect" onchange="setLanguage(this.value)">
-            <option value="en">🇬🇧 English</option>
-            <option value="ur">🇵🇰 اردو</option>
-            <option value="ar">🇸🇦 العربية</option>
-            <option value="es">🇪🇸 Español</option>
-            <option value="fr">🇫🇷 Français</option>
-            <option value="de">🇩🇪 Deutsch</option>
-            <option value="zh">🇨🇳 中文</option>
-            <option value="ja">🇯🇵 日本語</option>
-            <option value="ko">🇰🇷 한국어</option>
-            <option value="tr">🇹🇷 Türkçe</option>
-            <option value="hi">🇮🇳 हिन्दी</option>
+
+          <select
+            id="languageSelect"
+            onchange="setLanguage(this.value)">
+
+            <option value="en">
+              🇬🇧 English
+            </option>
+
+            <option value="ur">
+              🇵🇰 اردو
+            </option>
+
+            <option value="ar">
+              🇸🇦 العربية
+            </option>
+
+            <option value="es">
+              🇪🇸 Español
+            </option>
+
+            <option value="fr">
+              🇫🇷 Français
+            </option>
+
+            <option value="de">
+              🇩🇪 Deutsch
+            </option>
+
+            <option value="zh">
+              🇨🇳 中文
+            </option>
+
+            <option value="ja">
+              🇯🇵 日本語
+            </option>
+
+            <option value="ko">
+              🇰🇷 한국어
+            </option>
+
+            <option value="tr">
+              🇹🇷 Türkçe
+            </option>
+
+            <option value="hi">
+              🇮🇳 हिन्दी
+            </option>
+
           </select>
 
         </div>
 
-        <div class="setting">
-
-          <div class="setting-info">
-            <b>RGB Effects</b>
-            <span>Toggle futuristic visual effects.</span>
-          </div>
-
-          <button onclick="toggleRGB()" class="icon-btn">RGB</button>
-
-        </div>
 
         <div class="setting">
 
           <div class="setting-info">
-            <b>Account</b>
-            <span>Sign out of this Amzo AI account.</span>
+
+            <b>
+              RGB Effects
+            </b>
+
+            <span>
+              Toggle futuristic visual effects.
+            </span>
+
           </div>
 
-          <button onclick="logout()" class="danger">
-            Logout
+          <button
+            onclick="toggleRGB()"
+            class="icon-btn">
+
+            RGB
+
           </button>
 
         </div>
@@ -1420,7 +1558,10 @@ html[dir="rtl"] .password-toggle{
 </section>
 
 
-<div id="toast" class="toast"></div>
+<div
+  id="toast"
+  class="toast">
+</div>
 
 
 <script>
@@ -1429,7 +1570,8 @@ html[dir="rtl"] .password-toggle{
    AMZO AI CONFIG
 ========================================================= */
 
-const API_URL = "https://ai-tool-api.amzoxamzoo.workers.dev/";
+const API_URL =
+  "https://ai-tool-api.amzoxamzoo.workers.dev/";
 
 
 /* =========================================================
@@ -1437,6 +1579,7 @@ const API_URL = "https://ai-tool-api.amzoxamzoo.workers.dev/";
 ========================================================= */
 
 const LANGS = {
+
   en:{
     name:"English",
     dir:"ltr",
@@ -1623,6 +1766,7 @@ const LANGS = {
     unlocked:"अनलॉक",
     language:"भाषा"
   }
+
 };
 
 
@@ -1631,52 +1775,118 @@ const LANGS = {
 ========================================================= */
 
 const UNLOCKS = [
-  {level:1,name:"Amzo Core",icon:"🌌"},
-  {level:2,name:"AI Chat",icon:"✦"},
-  {level:3,name:"Create Lab",icon:"✧"},
-  {level:4,name:"Code Lab",icon:"⌘"},
-  {level:5,name:"Fun Zone",icon:"☄"},
-  {level:6,name:"Advanced AI",icon:"⚡"},
-  {level:7,name:"AI Universe",icon:"🌍"},
-  {level:10,name:"Amzo Master",icon:"👑"}
+
+  {
+    level:1,
+    name:"Amzo Core",
+    icon:"🌌"
+  },
+
+  {
+    level:2,
+    name:"AI Chat",
+    icon:"✦"
+  },
+
+  {
+    level:3,
+    name:"Create Lab",
+    icon:"✧"
+  },
+
+  {
+    level:4,
+    name:"Code Lab",
+    icon:"⌘"
+  },
+
+  {
+    level:5,
+    name:"Fun Zone",
+    icon:"☄"
+  },
+
+  {
+    level:6,
+    name:"Advanced AI",
+    icon:"⚡"
+  },
+
+  {
+    level:7,
+    name:"AI Universe",
+    icon:"🌍"
+  },
+
+  {
+    level:10,
+    name:"Amzo Master",
+    icon:"👑"
+  }
+
 ];
 
+
 let currentUser = null;
-let currentLang = localStorage.getItem("amzoLanguage") || "en";
-let rgbEnabled = localStorage.getItem("amzoRGB") !== "false";
+
+let currentLang =
+  localStorage.getItem("amzoLanguage") || "en";
+
+let rgbEnabled =
+  localStorage.getItem("amzoRGB") !== "false";
 
 
 /* =========================================================
    API
 ========================================================= */
 
-async function api(action, data={}){
+async function api(action,data={}){
 
   try{
 
-    const response = await fetch(API_URL,{
-      method:"POST",
-      credentials:"include",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        action,
-        ...data
-      })
-    });
+    const response =
+      await fetch(API_URL,{
 
-    const text = await response.text();
+        method:"POST",
+
+        credentials:"include",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+          action,
+          ...data
+        })
+
+      });
+
+
+    const text =
+      await response.text();
+
 
     let result;
 
+
     try{
-      result = JSON.parse(text);
+
+      result =
+        JSON.parse(text);
+
     }catch{
-      result = {ok:false,error:text};
+
+      result = {
+        ok:false,
+        error:text
+      };
+
     }
 
+
     return result;
+
 
   }catch(error){
 
@@ -1691,186 +1901,37 @@ async function api(action, data={}){
 
 
 /* =========================================================
-   AUTH UI
+   GUEST MODE
 ========================================================= */
 
-function showAuth(type){
+function enterGuestMode(){
 
-  const login = type === "login";
+  currentUser = {
+    username:"Guest",
+    email:"",
+    xp:0,
+    level:1
+  };
 
-  document.getElementById("loginForm").classList.toggle("hidden",!login);
-  document.getElementById("signupForm").classList.toggle("hidden",login);
+  document.getElementById("topUsername")
+    .textContent = "Guest";
 
-  document.getElementById("loginTab").classList.toggle("active",login);
-  document.getElementById("signupTab").classList.toggle("active",!login);
+  document.getElementById("profileUsername")
+    .textContent = "Guest";
 
-  clearAuthMessage();
-}
+  document.getElementById("profileEmail")
+    .textContent = "Guest Mode";
 
-
-function togglePassword(id,button){
-
-  const input = document.getElementById(id);
-
-  if(input.type === "password"){
-
-    input.type = "text";
-    button.textContent = "Hide";
-
-  }else{
-
-    input.type = "password";
-    button.textContent = "Show";
-
-  }
-
-}
-
-
-function authMessage(message){
-
-  document.getElementById("authMessage").textContent = message;
-
-}
-
-
-function clearAuthMessage(){
-
-  document.getElementById("authMessage").textContent = "";
-
-}
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-async function login(event){
-
-  event.preventDefault();
-
-  const email = document.getElementById("loginEmail").value.trim();
-  const password = document.getElementById("loginPassword").value;
-
-  authMessage("Connecting to Amzo AI...");
-
-  const result = await api("login",{
-    email,
-    password
-  });
-
-  if(!result.ok){
-
-    authMessage(result.error || "Login failed.");
-    return;
-
-  }
-
-  currentUser = result.user || result;
-
-  enterApp();
-
-}
-
-
-/* =========================================================
-   REGISTER
-========================================================= */
-
-async function signup(event){
-
-  event.preventDefault();
-
-  const username =
-    document.getElementById("signupUsername").value.trim();
-
-  const email =
-    document.getElementById("signupEmail").value.trim();
-
-  const password =
-    document.getElementById("signupPassword").value;
-
-  const confirm =
-    document.getElementById("signupConfirm").value;
-
-  if(password !== confirm){
-
-    authMessage("Passwords do not match.");
-    return;
-
-  }
-
-  if(password.length < 6){
-
-    authMessage("Password must contain at least 6 characters.");
-    return;
-
-  }
-
-  authMessage("Creating your Amzo account...");
-
-  const result = await api("signup",{
-    username,
-    email,
-    password
-  });
-
-  if(!result.ok){
-
-    authMessage(result.error || "Registration failed.");
-    return;
-
-  }
-
-  currentUser = result.user || result;
-
-  enterApp();
-
-}
-
-
-/* =========================================================
-   SESSION
-========================================================= */
-
-async function checkAuth(){
-
-  const result = await api("me");
-
-  if(result && result.ok && result.user){
-
-    currentUser = result.user;
-
-    enterApp();
-
-  }
-
-}
-
-
-function enterApp(){
-
-  document.getElementById("auth").classList.add("hidden");
-  document.getElementById("app").classList.remove("hidden");
+  document.getElementById("avatar")
+    .textContent = "A";
 
   refreshUserUI();
+
   updateUnlocks();
+
   setLanguage(currentLang);
+
   openPage("home");
-
-}
-
-
-async function logout(){
-
-  await api("logout");
-
-  currentUser = null;
-
-  document.getElementById("app").classList.add("hidden");
-  document.getElementById("auth").classList.remove("hidden");
-
-  showAuth("login");
 
 }
 
@@ -1881,95 +1942,141 @@ async function logout(){
 
 function getXP(){
 
-  return Number(currentUser?.xp || 0);
+  return Number(
+    currentUser?.xp || 0
+  );
 
 }
 
 
 function getLevel(){
 
-  return Number(currentUser?.level || (Math.floor(getXP()/100)+1));
+  return Number(
+    currentUser?.level ||
+    (Math.floor(getXP()/100)+1)
+  );
 
 }
 
 
 function refreshUserUI(){
 
-  if(!currentUser) return;
-
   const username =
-    currentUser.username ||
-    currentUser.name ||
-    "Amzo";
+    currentUser?.username ||
+    "Guest";
 
   const email =
-    currentUser.email ||
-    "";
+    currentUser?.email ||
+    "Guest Mode";
 
-  const xp = getXP();
-  const level = getLevel();
+  const xp =
+    getXP();
 
-  document.getElementById("topUsername").textContent = username;
+  const level =
+    getLevel();
 
-  document.getElementById("profileUsername").textContent = username;
-  document.getElementById("profileEmail").textContent = email;
 
-  document.getElementById("avatar").textContent =
-    username.charAt(0).toUpperCase();
+  document.getElementById("topUsername")
+    .textContent = username;
 
-  document.getElementById("homeLevel").textContent = level;
-  document.getElementById("homeXP").textContent = xp;
 
-  document.getElementById("sideLevel").textContent =
-    "Level " + level;
+  document.getElementById("profileUsername")
+    .textContent = username;
 
-  document.getElementById("sideXP").textContent =
-    xp + " XP";
 
-  const progress = xp % 100;
+  document.getElementById("profileEmail")
+    .textContent = email;
 
-  document.getElementById("sideXPFill").style.width =
-    progress + "%";
 
-  document.getElementById("profileXP").textContent =
-    xp + " XP";
+  document.getElementById("avatar")
+    .textContent =
+      username.charAt(0).toUpperCase() || "A";
 
-  document.getElementById("profileLevel").textContent =
-    "Level " + level;
 
-  document.getElementById("profileXPFill").style.width =
-    progress + "%";
+  document.getElementById("homeLevel")
+    .textContent = level;
 
-  const remaining = 100 - progress;
 
-  document.getElementById("nextLevelText").textContent =
-    remaining + " XP to next level";
+  document.getElementById("homeXP")
+    .textContent = xp;
 
-  document.getElementById("homeUnlocked").textContent =
-    UNLOCKS.filter(x => level >= x.level).length;
+
+  document.getElementById("sideLevel")
+    .textContent =
+      "Level " + level;
+
+
+  document.getElementById("sideXP")
+    .textContent =
+      xp + " XP";
+
+
+  const progress =
+    xp % 100;
+
+
+  document.getElementById("sideXPFill")
+    .style.width =
+      progress + "%";
+
+
+  document.getElementById("profileXP")
+    .textContent =
+      xp + " XP";
+
+
+  document.getElementById("profileLevel")
+    .textContent =
+      "Level " + level;
+
+
+  document.getElementById("profileXPFill")
+    .style.width =
+      progress + "%";
+
+
+  const remaining =
+    100 - progress;
+
+
+  document.getElementById("nextLevelText")
+    .textContent =
+      remaining + " XP to next level";
+
+
+  document.getElementById("homeUnlocked")
+    .textContent =
+      UNLOCKS.filter(
+        x => level >= x.level
+      ).length;
 
 }
 
 
 async function addXP(amount){
 
-  if(!currentUser) return;
+  /*
+    Guest mode:
+    XP is stored locally only.
+  */
 
-  const result = await api("xp",{
-    amount
-  });
+  if(!currentUser)
+    return;
 
-  if(result.ok){
 
-    currentUser = result.user || {
-      ...currentUser,
-      xp:getXP()+amount
-    };
+  currentUser.xp =
+    getXP() + amount;
 
-    refreshUserUI();
-    updateUnlocks();
 
-  }
+  currentUser.level =
+    Math.floor(
+      currentUser.xp / 100
+    ) + 1;
+
+
+  refreshUserUI();
+
+  updateUnlocks();
 
 }
 
@@ -1980,76 +2087,137 @@ async function addXP(amount){
 
 function updateUnlocks(){
 
-  if(!currentUser) return;
+  const level =
+    getLevel();
 
-  const level = getLevel();
 
-  const codeLocked = document.getElementById("codeLocked");
-  const codeContent = document.getElementById("codeContent");
+  const codeLocked =
+    document.getElementById("codeLocked");
+
+  const codeContent =
+    document.getElementById("codeContent");
+
 
   if(level >= 4){
 
     codeLocked.classList.add("hidden");
+
     codeContent.classList.remove("hidden");
 
   }else{
 
     codeLocked.classList.remove("hidden");
+
     codeContent.classList.add("hidden");
 
   }
 
 
-  const learnLocked = document.getElementById("learnLocked");
-  const learnContent = document.getElementById("learnContent");
+  const learnLocked =
+    document.getElementById("learnLocked");
+
+  const learnContent =
+    document.getElementById("learnContent");
+
 
   if(level >= 7){
 
     learnLocked.classList.add("hidden");
+
     learnContent.classList.remove("hidden");
 
   }else{
 
     learnLocked.classList.remove("hidden");
+
     learnContent.classList.add("hidden");
 
   }
 
 
-  const list = document.getElementById("unlockList");
+  const list =
+    document.getElementById("unlockList");
+
 
   list.innerHTML = "";
 
-  UNLOCKS.forEach(item => {
 
-    const unlocked = level >= item.level;
+  UNLOCKS.forEach(item=>{
 
-    const div = document.createElement("div");
+    const unlocked =
+      level >= item.level;
+
+
+    const div =
+      document.createElement("div");
+
 
     div.style.cssText = `
+
       display:flex;
+
       align-items:center;
+
       justify-content:space-between;
+
       padding:14px;
+
       margin-bottom:9px;
-      border:1px solid ${unlocked ? "rgba(0,247,255,.16)" : "rgba(255,255,255,.07)"};
+
+      border:1px solid
+      ${unlocked
+        ? "rgba(0,247,255,.16)"
+        : "rgba(255,255,255,.07)"
+      };
+
       border-radius:13px;
-      background:${unlocked ? "rgba(0,247,255,.045)" : "rgba(255,255,255,.025)"};
-      opacity:${unlocked ? "1" : ".55"};
+
+      background:
+      ${unlocked
+        ? "rgba(0,247,255,.045)"
+        : "rgba(255,255,255,.025)"
+      };
+
+      opacity:
+      ${unlocked ? "1" : ".55"};
+
     `;
 
+
     div.innerHTML = `
+
       <div>
-        <b>${item.icon} ${item.name}</b>
-        <small style="display:block;color:#8f98b8;margin-top:4px">
+
+        <b>
+          ${item.icon}
+          ${item.name}
+        </b>
+
+        <small
+          style="
+            display:block;
+            color:#8f98b8;
+            margin-top:4px
+          ">
+
           Level ${item.level}
+
         </small>
+
       </div>
 
       <span>
-        ${unlocked ? "✓ Unlocked" : "🔒 Locked"}
+
+        ${
+          unlocked
+          ? "✓ Unlocked"
+          : "🔒 Locked"
+        }
+
       </span>
+
     `;
+
 
     list.appendChild(div);
 
@@ -2064,57 +2232,133 @@ function updateUnlocks(){
 
 function openPage(page){
 
-  const level = getLevel();
+  const level =
+    getLevel();
 
-  if(page === "code" && level < 4){
 
-    showToast("🔒 Code Lab unlocks at Level 4");
-    page = "code";
+  if(
+    page === "code" &&
+    level < 4
+  ){
 
-  }
-
-  if(page === "learn" && level < 7){
-
-    showToast("🔒 AI Universe unlocks at Level 7");
-    page = "learn";
-
-  }
-
-  document.querySelectorAll(".page").forEach(p=>{
-    p.classList.remove("active");
-  });
-
-  const target = document.getElementById("page-"+page);
-
-  if(target){
-    target.classList.add("active");
-  }
-
-  document.querySelectorAll(".nav button").forEach(button=>{
-    button.classList.toggle(
-      "active",
-      button.dataset.page === page
+    showToast(
+      "🔒 Code Lab unlocks at Level 4"
     );
-  });
+
+  }
+
+
+  if(
+    page === "learn" &&
+    level < 7
+  ){
+
+    showToast(
+      "🔒 AI Universe unlocks at Level 7"
+    );
+
+  }
+
+
+  document
+    .querySelectorAll(".page")
+    .forEach(p=>{
+      p.classList.remove("active");
+    });
+
+
+  const target =
+    document.getElementById(
+      "page-" + page
+    );
+
+
+  if(target)
+    target.classList.add("active");
+
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(button=>{
+
+      button.classList.toggle(
+        "active",
+        button.dataset.page === page
+      );
+
+    });
+
 
   const titles = {
-    home:["Amzo Core","Your AI universe starts here."],
-    chat:["AI Chat","Talk with your Amzo AI."],
-    history:["Chat History","Your saved conversations."],
-    create:["Create","Build something with AI."],
-    code:["Code Lab","Build with AI."],
-    fun:["Fun Zone","Challenges and surprises."],
-    learn:["Learn","Explore new skills."],
-    profile:["Profile","Your Amzo progress."],
-    settings:["Settings","Customize your Amzo experience."]
+
+    home:[
+      "Amzo Core",
+      "Your AI universe starts here."
+    ],
+
+    chat:[
+      "AI Chat",
+      "Talk with your Amzo AI."
+    ],
+
+    history:[
+      "Chat History",
+      "Your saved conversations."
+    ],
+
+    create:[
+      "Create",
+      "Build something with AI."
+    ],
+
+    code:[
+      "Code Lab",
+      "Build with AI."
+    ],
+
+    fun:[
+      "Fun Zone",
+      "Challenges and surprises."
+    ],
+
+    learn:[
+      "Learn",
+      "Explore new skills."
+    ],
+
+    profile:[
+      "Profile",
+      "Your Amzo progress."
+    ],
+
+    settings:[
+      "Settings",
+      "Customize your Amzo experience."
+    ]
+
   };
 
-  const info = titles[page] || titles.home;
 
-  document.getElementById("pageTitle").textContent = info[0];
-  document.getElementById("pageSubtitle").textContent = info[1];
+  const info =
+    titles[page] ||
+    titles.home;
 
-  document.getElementById("sidebar").classList.remove("open");
+
+  document.getElementById(
+    "pageTitle"
+  ).textContent =
+    info[0];
+
+
+  document.getElementById(
+    "pageSubtitle"
+  ).textContent =
+    info[1];
+
+
+  document
+    .getElementById("sidebar")
+    .classList.remove("open");
 
 }
 
@@ -2125,9 +2369,13 @@ function openPage(page){
 
 function chatKey(event){
 
-  if(event.key === "Enter" && !event.shiftKey){
+  if(
+    event.key === "Enter" &&
+    !event.shiftKey
+  ){
 
     event.preventDefault();
+
     sendChat();
 
   }
@@ -2137,52 +2385,99 @@ function chatKey(event){
 
 async function sendChat(){
 
-  const input = document.getElementById("chatInput");
+  const input =
+    document.getElementById(
+      "chatInput"
+    );
 
-  const message = input.value.trim();
 
-  if(!message) return;
+  const message =
+    input.value.trim();
 
-  const box = document.getElementById("messages");
 
-  const userMsg = document.createElement("div");
+  if(!message)
+    return;
 
-  userMsg.className = "msg user";
-  userMsg.textContent = message;
+
+  const box =
+    document.getElementById(
+      "messages"
+    );
+
+
+  const userMsg =
+    document.createElement("div");
+
+
+  userMsg.className =
+    "msg user";
+
+
+  userMsg.textContent =
+    message;
+
 
   box.appendChild(userMsg);
 
+
   input.value = "";
 
-  const loading = document.createElement("div");
 
-  loading.className = "msg ai";
-  loading.textContent = "Amzo AI is thinking...";
+  const loading =
+    document.createElement("div");
+
+
+  loading.className =
+    "msg ai";
+
+
+  loading.textContent =
+    "Amzo AI is thinking...";
+
 
   box.appendChild(loading);
 
-  box.scrollTop = box.scrollHeight;
+
+  box.scrollTop =
+    box.scrollHeight;
+
 
   const language =
-    LANGS[currentLang]?.name || "English";
+    LANGS[currentLang]?.name ||
+    "English";
+
 
   const aiPrompt = `
+
 Respond in ${language}.
+
 Be helpful, clear and natural.
 
 User message:
 ${message}
+
 `;
 
-  const result = await api("chat",{
-    message:aiPrompt
-  });
+
+  const result =
+    await api(
+      "chat",
+      {
+        message:aiPrompt
+      }
+    );
+
 
   loading.remove();
 
-  const aiMsg = document.createElement("div");
 
-  aiMsg.className = "msg ai";
+  const aiMsg =
+    document.createElement("div");
+
+
+  aiMsg.className =
+    "msg ai";
+
 
   aiMsg.textContent =
     result.reply ||
@@ -2191,9 +2486,13 @@ ${message}
     result.error ||
     "Amzo AI could not respond.";
 
+
   box.appendChild(aiMsg);
 
-  box.scrollTop = box.scrollHeight;
+
+  box.scrollTop =
+    box.scrollHeight;
+
 
   if(result.ok){
 
@@ -2212,20 +2511,30 @@ async function useTool(type){
 
   openPage("chat");
 
+
   const prompts = {
 
-    writer:"Help me write something useful. Ask me what I want to write.",
+    writer:
+      "Help me write something useful. Ask me what I want to write.",
 
-    ideas:"Generate 10 unique creative ideas for me.",
+    ideas:
+      "Generate 10 unique creative ideas for me.",
 
-    image:"Create a detailed AI image prompt for a futuristic Amzo AI scene.",
+    image:
+      "Create a detailed AI image prompt for a futuristic Amzo AI scene.",
 
-    prompt:"Help me create a powerful prompt for an AI tool."
+    prompt:
+      "Help me create a powerful prompt for an AI tool."
 
   };
 
-  document.getElementById("chatInput").value =
-    prompts[type] || "Help me.";
+
+  document.getElementById(
+    "chatInput"
+  ).value =
+    prompts[type] ||
+    "Help me.";
+
 
   sendChat();
 
@@ -2239,28 +2548,48 @@ async function useTool(type){
 async function runCodeLab(){
 
   const prompt =
-    document.getElementById("codePrompt").value.trim();
+    document.getElementById(
+      "codePrompt"
+    ).value.trim();
 
-  if(!prompt) return;
+
+  if(!prompt)
+    return;
+
 
   const resultBox =
-    document.getElementById("codeResult");
+    document.getElementById(
+      "codeResult"
+    );
+
 
   resultBox.textContent =
     "Amzo AI is generating code...";
 
-  const language =
-    LANGS[currentLang]?.name || "English";
 
-  const result = await api("chat",{
-    message:`
+  const language =
+    LANGS[currentLang]?.name ||
+    "English";
+
+
+  const result =
+    await api(
+      "chat",
+      {
+        message:`
+
 Respond in ${language}.
+
 You are Amzo AI Code Lab.
+
 Generate useful code for this request:
 
 ${prompt}
+
 `
-  });
+      }
+    );
+
 
   resultBox.textContent =
     result.reply ||
@@ -2268,6 +2597,7 @@ ${prompt}
     result.text ||
     result.error ||
     "No result.";
+
 
   if(result.ok){
 
@@ -2304,9 +2634,19 @@ const challenges = [
 function newFun(){
 
   const item =
-    challenges[Math.floor(Math.random()*challenges.length)];
+    challenges[
+      Math.floor(
+        Math.random() *
+        challenges.length
+      )
+    ];
 
-  document.getElementById("funContent").textContent = item;
+
+  document.getElementById(
+    "funContent"
+  ).textContent =
+    item;
+
 
   addXP(5);
 
@@ -2319,39 +2659,59 @@ function newFun(){
 
 function setLanguage(lang){
 
-  if(!LANGS[lang]) lang = "en";
+  if(!LANGS[lang])
+    lang = "en";
 
-  currentLang = lang;
 
-  localStorage.setItem("amzoLanguage",lang);
+  currentLang =
+    lang;
 
-  const info = LANGS[lang];
 
-  document.documentElement.lang = lang;
-  document.documentElement.dir = info.dir;
+  localStorage.setItem(
+    "amzoLanguage",
+    lang
+  );
 
-  const authLanguage =
-    document.getElementById("authLanguage");
+
+  const info =
+    LANGS[lang];
+
+
+  document.documentElement.lang =
+    lang;
+
+
+  document.documentElement.dir =
+    info.dir;
+
 
   const languageSelect =
-    document.getElementById("languageSelect");
+    document.getElementById(
+      "languageSelect"
+    );
 
-  if(authLanguage)
-    authLanguage.value = lang;
 
   if(languageSelect)
-    languageSelect.value = lang;
+    languageSelect.value =
+      lang;
 
 
-  document.querySelectorAll("[data-i18n]").forEach(el=>{
+  document
+    .querySelectorAll("[data-i18n]")
+    .forEach(el=>{
 
-    const key = el.dataset.i18n;
+      const key =
+        el.dataset.i18n;
 
-    if(info[key]){
-      el.textContent = info[key];
-    }
 
-  });
+      if(info[key]){
+
+        el.textContent =
+          info[key];
+
+      }
+
+    });
 
 }
 
@@ -2362,32 +2722,46 @@ function setLanguage(lang){
 
 function toggleRGB(){
 
-  rgbEnabled = !rgbEnabled;
+  rgbEnabled =
+    !rgbEnabled;
+
 
   localStorage.setItem(
     "amzoRGB",
     rgbEnabled
   );
 
+
   document.body.style.setProperty(
     "--cyan",
-    rgbEnabled ? "#00f7ff" : "#8f98b8"
+    rgbEnabled
+      ? "#00f7ff"
+      : "#8f98b8"
   );
+
 
   document.body.style.setProperty(
     "--purple",
-    rgbEnabled ? "#8b5cff" : "#555b75"
+    rgbEnabled
+      ? "#8b5cff"
+      : "#555b75"
   );
+
 
   document.body.style.setProperty(
     "--pink",
-    rgbEnabled ? "#ff2bd6" : "#555b75"
+    rgbEnabled
+      ? "#ff2bd6"
+      : "#555b75"
   );
 
+
   showToast(
+
     rgbEnabled
       ? "🌈 RGB enabled"
       : "RGB disabled"
+
   );
 
 }
@@ -2412,38 +2786,71 @@ function toggleSidebar(){
 
 let toastTimer;
 
+
 function showToast(message){
 
   const toast =
-    document.getElementById("toast");
+    document.getElementById(
+      "toast"
+    );
 
-  toast.textContent = message;
-  toast.classList.add("show");
 
-  clearTimeout(toastTimer);
+  toast.textContent =
+    message;
 
-  toastTimer = setTimeout(()=>{
-    toast.classList.remove("show");
-  },2500);
+
+  toast.classList.add(
+    "show"
+  );
+
+
+  clearTimeout(
+    toastTimer
+  );
+
+
+  toastTimer =
+    setTimeout(()=>{
+
+      toast.classList.remove(
+        "show"
+      );
+
+    },2500);
 
 }
 
 
 /* =========================================================
-   START
+   START AMZO AI
 ========================================================= */
 
 setLanguage(currentLang);
 
+
 if(!rgbEnabled){
 
-  document.body.style.setProperty("--cyan","#8f98b8");
-  document.body.style.setProperty("--purple","#555b75");
-  document.body.style.setProperty("--pink","#555b75");
+  document.body.style.setProperty(
+    "--cyan",
+    "#8f98b8"
+  );
+
+  document.body.style.setProperty(
+    "--purple",
+    "#555b75"
+  );
+
+  document.body.style.setProperty(
+    "--pink",
+    "#555b75"
+  );
 
 }
 
-checkAuth();
+
+/* DIRECTLY OPEN AMZO AI */
+
+enterGuestMode();
 
 </script>
 
