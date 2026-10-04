@@ -2,2855 +2,1775 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amzo AI</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Amzo AI — AI Universe</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --bg:#05060d;
-  --panel:rgba(15,18,32,.72);
-  --panel2:rgba(20,24,42,.82);
-  --text:#f5f7ff;
-  --muted:#8f98b8;
-  --line:rgba(255,255,255,.09);
-  --cyan:#00f7ff;
-  --purple:#8b5cff;
-  --pink:#ff2bd6;
-  --green:#45ff9a;
+ --bg:#03040a;
+ --panel:rgba(12,15,29,.72);
+ --panel2:rgba(20,24,45,.75);
+ --text:#f7f8ff;
+ --muted:#8d96b5;
+ --line:rgba(255,255,255,.09);
+ --cyan:#00f7ff;
+ --purple:#8b5cff;
+ --pink:#ff2bd6;
+ --green:#45ff9a;
 }
+
+html{scroll-behavior:smooth}
 
 body{
-  min-height:100vh;
-  font-family:Inter,Segoe UI,Arial,sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at 15% 15%,rgba(0,247,255,.10),transparent 28%),
-    radial-gradient(circle at 85% 20%,rgba(255,43,214,.10),transparent 30%),
-    radial-gradient(circle at 50% 100%,rgba(139,92,255,.12),transparent 35%),
-    var(--bg);
-  overflow-x:hidden;
+ min-height:100vh;
+ font-family:Inter,Segoe UI,Arial,sans-serif;
+ color:var(--text);
+ background:
+ radial-gradient(circle at 10% 10%,rgba(0,247,255,.12),transparent 25%),
+ radial-gradient(circle at 90% 15%,rgba(255,43,214,.12),transparent 28%),
+ radial-gradient(circle at 50% 100%,rgba(139,92,255,.14),transparent 35%),
+ var(--bg);
+ overflow-x:hidden;
 }
 
-button,input,select,textarea{
-  font:inherit;
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+/* PARTICLES */
+
+.particles{
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ overflow:hidden;
+ z-index:-1;
 }
 
-button{
-  cursor:pointer;
+.particle{
+ position:absolute;
+ width:3px;
+ height:3px;
+ border-radius:50%;
+ background:var(--cyan);
+ box-shadow:0 0 12px var(--cyan);
+ animation:particleFloat linear infinite;
 }
 
-.hidden{
-  display:none!important;
+@keyframes particleFloat{
+ from{transform:translateY(110vh) scale(.3);opacity:0}
+ 15%{opacity:1}
+ 85%{opacity:1}
+ to{transform:translateY(-10vh) scale(1.3);opacity:0}
 }
 
-/* ================= RGB BACKGROUND ================= */
-
-body:before,
-body:after{
-  content:"";
-  position:fixed;
-  width:420px;
-  height:420px;
-  border-radius:50%;
-  filter:blur(100px);
-  opacity:.12;
-  pointer-events:none;
-  z-index:-2;
-}
-
-body:before{
-  background:var(--cyan);
-  top:-180px;
-  left:-150px;
-  animation:float1 8s infinite alternate;
-}
-
-body:after{
-  background:var(--pink);
-  right:-160px;
-  bottom:-180px;
-  animation:float2 10s infinite alternate;
-}
-
-@keyframes float1{
-  to{transform:translate(160px,100px);}
-}
-
-@keyframes float2{
-  to{transform:translate(-120px,-100px);}
-}
-
-/* ================= APP ================= */
+/* APP */
 
 .app{
-  min-height:100vh;
-  display:flex;
+ min-height:100vh;
+ display:flex;
 }
 
+/* SIDEBAR */
+
 .sidebar{
-  width:260px;
-  min-height:100vh;
-  position:fixed;
-  left:0;
-  top:0;
-  bottom:0;
-  z-index:20;
-  padding:20px 15px;
-  background:rgba(7,9,19,.78);
-  backdrop-filter:blur(25px);
-  border-right:1px solid var(--line);
+ width:260px;
+ min-height:100vh;
+ position:fixed;
+ left:0;
+ top:0;
+ bottom:0;
+ z-index:50;
+ padding:18px 14px;
+ background:rgba(5,7,16,.78);
+ backdrop-filter:blur(30px);
+ border-right:1px solid var(--line);
+ box-shadow:15px 0 50px rgba(0,0,0,.2);
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:10px 12px 22px;
+ display:flex;
+ align-items:center;
+ gap:12px;
+ padding:10px 12px 24px;
 }
 
 .brand-core{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  background:radial-gradient(circle,#fff,var(--cyan) 12%,var(--purple) 45%,transparent 70%);
-  box-shadow:0 0 20px var(--cyan),0 0 40px var(--purple);
-  animation:pulseCore 2.5s infinite;
+ width:44px;
+ height:44px;
+ border-radius:50%;
+ background:
+ radial-gradient(circle,#fff 0 5%,var(--cyan) 10%,var(--purple) 42%,transparent 70%);
+ box-shadow:0 0 20px var(--cyan),0 0 50px var(--purple);
+ animation:corePulse 2s infinite alternate;
 }
 
-.brand-text b{
-  font-size:18px;
+@keyframes corePulse{
+ from{transform:scale(.92) rotate(0);filter:hue-rotate(0)}
+ to{transform:scale(1.1) rotate(15deg);filter:hue-rotate(35deg)}
 }
 
+.brand-text b{font-size:19px}
 .brand-text span{
-  display:block;
-  color:var(--muted);
-  font-size:11px;
-  margin-top:2px;
-}
-
-@keyframes pulseCore{
-  50%{
-    transform:scale(1.08);
-    filter:hue-rotate(40deg);
-  }
+ display:block;
+ color:var(--muted);
+ font-size:11px;
+ margin-top:3px;
 }
 
 .nav{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
+ display:flex;
+ flex-direction:column;
+ gap:6px;
 }
 
 .nav button{
-  width:100%;
-  padding:12px 13px;
-  border:1px solid transparent;
-  background:transparent;
-  color:#9ca5c2;
-  text-align:left;
-  border-radius:13px;
-  transition:.2s;
-  display:flex;
-  align-items:center;
-  gap:12px;
+ width:100%;
+ border:1px solid transparent;
+ background:transparent;
+ color:#9199b8;
+ padding:12px;
+ border-radius:13px;
+ display:flex;
+ align-items:center;
+ gap:12px;
+ text-align:left;
+ transition:.25s;
 }
 
 .nav button:hover{
-  color:white;
-  background:rgba(255,255,255,.045);
+ color:#fff;
+ transform:translateX(4px);
+ background:rgba(255,255,255,.045);
 }
 
 .nav button.active{
-  color:white;
-  background:linear-gradient(
-    90deg,
-    rgba(0,247,255,.12),
-    rgba(139,92,255,.10)
-  );
-  border-color:rgba(0,247,255,.16);
-  box-shadow:0 0 20px rgba(0,247,255,.07);
+ color:#fff;
+ background:linear-gradient(90deg,rgba(0,247,255,.13),rgba(139,92,255,.13));
+ border-color:rgba(0,247,255,.18);
+ box-shadow:0 0 25px rgba(0,247,255,.07);
 }
 
 .nav-icon{
-  width:22px;
-  text-align:center;
+ width:22px;
+ text-align:center;
+ font-size:17px;
 }
 
 .sidebar-bottom{
-  position:absolute;
-  bottom:20px;
-  left:15px;
-  right:15px;
+ position:absolute;
+ left:14px;
+ right:14px;
+ bottom:18px;
 }
 
 .xp-mini{
-  padding:13px;
-  border:1px solid var(--line);
-  border-radius:15px;
-  background:rgba(255,255,255,.035);
-  margin-bottom:10px;
+ padding:14px;
+ border-radius:16px;
+ border:1px solid var(--line);
+ background:rgba(255,255,255,.035);
 }
 
 .xp-row{
-  display:flex;
-  justify-content:space-between;
-  font-size:12px;
-  color:#aeb6d0;
-  margin-bottom:8px;
+ display:flex;
+ justify-content:space-between;
+ color:#aeb6d0;
+ font-size:12px;
+ margin-bottom:9px;
 }
 
 .xp-bar{
-  height:6px;
-  background:rgba(255,255,255,.08);
-  border-radius:10px;
-  overflow:hidden;
+ height:7px;
+ border-radius:20px;
+ background:rgba(255,255,255,.07);
+ overflow:hidden;
 }
 
 .xp-fill{
-  height:100%;
-  width:0%;
-  background:linear-gradient(
-    90deg,
-    var(--cyan),
-    var(--purple),
-    var(--pink)
-  );
-  box-shadow:0 0 12px var(--cyan);
-  transition:.5s;
+ height:100%;
+ width:0;
+ border-radius:20px;
+ background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));
+ box-shadow:0 0 15px var(--cyan);
+ transition:1s;
 }
 
-/* ================= MAIN ================= */
+/* MAIN */
 
 .main{
-  margin-left:260px;
-  width:calc(100% - 260px);
-  padding:22px;
+ margin-left:260px;
+ width:calc(100% - 260px);
+ padding:22px;
 }
 
 .topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ margin-bottom:20px;
 }
 
 .page-title h2{
-  font-size:25px;
+ font-size:26px;
+ letter-spacing:-.5px;
 }
 
 .page-title p{
-  color:var(--muted);
-  margin-top:4px;
-  font-size:13px;
+ color:var(--muted);
+ font-size:13px;
+ margin-top:4px;
 }
 
 .top-actions{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.icon-btn{
-  width:40px;
-  height:40px;
-  border-radius:12px;
-  border:1px solid var(--line);
-  color:white;
-  background:rgba(255,255,255,.04);
+ display:flex;
+ align-items:center;
+ gap:10px;
 }
 
 .user-pill{
-  padding:8px 13px;
-  border:1px solid var(--line);
-  border-radius:13px;
-  background:rgba(255,255,255,.04);
-  font-size:13px;
+ padding:9px 14px;
+ border-radius:14px;
+ border:1px solid var(--line);
+ background:rgba(255,255,255,.04);
+ font-size:13px;
+ box-shadow:0 0 20px rgba(0,247,255,.03);
 }
 
-.page{
-  display:none;
+.icon-btn{
+ width:42px;
+ height:42px;
+ border-radius:13px;
+ border:1px solid var(--line);
+ background:rgba(255,255,255,.04);
+ color:white;
 }
 
+.mobile-menu{display:none}
+
+.page{display:none}
 .page.active{
-  display:block;
+ display:block;
+ animation:pageIn .45s ease;
 }
 
-/* ================= CARDS ================= */
+@keyframes pageIn{
+ from{opacity:0;transform:translateY(12px) scale(.99)}
+ to{opacity:1;transform:none}
+}
+
+/* CARDS */
 
 .card{
-  background:var(--panel);
-  border:1px solid var(--line);
-  backdrop-filter:blur(20px);
-  border-radius:20px;
-  padding:20px;
+ position:relative;
+ overflow:hidden;
+ background:var(--panel);
+ border:1px solid var(--line);
+ border-radius:22px;
+ padding:20px;
+ backdrop-filter:blur(25px);
+ box-shadow:0 15px 60px rgba(0,0,0,.15);
+}
+
+.card:before{
+ content:"";
+ position:absolute;
+ width:180px;
+ height:180px;
+ border-radius:50%;
+ background:var(--cyan);
+ filter:blur(100px);
+ opacity:.035;
+ pointer-events:none;
 }
 
 .grid{
-  display:grid;
-  gap:15px;
+ display:grid;
+ gap:15px;
 }
 
-.grid-2{
-  grid-template-columns:repeat(2,minmax(0,1fr));
-}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
 
-.grid-3{
-  grid-template-columns:repeat(3,minmax(0,1fr));
-}
-
-/* ================= HOME ================= */
+/* HERO */
 
 .hero{
-  min-height:390px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
+ min-height:430px;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ text-align:center;
 }
+
+.hero-core-wrap{
+ position:relative;
+ width:205px;
+ height:205px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+}
+
+.core-ring{
+ position:absolute;
+ border-radius:50%;
+ border:1px solid rgba(0,247,255,.4);
+}
+
+.r1{
+ width:205px;
+ height:205px;
+ animation:spin 12s linear infinite;
+}
+
+.r2{
+ width:170px;
+ height:170px;
+ border-color:rgba(255,43,214,.35);
+ animation:spinReverse 8s linear infinite;
+}
+
+.r3{
+ width:135px;
+ height:135px;
+ border-color:rgba(139,92,255,.5);
+ animation:spin 5s linear infinite;
+}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spinReverse{to{transform:rotate(-360deg)}}
 
 .hero-core{
-  width:180px;
-  height:180px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:30px;
-  font-weight:900;
-  background:
-    radial-gradient(
-      circle,
-      #fff 0%,
-      var(--cyan) 4%,
-      rgba(0,247,255,.5) 14%,
-      rgba(139,92,255,.3) 35%,
-      transparent 70%
-    );
-  box-shadow:
-    0 0 35px var(--cyan),
-    0 0 80px var(--purple),
-    0 0 140px rgba(255,43,214,.35);
-  animation:core 4s infinite ease-in-out;
+ width:115px;
+ height:115px;
+ border-radius:50%;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:21px;
+ font-weight:900;
+ letter-spacing:2px;
+ background:
+ radial-gradient(circle,#fff 0 3%,var(--cyan) 9%,var(--purple) 38%,#1b0b3c 55%,transparent 72%);
+ box-shadow:
+ 0 0 25px var(--cyan),
+ 0 0 65px var(--purple),
+ 0 0 110px rgba(255,43,214,.4);
+ animation:heroCore 3s ease-in-out infinite;
 }
 
-@keyframes core{
-  0%,100%{
-    transform:scale(1) rotate(0deg);
-  }
-
-  50%{
-    transform:scale(1.08) rotate(8deg);
-  }
+@keyframes heroCore{
+ 0%,100%{transform:scale(1)}
+ 50%{transform:scale(1.12)}
 }
 
 .hero h1{
-  font-size:38px;
-  margin-top:28px;
+ margin-top:28px;
+ font-size:40px;
 }
 
 .gradient-text{
-  background:
-    linear-gradient(
-      90deg,
-      var(--cyan),
-      #fff,
-      var(--pink),
-      var(--purple)
-    );
-  -webkit-background-clip:text;
-  color:transparent;
+ background:linear-gradient(90deg,var(--cyan),#fff,var(--pink),var(--purple));
+ -webkit-background-clip:text;
+ color:transparent;
+ background-size:250%;
+ animation:gradientMove 5s linear infinite;
+}
+
+@keyframes gradientMove{
+ to{background-position:250%}
 }
 
 .hero p{
-  color:var(--muted);
-  margin-top:8px;
+ color:var(--muted);
+ margin-top:9px;
 }
 
+.hero-badge{
+ margin-top:18px;
+ padding:8px 14px;
+ border-radius:30px;
+ color:var(--cyan);
+ background:rgba(0,247,255,.06);
+ border:1px solid rgba(0,247,255,.15);
+ box-shadow:0 0 20px rgba(0,247,255,.08);
+ animation:badgePulse 2s infinite;
+}
+
+@keyframes badgePulse{
+ 50%{box-shadow:0 0 30px rgba(0,247,255,.2)}
+}
+
+/* STATS */
+
 .stat{
-  text-align:center;
+ text-align:center;
+ transition:.3s;
+}
+
+.stat:hover{
+ transform:translateY(-5px);
+ border-color:rgba(0,247,255,.25);
+ box-shadow:0 15px 45px rgba(0,247,255,.06);
 }
 
 .stat strong{
-  display:block;
-  font-size:28px;
-  margin-bottom:5px;
+ display:block;
+ font-size:30px;
+ margin-bottom:5px;
 }
 
 .stat span{
-  color:var(--muted);
-  font-size:12px;
+ color:var(--muted);
+ font-size:12px;
 }
 
-/* ================= CHAT ================= */
+/* CHAT */
 
 .chat-box{
-  height:calc(100vh - 190px);
-  min-height:500px;
-  display:flex;
-  flex-direction:column;
+ height:calc(100vh - 175px);
+ min-height:520px;
+ display:flex;
+ flex-direction:column;
 }
 
 .messages{
-  flex:1;
-  overflow-y:auto;
-  padding:5px;
+ flex:1;
+ overflow-y:auto;
+ padding:5px;
+ scroll-behavior:smooth;
 }
 
 .msg{
-  max-width:82%;
-  padding:13px 15px;
-  border-radius:15px;
-  margin-bottom:12px;
-  line-height:1.55;
-  white-space:pre-wrap;
+ max-width:82%;
+ padding:14px 16px;
+ border-radius:16px;
+ margin-bottom:12px;
+ line-height:1.55;
+ white-space:pre-wrap;
+ animation:msgIn .3s ease;
+}
+
+@keyframes msgIn{
+ from{opacity:0;transform:translateY(8px)}
+ to{opacity:1;transform:none}
 }
 
 .msg.user{
-  margin-left:auto;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(0,247,255,.15),
-      rgba(139,92,255,.18)
-    );
-  border:1px solid rgba(0,247,255,.15);
+ margin-left:auto;
+ background:linear-gradient(135deg,rgba(0,247,255,.13),rgba(139,92,255,.2));
+ border:1px solid rgba(0,247,255,.14);
 }
 
 .msg.ai{
-  background:rgba(255,255,255,.045);
-  border:1px solid var(--line);
+ background:rgba(255,255,255,.045);
+ border:1px solid var(--line);
+}
+
+.typing{
+ display:flex;
+ gap:5px;
+ align-items:center;
+}
+
+.typing i{
+ width:6px;
+ height:6px;
+ border-radius:50%;
+ background:var(--cyan);
+ animation:typing .9s infinite;
+}
+
+.typing i:nth-child(2){animation-delay:.15s}
+.typing i:nth-child(3){animation-delay:.3s}
+
+@keyframes typing{
+ 50%{transform:translateY(-5px);opacity:.5}
 }
 
 .chat-input{
-  display:flex;
-  gap:10px;
-  margin-top:10px;
+ display:flex;
+ gap:10px;
+ margin-top:12px;
 }
 
 .chat-input textarea{
-  flex:1;
-  resize:none;
-  height:58px;
-  padding:16px;
-  color:white;
-  background:rgba(255,255,255,.045);
-  border:1px solid var(--line);
-  border-radius:15px;
-  outline:none;
+ flex:1;
+ height:60px;
+ resize:none;
+ padding:16px;
+ color:white;
+ background:rgba(255,255,255,.045);
+ border:1px solid var(--line);
+ border-radius:16px;
+ outline:none;
+ transition:.2s;
+}
+
+.chat-input textarea:focus{
+ border-color:var(--cyan);
+ box-shadow:0 0 20px rgba(0,247,255,.1);
 }
 
 .chat-input button{
-  width:90px;
-  border:0;
-  border-radius:15px;
-  color:#03040a;
-  font-weight:800;
-  background:
-    linear-gradient(
-      135deg,
-      var(--cyan),
-      var(--purple)
-    );
+ width:95px;
+ border:0;
+ border-radius:16px;
+ font-weight:800;
+ background:linear-gradient(135deg,var(--cyan),var(--purple));
+ color:#03040a;
+ transition:.25s;
 }
 
-/* ================= TOOLS ================= */
+.chat-input button:hover{
+ transform:translateY(-2px);
+ box-shadow:0 0 25px rgba(0,247,255,.3);
+}
+
+/* TOOLS */
 
 .tool{
-  padding:20px;
-  border-radius:18px;
-  background:rgba(255,255,255,.035);
-  border:1px solid var(--line);
-  transition:.25s;
+ padding:22px;
+ border-radius:20px;
+ background:rgba(255,255,255,.035);
+ border:1px solid var(--line);
+ transition:.3s;
+ position:relative;
+ overflow:hidden;
+}
+
+.tool:after{
+ content:"";
+ position:absolute;
+ width:80px;
+ height:80px;
+ border-radius:50%;
+ background:var(--purple);
+ filter:blur(50px);
+ opacity:.05;
+ right:-20px;
+ top:-20px;
 }
 
 .tool:hover{
-  transform:translateY(-3px);
-  border-color:rgba(0,247,255,.25);
-  box-shadow:0 0 25px rgba(0,247,255,.07);
+ transform:translateY(-7px);
+ border-color:rgba(0,247,255,.25);
+ box-shadow:0 15px 40px rgba(0,247,255,.08);
 }
 
 .tool-icon{
-  font-size:27px;
-  margin-bottom:12px;
+ font-size:32px;
+ margin-bottom:14px;
+ animation:iconFloat 3s ease-in-out infinite;
 }
 
-.tool h3{
-  margin-bottom:7px;
+@keyframes iconFloat{
+ 50%{transform:translateY(-5px) rotate(3deg)}
 }
 
+.tool h3{margin-bottom:7px}
 .tool p{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.5;
+ color:var(--muted);
+ font-size:13px;
+ line-height:1.5;
 }
 
 .tool button{
-  margin-top:14px;
-  padding:9px 12px;
-  color:white;
-  background:rgba(0,247,255,.08);
-  border:1px solid rgba(0,247,255,.15);
-  border-radius:10px;
+ margin-top:15px;
+ padding:9px 14px;
+ color:white;
+ background:rgba(0,247,255,.07);
+ border:1px solid rgba(0,247,255,.15);
+ border-radius:11px;
+ transition:.2s;
 }
 
-/* ================= PROFILE ================= */
+.tool button:hover{
+ background:rgba(0,247,255,.15);
+}
+
+/* PROFILE */
+
+.profile-card{
+ padding:28px;
+}
 
 .profile-head{
-  display:flex;
-  align-items:center;
-  gap:18px;
+ display:flex;
+ align-items:center;
+ gap:20px;
+}
+
+.avatar-wrap{
+ position:relative;
+ width:100px;
+ height:100px;
+}
+
+.avatar-ring{
+ position:absolute;
+ inset:-7px;
+ border-radius:50%;
+ border:2px dashed var(--cyan);
+ animation:spin 7s linear infinite;
+ box-shadow:0 0 20px rgba(0,247,255,.25);
 }
 
 .avatar{
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-  font-weight:900;
-  background:
-    linear-gradient(
-      135deg,
-      var(--cyan),
-      var(--purple),
-      var(--pink)
-    );
-  box-shadow:0 0 35px rgba(0,247,255,.25);
+ width:100px;
+ height:100px;
+ border-radius:50%;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:34px;
+ font-weight:900;
+ background:
+ linear-gradient(135deg,var(--cyan),var(--purple),var(--pink));
+ box-shadow:
+ 0 0 25px rgba(0,247,255,.35),
+ 0 0 60px rgba(139,92,255,.25);
+ animation:avatarPulse 3s infinite alternate;
+}
+
+@keyframes avatarPulse{
+ to{transform:scale(1.04);filter:hue-rotate(25deg)}
 }
 
 .profile-info h2{
-  margin-bottom:5px;
+ font-size:25px;
+ margin-bottom:5px;
 }
 
 .profile-info p{
-  color:var(--muted);
-}
-
-.big-xp{
-  margin-top:22px;
-}
-
-.big-xp .xp-bar{
-  height:10px;
+ color:var(--muted);
 }
 
 .level-badge{
-  display:inline-block;
-  padding:7px 12px;
-  border-radius:20px;
-  background:rgba(0,247,255,.09);
-  color:var(--cyan);
-  border:1px solid rgba(0,247,255,.15);
-  font-size:12px;
+ display:inline-block;
+ margin-top:10px;
+ padding:7px 12px;
+ border-radius:20px;
+ color:var(--cyan);
+ border:1px solid rgba(0,247,255,.18);
+ background:rgba(0,247,255,.06);
 }
 
-/* ================= LOCK SCREEN ================= */
+.big-xp{margin-top:25px}
+
+.big-xp .xp-bar{height:10px}
+
+.profile-stats{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:12px;
+ margin-top:20px;
+}
+
+.profile-stat{
+ padding:16px;
+ text-align:center;
+ border:1px solid var(--line);
+ border-radius:15px;
+ background:rgba(255,255,255,.03);
+}
+
+.profile-stat b{
+ display:block;
+ font-size:22px;
+ margin-bottom:4px;
+}
+
+.profile-stat span{
+ color:var(--muted);
+ font-size:11px;
+}
+
+/* LOCK */
 
 .lock-card{
-  text-align:center;
-  padding:55px 20px;
+ text-align:center;
+ padding:70px 20px;
 }
 
 .lock-big{
-  font-size:55px;
-  margin-bottom:15px;
+ font-size:60px;
+ animation:lockFloat 2s infinite ease-in-out;
 }
 
-.lock-card h2{
-  margin-bottom:8px;
+@keyframes lockFloat{
+ 50%{transform:translateY(-8px) rotate(4deg)}
 }
 
+.lock-card h2{margin-top:15px}
 .lock-card p{
-  color:var(--muted);
+ color:var(--muted);
+ margin-top:8px;
 }
 
-/* ================= SETTINGS ================= */
+/* SETTINGS */
 
 .setting{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  padding:16px 0;
-  border-bottom:1px solid var(--line);
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:20px;
+ padding:18px 0;
+ border-bottom:1px solid var(--line);
 }
 
-.setting:last-child{
-  border-bottom:0;
-}
+.setting:last-child{border-bottom:0}
 
 .setting-info b{
-  display:block;
-  margin-bottom:4px;
+ display:block;
+ margin-bottom:5px;
 }
 
 .setting-info span{
-  color:var(--muted);
-  font-size:12px;
+ color:var(--muted);
+ font-size:12px;
 }
 
-.setting select{
-  min-width:190px;
-  padding:10px;
-  background:#101426;
-  color:white;
-  border:1px solid var(--line);
-  border-radius:10px;
-}
-
-/* ================= TOAST ================= */
+/* TOAST */
 
 .toast{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  z-index:100;
-  padding:13px 16px;
-  border:1px solid rgba(0,247,255,.2);
-  border-radius:13px;
-  background:rgba(10,13,25,.92);
-  box-shadow:0 0 30px rgba(0,247,255,.12);
-  transform:translateY(100px);
-  opacity:0;
-  transition:.3s;
+ position:fixed;
+ right:22px;
+ bottom:22px;
+ z-index:100;
+ padding:14px 18px;
+ border-radius:14px;
+ border:1px solid rgba(0,247,255,.2);
+ background:rgba(7,10,20,.94);
+ box-shadow:0 0 30px rgba(0,247,255,.15);
+ transform:translateY(100px);
+ opacity:0;
+ transition:.35s;
 }
 
 .toast.show{
-  transform:translateY(0);
-  opacity:1;
+ transform:none;
+ opacity:1;
 }
 
-/* ================= RTL ================= */
+/* RTL */
 
 html[dir="rtl"] .sidebar{
-  left:auto;
-  right:0;
-  border-right:0;
-  border-left:1px solid var(--line);
+ left:auto;
+ right:0;
+ border-right:0;
+ border-left:1px solid var(--line);
 }
 
 html[dir="rtl"] .main{
-  margin-left:0;
-  margin-right:260px;
+ margin-left:0;
+ margin-right:260px;
 }
 
-html[dir="rtl"] .nav button{
-  text-align:right;
-}
-
+html[dir="rtl"] .nav button{text-align:right}
 html[dir="rtl"] .msg.user{
-  margin-left:0;
-  margin-right:auto;
+ margin-left:0;
+ margin-right:auto;
 }
 
-/* ================= MOBILE ================= */
-
-.mobile-menu{
-  display:none;
-}
+/* MOBILE */
 
 @media(max-width:850px){
 
-  .sidebar{
-    transform:translateX(-105%);
-    transition:.3s;
-  }
+ .sidebar{
+  transform:translateX(-105%);
+  transition:.35s;
+ }
 
-  .sidebar.open{
-    transform:translateX(0);
-  }
+ .sidebar.open{transform:translateX(0)}
 
-  html[dir="rtl"] .sidebar{
-    transform:translateX(105%);
-  }
+ html[dir="rtl"] .sidebar{
+  transform:translateX(105%);
+ }
 
-  html[dir="rtl"] .sidebar.open{
-    transform:translateX(0);
-  }
+ html[dir="rtl"] .sidebar.open{
+  transform:translateX(0);
+ }
 
-  .main{
-    margin-left:0!important;
-    margin-right:0!important;
-    width:100%;
-    padding:15px;
-  }
+ .main{
+  margin:0!important;
+  width:100%;
+  padding:15px;
+ }
 
-  .mobile-menu{
-    display:block;
-  }
+ .mobile-menu{display:block}
 
-  .grid-2,
-  .grid-3{
-    grid-template-columns:1fr;
-  }
+ .grid-2,.grid-3{
+  grid-template-columns:1fr;
+ }
 
-  .hero h1{
-    font-size:28px;
-  }
+ .hero h1{font-size:29px}
+ .hero-core-wrap{
+  transform:scale(.82);
+ }
 
-  .hero-core{
-    width:140px;
-    height:140px;
-  }
+ .profile-stats{
+  grid-template-columns:1fr;
+ }
 
-  .setting{
-    align-items:flex-start;
-    flex-direction:column;
-  }
+ .topbar{
+  gap:10px;
+ }
+
+ .page-title h2{font-size:21px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- ================= APP ================= -->
+<div class="particles" id="particles"></div>
 
 <section id="app" class="app">
 
-  <aside class="sidebar" id="sidebar">
-
-    <div class="brand">
-      <div class="brand-core"></div>
-
-      <div class="brand-text">
-        <b>Amzo AI</b>
-        <span>AI Universe</span>
-      </div>
-    </div>
-
-    <nav class="nav">
-
-      <button class="active"
-        data-page="home"
-        onclick="openPage('home')">
-
-        <span class="nav-icon">⌂</span>
-        <span data-i18n="home">Home</span>
-
-      </button>
-
-      <button
-        data-page="chat"
-        onclick="openPage('chat')">
-
-        <span class="nav-icon">✦</span>
-        <span data-i18n="chat">AI Chat</span>
-
-      </button>
-
-      <button
-        data-page="history"
-        onclick="openPage('history')">
-
-        <span class="nav-icon">◷</span>
-        <span data-i18n="history">Chat History</span>
-
-      </button>
-
-      <button
-        data-page="create"
-        onclick="openPage('create')">
-
-        <span class="nav-icon">✧</span>
-        <span data-i18n="create">Create</span>
-
-      </button>
-
-      <button
-        data-page="code"
-        onclick="openPage('code')">
-
-        <span class="nav-icon">⌘</span>
-        <span data-i18n="code">Code Lab</span>
-
-      </button>
-
-      <button
-        data-page="fun"
-        onclick="openPage('fun')">
-
-        <span class="nav-icon">☄</span>
-        <span data-i18n="fun">Fun Zone</span>
-
-      </button>
-
-      <button
-        data-page="learn"
-        onclick="openPage('learn')">
-
-        <span class="nav-icon">◆</span>
-        <span data-i18n="learn">Learn</span>
-
-      </button>
-
-      <button
-        data-page="profile"
-        onclick="openPage('profile')">
-
-        <span class="nav-icon">◉</span>
-        <span data-i18n="profile">Profile</span>
-
-      </button>
-
-      <button
-        data-page="settings"
-        onclick="openPage('settings')">
-
-        <span class="nav-icon">⚙</span>
-        <span data-i18n="settings">Settings</span>
-
-      </button>
-
-    </nav>
-
-    <div class="sidebar-bottom">
-
-      <div class="xp-mini">
-
-        <div class="xp-row">
-          <span id="sideLevel">Level 1</span>
-          <span id="sideXP">0 XP</span>
-        </div>
-
-        <div class="xp-bar">
-          <div
-            id="sideXPFill"
-            class="xp-fill">
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-  </aside>
-
-
-  <main class="main">
-
-    <div class="topbar">
-
-      <div class="page-title">
-
-        <h2 id="pageTitle">
-          Amzo Core
-        </h2>
-
-        <p id="pageSubtitle">
-          Your AI universe starts here.
-        </p>
-
-      </div>
-
-      <div class="top-actions">
-
-        <button
-          class="icon-btn mobile-menu"
-          onclick="toggleSidebar()">
-
-          ☰
-
-        </button>
-
-        <div class="user-pill">
-          <span id="topUsername">
-            Guest
-          </span>
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- ================= HOME ================= -->
-
-    <div
-      id="page-home"
-      class="page active">
-
-      <div class="card hero">
-
-        <div class="hero-core">
-          AMZO
-        </div>
-
-        <h1>
-          Welcome to
-          <span class="gradient-text">
-            Amzo AI
-          </span>
-        </h1>
-
-        <p id="homeWelcome">
-          Your personal AI universe is online.
-        </p>
-
-      </div>
-
-      <br>
-
-      <div class="grid grid-3">
-
-        <div class="card stat">
-
-          <strong id="homeLevel">
-            1
-          </strong>
-
-          <span data-i18n="level">
-            Level
-          </span>
-
-        </div>
-
-        <div class="card stat">
-
-          <strong id="homeXP">
-            0
-          </strong>
-
-          <span>
-            XP
-          </span>
-
-        </div>
-
-        <div class="card stat">
-
-          <strong id="homeUnlocked">
-            2
-          </strong>
-
-          <span data-i18n="unlocked">
-            Unlocked
-          </span>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- ================= CHAT ================= -->
-
-    <div
-      id="page-chat"
-      class="page">
-
-      <div class="card chat-box">
-
-        <div
-          id="messages"
-          class="messages">
-
-          <div
-            class="msg ai"
-            id="chatWelcome">
-
-            Hi! I'm Amzo AI.
-            What do you want to build today?
-
-          </div>
-
-        </div>
-
-        <div class="chat-input">
-
-          <textarea
-            id="chatInput"
-            placeholder="Ask Amzo AI anything..."
-            onkeydown="chatKey(event)">
-          </textarea>
-
-          <button
-            onclick="sendChat()"
-            id="sendButton">
-
-            Send
-
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- ================= HISTORY ================= -->
-
-    <div
-      id="page-history"
-      class="page">
-
-      <div class="card">
-
-        <h2 data-i18n="history">
-          Chat History
-        </h2>
-
-        <p
-          style="color:var(--muted);margin-top:8px"
-          id="historyText">
-
-          Your saved conversations will appear here.
-
-        </p>
-
-        <div
-          id="historyList"
-          style="margin-top:20px">
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- ================= CREATE ================= -->
-
-    <div
-      id="page-create"
-      class="page">
-
-      <div class="grid grid-2">
-
-        <div class="tool">
-
-          <div class="tool-icon">
-            ✍️
-          </div>
-
-          <h3>
-            AI Writer
-          </h3>
-
-          <p>
-            Generate ideas, posts, scripts and other written content.
-          </p>
-
-          <button onclick="useTool('writer')">
-            Open
-          </button>
-
-        </div>
-
-
-        <div class="tool">
-
-          <div class="tool-icon">
-            💡
-          </div>
-
-          <h3>
-            Idea Generator
-          </h3>
-
-          <p>
-            Generate creative ideas using Amzo AI.
-          </p>
-
-          <button onclick="useTool('ideas')">
-            Open
-          </button>
-
-        </div>
-
-
-        <div class="tool">
-
-          <div class="tool-icon">
-            🎨
-          </div>
-
-          <h3>
-            AI Image
-          </h3>
-
-          <p>
-            Create an image prompt and send it to the AI system.
-          </p>
-
-          <button onclick="useTool('image')">
-            Open
-          </button>
-
-        </div>
-
-
-        <div class="tool">
-
-          <div class="tool-icon">
-            ⚡
-          </div>
-
-          <h3>
-            Prompt Builder
-          </h3>
-
-          <p>
-            Create better prompts for AI tools.
-          </p>
-
-          <button onclick="useTool('prompt')">
-            Open
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- ================= CODE ================= -->
-
-    <div
-      id="page-code"
-      class="page">
-
-      <div
-        id="codeLocked"
-        class="card lock-card hidden">
-
-        <div class="lock-big">
-          🔒
-        </div>
-
-        <h2>
-          Code Lab Locked
-        </h2>
-
-        <p>
-          Reach Level 4 to unlock Code Lab.
-        </p>
-
-      </div>
-
-
-      <div id="codeContent">
-
-        <div class="card">
-
-          <h2>
-            ⌘ Code Lab
-          </h2>
-
-          <p
-            style="color:var(--muted);margin:8px 0 15px">
-
-            Ask Amzo AI to help you build code.
-
-          </p>
-
-          <textarea
-            id="codePrompt"
-            style="
-              width:100%;
-              height:180px;
-              background:rgba(255,255,255,.04);
-              border:1px solid var(--line);
-              border-radius:14px;
-              color:white;
-              padding:15px;
-              outline:none
-            "
-            placeholder="Example: Build a simple HTML calculator">
-          </textarea>
-
-          <button
-            onclick="runCodeLab()"
-            style="
-              margin-top:12px;
-              padding:12px 18px;
-              border:0;
-              border-radius:12px;
-              background:linear-gradient(90deg,var(--cyan),var(--purple));
-              font-weight:800
-            ">
-
-            Generate
-
-          </button>
-
-          <pre
-            id="codeResult"
-            style="
-              margin-top:18px;
-              white-space:pre-wrap;
-              color:#d8ddf2
-            ">
-          </pre>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- ================= FUN ================= -->
-
-    <div
-      id="page-fun"
-      class="page">
-
-      <div class="card">
-
-        <h2>
-          ☄ Fun Zone
-        </h2>
-
-        <p
-          style="color:var(--muted);margin:8px 0 20px">
-
-          Random challenges and surprises.
-
-        </p>
-
-        <div
-          id="funContent"
-          style="font-size:20px;line-height:1.6">
-
-          Press the button for a challenge.
-
-        </div>
-
-        <button
-          onclick="newFun()"
-          style="
-            margin-top:20px;
-            padding:12px 18px;
-            border:0;
-            border-radius:12px;
-            background:linear-gradient(90deg,var(--cyan),var(--pink));
-            font-weight:800
-          ">
-
-          New Challenge
-
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <!-- ================= LEARN ================= -->
-
-    <div
-      id="page-learn"
-      class="page">
-
-      <div
-        id="learnLocked"
-        class="card lock-card hidden">
-
-        <div class="lock-big">
-          🔒
-        </div>
-
-        <h2>
-          Learn Locked
-        </h2>
-
-        <p>
-          Reach Level 7 to unlock AI Universe learning.
-        </p>
-
-      </div>
-
-
-      <div id="learnContent">
-
-        <div class="grid grid-2">
-
-          <div class="tool">
-
-            <div class="tool-icon">
-              🧠
-            </div>
-
-            <h3>
-              AI Basics
-            </h3>
-
-            <p>
-              Learn how modern AI systems work.
-            </p>
-
-          </div>
-
-
-          <div class="tool">
-
-            <div class="tool-icon">
-              💻
-            </div>
-
-            <h3>
-              Technology
-            </h3>
-
-            <p>
-              Explore coding and technology concepts.
-            </p>
-
-          </div>
-
-
-          <div class="tool">
-
-            <div class="tool-icon">
-              🌍
-            </div>
-
-            <h3>
-              Languages
-            </h3>
-
-            <p>
-              Explore different languages and cultures.
-            </p>
-
-          </div>
-
-
-          <div class="tool">
-
-            <div class="tool-icon">
-              🚀
-            </div>
-
-            <h3>
-              Future Skills
-            </h3>
-
-            <p>
-              Build useful skills for the future.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- ================= PROFILE ================= -->
-
-    <div
-      id="page-profile"
-      class="page">
-
-      <div class="card">
-
-        <div class="profile-head">
-
-          <div
-            class="avatar"
-            id="avatar">
-
-            A
-
-          </div>
-
-          <div class="profile-info">
-
-            <h2 id="profileUsername">
-              Guest
-            </h2>
-
-            <p id="profileEmail">
-              Guest Mode
-            </p>
-
-            <br>
-
-            <span
-              class="level-badge"
-              id="profileLevel">
-
-              Level 1
-
-            </span>
-
-          </div>
-
-        </div>
-
-
-        <div class="big-xp">
-
-          <div class="xp-row">
-
-            <span id="profileXP">
-              0 XP
-            </span>
-
-            <span id="nextLevelText">
-              100 XP to next level
-            </span>
-
-          </div>
-
-          <div class="xp-bar">
-
-            <div
-              id="profileXPFill"
-              class="xp-fill">
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <br>
-
-
-      <div class="card">
-
-        <h2>
-          🆙 Level Unlocks
-        </h2>
-
-        <div
-          id="unlockList"
-          style="margin-top:18px">
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- ================= SETTINGS ================= -->
-
-    <div
-      id="page-settings"
-      class="page">
-
-      <div class="card">
-
-        <h2 data-i18n="settings">
-          Settings
-        </h2>
-
-        <br>
-
-
-        <div class="setting">
-
-          <div class="setting-info">
-
-            <b data-i18n="language">
-              Language
-            </b>
-
-            <span>
-              Change Amzo AI interface language.
-            </span>
-
-          </div>
-
-
-          <select
-            id="languageSelect"
-            onchange="setLanguage(this.value)">
-
-            <option value="en">
-              🇬🇧 English
-            </option>
-
-            <option value="ur">
-              🇵🇰 اردو
-            </option>
-
-            <option value="ar">
-              🇸🇦 العربية
-            </option>
-
-            <option value="es">
-              🇪🇸 Español
-            </option>
-
-            <option value="fr">
-              🇫🇷 Français
-            </option>
-
-            <option value="de">
-              🇩🇪 Deutsch
-            </option>
-
-            <option value="zh">
-              🇨🇳 中文
-            </option>
-
-            <option value="ja">
-              🇯🇵 日本語
-            </option>
-
-            <option value="ko">
-              🇰🇷 한국어
-            </option>
-
-            <option value="tr">
-              🇹🇷 Türkçe
-            </option>
-
-            <option value="hi">
-              🇮🇳 हिन्दी
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div class="setting">
-
-          <div class="setting-info">
-
-            <b>
-              RGB Effects
-            </b>
-
-            <span>
-              Toggle futuristic visual effects.
-            </span>
-
-          </div>
-
-          <button
-            onclick="toggleRGB()"
-            class="icon-btn">
-
-            RGB
-
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </main>
-
-</section>
-
-
-<div
-  id="toast"
-  class="toast">
+<aside class="sidebar" id="sidebar">
+
+<div class="brand">
+ <div class="brand-core"></div>
+ <div class="brand-text">
+  <b>Amzo AI</b>
+  <span>AI Universe</span>
+ </div>
 </div>
 
+<nav class="nav">
+
+<button class="active" data-page="home" onclick="openPage('home')">
+ <span class="nav-icon">⌂</span><span>Home</span>
+</button>
+
+<button data-page="chat" onclick="openPage('chat')">
+ <span class="nav-icon">✦</span><span>AI Chat</span>
+</button>
+
+<button data-page="history" onclick="openPage('history')">
+ <span class="nav-icon">◷</span><span>Chat History</span>
+</button>
+
+<button data-page="create" onclick="openPage('create')">
+ <span class="nav-icon">✧</span><span>Create</span>
+</button>
+
+<button data-page="code" onclick="openPage('code')">
+ <span class="nav-icon">⌘</span><span>Code Lab</span>
+</button>
+
+<button data-page="fun" onclick="openPage('fun')">
+ <span class="nav-icon">☄</span><span>Fun Zone</span>
+</button>
+
+<button data-page="learn" onclick="openPage('learn')">
+ <span class="nav-icon">◆</span><span>Learn</span>
+</button>
+
+<button data-page="profile" onclick="openPage('profile')">
+ <span class="nav-icon">◉</span><span>Profile</span>
+</button>
+
+<button data-page="settings" onclick="openPage('settings')">
+ <span class="nav-icon">⚙</span><span>Settings</span>
+</button>
+
+</nav>
+
+<div class="sidebar-bottom">
+<div class="xp-mini">
+<div class="xp-row">
+<span id="sideLevel">Level 1</span>
+<span id="sideXP">0 XP</span>
+</div>
+<div class="xp-bar">
+<div id="sideXPFill" class="xp-fill"></div>
+</div>
+</div>
+</div>
+
+</aside>
+
+<main class="main">
+
+<div class="topbar">
+
+<div class="page-title">
+<h2 id="pageTitle">Amzo Core</h2>
+<p id="pageSubtitle">Your AI universe starts here.</p>
+</div>
+
+<div class="top-actions">
+<button class="icon-btn mobile-menu" onclick="toggleSidebar()">☰</button>
+<div class="user-pill">◉ <span id="topUsername">Guest</span></div>
+</div>
+
+</div>
+
+<!-- HOME -->
+
+<div id="page-home" class="page active">
+
+<div class="card hero">
+
+<div class="hero-core-wrap">
+<div class="core-ring r1"></div>
+<div class="core-ring r2"></div>
+<div class="core-ring r3"></div>
+<div class="hero-core">AMZO</div>
+</div>
+
+<h1>Welcome to <span class="gradient-text">Amzo AI</span></h1>
+
+<p>Your personal AI universe is online.</p>
+
+<div class="hero-badge">⚡ SYSTEM ONLINE</div>
+
+</div>
+
+<br>
+
+<div class="grid grid-3">
+
+<div class="card stat">
+<strong id="homeLevel">1</strong>
+<span>Level</span>
+</div>
+
+<div class="card stat">
+<strong id="homeXP">0</strong>
+<span>XP</span>
+</div>
+
+<div class="card stat">
+<strong id="homeUnlocked">1</strong>
+<span>Unlocked</span>
+</div>
+
+</div>
+
+</div>
+
+<!-- CHAT -->
+
+<div id="page-chat" class="page">
+
+<div class="card chat-box">
+
+<div id="messages" class="messages">
+
+<div class="msg ai">
+🤖 <b>Amzo AI</b><br>
+Hey! I'm online. What are we building today?
+</div>
+
+</div>
+
+<div class="chat-input">
+
+<textarea id="chatInput"
+placeholder="Ask Amzo AI anything..."
+onkeydown="chatKey(event)"></textarea>
+
+<button onclick="sendChat()">Send</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- HISTORY -->
+
+<div id="page-history" class="page">
+
+<div class="card">
+
+<h2>◷ Chat History</h2>
+
+<p style="color:var(--muted);margin-top:8px">
+Your saved conversations will appear here.
+</p>
+
+<div id="historyList" style="margin-top:20px"></div>
+
+</div>
+
+</div>
+
+<!-- CREATE -->
+
+<div id="page-create" class="page">
+
+<div class="grid grid-2">
+
+<div class="tool">
+<div class="tool-icon">✍️</div>
+<h3>AI Writer</h3>
+<p>Create scripts, posts, stories and ideas.</p>
+<button onclick="useTool('writer')">Launch →</button>
+</div>
+
+<div class="tool">
+<div class="tool-icon">💡</div>
+<h3>Idea Generator</h3>
+<p>Generate unique ideas with Amzo AI.</p>
+<button onclick="useTool('ideas')">Launch →</button>
+</div>
+
+<div class="tool">
+<div class="tool-icon">🎨</div>
+<h3>AI Image</h3>
+<p>Create powerful image prompts.</p>
+<button onclick="useTool('image')">Launch →</button>
+</div>
+
+<div class="tool">
+<div class="tool-icon">⚡</div>
+<h3>Prompt Builder</h3>
+<p>Build stronger prompts for AI tools.</p>
+<button onclick="useTool('prompt')">Launch →</button>
+</div>
+
+</div>
+
+</div>
+
+<!-- CODE -->
+
+<div id="page-code" class="page">
+
+<div id="codeLocked" class="card lock-card">
+<div class="lock-big">🔒</div>
+<h2>Code Lab Locked</h2>
+<p>Reach Level 4 to unlock Code Lab.</p>
+</div>
+
+<div id="codeContent" class="hidden">
+
+<div class="card">
+
+<h2>⌘ Code Lab</h2>
+
+<p style="color:var(--muted);margin:8px 0 15px">
+Build software with Amzo AI.
+</p>
+
+<textarea id="codePrompt"
+style="width:100%;height:180px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;color:white;padding:15px;outline:none"
+placeholder="Example: Build a futuristic HTML calculator"></textarea>
+
+<button onclick="runCodeLab()"
+style="margin-top:12px;padding:12px 18px;border:0;border-radius:12px;background:linear-gradient(90deg,var(--cyan),var(--purple));font-weight:800">
+Generate Code
+</button>
+
+<pre id="codeResult"
+style="margin-top:18px;white-space:pre-wrap;color:#d8ddf2"></pre>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FUN -->
+
+<div id="page-fun" class="page">
+
+<div class="card">
+
+<h2>☄ Fun Zone</h2>
+
+<p style="color:var(--muted);margin:8px 0 20px">
+Random challenges from the Amzo universe.
+</p>
+
+<div id="funContent" style="font-size:20px;line-height:1.6">
+Press the button for a challenge.
+</div>
+
+<button onclick="newFun()"
+style="margin-top:20px;padding:12px 18px;border:0;border-radius:12px;background:linear-gradient(90deg,var(--cyan),var(--pink));font-weight:800">
+New Challenge
+</button>
+
+</div>
+
+</div>
+
+<!-- LEARN -->
+
+<div id="page-learn" class="page">
+
+<div id="learnLocked" class="card lock-card">
+<div class="lock-big">🔒</div>
+<h2>Learn Locked</h2>
+<p>Reach Level 7 to unlock AI Universe learning.</p>
+</div>
+
+<div id="learnContent" class="hidden">
+
+<div class="grid grid-2">
+
+<div class="tool">
+<div class="tool-icon">🧠</div>
+<h3>AI Basics</h3>
+<p>Understand modern AI systems.</p>
+</div>
+
+<div class="tool">
+<div class="tool-icon">💻</div>
+<h3>Technology</h3>
+<p>Explore coding and technology.</p>
+</div>
+
+<div class="tool">
+<div class="tool-icon">🌍</div>
+<h3>Languages</h3>
+<p>Explore languages and cultures.</p>
+</div>
+
+<div class="tool">
+<div class="tool-icon">🚀</div>
+<h3>Future Skills</h3>
+<p>Learn useful future skills.</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PROFILE -->
+
+<div id="page-profile" class="page">
+
+<div class="card profile-card">
+
+<div class="profile-head">
+
+<div class="avatar-wrap">
+<div class="avatar-ring"></div>
+<div class="avatar" id="avatar">A</div>
+</div>
+
+<div class="profile-info">
+<h2 id="profileUsername">Guest</h2>
+<p id="profileEmail">Guest mode</p>
+<span class="level-badge" id="profileLevel">Level 1</span>
+</div>
+
+</div>
+
+<div class="big-xp">
+
+<div class="xp-row">
+<span id="profileXP">0 XP</span>
+<span id="nextLevelText">100 XP to next level</span>
+</div>
+
+<div class="xp-bar">
+<div id="profileXPFill" class="xp-fill"></div>
+</div>
+
+</div>
+
+<div class="profile-stats">
+
+<div class="profile-stat">
+<b id="profileLevelStat">1</b>
+<span>LEVEL</span>
+</div>
+
+<div class="profile-stat">
+<b id="profileXPStat">0</b>
+<span>XP</span>
+</div>
+
+<div class="profile-stat">
+<b>∞</b>
+<span>AI POWER</span>
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+<div class="card">
+
+<h2>🏆 Level Unlocks</h2>
+
+<div id="unlockList" style="margin-top:18px"></div>
+
+</div>
+
+</div>
+
+<!-- SETTINGS -->
+
+<div id="page-settings" class="page">
+
+<div class="card">
+
+<h2>⚙ Settings</h2>
+
+<br>
+
+<div class="setting">
+
+<div class="setting-info">
+<b>Language</b>
+<span>Change Amzo AI interface language.</span>
+</div>
+
+<select id="languageSelect" onchange="setLanguage(this.value)"
+style="padding:10px;border-radius:10px;background:#111528;color:white;border:1px solid var(--line)">
+<option value="en">🇬🇧 English</option>
+<option value="ur">🇵🇰 اردو</option>
+<option value="ar">🇸🇦 العربية</option>
+<option value="es">🇪🇸 Español</option>
+</select>
+
+</div>
+
+<div class="setting">
+
+<div class="setting-info">
+<b>RGB Effects</b>
+<span>Toggle futuristic visual effects.</span>
+</div>
+
+<button onclick="toggleRGB()" class="icon-btn">RGB</button>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+</section>
+
+<div id="toast" class="toast"></div>
 
 <script>
 
-/* =========================================================
-   AMZO AI CONFIG
-========================================================= */
+const API_URL="https://ai-tool-api.amzoxamzoo.workers.dev/";
 
-const API_URL =
-  "https://ai-tool-api.amzoxamzoo.workers.dev/";
+let currentUser=null;
+let currentLang=localStorage.getItem("amzoLanguage")||"en";
+let rgbEnabled=localStorage.getItem("amzoRGB")!=="false";
 
-
-/* =========================================================
-   LANGUAGES
-========================================================= */
-
-const LANGS = {
-
-  en:{
-    name:"English",
-    dir:"ltr",
-    home:"Home",
-    chat:"AI Chat",
-    history:"Chat History",
-    create:"Create",
-    code:"Code Lab",
-    fun:"Fun Zone",
-    learn:"Learn",
-    profile:"Profile",
-    settings:"Settings",
-    level:"Level",
-    unlocked:"Unlocked",
-    language:"Language"
-  },
-
-  ur:{
-    name:"اردو",
-    dir:"rtl",
-    home:"ہوم",
-    chat:"اے آئی چیٹ",
-    history:"چیٹ ہسٹری",
-    create:"تخلیق",
-    code:"کوڈ لیب",
-    fun:"فن زون",
-    learn:"سیکھیں",
-    profile:"پروفائل",
-    settings:"سیٹنگز",
-    level:"لیول",
-    unlocked:"ان لاک",
-    language:"زبان"
-  },
-
-  ar:{
-    name:"العربية",
-    dir:"rtl",
-    home:"الرئيسية",
-    chat:"محادثة AI",
-    history:"سجل المحادثات",
-    create:"إنشاء",
-    code:"مختبر البرمجة",
-    fun:"منطقة المرح",
-    learn:"تعلم",
-    profile:"الملف الشخصي",
-    settings:"الإعدادات",
-    level:"المستوى",
-    unlocked:"مفتوح",
-    language:"اللغة"
-  },
-
-  es:{
-    name:"Español",
-    dir:"ltr",
-    home:"Inicio",
-    chat:"Chat IA",
-    history:"Historial",
-    create:"Crear",
-    code:"Laboratorio de Código",
-    fun:"Zona Divertida",
-    learn:"Aprender",
-    profile:"Perfil",
-    settings:"Configuración",
-    level:"Nivel",
-    unlocked:"Desbloqueado",
-    language:"Idioma"
-  },
-
-  fr:{
-    name:"Français",
-    dir:"ltr",
-    home:"Accueil",
-    chat:"Chat IA",
-    history:"Historique",
-    create:"Créer",
-    code:"Laboratoire de Code",
-    fun:"Zone Fun",
-    learn:"Apprendre",
-    profile:"Profil",
-    settings:"Paramètres",
-    level:"Niveau",
-    unlocked:"Débloqué",
-    language:"Langue"
-  },
-
-  de:{
-    name:"Deutsch",
-    dir:"ltr",
-    home:"Startseite",
-    chat:"KI-Chat",
-    history:"Chatverlauf",
-    create:"Erstellen",
-    code:"Code-Labor",
-    fun:"Fun-Zone",
-    learn:"Lernen",
-    profile:"Profil",
-    settings:"Einstellungen",
-    level:"Level",
-    unlocked:"Freigeschaltet",
-    language:"Sprache"
-  },
-
-  zh:{
-    name:"中文",
-    dir:"ltr",
-    home:"主页",
-    chat:"AI 聊天",
-    history:"聊天记录",
-    create:"创建",
-    code:"代码实验室",
-    fun:"娱乐区",
-    learn:"学习",
-    profile:"个人资料",
-    settings:"设置",
-    level:"等级",
-    unlocked:"已解锁",
-    language:"语言"
-  },
-
-  ja:{
-    name:"日本語",
-    dir:"ltr",
-    home:"ホーム",
-    chat:"AIチャット",
-    history:"チャット履歴",
-    create:"作成",
-    code:"コードラボ",
-    fun:"ファンゾーン",
-    learn:"学習",
-    profile:"プロフィール",
-    settings:"設定",
-    level:"レベル",
-    unlocked:"解除済み",
-    language:"言語"
-  },
-
-  ko:{
-    name:"한국어",
-    dir:"ltr",
-    home:"홈",
-    chat:"AI 채팅",
-    history:"채팅 기록",
-    create:"만들기",
-    code:"코드 연구소",
-    fun:"펀 존",
-    learn:"학습",
-    profile:"프로필",
-    settings:"설정",
-    level:"레벨",
-    unlocked:"잠금 해제",
-    language:"언어"
-  },
-
-  tr:{
-    name:"Türkçe",
-    dir:"ltr",
-    home:"Ana Sayfa",
-    chat:"AI Sohbet",
-    history:"Sohbet Geçmişi",
-    create:"Oluştur",
-    code:"Kod Laboratuvarı",
-    fun:"Eğlence Alanı",
-    learn:"Öğren",
-    profile:"Profil",
-    settings:"Ayarlar",
-    level:"Seviye",
-    unlocked:"Açıldı",
-    language:"Dil"
-  },
-
-  hi:{
-    name:"हिन्दी",
-    dir:"ltr",
-    home:"होम",
-    chat:"AI चैट",
-    history:"चैट इतिहास",
-    create:"बनाएं",
-    code:"कोड लैब",
-    fun:"फन ज़ोन",
-    learn:"सीखें",
-    profile:"प्रोफ़ाइल",
-    settings:"सेटिंग्स",
-    level:"लेवल",
-    unlocked:"अनलॉक",
-    language:"भाषा"
-  }
-
-};
-
-
-/* =========================================================
-   LEVEL SYSTEM
-========================================================= */
-
-const UNLOCKS = [
-
-  {
-    level:1,
-    name:"Amzo Core",
-    icon:"🌌"
-  },
-
-  {
-    level:2,
-    name:"AI Chat",
-    icon:"✦"
-  },
-
-  {
-    level:3,
-    name:"Create Lab",
-    icon:"✧"
-  },
-
-  {
-    level:4,
-    name:"Code Lab",
-    icon:"⌘"
-  },
-
-  {
-    level:5,
-    name:"Fun Zone",
-    icon:"☄"
-  },
-
-  {
-    level:6,
-    name:"Advanced AI",
-    icon:"⚡"
-  },
-
-  {
-    level:7,
-    name:"AI Universe",
-    icon:"🌍"
-  },
-
-  {
-    level:10,
-    name:"Amzo Master",
-    icon:"👑"
-  }
-
+const UNLOCKS=[
+ {level:1,name:"Amzo Core",icon:"🌌"},
+ {level:2,name:"AI Chat",icon:"✦"},
+ {level:3,name:"Create Lab",icon:"✧"},
+ {level:4,name:"Code Lab",icon:"⌘"},
+ {level:5,name:"Fun Zone",icon:"☄"},
+ {level:6,name:"Advanced AI",icon:"⚡"},
+ {level:7,name:"AI Universe",icon:"🌍"},
+ {level:10,name:"Amzo Master",icon:"👑"}
 ];
 
+/* PARTICLES */
 
-let currentUser = null;
+function createParticles(){
 
-let currentLang =
-  localStorage.getItem("amzoLanguage") || "en";
+ const box=document.getElementById("particles");
 
-let rgbEnabled =
-  localStorage.getItem("amzoRGB") !== "false";
+ for(let i=0;i<55;i++){
 
+  const p=document.createElement("div");
+  p.className="particle";
 
-/* =========================================================
-   API
-========================================================= */
+  p.style.left=Math.random()*100+"%";
+  p.style.animationDuration=(5+Math.random()*12)+"s";
+  p.style.animationDelay=(-Math.random()*15)+"s";
+  p.style.opacity=Math.random();
+
+  box.appendChild(p);
+ }
+}
+
+createParticles();
+
+/* API */
 
 async function api(action,data={}){
 
+ try{
+
+  const response=await fetch(API_URL,{
+   method:"POST",
+   credentials:"include",
+   headers:{
+    "Content-Type":"application/json"
+   },
+   body:JSON.stringify({
+    action,
+    ...data
+   })
+  });
+
+  const text=await response.text();
+
   try{
-
-    const response =
-      await fetch(API_URL,{
-
-        method:"POST",
-
-        credentials:"include",
-
-        headers:{
-          "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-          action,
-          ...data
-        })
-
-      });
-
-
-    const text =
-      await response.text();
-
-
-    let result;
-
-
-    try{
-
-      result =
-        JSON.parse(text);
-
-    }catch{
-
-      result = {
-        ok:false,
-        error:text
-      };
-
-    }
-
-
-    return result;
-
-
-  }catch(error){
-
-    return {
-      ok:false,
-      error:"Could not connect to Amzo AI server."
-    };
-
+   return JSON.parse(text);
+  }catch{
+   return {ok:false,error:text};
   }
 
-}
+ }catch(e){
 
-
-/* =========================================================
-   GUEST MODE
-========================================================= */
-
-function enterGuestMode(){
-
-  currentUser = {
-    username:"Guest",
-    email:"",
-    xp:0,
-    level:1
+  return {
+   ok:false,
+   error:"Could not connect to Amzo AI server."
   };
 
-  document.getElementById("topUsername")
-    .textContent = "Guest";
-
-  document.getElementById("profileUsername")
-    .textContent = "Guest";
-
-  document.getElementById("profileEmail")
-    .textContent = "Guest Mode";
-
-  document.getElementById("avatar")
-    .textContent = "A";
-
-  refreshUserUI();
-
-  updateUnlocks();
-
-  setLanguage(currentLang);
-
-  openPage("home");
-
+ }
 }
 
-
-/* =========================================================
-   USER / XP
-========================================================= */
+/* USER */
 
 function getXP(){
-
-  return Number(
-    currentUser?.xp || 0
-  );
-
+ return Number(currentUser?.xp||0);
 }
-
 
 function getLevel(){
-
-  return Number(
-    currentUser?.level ||
-    (Math.floor(getXP()/100)+1)
-  );
-
+ return Number(currentUser?.level||(Math.floor(getXP()/100)+1));
 }
-
 
 function refreshUserUI(){
 
-  const username =
-    currentUser?.username ||
-    "Guest";
+ const username=currentUser?.username||"Guest";
+ const email=currentUser?.email||"Guest mode";
+ const xp=getXP();
+ const level=getLevel();
 
-  const email =
-    currentUser?.email ||
-    "Guest Mode";
+ document.getElementById("topUsername").textContent=username;
+ document.getElementById("profileUsername").textContent=username;
+ document.getElementById("profileEmail").textContent=email;
 
-  const xp =
-    getXP();
+ document.getElementById("avatar").textContent=
+ username.charAt(0).toUpperCase()||"A";
 
-  const level =
-    getLevel();
+ document.getElementById("homeLevel").textContent=level;
+ document.getElementById("homeXP").textContent=xp;
 
+ document.getElementById("sideLevel").textContent="Level "+level;
+ document.getElementById("sideXP").textContent=xp+" XP";
 
-  document.getElementById("topUsername")
-    .textContent = username;
+ document.getElementById("profileLevel").textContent="Level "+level;
+ document.getElementById("profileXP").textContent=xp+" XP";
 
+ document.getElementById("profileLevelStat").textContent=level;
+ document.getElementById("profileXPStat").textContent=xp;
 
-  document.getElementById("profileUsername")
-    .textContent = username;
+ const progress=xp%100;
 
+ document.getElementById("sideXPFill").style.width=progress+"%";
+ document.getElementById("profileXPFill").style.width=progress+"%";
 
-  document.getElementById("profileEmail")
-    .textContent = email;
+ document.getElementById("nextLevelText").textContent=
+ (100-progress)+" XP to next level";
 
-
-  document.getElementById("avatar")
-    .textContent =
-      username.charAt(0).toUpperCase() || "A";
-
-
-  document.getElementById("homeLevel")
-    .textContent = level;
-
-
-  document.getElementById("homeXP")
-    .textContent = xp;
-
-
-  document.getElementById("sideLevel")
-    .textContent =
-      "Level " + level;
-
-
-  document.getElementById("sideXP")
-    .textContent =
-      xp + " XP";
-
-
-  const progress =
-    xp % 100;
-
-
-  document.getElementById("sideXPFill")
-    .style.width =
-      progress + "%";
-
-
-  document.getElementById("profileXP")
-    .textContent =
-      xp + " XP";
-
-
-  document.getElementById("profileLevel")
-    .textContent =
-      "Level " + level;
-
-
-  document.getElementById("profileXPFill")
-    .style.width =
-      progress + "%";
-
-
-  const remaining =
-    100 - progress;
-
-
-  document.getElementById("nextLevelText")
-    .textContent =
-      remaining + " XP to next level";
-
-
-  document.getElementById("homeUnlocked")
-    .textContent =
-      UNLOCKS.filter(
-        x => level >= x.level
-      ).length;
-
+ document.getElementById("homeUnlocked").textContent=
+ UNLOCKS.filter(x=>level>=x.level).length;
 }
 
+/* XP */
 
 async function addXP(amount){
 
-  /*
-    Guest mode:
-    XP is stored locally only.
-  */
+ if(!currentUser)return;
 
-  if(!currentUser)
-    return;
+ const result=await api("xp",{amount});
 
+ if(result.ok){
 
-  currentUser.xp =
-    getXP() + amount;
-
-
-  currentUser.level =
-    Math.floor(
-      currentUser.xp / 100
-    ) + 1;
-
+  currentUser=result.user||{
+   ...currentUser,
+   xp:getXP()+amount
+  };
 
   refreshUserUI();
-
   updateUnlocks();
-
+ }
 }
 
-
-/* =========================================================
-   UNLOCK SYSTEM
-========================================================= */
+/* UNLOCKS */
 
 function updateUnlocks(){
 
-  const level =
-    getLevel();
+ const level=getLevel();
 
+ const codeLocked=document.getElementById("codeLocked");
+ const codeContent=document.getElementById("codeContent");
 
-  const codeLocked =
-    document.getElementById("codeLocked");
+ if(level>=4){
+  codeLocked.classList.add("hidden");
+  codeContent.classList.remove("hidden");
+ }else{
+  codeLocked.classList.remove("hidden");
+  codeContent.classList.add("hidden");
+ }
 
-  const codeContent =
-    document.getElementById("codeContent");
+ const learnLocked=document.getElementById("learnLocked");
+ const learnContent=document.getElementById("learnContent");
 
+ if(level>=7){
+  learnLocked.classList.add("hidden");
+  learnContent.classList.remove("hidden");
+ }else{
+  learnLocked.classList.remove("hidden");
+  learnContent.classList.add("hidden");
+ }
 
-  if(level >= 4){
+ const list=document.getElementById("unlockList");
 
-    codeLocked.classList.add("hidden");
+ list.innerHTML="";
 
-    codeContent.classList.remove("hidden");
+ UNLOCKS.forEach(item=>{
 
-  }else{
+  const unlocked=level>=item.level;
 
-    codeLocked.classList.remove("hidden");
+  const div=document.createElement("div");
 
-    codeContent.classList.add("hidden");
+  div.style.cssText=`
+   display:flex;
+   align-items:center;
+   justify-content:space-between;
+   padding:15px;
+   margin-bottom:9px;
+   border:1px solid ${unlocked?"rgba(0,247,255,.18)":"rgba(255,255,255,.07)"};
+   border-radius:14px;
+   background:${unlocked?"rgba(0,247,255,.045)":"rgba(255,255,255,.025)"};
+   opacity:${unlocked?"1":".55"};
+   transition:.3s;
+  `;
 
-  }
+  div.innerHTML=`
+   <div>
+    <b>${item.icon} ${item.name}</b>
+    <small style="display:block;color:#8f98b8;margin-top:4px">
+     Level ${item.level}
+    </small>
+   </div>
+   <span>${unlocked?"✓ Unlocked":"🔒 Locked"}</span>
+  `;
 
+  list.appendChild(div);
 
-  const learnLocked =
-    document.getElementById("learnLocked");
-
-  const learnContent =
-    document.getElementById("learnContent");
-
-
-  if(level >= 7){
-
-    learnLocked.classList.add("hidden");
-
-    learnContent.classList.remove("hidden");
-
-  }else{
-
-    learnLocked.classList.remove("hidden");
-
-    learnContent.classList.add("hidden");
-
-  }
-
-
-  const list =
-    document.getElementById("unlockList");
-
-
-  list.innerHTML = "";
-
-
-  UNLOCKS.forEach(item=>{
-
-    const unlocked =
-      level >= item.level;
-
-
-    const div =
-      document.createElement("div");
-
-
-    div.style.cssText = `
-
-      display:flex;
-
-      align-items:center;
-
-      justify-content:space-between;
-
-      padding:14px;
-
-      margin-bottom:9px;
-
-      border:1px solid
-      ${unlocked
-        ? "rgba(0,247,255,.16)"
-        : "rgba(255,255,255,.07)"
-      };
-
-      border-radius:13px;
-
-      background:
-      ${unlocked
-        ? "rgba(0,247,255,.045)"
-        : "rgba(255,255,255,.025)"
-      };
-
-      opacity:
-      ${unlocked ? "1" : ".55"};
-
-    `;
-
-
-    div.innerHTML = `
-
-      <div>
-
-        <b>
-          ${item.icon}
-          ${item.name}
-        </b>
-
-        <small
-          style="
-            display:block;
-            color:#8f98b8;
-            margin-top:4px
-          ">
-
-          Level ${item.level}
-
-        </small>
-
-      </div>
-
-      <span>
-
-        ${
-          unlocked
-          ? "✓ Unlocked"
-          : "🔒 Locked"
-        }
-
-      </span>
-
-    `;
-
-
-    list.appendChild(div);
-
-  });
-
+ });
 }
 
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
+/* NAVIGATION */
 
 function openPage(page){
 
-  const level =
-    getLevel();
+ document.querySelectorAll(".page")
+ .forEach(p=>p.classList.remove("active"));
 
+ const target=document.getElementById("page-"+page);
 
-  if(
-    page === "code" &&
-    level < 4
-  ){
+ if(target)target.classList.add("active");
 
-    showToast(
-      "🔒 Code Lab unlocks at Level 4"
-    );
+ document.querySelectorAll(".nav button")
+ .forEach(button=>{
+  button.classList.toggle(
+   "active",
+   button.dataset.page===page
+  );
+ });
 
-  }
+ const titles={
+  home:["Amzo Core","Your AI universe starts here."],
+  chat:["AI Chat","Talk with your Amzo AI."],
+  history:["Chat History","Your saved conversations."],
+  create:["Create","Build something with AI."],
+  code:["Code Lab","Build software with AI."],
+  fun:["Fun Zone","Challenges and surprises."],
+  learn:["Learn","Explore new skills."],
+  profile:["Profile","Your Amzo identity."],
+  settings:["Settings","Customize your Amzo experience."]
+ };
 
+ const info=titles[page]||titles.home;
 
-  if(
-    page === "learn" &&
-    level < 7
-  ){
+ document.getElementById("pageTitle").textContent=info[0];
+ document.getElementById("pageSubtitle").textContent=info[1];
 
-    showToast(
-      "🔒 AI Universe unlocks at Level 7"
-    );
+ document.getElementById("sidebar").classList.remove("open");
 
-  }
+ if(page==="code"&&getLevel()<4)
+  showToast("🔒 Code Lab unlocks at Level 4");
 
-
-  document
-    .querySelectorAll(".page")
-    .forEach(p=>{
-      p.classList.remove("active");
-    });
-
-
-  const target =
-    document.getElementById(
-      "page-" + page
-    );
-
-
-  if(target)
-    target.classList.add("active");
-
-
-  document
-    .querySelectorAll(".nav button")
-    .forEach(button=>{
-
-      button.classList.toggle(
-        "active",
-        button.dataset.page === page
-      );
-
-    });
-
-
-  const titles = {
-
-    home:[
-      "Amzo Core",
-      "Your AI universe starts here."
-    ],
-
-    chat:[
-      "AI Chat",
-      "Talk with your Amzo AI."
-    ],
-
-    history:[
-      "Chat History",
-      "Your saved conversations."
-    ],
-
-    create:[
-      "Create",
-      "Build something with AI."
-    ],
-
-    code:[
-      "Code Lab",
-      "Build with AI."
-    ],
-
-    fun:[
-      "Fun Zone",
-      "Challenges and surprises."
-    ],
-
-    learn:[
-      "Learn",
-      "Explore new skills."
-    ],
-
-    profile:[
-      "Profile",
-      "Your Amzo progress."
-    ],
-
-    settings:[
-      "Settings",
-      "Customize your Amzo experience."
-    ]
-
-  };
-
-
-  const info =
-    titles[page] ||
-    titles.home;
-
-
-  document.getElementById(
-    "pageTitle"
-  ).textContent =
-    info[0];
-
-
-  document.getElementById(
-    "pageSubtitle"
-  ).textContent =
-    info[1];
-
-
-  document
-    .getElementById("sidebar")
-    .classList.remove("open");
-
+ if(page==="learn"&&getLevel()<7)
+  showToast("🔒 Learn unlocks at Level 7");
 }
 
-
-/* =========================================================
-   CHAT
-========================================================= */
+/* CHAT */
 
 function chatKey(event){
 
-  if(
-    event.key === "Enter" &&
-    !event.shiftKey
-  ){
+ if(event.key==="Enter"&&!event.shiftKey){
 
-    event.preventDefault();
+  event.preventDefault();
+  sendChat();
 
-    sendChat();
-
-  }
-
+ }
 }
 
+function thinkingElement(){
+
+ const div=document.createElement("div");
+
+ div.className="msg ai";
+
+ div.innerHTML=`
+  <div class="typing">
+   <i></i><i></i><i></i>
+   <span style="margin-left:5px;color:#8f98b8">
+    Amzo is thinking...
+   </span>
+  </div>
+ `;
+
+ return div;
+}
 
 async function sendChat(){
 
-  const input =
-    document.getElementById(
-      "chatInput"
-    );
+ const input=document.getElementById("chatInput");
+ const message=input.value.trim();
 
+ if(!message)return;
 
-  const message =
-    input.value.trim();
+ const box=document.getElementById("messages");
 
+ const user=document.createElement("div");
 
-  if(!message)
-    return;
+ user.className="msg user";
+ user.textContent=message;
 
+ box.appendChild(user);
 
-  const box =
-    document.getElementById(
-      "messages"
-    );
+ input.value="";
 
+ const loading=thinkingElement();
 
-  const userMsg =
-    document.createElement("div");
+ box.appendChild(loading);
 
+ box.scrollTop=box.scrollHeight;
 
-  userMsg.className =
-    "msg user";
-
-
-  userMsg.textContent =
-    message;
-
-
-  box.appendChild(userMsg);
-
-
-  input.value = "";
-
-
-  const loading =
-    document.createElement("div");
-
-
-  loading.className =
-    "msg ai";
-
-
-  loading.textContent =
-    "Amzo AI is thinking...";
-
-
-  box.appendChild(loading);
-
-
-  box.scrollTop =
-    box.scrollHeight;
-
-
-  const language =
-    LANGS[currentLang]?.name ||
-    "English";
-
-
-  const aiPrompt = `
-
-Respond in ${language}.
-
-Be helpful, clear and natural.
+ const result=await api("chat",{
+  message:`
+Respond naturally and helpfully.
 
 User message:
 ${message}
+`
+ });
 
-`;
+ loading.remove();
 
+ const ai=document.createElement("div");
 
-  const result =
-    await api(
-      "chat",
-      {
-        message:aiPrompt
-      }
-    );
+ ai.className="msg ai";
 
+ ai.textContent=
+ result.reply||
+ result.response||
+ result.text||
+ result.error||
+ "Amzo AI could not respond.";
 
-  loading.remove();
+ box.appendChild(ai);
 
+ box.scrollTop=box.scrollHeight;
 
-  const aiMsg =
-    document.createElement("div");
-
-
-  aiMsg.className =
-    "msg ai";
-
-
-  aiMsg.textContent =
-    result.reply ||
-    result.response ||
-    result.text ||
-    result.error ||
-    "Amzo AI could not respond.";
-
-
-  box.appendChild(aiMsg);
-
-
-  box.scrollTop =
-    box.scrollHeight;
-
-
-  if(result.ok){
-
-    await addXP(10);
-
-  }
-
+ if(result.ok)await addXP(10);
 }
 
+/* TOOLS */
 
-/* =========================================================
-   CREATE TOOLS
-========================================================= */
+function useTool(type){
 
-async function useTool(type){
+ openPage("chat");
 
-  openPage("chat");
+ const prompts={
 
+  writer:
+  "Help me write something useful. Ask me what I want to create.",
 
-  const prompts = {
+  ideas:
+  "Generate 10 unique and creative ideas for me.",
 
-    writer:
-      "Help me write something useful. Ask me what I want to write.",
+  image:
+  "Create a detailed futuristic AI image prompt.",
 
-    ideas:
-      "Generate 10 unique creative ideas for me.",
+  prompt:
+  "Help me build a powerful prompt for an AI tool."
 
-    image:
-      "Create a detailed AI image prompt for a futuristic Amzo AI scene.",
+ };
 
-    prompt:
-      "Help me create a powerful prompt for an AI tool."
+ document.getElementById("chatInput").value=
+ prompts[type]||"Help me.";
 
-  };
-
-
-  document.getElementById(
-    "chatInput"
-  ).value =
-    prompts[type] ||
-    "Help me.";
-
-
-  sendChat();
-
+ sendChat();
 }
 
-
-/* =========================================================
-   CODE LAB
-========================================================= */
+/* CODE */
 
 async function runCodeLab(){
 
-  const prompt =
-    document.getElementById(
-      "codePrompt"
-    ).value.trim();
+ const prompt=document
+ .getElementById("codePrompt")
+ .value.trim();
 
+ if(!prompt)return;
 
-  if(!prompt)
-    return;
+ const box=document.getElementById("codeResult");
 
+ box.textContent="⚡ Amzo AI is generating...";
 
-  const resultBox =
-    document.getElementById(
-      "codeResult"
-    );
-
-
-  resultBox.textContent =
-    "Amzo AI is generating code...";
-
-
-  const language =
-    LANGS[currentLang]?.name ||
-    "English";
-
-
-  const result =
-    await api(
-      "chat",
-      {
-        message:`
-
-Respond in ${language}.
-
-You are Amzo AI Code Lab.
+ const result=await api("chat",{
+  message:
+ `You are Amzo AI Code Lab.
 
 Generate useful code for this request:
 
-${prompt}
+${prompt}`
+ });
 
-`
-      }
-    );
+ box.textContent=
+ result.reply||
+ result.response||
+ result.text||
+ result.error||
+ "No result.";
 
-
-  resultBox.textContent =
-    result.reply ||
-    result.response ||
-    result.text ||
-    result.error ||
-    "No result.";
-
-
-  if(result.ok){
-
-    await addXP(15);
-
-  }
-
+ if(result.ok)await addXP(15);
 }
 
+/* FUN */
 
-/* =========================================================
-   FUN
-========================================================= */
-
-const challenges = [
-
-  "⚡ Think of one AI product nobody around you has built yet.",
-
-  "🧠 Learn one new technology concept today.",
-
-  "🚀 Design a future app in your imagination.",
-
-  "💡 Write down 5 business ideas.",
-
-  "🌌 Imagine Amzo AI in the year 2035.",
-
-  "⌘ Build something small today instead of only planning.",
-
-  "🔥 Try to learn one useful skill for 20 minutes."
-
+const challenges=[
+ "⚡ Think of an AI product nobody around you has built.",
+ "🧠 Learn one technology concept today.",
+ "🚀 Design a future app in your imagination.",
+ "💡 Write down 5 business ideas.",
+ "🌌 Imagine Amzo AI in 2035.",
+ "⌘ Build something instead of only planning.",
+ "🔥 Learn one useful skill for 20 minutes."
 ];
-
 
 function newFun(){
 
-  const item =
-    challenges[
-      Math.floor(
-        Math.random() *
-        challenges.length
-      )
-    ];
+ const item=
+ challenges[Math.floor(Math.random()*challenges.length)];
 
+ const box=document.getElementById("funContent");
 
-  document.getElementById(
-    "funContent"
-  ).textContent =
-    item;
+ box.style.transform="scale(.9)";
+ box.style.opacity="0";
 
+ setTimeout(()=>{
 
-  addXP(5);
+  box.textContent=item;
+  box.style.transform="scale(1)";
+  box.style.opacity="1";
 
+ },180);
+
+ addXP(5);
 }
 
-
-/* =========================================================
-   LANGUAGE
-========================================================= */
+/* LANGUAGE */
 
 function setLanguage(lang){
 
-  if(!LANGS[lang])
-    lang = "en";
+ currentLang=lang;
 
+ localStorage.setItem("amzoLanguage",lang);
 
-  currentLang =
-    lang;
+ const select=document.getElementById("languageSelect");
 
-
-  localStorage.setItem(
-    "amzoLanguage",
-    lang
-  );
-
-
-  const info =
-    LANGS[lang];
-
-
-  document.documentElement.lang =
-    lang;
-
-
-  document.documentElement.dir =
-    info.dir;
-
-
-  const languageSelect =
-    document.getElementById(
-      "languageSelect"
-    );
-
-
-  if(languageSelect)
-    languageSelect.value =
-      lang;
-
-
-  document
-    .querySelectorAll("[data-i18n]")
-    .forEach(el=>{
-
-      const key =
-        el.dataset.i18n;
-
-
-      if(info[key]){
-
-        el.textContent =
-          info[key];
-
-      }
-
-    });
-
+ if(select)select.value=lang;
 }
 
-
-/* =========================================================
-   RGB
-========================================================= */
+/* RGB */
 
 function toggleRGB(){
 
-  rgbEnabled =
-    !rgbEnabled;
+ rgbEnabled=!rgbEnabled;
 
+ localStorage.setItem("amzoRGB",rgbEnabled);
 
-  localStorage.setItem(
-    "amzoRGB",
-    rgbEnabled
-  );
+ if(rgbEnabled){
 
+  document.documentElement.style.setProperty("--cyan","#00f7ff");
+  document.documentElement.style.setProperty("--purple","#8b5cff");
+  document.documentElement.style.setProperty("--pink","#ff2bd6");
 
-  document.body.style.setProperty(
-    "--cyan",
-    rgbEnabled
-      ? "#00f7ff"
-      : "#8f98b8"
-  );
+  showToast("🌈 RGB enabled");
 
+ }else{
 
-  document.body.style.setProperty(
-    "--purple",
-    rgbEnabled
-      ? "#8b5cff"
-      : "#555b75"
-  );
+  document.documentElement.style.setProperty("--cyan","#8f98b8");
+  document.documentElement.style.setProperty("--purple","#555b75");
+  document.documentElement.style.setProperty("--pink","#555b75");
 
-
-  document.body.style.setProperty(
-    "--pink",
-    rgbEnabled
-      ? "#ff2bd6"
-      : "#555b75"
-  );
-
-
-  showToast(
-
-    rgbEnabled
-      ? "🌈 RGB enabled"
-      : "RGB disabled"
-
-  );
-
+  showToast("RGB disabled");
+ }
 }
 
-
-/* =========================================================
-   SIDEBAR
-========================================================= */
+/* MOBILE */
 
 function toggleSidebar(){
 
-  document
-    .getElementById("sidebar")
-    .classList.toggle("open");
-
+ document.getElementById("sidebar")
+ .classList.toggle("open");
 }
 
-
-/* =========================================================
-   TOAST
-========================================================= */
+/* TOAST */
 
 let toastTimer;
 
-
 function showToast(message){
 
-  const toast =
-    document.getElementById(
-      "toast"
-    );
+ const toast=document.getElementById("toast");
 
+ toast.textContent=message;
+ toast.classList.add("show");
 
-  toast.textContent =
-    message;
+ clearTimeout(toastTimer);
 
-
-  toast.classList.add(
-    "show"
-  );
-
-
-  clearTimeout(
-    toastTimer
-  );
-
-
-  toastTimer =
-    setTimeout(()=>{
-
-      toast.classList.remove(
-        "show"
-      );
-
-    },2500);
-
+ toastTimer=setTimeout(()=>{
+  toast.classList.remove("show");
+ },2500);
 }
 
-
-/* =========================================================
-   START AMZO AI
-========================================================= */
-
-setLanguage(currentLang);
-
+/* START */
 
 if(!rgbEnabled){
 
-  document.body.style.setProperty(
-    "--cyan",
-    "#8f98b8"
-  );
-
-  document.body.style.setProperty(
-    "--purple",
-    "#555b75"
-  );
-
-  document.body.style.setProperty(
-    "--pink",
-    "#555b75"
-  );
+ document.documentElement.style.setProperty("--cyan","#8f98b8");
+ document.documentElement.style.setProperty("--purple","#555b75");
+ document.documentElement.style.setProperty("--pink","#555b75");
 
 }
 
-
-/* DIRECTLY OPEN AMZO AI */
-
-enterGuestMode();
+refreshUserUI();
+updateUnlocks();
+openPage("home");
 
 </script>
 
