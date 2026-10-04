@@ -7,6 +7,7 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+
 :root{
   --bg:#05060d;
   --panel:rgba(15,18,34,.72);
@@ -20,247 +21,791 @@
   --green:#35ff9b;
   --red:#ff4d6d;
 }
-html,body{width:100%;height:100%;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
+
+html,body{
+  width:100%;
+  height:100%;
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow:hidden
+}
+
 body:before{
-  content:"";position:fixed;inset:0;pointer-events:none;
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
   background:
     linear-gradient(rgba(0,234,255,.035) 1px,transparent 1px),
     linear-gradient(90deg,rgba(157,92,255,.035) 1px,transparent 1px);
   background-size:45px 45px;
   mask-image:linear-gradient(to bottom,black,transparent);
 }
-.orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:.22;pointer-events:none}
-.o1{width:420px;height:420px;background:#00eaff;top:-160px;left:15%}
-.o2{width:500px;height:500px;background:#9d5cff;right:-180px;bottom:-180px}
-.o3{width:260px;height:260px;background:#ff3cac;left:35%;bottom:-150px}
 
-.app{display:flex;width:100%;height:100vh}
+.orb{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(80px);
+  opacity:.22;
+  pointer-events:none
+}
+
+.o1{
+  width:420px;
+  height:420px;
+  background:#00eaff;
+  top:-160px;
+  left:15%
+}
+
+.o2{
+  width:500px;
+  height:500px;
+  background:#9d5cff;
+  right:-180px;
+  bottom:-180px
+}
+
+.o3{
+  width:260px;
+  height:260px;
+  background:#ff3cac;
+  left:35%;
+  bottom:-150px
+}
+
+.app{
+  display:flex;
+  width:100%;
+  height:100vh
+}
 
 /* SIDEBAR */
+
 .sidebar{
-  width:255px;height:100%;padding:18px;
+  width:255px;
+  height:100%;
+  padding:18px;
   border-right:1px solid var(--line);
   background:rgba(5,7,16,.82);
   backdrop-filter:blur(25px);
-  z-index:10;display:flex;flex-direction:column;
+  z-index:10;
+  display:flex;
+  flex-direction:column
 }
+
 .logo{
-  display:flex;align-items:center;gap:12px;padding:8px 8px 22px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:8px 8px 22px
 }
+
 .logo-core{
-  width:40px;height:40px;border-radius:14px;
-  display:grid;place-items:center;
+  width:40px;
+  height:40px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
   background:linear-gradient(135deg,var(--cyan),var(--purple));
   box-shadow:0 0 30px rgba(0,234,255,.35);
-  font-size:20px;font-weight:900;color:#05060d;
+  font-size:20px;
+  font-weight:900;
+  color:#05060d
 }
+
 .logo strong{font-size:19px}
-.logo small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
-.nav{display:flex;flex-direction:column;gap:6px;overflow:auto}
+
+.logo small{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:2px
+}
+
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  overflow:auto
+}
+
 .nav button{
-  border:1px solid transparent;background:transparent;color:#9da5bf;
-  padding:12px 13px;border-radius:13px;text-align:left;cursor:pointer;
-  display:flex;align-items:center;gap:12px;font-size:13px;transition:.2s;
+  border:1px solid transparent;
+  background:transparent;
+  color:#9da5bf;
+  padding:12px 13px;
+  border-radius:13px;
+  text-align:left;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:13px;
+  transition:.2s
 }
-.nav button:hover{background:rgba(255,255,255,.05);color:#fff;transform:translateX(3px)}
+
+.nav button:hover{
+  background:rgba(255,255,255,.05);
+  color:#fff;
+  transform:translateX(3px)
+}
+
 .nav button.active{
-  color:#fff;background:linear-gradient(90deg,rgba(0,234,255,.12),rgba(157,92,255,.10));
-  border-color:rgba(0,234,255,.15);box-shadow:inset 3px 0 var(--cyan);
+  color:#fff;
+  background:linear-gradient(
+    90deg,
+    rgba(0,234,255,.12),
+    rgba(157,92,255,.10)
+  );
+  border-color:rgba(0,234,255,.15);
+  box-shadow:inset 3px 0 var(--cyan)
 }
-.nav i{font-style:normal;width:20px;text-align:center;font-size:17px}
+
+.nav i{
+  font-style:normal;
+  width:20px;
+  text-align:center;
+  font-size:17px
+}
+
 .side-bottom{margin-top:auto}
+
 .plan{
   border:1px solid rgba(157,92,255,.25);
-  background:linear-gradient(135deg,rgba(157,92,255,.12),rgba(0,234,255,.06));
-  padding:14px;border-radius:16px;
+  background:linear-gradient(
+    135deg,
+    rgba(157,92,255,.12),
+    rgba(0,234,255,.06)
+  );
+  padding:14px;
+  border-radius:16px
 }
-.plan-title{font-size:12px;font-weight:700}
-.plan p{font-size:10px;color:var(--muted);margin:5px 0 10px}
+
+.plan-title{
+  font-size:12px;
+  font-weight:700
+}
+
+.plan p{
+  font-size:10px;
+  color:var(--muted);
+  margin:5px 0 10px
+}
+
 .premium-btn{
-  width:100%;border:0;border-radius:10px;padding:9px;
-  color:#fff;background:linear-gradient(90deg,var(--purple),var(--pink));
-  cursor:pointer;font-weight:700;font-size:11px;
+  width:100%;
+  border:0;
+  border-radius:10px;
+  padding:9px;
+  color:#fff;
+  background:linear-gradient(90deg,var(--purple),var(--pink));
+  cursor:pointer;
+  font-weight:700;
+  font-size:11px
 }
 
 /* MAIN */
-.main{flex:1;min-width:0;display:flex;flex-direction:column}
-.topbar{
-  height:66px;border-bottom:1px solid var(--line);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 25px;background:rgba(5,6,13,.45);backdrop-filter:blur(18px);
+
+.main{
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column
 }
-.page-title{font-size:15px;font-weight:700}
+
+.topbar{
+  height:66px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 25px;
+  background:rgba(5,6,13,.45);
+  backdrop-filter:blur(18px)
+}
+
+.page-title{
+  font-size:15px;
+  font-weight:700
+}
+
 .page-title span{color:var(--cyan)}
-.status{display:flex;gap:8px;align-items:center;font-size:11px;color:#9ca5c1}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
-.content{flex:1;overflow:auto;padding:28px}
+
+.status{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  font-size:11px;
+  color:#9ca5c1
+}
+
+.dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 12px var(--green)
+}
+
+.content{
+  flex:1;
+  overflow:auto;
+  padding:28px
+}
 
 /* SECTIONS */
-.section{display:none;animation:appear .35s ease}
+
+.section{
+  display:none;
+  animation:appear .35s ease
+}
+
 .section.active{display:block}
-@keyframes appear{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+@keyframes appear{
+  from{
+    opacity:0;
+    transform:translateY(10px)
+  }
+  to{
+    opacity:1;
+    transform:none
+  }
+}
 
 .hero{
-  min-height:270px;border:1px solid var(--line);border-radius:25px;
-  padding:28px;position:relative;overflow:hidden;
-  background:linear-gradient(135deg,rgba(15,19,38,.86),rgba(10,12,25,.6));
+  min-height:270px;
+  border:1px solid var(--line);
+  border-radius:25px;
+  padding:28px;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(
+    135deg,
+    rgba(15,19,38,.86),
+    rgba(10,12,25,.6)
+  )
 }
+
 .hero:after{
-  content:"";position:absolute;width:320px;height:320px;right:-100px;top:-130px;
-  background:radial-gradient(circle,rgba(0,234,255,.17),transparent 68%);
+  content:"";
+  position:absolute;
+  width:320px;
+  height:320px;
+  right:-100px;
+  top:-130px;
+  background:radial-gradient(
+    circle,
+    rgba(0,234,255,.17),
+    transparent 68%
+  )
 }
-.hero h1{font-size:42px;line-height:1.05;max-width:650px}
+
+.hero h1{
+  font-size:42px;
+  line-height:1.05;
+  max-width:650px
+}
+
 .gradient{
-  background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));
-  -webkit-background-clip:text;color:transparent;
+  background:linear-gradient(
+    90deg,
+    var(--cyan),
+    var(--purple),
+    var(--pink)
+  );
+  -webkit-background-clip:text;
+  color:transparent
 }
-.hero p{color:var(--muted);max-width:650px;margin-top:13px;line-height:1.6;font-size:13px}
-.hero-actions{display:flex;gap:10px;margin-top:22px}
+
+.hero p{
+  color:var(--muted);
+  max-width:650px;
+  margin-top:13px;
+  line-height:1.6;
+  font-size:13px
+}
+
+.hero-actions{
+  display:flex;
+  gap:10px;
+  margin-top:22px
+}
+
 .btn{
-  border:1px solid var(--line);background:rgba(255,255,255,.05);
-  color:#fff;border-radius:12px;padding:11px 16px;cursor:pointer;
-  font-weight:700;font-size:12px;transition:.2s;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.05);
+  color:#fff;
+  border-radius:12px;
+  padding:11px 16px;
+  cursor:pointer;
+  font-weight:700;
+  font-size:12px;
+  transition:.2s
 }
-.btn:hover{transform:translateY(-2px);border-color:rgba(0,234,255,.35)}
-.btn.primary{border:0;background:linear-gradient(90deg,var(--cyan),var(--purple));color:#05060d}
-.btn.pink{border:0;background:linear-gradient(90deg,var(--pink),var(--purple))}
+
+.btn:hover{
+  transform:translateY(-2px);
+  border-color:rgba(0,234,255,.35)
+}
+
+.btn.primary{
+  border:0;
+  background:linear-gradient(
+    90deg,
+    var(--cyan),
+    var(--purple)
+  );
+  color:#05060d
+}
+
+.btn.pink{
+  border:0;
+  background:linear-gradient(
+    90deg,
+    var(--pink),
+    var(--purple)
+  )
+}
 
 .core{
-  position:absolute;right:70px;top:38px;width:185px;height:185px;
-  display:grid;place-items:center;
+  position:absolute;
+  right:70px;
+  top:38px;
+  width:185px;
+  height:185px;
+  display:grid;
+  place-items:center
 }
-.ring{position:absolute;border-radius:50%;border:1px solid rgba(0,234,255,.35);animation:spin 8s linear infinite}
-.r1{width:180px;height:180px}
-.r2{width:135px;height:135px;border-color:rgba(157,92,255,.45);animation-duration:5s;animation-direction:reverse}
-.r3{width:90px;height:90px;border-color:rgba(255,60,172,.5);animation-duration:3s}
-.core-center{
-  width:55px;height:55px;border-radius:18px;
-  display:grid;place-items:center;background:linear-gradient(135deg,var(--cyan),var(--purple));
-  color:#05060d;font-weight:900;box-shadow:0 0 40px rgba(0,234,255,.5);
-}
-@keyframes spin{to{transform:rotate(360deg)}}
 
-.grid{display:grid;gap:14px;margin-top:16px}
-.cards4{grid-template-columns:repeat(4,1fr)}
-.cards3{grid-template-columns:repeat(3,1fr)}
-.card{
-  border:1px solid var(--line);background:var(--panel);
-  backdrop-filter:blur(18px);border-radius:18px;padding:18px;
-  transition:.2s;cursor:pointer;
+.ring{
+  position:absolute;
+  border-radius:50%;
+  border:1px solid rgba(0,234,255,.35);
+  animation:spin 8s linear infinite
 }
-.card:hover{transform:translateY(-4px);border-color:rgba(0,234,255,.25);box-shadow:0 15px 40px rgba(0,0,0,.2)}
-.card-icon{font-size:23px;margin-bottom:13px}
+
+.r1{
+  width:180px;
+  height:180px
+}
+
+.r2{
+  width:135px;
+  height:135px;
+  border-color:rgba(157,92,255,.45);
+  animation-duration:5s;
+  animation-direction:reverse
+}
+
+.r3{
+  width:90px;
+  height:90px;
+  border-color:rgba(255,60,172,.5);
+  animation-duration:3s
+}
+
+.core-center{
+  width:55px;
+  height:55px;
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(
+    135deg,
+    var(--cyan),
+    var(--purple)
+  );
+  color:#05060d;
+  font-weight:900;
+  box-shadow:0 0 40px rgba(0,234,255,.5)
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+.grid{
+  display:grid;
+  gap:14px;
+  margin-top:16px
+}
+
+.cards4{
+  grid-template-columns:repeat(4,1fr)
+}
+
+.cards3{
+  grid-template-columns:repeat(3,1fr)
+}
+
+.card{
+  border:1px solid var(--line);
+  background:var(--panel);
+  backdrop-filter:blur(18px);
+  border-radius:18px;
+  padding:18px;
+  transition:.2s;
+  cursor:pointer
+}
+
+.card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(0,234,255,.25);
+  box-shadow:0 15px 40px rgba(0,0,0,.2)
+}
+
+.card-icon{
+  font-size:23px;
+  margin-bottom:13px
+}
+
 .card h3{font-size:14px}
-.card p{font-size:11px;color:var(--muted);line-height:1.5;margin-top:6px}
+
+.card p{
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.5;
+  margin-top:6px
+}
 
 /* CHAT */
+
 .chat-shell{
-  height:calc(100vh - 122px);display:flex;flex-direction:column;
-  border:1px solid var(--line);border-radius:20px;background:var(--panel);
-  overflow:hidden;
+  height:calc(100vh - 122px);
+  display:flex;
+  flex-direction:column;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:var(--panel);
+  overflow:hidden
 }
-.chat-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
-.mood{font-size:11px;color:var(--cyan)}
-.messages{flex:1;overflow:auto;padding:20px}
-.msg{display:flex;margin-bottom:13px}
+
+.chat-head{
+  padding:16px 18px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between
+}
+
+.mood{
+  font-size:11px;
+  color:var(--cyan)
+}
+
+.messages{
+  flex:1;
+  overflow:auto;
+  padding:20px
+}
+
+.msg{
+  display:flex;
+  margin-bottom:13px
+}
+
 .msg.user{justify-content:flex-end}
+
 .bubble{
-  max-width:72%;padding:12px 15px;border-radius:15px;
-  font-size:12px;line-height:1.6;white-space:pre-wrap;
+  max-width:72%;
+  padding:12px 15px;
+  border-radius:15px;
+  font-size:12px;
+  line-height:1.6;
+  white-space:pre-wrap
 }
-.msg.ai .bubble{background:rgba(255,255,255,.055);border:1px solid var(--line)}
-.msg.user .bubble{background:linear-gradient(135deg,rgba(0,234,255,.18),rgba(157,92,255,.2));border:1px solid rgba(0,234,255,.15)}
+
+.msg.ai .bubble{
+  background:rgba(255,255,255,.055);
+  border:1px solid var(--line)
+}
+
+.msg.user .bubble{
+  background:linear-gradient(
+    135deg,
+    rgba(0,234,255,.18),
+    rgba(157,92,255,.2)
+  );
+  border:1px solid rgba(0,234,255,.15)
+}
+
 .chat-input{
-  padding:13px;border-top:1px solid var(--line);display:flex;gap:9px;
+  padding:13px;
+  border-top:1px solid var(--line);
+  display:flex;
+  gap:9px
 }
-.chat-input input,.big-input,input,textarea,select{
-  width:100%;background:rgba(0,0,0,.25);border:1px solid var(--line);
-  outline:none;color:#fff;border-radius:12px;padding:12px;font-size:12px;
+
+.chat-input input,
+.big-input,
+input,
+textarea,
+select{
+  width:100%;
+  background:rgba(0,0,0,.25);
+  border:1px solid var(--line);
+  outline:none;
+  color:#fff;
+  border-radius:12px;
+  padding:12px;
+  font-size:12px
 }
-.chat-input input:focus,textarea:focus{border-color:rgba(0,234,255,.4)}
-.send{width:48px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--cyan),var(--purple));cursor:pointer;font-weight:900}
+
+.chat-input input:focus,
+textarea:focus{
+  border-color:rgba(0,234,255,.4)
+}
+
+.send{
+  width:48px;
+  border:0;
+  border-radius:12px;
+  background:linear-gradient(
+    135deg,
+    var(--cyan),
+    var(--purple)
+  );
+  cursor:pointer;
+  font-weight:900
+}
 
 /* CREATE */
+
 .create-box{
-  border:1px solid var(--line);border-radius:20px;padding:22px;background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:22px;
+  background:var(--panel)
 }
-.create-tabs{display:flex;gap:8px;margin-bottom:20px}
+
+.create-tabs{
+  display:flex;
+  gap:8px;
+  margin-bottom:20px
+}
+
 .tab{
-  padding:9px 13px;border-radius:10px;border:1px solid var(--line);
-  background:transparent;color:#9da5bf;cursor:pointer;font-size:11px
+  padding:9px 13px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:transparent;
+  color:#9da5bf;
+  cursor:pointer;
+  font-size:11px
 }
-.tab.active{color:#fff;background:rgba(0,234,255,.1);border-color:rgba(0,234,255,.25)}
-textarea{min-height:130px;resize:vertical}
-.tool-row{display:flex;gap:10px;margin-top:12px}
+
+.tab.active{
+  color:#fff;
+  background:rgba(0,234,255,.1);
+  border-color:rgba(0,234,255,.25)
+}
+
+textarea{
+  min-height:130px;
+  resize:vertical
+}
+
+.tool-row{
+  display:flex;
+  gap:10px;
+  margin-top:12px
+}
+
 .output{
-  margin-top:18px;border:1px dashed rgba(255,255,255,.12);
-  border-radius:15px;min-height:170px;padding:18px;color:var(--muted);
-  display:grid;place-items:center;text-align:center;
+  margin-top:18px;
+  border:1px dashed rgba(255,255,255,.12);
+  border-radius:15px;
+  min-height:170px;
+  padding:18px;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  text-align:center
 }
 
 /* OTHER */
-.title{font-size:25px;margin-bottom:7px}
-.sub{color:var(--muted);font-size:12px;margin-bottom:20px}
+
+.title{
+  font-size:25px;
+  margin-bottom:7px
+}
+
+.sub{
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:20px
+}
+
 .list{
-  border:1px solid var(--line);background:var(--panel);
-  border-radius:18px;padding:5px;
+  border:1px solid var(--line);
+  background:var(--panel);
+  border-radius:18px;
+  padding:5px
 }
+
 .row{
-  padding:15px;border-bottom:1px solid var(--line);
-  display:flex;justify-content:space-between;align-items:center;
+  padding:15px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center
 }
+
 .row:last-child{border-bottom:0}
+
 .row small{color:var(--muted)}
+
 .stat{
-  border:1px solid var(--line);background:var(--panel);
-  border-radius:18px;padding:20px
+  border:1px solid var(--line);
+  background:var(--panel);
+  border-radius:18px;
+  padding:20px
 }
+
 .stat strong{font-size:25px}
-.stat span{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+
+.stat span{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px
+}
 
 /* PREMIUM */
+
 .modal{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);
-  backdrop-filter:blur(12px);z-index:100;place-items:center;padding:20px;
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(12px);
+  z-index:100;
+  place-items:center;
+  padding:20px
 }
+
 .modal.show{display:grid}
+
 .modal-box{
-  width:min(620px,100%);border:1px solid rgba(157,92,255,.3);
-  background:#0b0e1b;border-radius:24px;padding:25px;
-  box-shadow:0 30px 100px rgba(0,0,0,.55);
+  width:min(620px,100%);
+  border:1px solid rgba(157,92,255,.3);
+  background:#0b0e1b;
+  border-radius:24px;
+  padding:25px;
+  box-shadow:0 30px 100px rgba(0,0,0,.55)
 }
-.modal-top{display:flex;justify-content:space-between}
-.close{background:transparent;border:0;color:#fff;font-size:20px;cursor:pointer}
-.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+
+.modal-top{
+  display:flex;
+  justify-content:space-between
+}
+
+.close{
+  background:transparent;
+  border:0;
+  color:#fff;
+  font-size:20px;
+  cursor:pointer
+}
+
+.price-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:18px
+}
+
 .price{
-  border:1px solid var(--line);border-radius:16px;padding:18px
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:18px
 }
-.price.p{border-color:rgba(157,92,255,.45);background:linear-gradient(135deg,rgba(157,92,255,.1),rgba(255,60,172,.06))}
+
+.price.p{
+  border-color:rgba(157,92,255,.45);
+  background:linear-gradient(
+    135deg,
+    rgba(157,92,255,.1),
+    rgba(255,60,172,.06)
+  )
+}
+
 .price h3{font-size:15px}
-.price b{display:block;font-size:27px;margin:10px 0}
-.price li{list-style:none;color:#a5acc2;font-size:11px;margin:8px 0}
+
+.price b{
+  display:block;
+  font-size:27px;
+  margin:10px 0
+}
+
+.price li{
+  list-style:none;
+  color:#a5acc2;
+  font-size:11px;
+  margin:8px 0
+}
 
 /* MOBILE */
-.mobile-menu{display:none}
+
+.mobile-menu{
+  display:none;
+  background:transparent;
+  border:0;
+  color:#fff;
+  font-size:21px;
+  cursor:pointer
+}
+
 @media(max-width:950px){
-  .sidebar{position:fixed;left:-270px;transition:.25s;height:100vh}
+
+  .sidebar{
+    position:fixed;
+    left:-270px;
+    transition:.25s;
+    height:100vh
+  }
+
   .sidebar.open{left:0}
-  .mobile-menu{display:block;background:transparent;border:0;color:#fff;font-size:21px;cursor:pointer}
+
+  .mobile-menu{display:block}
+
   .topbar{padding:0 15px}
+
   .content{padding:15px}
-  .cards4,.cards3{grid-template-columns:1fr 1fr}
+
+  .cards4,
+  .cards3{
+    grid-template-columns:1fr 1fr
+  }
+
   .core{display:none}
+
   .hero h1{font-size:31px}
 }
+
 @media(max-width:600px){
-  .cards4,.cards3{grid-template-columns:1fr}
-  .hero-actions,.tool-row{flex-direction:column}
-  .price-grid{grid-template-columns:1fr}
+
+  .cards4,
+  .cards3{
+    grid-template-columns:1fr
+  }
+
+  .hero-actions,
+  .tool-row{
+    flex-direction:column
+  }
+
+  .price-grid{
+    grid-template-columns:1fr
+  }
 }
 </style>
 </head>
 
 <body>
+
 <div class="orb o1"></div>
 <div class="orb o2"></div>
 <div class="orb o3"></div>
@@ -268,271 +813,709 @@ textarea{min-height:130px;resize:vertical}
 <div class="app">
 
 <aside class="sidebar" id="sidebar">
+
   <div class="logo">
     <div class="logo-core">A</div>
-    <div><strong>Amzo AI</strong><small>PERSONAL AI UNIVERSE</small></div>
+    <div>
+      <strong>Amzo AI</strong>
+      <small>PERSONAL AI UNIVERSE</small>
+    </div>
   </div>
 
   <nav class="nav">
-    <button class="active" data-page="home"><i>⌂</i>Command Center</button>
-    <button data-page="chat"><i>✦</i>Amzo Chat</button>
-    <button data-page="history"><i>◷</i>History</button>
-    <button data-page="brain"><i>🧠</i>Amzo Brain</button>
-    <button data-page="create"><i>✧</i>AI Create</button>
-    <button data-page="studio"><i>◈</i>Studio</button>
-    <button data-page="code"><i>⌘</i>Code Lab</button>
-    <button data-page="projects"><i>▣</i>Projects</button>
-    <button data-page="profile"><i>◉</i>Profile</button>
-    <button data-page="settings"><i>⚙</i>Settings</button>
+
+    <button class="active" data-page="home">
+      <i>⌂</i>Command Center
+    </button>
+
+    <button data-page="chat">
+      <i>✦</i>Amzo Chat
+    </button>
+
+    <button data-page="history">
+      <i>◷</i>History
+    </button>
+
+    <button data-page="brain">
+      <i>🧠</i>Amzo Brain
+    </button>
+
+    <button data-page="create">
+      <i>✧</i>AI Create
+    </button>
+
+    <button data-page="studio">
+      <i>◈</i>Studio
+    </button>
+
+    <button data-page="code">
+      <i>⌘</i>Code Lab
+    </button>
+
+    <button data-page="projects">
+      <i>▣</i>Projects
+    </button>
+
+    <button data-page="profile">
+      <i>◉</i>Profile
+    </button>
+
+    <button data-page="settings">
+      <i>⚙</i>Settings
+    </button>
+
   </nav>
 
   <div class="side-bottom">
+
     <div class="plan">
+
       <div class="plan-title">⚡ Amzo Free</div>
+
       <p>Explore the AI universe.</p>
-      <button class="premium-btn" onclick="openPremium()">UNLOCK PREMIUM</button>
+
+      <button
+        class="premium-btn"
+        onclick="openPremium()"
+      >
+        UNLOCK PREMIUM
+      </button>
+
     </div>
+
   </div>
+
 </aside>
 
 <main class="main">
 
 <header class="topbar">
+
   <div style="display:flex;align-items:center;gap:12px">
-    <button class="mobile-menu" onclick="toggleSide()">☰</button>
-    <div class="page-title"><span>AMZO</span> / <b id="pageName">Command Center</b></div>
+
+    <button
+      class="mobile-menu"
+      onclick="toggleSide()"
+    >
+      ☰
+    </button>
+
+    <div class="page-title">
+      <span>AMZO</span> /
+      <b id="pageName">Command Center</b>
+    </div>
+
   </div>
-  <div class="status"><span class="dot"></span> AI SYSTEM ONLINE</div>
+
+  <div class="status">
+    <span class="dot"></span>
+    AI SYSTEM ONLINE
+  </div>
+
 </header>
 
 <div class="content">
 
 <!-- HOME -->
+
 <section class="section active" id="home">
+
   <div class="hero">
+
     <div>
-      <div style="color:var(--cyan);font-size:10px;font-weight:800;letter-spacing:2px">WELCOME TO AMZO AI</div>
-      <h1 style="margin-top:10px">Your personal <span class="gradient">AI universe.</span></h1>
-      <p>Chat, create, code, generate ideas and build your own AI workflow from one futuristic command center.</p>
-      <div class="hero-actions">
-        <button class="btn primary" onclick="go('chat')">✦ Start Chat</button>
-        <button class="btn" onclick="go('create')">✧ Create Something</button>
-        <button class="btn pink" onclick="openPremium()">⚡ Premium</button>
+
+      <div style="
+        color:var(--cyan);
+        font-size:10px;
+        font-weight:800;
+        letter-spacing:2px
+      ">
+        WELCOME TO AMZO AI
       </div>
+
+      <h1 style="margin-top:10px">
+        Your personal
+        <span class="gradient">AI universe.</span>
+      </h1>
+
+      <p>
+        Chat, create, code, generate ideas and build
+        your own AI workflow from one futuristic command center.
+      </p>
+
+      <div class="hero-actions">
+
+        <button
+          class="btn primary"
+          onclick="go('chat')"
+        >
+          ✦ Start Chat
+        </button>
+
+        <button
+          class="btn"
+          onclick="go('create')"
+        >
+          ✧ Create Something
+        </button>
+
+        <button
+          class="btn pink"
+          onclick="openPremium()"
+        >
+          ⚡ Premium
+        </button>
+
+      </div>
+
     </div>
 
     <div class="core">
-      <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <div class="ring r3"></div>
+
       <div class="core-center">A</div>
+
     </div>
+
   </div>
 
   <div class="grid cards4">
+
     <div class="card" onclick="go('chat')">
-      <div class="card-icon">✦</div><h3>Amzo Chat</h3><p>Talk with your personal AI assistant.</p>
+      <div class="card-icon">✦</div>
+      <h3>Amzo Chat</h3>
+      <p>Talk with your personal AI assistant.</p>
     </div>
+
     <div class="card" onclick="go('create')">
-      <div class="card-icon">🎨</div><h3>AI Create</h3><p>Turn ideas into images and creative projects.</p>
+      <div class="card-icon">🎨</div>
+      <h3>AI Create</h3>
+      <p>Turn ideas into images and creative projects.</p>
     </div>
+
     <div class="card" onclick="go('studio')">
-      <div class="card-icon">🎬</div><h3>AI Studio</h3><p>Plan videos, scenes and creative concepts.</p>
+      <div class="card-icon">🎬</div>
+      <h3>AI Studio</h3>
+      <p>Plan videos, scenes and creative concepts.</p>
     </div>
+
     <div class="card" onclick="go('code')">
-      <div class="card-icon">⌘</div><h3>Code Lab</h3><p>Generate code and build prototypes with AI.</p>
+      <div class="card-icon">⌘</div>
+      <h3>Code Lab</h3>
+      <p>Generate code and build prototypes with AI.</p>
     </div>
+
   </div>
 
   <div class="grid cards3">
-    <div class="stat"><strong id="msgCount">0</strong><span>Messages this session</span></div>
-    <div class="stat"><strong>∞</strong><span>Ideas you can explore</span></div>
-    <div class="stat"><strong id="moodHome">READY ✦</strong><span>Current AI mood</span></div>
+
+    <div class="stat">
+      <strong id="msgCount">0</strong>
+      <span>Messages this session</span>
+    </div>
+
+    <div class="stat">
+      <strong>∞</strong>
+      <span>Ideas you can explore</span>
+    </div>
+
+    <div class="stat">
+      <strong id="moodHome">READY ✦</strong>
+      <span>Current AI mood</span>
+    </div>
+
   </div>
+
 </section>
 
 <!-- CHAT -->
+
 <section class="section" id="chat">
+
   <div class="chat-shell">
+
     <div class="chat-head">
-      <div><b>Amzo Chat</b><div style="font-size:10px;color:var(--muted);margin-top:3px">Personal AI intelligence</div></div>
-      <div class="mood" id="mood">READY ✦</div>
+
+      <div>
+        <b>Amzo Chat</b>
+
+        <div style="
+          font-size:10px;
+          color:var(--muted);
+          margin-top:3px
+        ">
+          Personal AI intelligence
+        </div>
+
+      </div>
+
+      <div class="mood" id="mood">
+        READY ✦
+      </div>
+
     </div>
 
     <div class="messages" id="messages">
-      <div class="msg ai"><div class="bubble">Hey 👋 I'm Amzo AI.<br><br>What are we building today?</div></div>
+
+      <div class="msg ai">
+        <div class="bubble">
+          Hey 👋 I'm Amzo AI.<br><br>
+          What are we building today?
+        </div>
+      </div>
+
     </div>
 
     <div class="chat-input">
-      <input id="chatInput" placeholder="Ask Amzo anything..." autocomplete="off">
-      <button class="send" onclick="sendMessage()">➤</button>
+
+      <input
+        id="chatInput"
+        placeholder="Ask Amzo anything..."
+        autocomplete="off"
+      >
+
+      <button
+        class="send"
+        onclick="sendMessage()"
+      >
+        ➤
+      </button>
+
     </div>
+
   </div>
+
 </section>
 
 <!-- HISTORY -->
+
 <section class="section" id="history">
+
   <h1 class="title">Chat History</h1>
-  <p class="sub">Your conversations saved locally on this device.</p>
+
+  <p class="sub">
+    Your conversations saved locally on this device.
+  </p>
+
   <div class="list" id="historyList">
-    <div class="row"><div><b>No saved chats yet</b><br><small>Start chatting to create history.</small></div></div>
+
+    <div class="row">
+      <div>
+        <b>No saved chats yet</b>
+        <br>
+        <small>Start chatting to create history.</small>
+      </div>
+    </div>
+
   </div>
+
 </section>
 
 <!-- BRAIN -->
+
 <section class="section" id="brain">
+
   <h1 class="title">Amzo Brain 🧠</h1>
-  <p class="sub">Your personal intelligence workspace.</p>
+
+  <p class="sub">
+    Your personal intelligence workspace.
+  </p>
 
   <div class="grid cards3">
+
     <div class="card">
       <div class="card-icon">🧠</div>
       <h3>Idea Engine</h3>
-      <p>Generate ideas, concepts and plans through Amzo Chat.</p>
+      <p>
+        Generate ideas, concepts and plans through Amzo Chat.
+      </p>
     </div>
+
     <div class="card">
       <div class="card-icon">⚡</div>
       <h3>Quick Thinking</h3>
-      <p>Use the command center for fast AI workflows.</p>
+      <p>
+        Use the command center for fast AI workflows.
+      </p>
     </div>
+
     <div class="card">
       <div class="card-icon">💡</div>
       <h3>Knowledge</h3>
-      <p>Ask Amzo to explain difficult topics step by step.</p>
+      <p>
+        Ask Amzo to explain difficult topics step by step.
+      </p>
     </div>
+
   </div>
 
   <div class="create-box" style="margin-top:15px">
+
     <h3>Brain Prompt</h3>
-    <p class="sub" style="margin-top:5px">Send a problem directly to Amzo.</p>
+
+    <p class="sub" style="margin-top:5px">
+      Send a problem directly to Amzo.
+    </p>
+
     <div class="tool-row">
-      <input id="brainInput" placeholder="Example: Give me a unique AI startup idea...">
-      <button class="btn primary" onclick="brainAsk()">Think ⚡</button>
+
+      <input
+        id="brainInput"
+        placeholder="Example: Give me a unique AI startup idea..."
+      >
+
+      <button
+        class="btn primary"
+        onclick="brainAsk()"
+      >
+        Think ⚡
+      </button>
+
     </div>
+
   </div>
+
 </section>
 
 <!-- CREATE -->
+
 <section class="section" id="create">
+
   <h1 class="title">AI Create ✧</h1>
-  <p class="sub">Your creative generation hub.</p>
+
+  <p class="sub">
+    Your creative generation hub.
+  </p>
 
   <div class="grid cards3">
-    <div class="card" onclick="setCreate('image')">
+
+    <div
+      class="card"
+      onclick="setCreate('image')"
+    >
       <div class="card-icon">🖼️</div>
       <h3>Image Generator</h3>
       <p>Create an image from a text prompt.</p>
     </div>
-    <div class="card" onclick="setCreate('video')">
+
+    <div
+      class="card"
+      onclick="setCreate('video')"
+    >
       <div class="card-icon">🎬</div>
       <h3>Text → Video</h3>
-      <p>Prepare cinematic video concepts from text.</p>
+      <p>Create a real AI video from text.</p>
     </div>
-    <div class="card" onclick="setCreate('ideas')">
+
+    <div
+      class="card"
+      onclick="setCreate('ideas')"
+    >
       <div class="card-icon">💡</div>
       <h3>Idea Generator</h3>
-      <p>Generate unique ideas for projects and content.</p>
+      <p>
+        Generate unique ideas for projects and content.
+      </p>
     </div>
+
   </div>
 
   <div class="create-box" style="margin-top:15px">
+
     <div class="create-tabs">
-      <button class="tab active" id="tabImage" onclick="setCreate('image')">🖼️ Image</button>
-      <button class="tab" id="tabVideo" onclick="setCreate('video')">🎬 Video</button>
-      <button class="tab" id="tabIdeas" onclick="setCreate('ideas')">💡 Ideas</button>
+
+      <button
+        class="tab active"
+        id="tabImage"
+        onclick="setCreate('image')"
+      >
+        🖼️ Image
+      </button>
+
+      <button
+        class="tab"
+        id="tabVideo"
+        onclick="setCreate('video')"
+      >
+        🎬 Video
+      </button>
+
+      <button
+        class="tab"
+        id="tabIdeas"
+        onclick="setCreate('ideas')"
+      >
+        💡 Ideas
+      </button>
+
     </div>
 
-    <textarea id="createPrompt" placeholder="Describe what you want to create..."></textarea>
+    <textarea
+      id="createPrompt"
+      placeholder="Describe what you want to create..."
+    ></textarea>
 
     <div class="tool-row">
-      <button class="btn primary" onclick="createAction()" id="createBtn">Generate Image ✨</button>
-      <button class="btn" onclick="clearCreate()">Clear</button>
+
+      <button
+        class="btn primary"
+        onclick="createAction()"
+        id="createBtn"
+      >
+        Generate Image ✨
+      </button>
+
+      <button
+        class="btn"
+        onclick="clearCreate()"
+      >
+        Clear
+      </button>
+
     </div>
 
-    <div class="output" id="createOutput">
-      <div>✨ Your creation will appear here.</div>
+    <div
+      class="output"
+      id="createOutput"
+    >
+      <div>
+        ✨ Your creation will appear here.
+      </div>
     </div>
+
   </div>
+
 </section>
 
 <!-- STUDIO -->
+
 <section class="section" id="studio">
+
   <h1 class="title">Amzo Studio 🎬</h1>
-  <p class="sub">Creative production workspace.</p>
+
+  <p class="sub">
+    Creative production workspace.
+  </p>
 
   <div class="grid cards3">
-    <div class="card" onclick="studioPrompt('Create a cinematic YouTube video concept')">
-      <div class="card-icon">🎞️</div><h3>Video Concept</h3><p>Build a complete concept with AI.</p>
+
+    <div
+      class="card"
+      onclick="studioPrompt('Create a cinematic YouTube video concept')"
+    >
+      <div class="card-icon">🎞️</div>
+      <h3>Video Concept</h3>
+      <p>Build a complete concept with AI.</p>
     </div>
-    <div class="card" onclick="studioPrompt('Create 10 viral YouTube Shorts ideas')">
-      <div class="card-icon">📱</div><h3>Shorts Ideas</h3><p>Generate short-form content ideas.</p>
+
+    <div
+      class="card"
+      onclick="studioPrompt('Create 10 viral YouTube Shorts ideas')"
+    >
+      <div class="card-icon">📱</div>
+      <h3>Shorts Ideas</h3>
+      <p>Generate short-form content ideas.</p>
     </div>
-    <div class="card" onclick="studioPrompt('Create a cinematic storyboard for an AI video')">
-      <div class="card-icon">🎥</div><h3>Storyboard</h3><p>Turn an idea into scenes.</p>
+
+    <div
+      class="card"
+      onclick="studioPrompt('Create a cinematic storyboard for an AI video')"
+    >
+      <div class="card-icon">🎥</div>
+      <h3>Storyboard</h3>
+      <p>Turn an idea into scenes.</p>
     </div>
+
   </div>
 
-  <div class="create-box" style="margin-top:15px">
-    <textarea id="studioPrompt" placeholder="Tell Studio what you want to create..."></textarea>
-    <button class="btn primary" style="margin-top:12px" onclick="studioGenerate()">Build with AI ✦</button>
+  <div
+    class="create-box"
+    style="margin-top:15px"
+  >
+
+    <textarea
+      id="studioPrompt"
+      placeholder="Tell Studio what you want to create..."
+    ></textarea>
+
+    <button
+      class="btn primary"
+      style="margin-top:12px"
+      onclick="studioGenerate()"
+    >
+      Build with AI ✦
+    </button>
+
   </div>
+
 </section>
 
 <!-- CODE -->
+
 <section class="section" id="code">
+
   <h1 class="title">Code Lab ⌘</h1>
-  <p class="sub">Describe what you want to build and let Amzo generate the code.</p>
+
+  <p class="sub">
+    Describe what you want to build and let Amzo generate the code.
+  </p>
 
   <div class="create-box">
-    <textarea id="codePrompt" placeholder="Example: Create a futuristic calculator in HTML CSS JavaScript"></textarea>
-    <button class="btn primary" style="margin-top:12px" onclick="codeGenerate()">Generate Code ⚡</button>
-    <div class="output" id="codeOutput">⌘ Generated code will appear here.</div>
+
+    <textarea
+      id="codePrompt"
+      placeholder="Example: Create a futuristic calculator in HTML CSS JavaScript"
+    ></textarea>
+
+    <button
+      class="btn primary"
+      style="margin-top:12px"
+      onclick="codeGenerate()"
+    >
+      Generate Code ⚡
+    </button>
+
+    <div
+      class="output"
+      id="codeOutput"
+    >
+      ⌘ Generated code will appear here.
+    </div>
+
   </div>
+
 </section>
 
 <!-- PROJECTS -->
+
 <section class="section" id="projects">
+
   <h1 class="title">Projects</h1>
-  <p class="sub">Your Amzo workspace.</p>
+
+  <p class="sub">
+    Your Amzo workspace.
+  </p>
 
   <div class="grid cards3">
-    <div class="card" onclick="newProject()">
-      <div class="card-icon">＋</div><h3>New Project</h3><p>Start something new.</p>
+
+    <div
+      class="card"
+      onclick="newProject()"
+    >
+      <div class="card-icon">＋</div>
+      <h3>New Project</h3>
+      <p>Start something new.</p>
     </div>
+
   </div>
 
-  <div class="list" id="projectList" style="margin-top:15px"></div>
+  <div
+    class="list"
+    id="projectList"
+    style="margin-top:15px"
+  ></div>
+
 </section>
 
 <!-- PROFILE -->
+
 <section class="section" id="profile">
+
   <h1 class="title">Profile ◉</h1>
-  <p class="sub">Your Amzo identity.</p>
+
+  <p class="sub">
+    Your Amzo identity.
+  </p>
 
   <div class="grid cards3">
-    <div class="stat"><strong>AMZO</strong><span>Username</span></div>
-    <div class="stat"><strong id="xp">0 XP</strong><span>Experience</span></div>
-    <div class="stat"><strong>LVL 1</strong><span>Current Level</span></div>
+
+    <div class="stat">
+      <strong>AMZO</strong>
+      <span>Username</span>
+    </div>
+
+    <div class="stat">
+      <strong id="xp">0 XP</strong>
+      <span>Experience</span>
+    </div>
+
+    <div class="stat">
+      <strong>LVL 1</strong>
+      <span>Current Level</span>
+    </div>
+
   </div>
+
 </section>
 
 <!-- SETTINGS -->
+
 <section class="section" id="settings">
+
   <h1 class="title">Settings ⚙</h1>
-  <p class="sub">Customize your Amzo experience.</p>
+
+  <p class="sub">
+    Customize your Amzo experience.
+  </p>
 
   <div class="list">
+
     <div class="row">
-      <div><b>RGB Interface</b><br><small>Animated futuristic interface</small></div>
-      <button class="btn" onclick="toggleRGB(this)">ON</button>
+
+      <div>
+        <b>RGB Interface</b>
+        <br>
+        <small>Animated futuristic interface</small>
+      </div>
+
+      <button
+        class="btn"
+        onclick="toggleRGB(this)"
+      >
+        ON
+      </button>
+
     </div>
+
     <div class="row">
-      <div><b>Animations</b><br><small>Background and UI animations</small></div>
-      <button class="btn" onclick="toggleAnimations(this)">ON</button>
+
+      <div>
+        <b>Animations</b>
+        <br>
+        <small>Background and UI animations</small>
+      </div>
+
+      <button
+        class="btn"
+        onclick="toggleAnimations(this)"
+      >
+        ON
+      </button>
+
     </div>
+
     <div class="row">
-      <div><b>Clear Local Data</b><br><small>Delete local history and projects</small></div>
-      <button class="btn" onclick="clearData()">CLEAR</button>
+
+      <div>
+        <b>Clear Local Data</b>
+        <br>
+        <small>Delete local history and projects</small>
+      </div>
+
+      <button
+        class="btn"
+        onclick="clearData()"
+      >
+        CLEAR
+      </button>
+
     </div>
+
   </div>
+
 </section>
 
 </div>
@@ -540,31 +1523,62 @@ textarea{min-height:130px;resize:vertical}
 </div>
 
 <!-- PREMIUM MODAL -->
+
 <div class="modal" id="premiumModal">
+
   <div class="modal-box">
+
     <div class="modal-top">
+
       <div>
-        <div style="color:var(--pink);font-size:10px;font-weight:800;letter-spacing:2px">AMZO+</div>
-        <h2 style="margin-top:5px">Unlock the AI Universe ⚡</h2>
+
+        <div style="
+          color:var(--pink);
+          font-size:10px;
+          font-weight:800;
+          letter-spacing:2px
+        ">
+          AMZO+
+        </div>
+
+        <h2 style="margin-top:5px">
+          Unlock the AI Universe ⚡
+        </h2>
+
       </div>
-      <button class="close" onclick="closePremium()">×</button>
+
+      <button
+        class="close"
+        onclick="closePremium()"
+      >
+        ×
+      </button>
+
     </div>
 
     <div class="price-grid">
+
       <div class="price">
+
         <h3>FREE</h3>
+
         <b>$0</b>
+
         <ul>
           <li>✓ AI Chat</li>
           <li>✓ Basic AI tools</li>
           <li>✓ Local history</li>
           <li>✓ Basic creation workspace</li>
         </ul>
+
       </div>
 
       <div class="price p">
+
         <h3>AMZO+</h3>
+
         <b>Coming Soon</b>
+
         <ul>
           <li>✓ Higher AI limits</li>
           <li>✓ Advanced image generation</li>
@@ -572,16 +1586,26 @@ textarea{min-height:130px;resize:vertical}
           <li>✓ Advanced Code Lab</li>
           <li>✓ Cloud memory</li>
         </ul>
+
       </div>
+
     </div>
 
-    <p style="color:var(--muted);font-size:10px;margin-top:18px">
-      Payments will only be enabled after a real payment provider and secure server-side verification are connected.
+    <p style="
+      color:var(--muted);
+      font-size:10px;
+      margin-top:18px
+    ">
+      Payments will only be enabled after a real payment provider
+      and secure server-side verification are connected.
     </p>
+
   </div>
+
 </div>
 
 <script>
+
 const API="https://ai-tool-api.amzoxamzoo.workers.dev/";
 
 const pages={
@@ -600,33 +1624,73 @@ const pages={
 let currentCreate="image";
 let messageCount=0;
 
+
+/* NAVIGATION */
+
 function go(page){
-  document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
-  document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
+
+  document
+    .querySelectorAll(".section")
+    .forEach(x=>x.classList.remove("active"));
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(x=>x.classList.remove("active"));
 
   const section=document.getElementById(page);
-  const nav=document.querySelector(`[data-page="${page}"]`);
+  const nav=document.querySelector(
+    `[data-page="${page}"]`
+  );
 
-  if(section) section.classList.add("active");
-  if(nav) nav.classList.add("active");
+  if(section){
+    section.classList.add("active");
+  }
 
-  document.getElementById("pageName").textContent=pages[page]||page;
-  document.getElementById("sidebar").classList.remove("open");
+  if(nav){
+    nav.classList.add("active");
+  }
 
-  if(page==="history")loadHistory();
-  if(page==="projects")loadProjects();
+  document.getElementById("pageName").textContent=
+    pages[page]||page;
+
+  document
+    .getElementById("sidebar")
+    .classList.remove("open");
+
+  if(page==="history"){
+    loadHistory();
+  }
+
+  if(page==="projects"){
+    loadProjects();
+  }
 }
 
-document.querySelectorAll(".nav button").forEach(btn=>{
-  btn.addEventListener("click",()=>go(btn.dataset.page));
-});
+
+document
+  .querySelectorAll(".nav button")
+  .forEach(btn=>{
+    btn.addEventListener(
+      "click",
+      ()=>go(btn.dataset.page)
+    );
+  });
+
 
 function toggleSide(){
-  document.getElementById("sidebar").classList.toggle("open");
+
+  document
+    .getElementById("sidebar")
+    .classList.toggle("open");
 }
 
+
+/* CHAT */
+
 function addMessage(text,type){
+
   const box=document.getElementById("messages");
+
   const row=document.createElement("div");
   row.className="msg "+type;
 
@@ -636,43 +1700,73 @@ function addMessage(text,type){
 
   row.appendChild(bubble);
   box.appendChild(row);
+
   box.scrollTop=box.scrollHeight;
 }
 
+
 function detectMood(text){
+
   const t=text.toLowerCase();
+
   let mood="READY ✦";
 
-  if(/sad|alone|upset|cry|unlucky|useless|depressed/.test(t)) mood="CALM 💙";
-  else if(/happy|love|great|good|thank/.test(t)) mood="HAPPY 💜";
-  else if(/angry|hate|mad/.test(t)) mood="FOCUSED 🔥";
-  else if(/wow|crazy|excited|amazing/.test(t)) mood="EXCITED ⚡";
-  else if(/code|build|website|project/.test(t)) mood="BUILDING 🧠";
+  if(/sad|alone|upset|cry|unlucky|useless|depressed/.test(t)){
+    mood="CALM 💙";
+  }
+  else if(/happy|love|great|good|thank/.test(t)){
+    mood="HAPPY 💜";
+  }
+  else if(/angry|hate|mad/.test(t)){
+    mood="FOCUSED 🔥";
+  }
+  else if(/wow|crazy|excited|amazing/.test(t)){
+    mood="EXCITED ⚡";
+  }
+  else if(/code|build|website|project/.test(t)){
+    mood="BUILDING 🧠";
+  }
 
   document.getElementById("mood").textContent=mood;
   document.getElementById("moodHome").textContent=mood;
 }
 
+
 async function sendMessage(){
+
   const input=document.getElementById("chatInput");
+
   const message=input.value.trim();
 
-  if(!message)return;
+  if(!message){
+    return;
+  }
 
   input.value="";
+
   addMessage(message,"user");
+
   detectMood(message);
 
   messageCount++;
-  document.getElementById("msgCount").textContent=messageCount;
+
+  document.getElementById("msgCount").textContent=
+    messageCount;
 
   addMessage("Amzo is thinking...","ai");
-  const loading=document.querySelector("#messages .msg:last-child .bubble");
+
+  const loading=
+    document.querySelector(
+      "#messages .msg:last-child .bubble"
+    );
 
   try{
+
     const res=await fetch(API,{
       method:"POST",
-      headers:{"Content-Type":"application/json"},
+      headers:{
+        "Content-Type":"application/json"
+      },
       body:JSON.stringify({
         action:"chat",
         message:message
@@ -681,258 +1775,842 @@ async function sendMessage(){
 
     const data=await res.json();
 
-    loading.textContent=data.reply||data.response||data.text||data.error||"No response.";
+    loading.textContent=
+      data.reply||
+      data.response||
+      data.text||
+      data.error||
+      "No response.";
 
-    saveHistory(message,loading.textContent);
+    saveHistory(
+      message,
+      loading.textContent
+    );
+
   }catch(err){
-    loading.textContent="Amzo AI server error.";
+
+    console.error(err);
+
+    loading.textContent=
+      "Amzo AI server error.";
+
   }
 }
 
-document.getElementById("chatInput").addEventListener("keydown",e=>{
-  if(e.key==="Enter")sendMessage();
-});
+
+document
+  .getElementById("chatInput")
+  .addEventListener("keydown",e=>{
+
+    if(e.key==="Enter"){
+      sendMessage();
+    }
+
+  });
+
+
+/* HISTORY */
 
 function saveHistory(user,reply){
-  const old=JSON.parse(localStorage.getItem("amzo_history")||"[]");
+
+  const old=JSON.parse(
+    localStorage.getItem("amzo_history")||"[]"
+  );
+
   old.unshift({
     user:user,
     reply:reply,
     time:new Date().toLocaleString()
   });
-  localStorage.setItem("amzo_history",JSON.stringify(old.slice(0,50)));
+
+  localStorage.setItem(
+    "amzo_history",
+    JSON.stringify(old.slice(0,50))
+  );
 }
 
+
 function loadHistory(){
-  const list=document.getElementById("historyList");
-  const history=JSON.parse(localStorage.getItem("amzo_history")||"[]");
+
+  const list=
+    document.getElementById("historyList");
+
+  const history=JSON.parse(
+    localStorage.getItem("amzo_history")||"[]"
+  );
 
   if(!history.length){
-    list.innerHTML='<div class="row"><div><b>No saved chats yet</b><br><small>Start chatting to create history.</small></div></div>';
+
+    list.innerHTML=
+      '<div class="row"><div><b>No saved chats yet</b><br><small>Start chatting to create history.</small></div></div>';
+
     return;
   }
 
   list.innerHTML=history.map(x=>`
+
     <div class="row">
+
       <div>
-        <b>${escapeHTML(x.user.slice(0,65))}</b>
-        <br><small>${escapeHTML(x.time)}</small>
+
+        <b>
+          ${escapeHTML(x.user.slice(0,65))}
+        </b>
+
+        <br>
+
+        <small>
+          ${escapeHTML(x.time)}
+        </small>
+
       </div>
+
     </div>
+
   `).join("");
 }
 
+
 function escapeHTML(s){
-  return s.replace(/[&<>"']/g,m=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",
-    '"':"&quot;","'":"&#039;"
-  }[m]));
-}
 
-function setCreate(type){
-  currentCreate=type;
-
-  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
-
-  if(type==="image"){
-    document.getElementById("tabImage").classList.add("active");
-    document.getElementById("createBtn").textContent="Generate Image ✨";
-    document.getElementById("createPrompt").placeholder="Example: futuristic neon city at night...";
-  }
-
-  if(type==="video"){
-    document.getElementById("tabVideo").classList.add("active");
-    document.getElementById("createBtn").textContent="Build Video Concept 🎬";
-    document.getElementById("createPrompt").placeholder="Describe your video idea...";
-  }
-
-  if(type==="ideas"){
-    document.getElementById("tabIdeas").classList.add("active");
-    document.getElementById("createBtn").textContent="Generate Ideas 💡";
-    document.getElementById("createPrompt").placeholder="What do you need ideas for?";
-  }
-}
-
-async function createAction(){
-  const prompt=document.getElementById("createPrompt").value.trim();
-  const output=document.getElementById("createOutput");
-
-  if(!prompt){
-    output.innerHTML="<div>Write a prompt first.</div>";
-    return;
-  }
-
-  output.innerHTML="<div>Amzo is creating... ⚡</div>";
-
-  if(currentCreate==="image"){
-    output.innerHTML=`
-      <div>
-        <div style="font-size:30px">🖼️</div>
-        <b>Image Generator Ready</b>
-        <p style="margin-top:7px">Connect the image-generation Worker endpoint to generate the actual image here.</p>
-      </div>`;
-    return;
-  }
-
-  if(currentCreate==="video"){
-    await askCreateAI(
-      "Create a detailed text-to-video production concept for this idea: "+prompt,
-      output
-    );
-    return;
-  }
-
-  await askCreateAI(
-    "Generate 10 unique useful ideas for: "+prompt,
-    output
+  return String(s).replace(
+    /[&<>"']/g,
+    m=>({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[m])
   );
 }
 
-async function askCreateAI(prompt,output){
-  try{
-    const res=await fetch(API,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({action:"chat",message:prompt})
-    });
 
-    const data=await res.json();
-    output.innerHTML="<div style='text-align:left;white-space:pre-wrap;width:100%'>"+
-      escapeHTML(data.reply||data.response||data.text||data.error||"No result.")+
-      "</div>";
-  }catch(e){
-    output.innerHTML="<div>Amzo AI server error.</div>";
+/* CREATE */
+
+function setCreate(type){
+
+  currentCreate=type;
+
+  document
+    .querySelectorAll(".tab")
+    .forEach(x=>x.classList.remove("active"));
+
+  if(type==="image"){
+
+    document
+      .getElementById("tabImage")
+      .classList.add("active");
+
+    document
+      .getElementById("createBtn")
+      .textContent="Generate Image ✨";
+
+    document
+      .getElementById("createPrompt")
+      .placeholder=
+        "Example: futuristic neon city at night...";
+  }
+
+  if(type==="video"){
+
+    document
+      .getElementById("tabVideo")
+      .classList.add("active");
+
+    document
+      .getElementById("createBtn")
+      .textContent=
+        "Generate Video 🎬";
+
+    document
+      .getElementById("createPrompt")
+      .placeholder=
+        "Describe your video idea...";
+  }
+
+  if(type==="ideas"){
+
+    document
+      .getElementById("tabIdeas")
+      .classList.add("active");
+
+    document
+      .getElementById("createBtn")
+      .textContent=
+        "Generate Ideas 💡";
+
+    document
+      .getElementById("createPrompt")
+      .placeholder=
+        "What do you need ideas for?";
   }
 }
 
-function clearCreate(){
-  document.getElementById("createPrompt").value="";
-  document.getElementById("createOutput").innerHTML="<div>✨ Your creation will appear here.</div>";
-}
 
-function studioPrompt(text){
-  document.getElementById("studioPrompt").value=text;
-  go("studio");
-}
+/*
+  REAL IMAGE / VIDEO / IDEAS
+*/
 
-async function studioGenerate(){
-  const prompt=document.getElementById("studioPrompt").value.trim();
-  if(!prompt)return;
+async function createAction(){
 
-  go("chat");
-  document.getElementById("chatInput").value=prompt;
-  sendMessage();
-}
+  const prompt=
+    document
+      .getElementById("createPrompt")
+      .value
+      .trim();
 
-async function codeGenerate(){
-  const prompt=document.getElementById("codePrompt").value.trim();
-  const out=document.getElementById("codeOutput");
+  const output=
+    document.getElementById("createOutput");
 
   if(!prompt){
-    out.textContent="Describe the code you want first.";
+
+    output.innerHTML=
+      "<div>⚠️ Write a prompt first.</div>";
+
     return;
   }
 
-  out.textContent="Generating code... ⚡";
+  output.innerHTML=`
+    <div>
+      <div style="font-size:32px">⚡</div>
+      <b>Amzo is creating...</b>
+      <p style="margin-top:7px;color:var(--muted)">
+        Please wait...
+      </p>
+    </div>
+  `;
+
+
+  /* IMAGE */
+
+  if(currentCreate==="image"){
+
+    try{
+
+      const res=await fetch(API,{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          action:"image",
+          prompt:prompt
+        })
+      });
+
+      const data=await res.json();
+
+      if(!res.ok || !data.ok){
+
+        throw new Error(
+          data.details||
+          data.error||
+          "Image generation failed."
+        );
+      }
+
+      if(!data.dataURI){
+
+        throw new Error(
+          "No image returned."
+        );
+      }
+
+      window.lastGeneratedImage=
+        data.dataURI;
+
+      output.innerHTML=`
+
+        <div style="width:100%">
+
+          <img
+            src="${data.dataURI}"
+            alt="Generated by Amzo AI"
+            style="
+              width:100%;
+              max-height:520px;
+              object-fit:contain;
+              border-radius:16px;
+              display:block;
+              background:#000;
+              box-shadow:0 0 40px rgba(0,234,255,.12);
+            "
+          >
+
+          <div style="
+            display:flex;
+            gap:10px;
+            margin-top:12px;
+            flex-wrap:wrap;
+          ">
+
+            <button
+              class="btn"
+              onclick="downloadGeneratedImage()"
+            >
+              ⬇ Download Image
+            </button>
+
+            <button
+              class="btn"
+              onclick="clearCreate()"
+            >
+              ✨ Create Another
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }catch(err){
+
+      console.error(err);
+
+      output.innerHTML=`
+
+        <div>
+
+          <div style="font-size:30px">
+            ❌
+          </div>
+
+          <b>
+            Image generation failed
+          </b>
+
+          <p style="
+            margin-top:7px;
+            color:var(--muted)
+          ">
+            ${escapeHTML(err.message)}
+          </p>
+
+        </div>
+
+      `;
+    }
+
+    return;
+  }
+
+
+  /* VIDEO */
+
+  if(currentCreate==="video"){
+
+    try{
+
+      const res=await fetch(API,{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+
+          action:"video",
+
+          prompt:prompt,
+
+          resolution:"720P",
+
+          ratio:"16:9",
+
+          duration:5
+
+        })
+      });
+
+      const data=await res.json();
+
+      if(!res.ok || !data.ok){
+
+        throw new Error(
+          data.details||
+          data.error||
+          "Video generation failed."
+        );
+      }
+
+      if(!data.video){
+
+        throw new Error(
+          "No video returned."
+        );
+      }
+
+      window.lastGeneratedVideo=
+        data.video;
+
+      output.innerHTML=`
+
+        <div style="width:100%">
+
+          <video
+            controls
+            playsinline
+            src="${data.video}"
+            style="
+              width:100%;
+              max-height:520px;
+              border-radius:16px;
+              background:#000;
+              display:block;
+              box-shadow:0 0 40px rgba(157,92,255,.15);
+            "
+          ></video>
+
+          <div style="
+            display:flex;
+            gap:10px;
+            margin-top:12px;
+            flex-wrap:wrap;
+          ">
+
+            <a
+              class="btn"
+              href="${data.video}"
+              target="_blank"
+              rel="noopener"
+              style="text-decoration:none"
+            >
+              ↗ Open Video
+            </a>
+
+            <button
+              class="btn"
+              onclick="clearCreate()"
+            >
+              🎬 Create Another
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }catch(err){
+
+      console.error(err);
+
+      output.innerHTML=`
+
+        <div>
+
+          <div style="font-size:30px">
+            ❌
+          </div>
+
+          <b>
+            Video generation failed
+          </b>
+
+          <p style="
+            margin-top:7px;
+            color:var(--muted)
+          ">
+            ${escapeHTML(err.message)}
+          </p>
+
+        </div>
+
+      `;
+    }
+
+    return;
+  }
+
+
+  /* IDEAS */
+
+  if(currentCreate==="ideas"){
+
+    await askCreateAI(
+      "Generate 10 unique useful ideas for: "+
+      prompt,
+      output
+    );
+  }
+}
+
+
+/* IMAGE DOWNLOAD */
+
+function downloadGeneratedImage(){
+
+  if(!window.lastGeneratedImage){
+    return;
+  }
+
+  const link=
+    document.createElement("a");
+
+  link.href=
+    window.lastGeneratedImage;
+
+  link.download=
+    "amzo-ai-image.jpg";
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+}
+
+
+/* CREATE AI TEXT */
+
+async function askCreateAI(prompt,output){
 
   try{
+
     const res=await fetch(API,{
       method:"POST",
-      headers:{"Content-Type":"application/json"},
+      headers:{
+        "Content-Type":"application/json"
+      },
       body:JSON.stringify({
         action:"chat",
-        message:"You are Amzo Code Lab. Generate complete working code for this request. Return code with a short explanation: "+prompt
+        message:prompt
       })
     });
 
     const data=await res.json();
-    out.textContent=data.reply||data.response||data.text||data.error||"No code generated.";
+
+    output.innerHTML=
+      "<div style='text-align:left;white-space:pre-wrap;width:100%'>"+
+      escapeHTML(
+        data.reply||
+        data.response||
+        data.text||
+        data.error||
+        "No result."
+      )+
+      "</div>";
+
   }catch(e){
-    out.textContent="Amzo AI server error.";
+
+    output.innerHTML=
+      "<div>Amzo AI server error.</div>";
+
   }
 }
 
-async function brainAsk(){
-  const input=document.getElementById("brainInput");
-  const text=input.value.trim();
-  if(!text)return;
 
-  go("chat");
-  document.getElementById("chatInput").value=text;
-  sendMessage();
+function clearCreate(){
+
+  document
+    .getElementById("createPrompt")
+    .value="";
+
+  document
+    .getElementById("createOutput")
+    .innerHTML=
+      "<div>✨ Your creation will appear here.</div>";
 }
 
-function newProject(){
-  const name=prompt("Project name?");
-  if(!name)return;
 
-  const projects=JSON.parse(localStorage.getItem("amzo_projects")||"[]");
-  projects.push({
-    name:name,
-    created:new Date().toLocaleString()
-  });
+/* STUDIO */
 
-  localStorage.setItem("amzo_projects",JSON.stringify(projects));
-  loadProjects();
+function studioPrompt(text){
+
+  document
+    .getElementById("studioPrompt")
+    .value=text;
+
+  go("studio");
 }
 
-function loadProjects(){
-  const list=document.getElementById("projectList");
-  const projects=JSON.parse(localStorage.getItem("amzo_projects")||"[]");
 
-  if(!projects.length){
-    list.innerHTML='<div class="row"><div><b>No projects yet</b><br><small>Create your first project.</small></div></div>';
+async function studioGenerate(){
+
+  const prompt=
+    document
+      .getElementById("studioPrompt")
+      .value
+      .trim();
+
+  if(!prompt){
     return;
   }
 
-  list.innerHTML=projects.map(p=>`
-    <div class="row">
-      <div><b>▣ ${escapeHTML(p.name)}</b><br><small>${escapeHTML(p.created)}</small></div>
-    </div>
-  `).join("");
+  go("chat");
+
+  document
+    .getElementById("chatInput")
+    .value=prompt;
+
+  sendMessage();
 }
+
+
+/* CODE */
+
+async function codeGenerate(){
+
+  const prompt=
+    document
+      .getElementById("codePrompt")
+      .value
+      .trim();
+
+  const out=
+    document.getElementById("codeOutput");
+
+  if(!prompt){
+
+    out.textContent=
+      "Describe the code you want first.";
+
+    return;
+  }
+
+  out.textContent=
+    "Generating code... ⚡";
+
+  try{
+
+    const res=await fetch(API,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+
+        action:"chat",
+
+        message:
+          "You are Amzo Code Lab. "+
+          "Generate complete working code for this request. "+
+          "Return code with a short explanation: "+
+          prompt
+
+      })
+    });
+
+    const data=await res.json();
+
+    out.textContent=
+      data.reply||
+      data.response||
+      data.text||
+      data.error||
+      "No code generated.";
+
+  }catch(e){
+
+    out.textContent=
+      "Amzo AI server error.";
+
+  }
+}
+
+
+/* BRAIN */
+
+async function brainAsk(){
+
+  const input=
+    document.getElementById("brainInput");
+
+  const text=
+    input.value.trim();
+
+  if(!text){
+    return;
+  }
+
+  go("chat");
+
+  document
+    .getElementById("chatInput")
+    .value=text;
+
+  sendMessage();
+}
+
+
+/* PROJECTS */
+
+function newProject(){
+
+  const name=
+    prompt("Project name?");
+
+  if(!name){
+    return;
+  }
+
+  const projects=JSON.parse(
+    localStorage.getItem("amzo_projects")||"[]"
+  );
+
+  projects.push({
+
+    name:name,
+
+    created:
+      new Date().toLocaleString()
+
+  });
+
+  localStorage.setItem(
+    "amzo_projects",
+    JSON.stringify(projects)
+  );
+
+  loadProjects();
+}
+
+
+function loadProjects(){
+
+  const list=
+    document.getElementById("projectList");
+
+  const projects=JSON.parse(
+    localStorage.getItem("amzo_projects")||"[]"
+  );
+
+  if(!projects.length){
+
+    list.innerHTML=
+      '<div class="row"><div><b>No projects yet</b><br><small>Create your first project.</small></div></div>';
+
+    return;
+  }
+
+  list.innerHTML=
+    projects.map(p=>`
+
+      <div class="row">
+
+        <div>
+
+          <b>
+            ▣ ${escapeHTML(p.name)}
+          </b>
+
+          <br>
+
+          <small>
+            ${escapeHTML(p.created)}
+          </small>
+
+        </div>
+
+      </div>
+
+    `).join("");
+}
+
+
+/* PREMIUM */
 
 function openPremium(){
-  document.getElementById("premiumModal").classList.add("show");
+
+  document
+    .getElementById("premiumModal")
+    .classList.add("show");
 }
+
 
 function closePremium(){
-  document.getElementById("premiumModal").classList.remove("show");
+
+  document
+    .getElementById("premiumModal")
+    .classList.remove("show");
 }
+
+
+/* SETTINGS */
 
 function toggleRGB(btn){
-  document.body.classList.toggle("no-rgb");
-  btn.textContent=document.body.classList.contains("no-rgb")?"OFF":"ON";
+
+  document.body
+    .classList.toggle("no-rgb");
+
+  btn.textContent=
+    document.body.classList.contains("no-rgb")
+      ? "OFF"
+      : "ON";
 }
 
+
 function toggleAnimations(btn){
-  const style=document.getElementById("animationStyle");
+
+  const style=
+    document.getElementById("animationStyle");
 
   if(style){
+
     style.remove();
+
     btn.textContent="ON";
+
   }else{
-    const s=document.createElement("style");
+
+    const s=
+      document.createElement("style");
+
     s.id="animationStyle";
-    s.textContent="*,*:before,*:after{animation:none!important;transition:none!important}";
+
+    s.textContent=
+      "*,*:before,*:after{animation:none!important;transition:none!important}";
+
     document.head.appendChild(s);
+
     btn.textContent="OFF";
   }
 }
 
+
 function clearData(){
-  localStorage.removeItem("amzo_history");
-  localStorage.removeItem("amzo_projects");
+
+  localStorage.removeItem(
+    "amzo_history"
+  );
+
+  localStorage.removeItem(
+    "amzo_projects"
+  );
+
   loadHistory();
+
   loadProjects();
-  alert("Local Amzo data cleared.");
+
+  alert(
+    "Local Amzo data cleared."
+  );
 }
 
-window.addEventListener("click",e=>{
-  if(e.target.id==="premiumModal")closePremium();
-});
+
+/* MODAL */
+
+window.addEventListener(
+  "click",
+  e=>{
+
+    if(
+      e.target.id===
+      "premiumModal"
+    ){
+      closePremium();
+    }
+
+  }
+);
+
+
+/* START */
 
 loadProjects();
+
 </script>
+
 </body>
 </html>
