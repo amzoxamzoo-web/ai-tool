@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#060712">
-<title>Amzo AI</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#05060c">
+<title>Amzo AI — Personal AI Universe</title>
 
 <style>
 :root{
@@ -12,14 +12,14 @@
   --panel:#0b0d18;
   --panel2:#101323;
   --border:rgba(255,255,255,.09);
-  --text:#f5f7ff;
-  --muted:#8c93aa;
+  --text:#f6f8ff;
+  --muted:#8d95ad;
   --cyan:#00f5ff;
   --purple:#8b5cf6;
   --pink:#ff3cac;
   --green:#36e6a0;
   --danger:#ff7070;
-  --shadow:0 20px 70px rgba(0,0,0,.45);
+  --shadow:0 20px 70px rgba(0,0,0,.42);
 }
 
 *{
@@ -29,11 +29,10 @@
 }
 
 html,body{
-  width:100%;
   min-height:100%;
   background:
-    radial-gradient(circle at 20% 10%,rgba(0,245,255,.08),transparent 28%),
-    radial-gradient(circle at 85% 20%,rgba(139,92,246,.08),transparent 30%),
+    radial-gradient(circle at 15% 5%,rgba(0,245,255,.09),transparent 25%),
+    radial-gradient(circle at 85% 10%,rgba(139,92,246,.1),transparent 28%),
     var(--bg);
   color:var(--text);
   font-family:Inter,Segoe UI,Arial,sans-serif;
@@ -43,7 +42,7 @@ body{
   overflow-x:hidden;
 }
 
-button,input,textarea{
+button,input,textarea,select{
   font:inherit;
 }
 
@@ -60,13 +59,11 @@ button{
 
 .sidebar{
   position:fixed;
-  left:0;
-  top:0;
-  bottom:0;
-  width:250px;
-  padding:22px 16px;
+  inset:0 auto 0 0;
+  width:252px;
+  padding:20px 15px;
   border-right:1px solid var(--border);
-  background:rgba(5,6,12,.82);
+  background:rgba(5,6,12,.84);
   backdrop-filter:blur(22px);
   z-index:50;
 }
@@ -74,85 +71,81 @@ button{
 .logo{
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:8px 10px 22px;
+  gap:11px;
+  padding:7px 9px 20px;
 }
 
 .logoCore{
-  width:38px;
-  height:38px;
-  border-radius:12px;
-  background:
-    linear-gradient(135deg,var(--cyan),var(--purple));
+  width:40px;
+  height:40px;
+  border-radius:13px;
   display:grid;
   place-items:center;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
   color:#05060c;
   font-weight:900;
-  box-shadow:
-    0 0 28px rgba(0,245,255,.28);
+  box-shadow:0 0 30px rgba(0,245,255,.25);
 }
 
 .logoText{
   font-size:19px;
-  font-weight:800;
-  letter-spacing:.4px;
+  font-weight:850;
 }
 
 .logoText span{
   display:block;
   color:var(--muted);
-  font-size:10px;
-  font-weight:600;
-  letter-spacing:1.5px;
-  margin-top:2px;
+  font-size:9px;
+  letter-spacing:1.6px;
+  margin-top:3px;
 }
 
 .nav{
   display:flex;
   flex-direction:column;
-  gap:7px;
+  gap:6px;
 }
 
 .nav button{
   width:100%;
-  padding:12px 13px;
-  border-radius:13px;
+  padding:11px 12px;
   border:1px solid transparent;
+  border-radius:13px;
   background:transparent;
-  color:#aab0c2;
+  color:#aeb5c8;
   text-align:left;
   transition:.2s;
 }
 
 .nav button:hover,
 .nav button.active{
-  color:white;
-  border-color:rgba(0,245,255,.18);
+  color:#fff;
+  border-color:rgba(0,245,255,.2);
   background:
     linear-gradient(
       90deg,
       rgba(0,245,255,.08),
       rgba(139,92,246,.08)
     );
+  box-shadow:inset 2px 0 var(--cyan);
 }
 
 .navIcon{
   display:inline-block;
   width:25px;
-  opacity:.95;
 }
 
 .sidebarBottom{
   position:absolute;
-  left:16px;
-  right:16px;
-  bottom:18px;
+  left:15px;
+  right:15px;
+  bottom:16px;
 }
 
 .statusCard{
   border:1px solid var(--border);
   border-radius:16px;
-  padding:13px;
+  padding:12px;
   background:rgba(255,255,255,.025);
 }
 
@@ -161,7 +154,6 @@ button{
   align-items:center;
   gap:8px;
   font-size:12px;
-  color:#dce0ec;
 }
 
 .statusDot{
@@ -173,7 +165,7 @@ button{
 }
 
 .statusSmall{
-  margin-top:8px;
+  margin-top:7px;
   color:var(--muted);
   font-size:10px;
   line-height:1.5;
@@ -182,8 +174,8 @@ button{
 /* MAIN */
 
 .main{
-  width:calc(100% - 250px);
-  margin-left:250px;
+  width:calc(100% - 252px);
+  margin-left:252px;
   min-height:100vh;
 }
 
@@ -191,11 +183,11 @@ button{
   position:sticky;
   top:0;
   z-index:40;
-  height:72px;
+  height:70px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 28px;
+  padding:0 26px;
   border-bottom:1px solid var(--border);
   background:rgba(5,6,12,.72);
   backdrop-filter:blur(20px);
@@ -208,22 +200,22 @@ button{
 
 .topRight{
   display:flex;
+  gap:8px;
   align-items:center;
-  gap:10px;
 }
 
-.coreBadge,
+.badge,
 .usageMini{
-  padding:8px 11px;
-  border-radius:10px;
+  padding:8px 10px;
   border:1px solid var(--border);
+  border-radius:10px;
   background:rgba(255,255,255,.025);
-  color:#b9c0d2;
-  font-size:11px;
+  font-size:10px;
+  color:#bdc4d5;
 }
 
-.coreBadge{
-  color:#bfffea;
+.badge{
+  color:#c5ffeb;
 }
 
 .dot{
@@ -231,8 +223,8 @@ button{
 }
 
 .content{
-  padding:28px;
-  max-width:1400px;
+  padding:25px;
+  max-width:1450px;
   margin:auto;
 }
 
@@ -256,15 +248,17 @@ button{
   }
 }
 
+/* HOME */
+
 .hero{
-  padding:28px;
+  padding:30px;
   border:1px solid var(--border);
   border-radius:24px;
   background:
     linear-gradient(
       135deg,
       rgba(0,245,255,.06),
-      rgba(139,92,246,.06)
+      rgba(139,92,246,.07)
     ),
     rgba(255,255,255,.02);
   box-shadow:var(--shadow);
@@ -290,7 +284,7 @@ button{
 .hero p{
   margin-top:13px;
   color:var(--muted);
-  max-width:700px;
+  max-width:760px;
   line-height:1.65;
   font-size:14px;
 }
@@ -298,52 +292,55 @@ button{
 .cards{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:14px;
-  margin-top:18px;
+  gap:13px;
+  margin-top:17px;
 }
 
-.card{
+.card,
+.toolCard,
+.formPanel,
+.projectItem{
   border:1px solid var(--border);
   border-radius:19px;
-  padding:18px;
   background:rgba(255,255,255,.025);
   box-shadow:var(--shadow);
 }
 
+.card{
+  padding:17px;
+}
+
 .cardTitle{
-  font-size:11px;
+  font-size:10px;
   color:var(--muted);
   text-transform:uppercase;
-  letter-spacing:1.5px;
+  letter-spacing:1.4px;
 }
 
 .cardValue{
-  font-size:25px;
-  font-weight:800;
-  margin-top:9px;
+  font-size:24px;
+  font-weight:850;
+  margin-top:8px;
 }
 
 .section{
-  margin-top:22px;
+  margin-top:21px;
 }
 
 .sectionTitle{
   font-size:15px;
   font-weight:800;
-  margin-bottom:12px;
+  margin-bottom:11px;
 }
 
 .toolGrid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:14px;
+  gap:13px;
 }
 
 .toolCard{
-  padding:20px;
-  border:1px solid var(--border);
-  border-radius:19px;
-  background:rgba(255,255,255,.025);
+  padding:19px;
   transition:.2s;
 }
 
@@ -354,24 +351,106 @@ button{
 
 .toolIcon{
   font-size:25px;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 
 .toolCard h3{
-  font-size:16px;
+  font-size:15px;
 }
 
 .toolCard p{
   color:var(--muted);
-  font-size:12px;
+  font-size:11px;
   line-height:1.5;
+  margin-top:6px;
+}
+
+/* BUTTONS */
+
+.btn{
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:9px 12px;
+  background:rgba(255,255,255,.035);
+  color:#e1e5ef;
+  transition:.2s;
+}
+
+.btn:hover{
+  border-color:rgba(255,255,255,.2);
+  transform:translateY(-1px);
+}
+
+.btn.primary{
+  border-color:rgba(0,245,255,.25);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,245,255,.16),
+      rgba(139,92,246,.16)
+    );
+  color:#fff;
+}
+
+.btn.danger{
+  color:#ffd2d2;
+}
+
+.btn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+  transform:none;
+}
+
+/* USAGE */
+
+.usageBox{
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:14px;
+  margin-top:14px;
+  background:rgba(255,255,255,.02);
+}
+
+.usageLine{
+  display:flex;
+  justify-content:space-between;
+  color:#abb1c1;
+  font-size:11px;
   margin-top:7px;
+}
+
+.progress{
+  height:6px;
+  background:#161927;
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:7px;
+}
+
+.progress span{
+  display:block;
+  height:100%;
+  width:0;
+  background:
+    linear-gradient(
+      90deg,
+      var(--cyan),
+      var(--purple)
+    );
+  border-radius:99px;
+}
+
+.resetText{
+  color:#777f95;
+  font-size:10px;
+  margin-top:9px;
 }
 
 /* CHAT */
 
 .chatWrap{
-  min-height:calc(100vh - 128px);
+  min-height:calc(100vh - 120px);
   display:flex;
   flex-direction:column;
 }
@@ -381,14 +460,14 @@ button{
   justify-content:space-between;
   align-items:center;
   gap:12px;
-  margin-bottom:14px;
+  margin-bottom:13px;
 }
 
-.chatHeaderLeft h2{
+.chatHeader h2{
   font-size:23px;
 }
 
-.chatHeaderLeft p{
+.chatHeader p{
   color:var(--muted);
   font-size:11px;
   margin-top:4px;
@@ -397,34 +476,7 @@ button{
 .actionRow{
   display:flex;
   gap:7px;
-}
-
-.btn{
-  border:1px solid var(--border);
-  border-radius:11px;
-  padding:9px 12px;
-  background:rgba(255,255,255,.035);
-  color:#dfe4ef;
-  transition:.2s;
-}
-
-.btn:hover{
-  border-color:rgba(255,255,255,.18);
-}
-
-.btn.primary{
-  border-color:rgba(0,245,255,.22);
-  background:
-    linear-gradient(
-      135deg,
-      rgba(0,245,255,.16),
-      rgba(139,92,246,.16)
-    );
-  color:white;
-}
-
-.btn.danger{
-  color:#ffd1d1;
+  flex-wrap:wrap;
 }
 
 .chatBox{
@@ -446,7 +498,7 @@ button{
 
 .message{
   display:flex;
-  margin-bottom:16px;
+  margin-bottom:17px;
 }
 
 .message.user{
@@ -454,12 +506,12 @@ button{
 }
 
 .bubble{
-  max-width:min(800px,88%);
-  padding:13px 15px;
+  max-width:min(820px,90%);
+  padding:12px 14px;
   border-radius:16px;
   line-height:1.6;
   white-space:pre-wrap;
-  font-size:14px;
+  font-size:13px;
 }
 
 .message.ai .bubble{
@@ -478,9 +530,24 @@ button{
 }
 
 .msgMeta{
-  color:#767d93;
+  color:#737b91;
   font-size:9px;
   margin-bottom:5px;
+}
+
+.msgActions{
+  display:flex;
+  gap:5px;
+  margin-top:9px;
+}
+
+.msgActions button{
+  font-size:9px;
+  padding:5px 7px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.03);
+  color:#9ca4b8;
 }
 
 .empty{
@@ -493,7 +560,7 @@ button{
 }
 
 .empty strong{
-  color:white;
+  color:#fff;
   display:block;
   margin-bottom:6px;
 }
@@ -505,7 +572,7 @@ button{
 
 .chatInputRow{
   display:flex;
-  gap:9px;
+  gap:8px;
 }
 
 .chatInput{
@@ -516,19 +583,22 @@ button{
   border:1px solid var(--border);
   border-radius:14px;
   background:#090b14;
-  color:white;
+  color:#fff;
   padding:14px;
   outline:none;
 }
 
-.chatInput:focus{
-  border-color:rgba(0,245,255,.32);
+.chatInput:focus,
+.input:focus,
+.textarea:focus,
+.select:focus{
+  border-color:rgba(0,245,255,.34);
   box-shadow:0 0 0 3px rgba(0,245,255,.04);
 }
 
 .sendBtn{
   width:56px;
-  border:1px solid rgba(0,245,255,.22);
+  border:1px solid rgba(0,245,255,.24);
   border-radius:14px;
   background:
     linear-gradient(
@@ -536,22 +606,13 @@ button{
       rgba(0,245,255,.19),
       rgba(139,92,246,.19)
     );
-  color:white;
-}
-
-.hint{
-  color:#727a90;
-  font-size:10px;
-  margin-top:8px;
+  color:#fff;
 }
 
 /* FORMS */
 
 .formPanel{
-  border:1px solid var(--border);
-  border-radius:21px;
-  padding:20px;
-  background:rgba(255,255,255,.02);
+  padding:19px;
 }
 
 label{
@@ -568,9 +629,9 @@ label{
   border:1px solid var(--border);
   border-radius:13px;
   background:#090b14;
-  color:white;
+  color:#fff;
   outline:none;
-  padding:13px;
+  padding:12px;
 }
 
 .textarea{
@@ -578,16 +639,11 @@ label{
   resize:vertical;
 }
 
-.input:focus,
-.textarea:focus,
-.select:focus{
-  border-color:rgba(0,245,255,.32);
-}
-
 .formActions{
   display:flex;
-  gap:9px;
-  margin-top:12px;
+  gap:8px;
+  margin-top:11px;
+  flex-wrap:wrap;
 }
 
 /* IMAGE */
@@ -595,7 +651,7 @@ label{
 .imageLayout{
   display:grid;
   grid-template-columns:360px 1fr;
-  gap:15px;
+  gap:14px;
 }
 
 .imageResult{
@@ -623,63 +679,32 @@ label{
   padding:30px;
 }
 
-/* UTIL */
-
-.usageBox{
-  border:1px solid var(--border);
-  border-radius:17px;
-  padding:15px;
-  margin-top:14px;
-  background:rgba(255,255,255,.02);
-}
-
-.usageLine{
+.presetRow{
   display:flex;
-  justify-content:space-between;
-  color:#abb1c1;
-  font-size:11px;
-  margin-top:7px;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:9px;
 }
 
-.progress{
-  width:100%;
-  height:6px;
-  background:#161927;
-  border-radius:99px;
-  overflow:hidden;
-  margin-top:7px;
-}
-
-.progress span{
-  display:block;
-  height:100%;
-  width:0;
-  background:
-    linear-gradient(
-      90deg,
-      var(--cyan),
-      var(--purple)
-    );
-  border-radius:99px;
-}
-
-.resetText{
-  color:#777f95;
+.preset{
   font-size:10px;
-  margin-top:10px;
+  padding:6px 8px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.025);
+  color:#aeb5c7;
+  border-radius:9px;
 }
+
+/* PROJECTS */
 
 .galleryList{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:13px;
+  gap:12px;
 }
 
 .projectItem{
-  border:1px solid var(--border);
-  border-radius:16px;
   padding:15px;
-  background:rgba(255,255,255,.02);
 }
 
 .projectItem h3{
@@ -693,12 +718,20 @@ label{
   margin-top:7px;
 }
 
+.projectActions{
+  display:flex;
+  gap:6px;
+  margin-top:10px;
+}
+
+/* TOAST */
+
 .toast{
   position:fixed;
   right:20px;
-  top:88px;
-  max-width:340px;
-  padding:12px 14px;
+  top:84px;
+  max-width:360px;
+  padding:11px 13px;
   border-radius:13px;
   border:1px solid var(--border);
   background:#101322;
@@ -717,13 +750,75 @@ label{
 }
 
 .toast.error{
-  border-color:rgba(255,112,112,.28);
+  border-color:rgba(255,112,112,.3);
   color:#ffd2d2;
+}
+
+/* COMMAND SEARCH */
+
+.command{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(8px);
+  display:none;
+  align-items:flex-start;
+  justify-content:center;
+  padding-top:15vh;
+  z-index:200;
+}
+
+.command.show{
+  display:flex;
+}
+
+.commandBox{
+  width:min(620px,92vw);
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:#0c0f1b;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+.commandInput{
+  width:100%;
+  padding:16px;
+  border:0;
+  border-bottom:1px solid var(--border);
+  outline:0;
+  background:#090b14;
+  color:#fff;
+}
+
+.commandList{
+  max-height:360px;
+  overflow:auto;
+}
+
+.commandItem{
+  padding:12px 15px;
+  color:#c7ccda;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  cursor:pointer;
+}
+
+.commandItem:hover{
+  background:rgba(0,245,255,.07);
+  color:#fff;
 }
 
 .mobileMenu{
   display:none;
+  border:1px solid var(--border);
+  background:transparent;
+  color:#fff;
+  border-radius:9px;
+  padding:7px 9px;
+  margin-right:8px;
 }
+
+/* MOBILE */
 
 @media(max-width:1000px){
   .cards{
@@ -760,40 +855,24 @@ label{
 
   .mobileMenu{
     display:block;
-    border:1px solid var(--border);
-    background:transparent;
-    color:white;
-    border-radius:9px;
-    padding:7px 9px;
-    margin-right:9px;
   }
 
   .topbar{
-    padding:0 14px;
+    padding:0 13px;
   }
 
   .content{
-    padding:15px;
+    padding:14px;
   }
 
-  .cards{
-    grid-template-columns:1fr;
-  }
-
-  .toolGrid{
-    grid-template-columns:1fr;
-  }
-
+  .cards,
+  .toolGrid,
   .galleryList{
     grid-template-columns:1fr;
   }
 
-  .topRight .coreBadge{
+  .topRight .badge{
     display:none;
-  }
-
-  .usageMini{
-    font-size:9px;
   }
 
   .chatHeader{
@@ -812,1880 +891,2506 @@ label{
 
 <div class="app">
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar" id="sidebar">
-
-    <div class="logo">
-      <div class="logoCore">A</div>
-      <div class="logoText">
-        AMZO AI
-        <span>PERSONAL AI UNIVERSE</span>
-      </div>
-    </div>
-
-    <nav class="nav">
-
-      <button class="active" data-page="home">
-        <span class="navIcon">⌂</span>
-        Command Center
-      </button>
-
-      <button data-page="chat">
-        <span class="navIcon">◉</span>
-        Amzo Chat
-      </button>
-
-      <button data-page="create">
-        <span class="navIcon">✦</span>
-        AI Create
-      </button>
-
-      <button data-page="brain">
-        <span class="navIcon">🧠</span>
-        Amzo Brain
-      </button>
-
-      <button data-page="studio">
-        <span class="navIcon">🎬</span>
-        Studio
-      </button>
-
-      <button data-page="code">
-        <span class="navIcon">⌘</span>
-        Code Lab
-      </button>
-
-      <button data-page="projects">
-        <span class="navIcon">▣</span>
-        Projects
-      </button>
-
-    </nav>
-
-    <div class="sidebarBottom">
-      <div class="statusCard">
-        <div class="statusTop">
-          <span class="statusDot"></span>
-          Amzo Core Online
-        </div>
-        <div class="statusSmall">
-          Chat + Image generation connected through your
-          Cloudflare Worker API.
-        </div>
-      </div>
-    </div>
-
-  </aside>
-
-  <!-- MAIN -->
-  <main class="main">
-
-    <header class="topbar">
-
-      <div style="display:flex;align-items:center;">
-        <button class="mobileMenu" id="mobileMenu">☰</button>
-        <div class="pageName" id="pageName">
-          Command Center
-        </div>
-      </div>
-
-      <div class="topRight">
-
-        <div class="coreBadge">
-          <span class="dot">●</span>
-          CORE ONLINE
-        </div>
-
-        <div class="usageMini" id="usageMini">
-          💬 100 · 🖼️ 20
-        </div>
-
-      </div>
-
-    </header>
-
-    <div class="content">
-
-      <!-- HOME -->
-      <section class="page active" id="page-home">
-
-        <div class="hero">
-          <h1>
-            Welcome to
-            <span class="gradient">Amzo AI</span>
-          </h1>
-
-          <p>
-            Your personal AI universe for chat, image creation,
-            ideas, study, coding and creative workflows.
-          </p>
-        </div>
-
-        <div class="cards">
-
-          <div class="card">
-            <div class="cardTitle">
-              Messages Remaining
-            </div>
-            <div class="cardValue" id="homeMessages">
-              100
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="cardTitle">
-              Images Remaining
-            </div>
-            <div class="cardValue" id="homeImages">
-              20
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="cardTitle">
-              AI Status
-            </div>
-            <div class="cardValue">
-              ONLINE
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="cardTitle">
-              Reset
-            </div>
-            <div class="cardValue" id="homeReset">
-              —
-            </div>
-          </div>
-
-        </div>
-
-        <div class="section">
-
-          <div class="sectionTitle">
-            Launch a tool
-          </div>
-
-          <div class="toolGrid">
-
-            <div class="toolCard">
-              <div class="toolIcon">◉</div>
-              <h3>Amzo Chat</h3>
-              <p>
-                Talk with your connected AI assistant.
-              </p>
-              <button
-                class="btn primary"
-                style="margin-top:12px;"
-                onclick="openPage('chat')"
-              >
-                Open Chat
-              </button>
-            </div>
-
-            <div class="toolCard">
-              <div class="toolIcon">✦</div>
-              <h3>AI Image</h3>
-              <p>
-                Generate images directly through your AI API.
-              </p>
-              <button
-                class="btn primary"
-                style="margin-top:12px;"
-                onclick="openPage('create')"
-              >
-                Create Image
-              </button>
-            </div>
-
-            <div class="toolCard">
-              <div class="toolIcon">🧠</div>
-              <h3>Brain</h3>
-              <p>
-                Brainstorm, explain, summarize and rewrite.
-              </p>
-              <button
-                class="btn primary"
-                style="margin-top:12px;"
-                onclick="openPage('brain')"
-              >
-                Open Brain
-              </button>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="usageBox">
-
-          <div class="sectionTitle" style="margin-bottom:4px;">
-            Daily Usage
-          </div>
-
-          <div class="usageLine">
-            <span>Messages</span>
-            <span id="homeMsgText">
-              0 / 100
-            </span>
-          </div>
-
-          <div class="progress">
-            <span id="homeMsgProgress"></span>
-          </div>
-
-          <div class="usageLine">
-            <span>Images</span>
-            <span id="homeImgText">
-              0 / 20
-            </span>
-          </div>
-
-          <div class="progress">
-            <span id="homeImgProgress"></span>
-          </div>
-
-          <div class="resetText" id="homeResetLong">
-            Reset loading...
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- CHAT -->
-      <section class="page" id="page-chat">
-
-        <div class="chatWrap">
-
-          <div class="chatHeader">
-
-            <div class="chatHeaderLeft">
-              <h2>Amzo Chat</h2>
-              <p>
-                Your connected Amzo AI assistant.
-              </p>
-            </div>
-
-            <div class="actionRow">
-
-              <button
-                class="btn"
-                id="newChatBtn"
-              >
-                + New Chat
-              </button>
-
-              <button
-                class="btn danger"
-                id="clearChatBtn"
-              >
-                Clear
-              </button>
-
-            </div>
-
-          </div>
-
-          <div class="chatBox">
-
-            <div class="messages" id="messages">
-
-              <div class="empty" id="chatEmpty">
-                <div>
-                  <strong>Amzo AI is ready.</strong>
-                  Ask anything to start your conversation.
-                </div>
-              </div>
-
-            </div>
-
-            <div class="chatInputArea">
-
-              <div class="chatInputRow">
-
-                <textarea
-                  id="chatInput"
-                  class="chatInput"
-                  placeholder="Ask Amzo AI anything..."
-                  rows="1"
-                ></textarea>
-
-                <button
-                  class="sendBtn"
-                  id="sendBtn"
-                  title="Send"
-                >
-                  ➤
-                </button>
-
-              </div>
-
-              <div class="hint">
-                Enter = send · Shift + Enter = new line
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- CREATE -->
-      <section class="page" id="page-create">
-
-        <div class="sectionTitle">
-          AI Create
-        </div>
-
-        <div class="imageLayout">
-
-          <div>
-
-            <div class="formPanel">
-
-              <label>
-                Image Prompt
-              </label>
-
-              <textarea
-                id="imagePrompt"
-                class="textarea"
-                placeholder="Describe the image you want..."
-              ></textarea>
-
-              <div class="formActions">
-
-                <button
-                  class="btn primary"
-                  id="imageBtn"
-                  onclick="generateImage()"
-                >
-                  ✦ Generate Image
-                </button>
-
-                <button
-                  class="btn"
-                  onclick="useImagePreset()"
-                >
-                  Preset
-                </button>
-
-              </div>
-
-              <div class="usageBox">
-
-                <div class="usageLine">
-                  <span>Images remaining</span>
-                  <span id="createImages">
-                    20
-                  </span>
-                </div>
-
-                <div class="resetText">
-                  <span id="createReset">
-                    Reset loading...
-                  </span>
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="imageResult" id="imageResult">
-
-            <div class="placeholder">
-              Your generated image will appear here.
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- BRAIN -->
-      <section class="page" id="page-brain">
-
-        <div class="sectionTitle">
-          Amzo Brain
-        </div>
-
-        <div class="formPanel">
-
-          <label>
-            Choose operation
-          </label>
-
-          <select
-            class="select"
-            id="brainMode"
-          >
-            <option value="Explain">Explain</option>
-            <option value="Summarize">Summarize</option>
-            <option value="Rewrite">Rewrite</option>
-            <option value="Brainstorm">Brainstorm</option>
-            <option value="Translate">Translate</option>
-            <option value="Study">Study Mode</option>
-          </select>
-
-          <div style="height:12px;"></div>
-
-          <label>
-            Input
-          </label>
-
-          <textarea
-            class="textarea"
-            id="brainInput"
-            placeholder="Enter text or a topic..."
-          ></textarea>
-
-          <div class="formActions">
-
-            <button
-              class="btn primary"
-              onclick="runBrain()"
-            >
-              🧠 Run Brain
-            </button>
-
-          </div>
-
-          <div
-            id="brainOutput"
-            class="card"
-            style="margin-top:14px;white-space:pre-wrap;line-height:1.6;"
-          >
-            Output will appear here.
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- STUDIO -->
-      <section class="page" id="page-studio">
-
-        <div class="sectionTitle">
-          Studio
-        </div>
-
-        <div class="formPanel">
-
-          <label>
-            Creative idea
-          </label>
-
-          <textarea
-            class="textarea"
-            id="studioInput"
-            placeholder="Example: 15 second cardboard stickman vending machine..."
-          ></textarea>
-
-          <div class="formActions">
-
-            <button
-              class="btn primary"
-              onclick="runStudio()"
-            >
-              🎬 Create Storyboard
-            </button>
-
-          </div>
-
-          <div
-            id="studioOutput"
-            class="card"
-            style="margin-top:14px;white-space:pre-wrap;line-height:1.6;"
-          >
-            Your storyboard will appear here.
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- CODE -->
-      <section class="page" id="page-code">
-
-        <div class="sectionTitle">
-          Code Lab
-        </div>
-
-        <div class="formPanel">
-
-          <label>
-            What should Amzo build or explain?
-          </label>
-
-          <textarea
-            class="textarea"
-            id="codeInput"
-            placeholder="Example: Create a JavaScript counter with localStorage..."
-          ></textarea>
-
-          <div class="formActions">
-
-            <button
-              class="btn primary"
-              onclick="runCode()"
-            >
-              ⌘ Generate Code
-            </button>
-
-          </div>
-
-          <div
-            id="codeOutput"
-            class="card"
-            style="margin-top:14px;white-space:pre-wrap;line-height:1.6;"
-          >
-            Code output will appear here.
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- PROJECTS -->
-      <section class="page" id="page-projects">
-
-        <div class="chatHeader">
-
-          <div class="chatHeaderLeft">
-            <h2>Projects</h2>
-            <p>
-              Your saved Amzo activity on this device.
-            </p>
-          </div>
-
-          <button
-            class="btn danger"
-            onclick="clearProjects()"
-          >
-            Clear Projects
-          </button>
-
-        </div>
-
-        <div
-          class="galleryList"
-          id="projectList"
-        ></div>
-
-      </section>
-
-    </div>
-
-  </main>
+<aside class="sidebar" id="sidebar">
+
+<div class="logo">
+<div class="logoCore">A</div>
+<div class="logoText">
+AMZO AI
+<span>PERSONAL AI UNIVERSE</span>
+</div>
+</div>
+
+<nav class="nav">
+
+<button class="active" data-page="home">
+<span class="navIcon">⌂</span>
+Command Center
+</button>
+
+<button data-page="chat">
+<span class="navIcon">◉</span>
+Amzo Chat
+</button>
+
+<button data-page="create">
+<span class="navIcon">✦</span>
+AI Create
+</button>
+
+<button data-page="brain">
+<span class="navIcon">🧠</span>
+Amzo Brain
+</button>
+
+<button data-page="studio">
+<span class="navIcon">🎬</span>
+Studio
+</button>
+
+<button data-page="code">
+<span class="navIcon">⌘</span>
+Code Lab
+</button>
+
+<button data-page="projects">
+<span class="navIcon">▣</span>
+Projects
+</button>
+
+</nav>
+
+<div class="sidebarBottom">
+<div class="statusCard">
+<div class="statusTop">
+<span class="statusDot"></span>
+Amzo Core Online
+</div>
+
+<div class="statusSmall">
+Chat + image generation connected through your Cloudflare Worker.
+</div>
+</div>
+</div>
+
+</aside>
+
+<main class="main">
+
+<header class="topbar">
+
+<div style="display:flex;align-items:center">
+
+<button class="mobileMenu" id="mobileMenu">
+☰
+</button>
+
+<div class="pageName" id="pageName">
+Command Center
+</div>
 
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="topRight">
+
+<div class="badge">
+<span class="dot">●</span>
+CORE ONLINE
+</div>
+
+<div class="usageMini" id="usageMini">
+💬 100 · 🖼️ 20
+</div>
+
+</div>
+
+</header>
+
+<div class="content">
+
+<!-- HOME -->
+
+<section class="page active" id="page-home">
+
+<div class="hero">
+
+<h1>
+Welcome to
+<span class="gradient">
+Amzo AI
+</span>
+</h1>
+
+<p>
+Your personal AI universe for chat, image creation,
+ideas, study, coding and creative workflows.
+</p>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+<div class="cardTitle">
+Messages Remaining
+</div>
+
+<div class="cardValue" id="homeMessages">
+100
+</div>
+</div>
+
+<div class="card">
+<div class="cardTitle">
+Images Remaining
+</div>
+
+<div class="cardValue" id="homeImages">
+20
+</div>
+</div>
+
+<div class="card">
+<div class="cardTitle">
+AI Status
+</div>
+
+<div class="cardValue">
+ONLINE
+</div>
+</div>
+
+<div class="card">
+<div class="cardTitle">
+Reset
+</div>
+
+<div class="cardValue" id="homeReset">
+—
+</div>
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="sectionTitle">
+Launch a tool
+</div>
+
+<div class="toolGrid">
+
+<div class="toolCard">
+<div class="toolIcon">◉</div>
+
+<h3>
+Amzo Chat
+</h3>
+
+<p>
+Talk with your connected AI assistant.
+</p>
+
+<button
+class="btn primary"
+style="margin-top:12px"
+onclick="openPage('chat')"
+>
+Open Chat
+</button>
+
+</div>
+
+<div class="toolCard">
+
+<div class="toolIcon">✦</div>
+
+<h3>
+AI Image
+</h3>
+
+<p>
+Create images directly through your AI API.
+</p>
+
+<button
+class="btn primary"
+style="margin-top:12px"
+onclick="openPage('create')"
+>
+Create Image
+</button>
+
+</div>
+
+<div class="toolCard">
+
+<div class="toolIcon">
+🧠
+</div>
+
+<h3>
+Brain
+</h3>
+
+<p>
+Explain, rewrite, brainstorm, translate and study.
+</p>
+
+<button
+class="btn primary"
+style="margin-top:12px"
+onclick="openPage('brain')"
+>
+Open Brain
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="usageBox">
+
+<div class="sectionTitle">
+Daily Usage
+</div>
+
+<div class="usageLine">
+<span>Messages</span>
+<span id="homeMsgText">
+0 / 100
+</span>
+</div>
+
+<div class="progress">
+<span id="homeMsgProgress"></span>
+</div>
+
+<div class="usageLine">
+<span>Images</span>
+<span id="homeImgText">
+0 / 20
+</span>
+</div>
+
+<div class="progress">
+<span id="homeImgProgress"></span>
+</div>
+
+<div class="resetText" id="homeResetLong">
+Reset loading...
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CHAT -->
+
+<section class="page" id="page-chat">
+
+<div class="chatWrap">
+
+<div class="chatHeader">
+
+<div>
+<h2>
+Amzo Chat
+</h2>
+
+<p>
+Your connected Amzo AI assistant.
+</p>
+</div>
+
+<div class="actionRow">
+
+<button
+class="btn"
+id="newChatBtn"
+>
++ New Chat
+</button>
+
+<button
+class="btn"
+id="copyLastBtn"
+>
+Copy Last
+</button>
+
+<button
+class="btn danger"
+id="clearChatBtn"
+>
+Clear
+</button>
+
+</div>
+
+</div>
+
+<div class="chatBox">
+
+<div class="messages" id="messages"></div>
+
+<div class="chatInputArea">
+
+<div class="chatInputRow">
+
+<textarea
+id="chatInput"
+class="chatInput"
+placeholder="Ask Amzo AI anything..."
+rows="1"
+></textarea>
+
+<button
+class="sendBtn"
+id="sendBtn"
+>
+➤
+</button>
+
+</div>
+
+<div class="hint">
+Enter = send · Shift + Enter = new line · Ctrl + K = command search
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- IMAGE -->
+
+<section class="page" id="page-create">
+
+<div class="sectionTitle">
+AI Create
+</div>
+
+<div class="imageLayout">
+
+<div>
+
+<div class="formPanel">
+
+<label>
+Image Prompt
+</label>
+
+<textarea
+id="imagePrompt"
+class="textarea"
+placeholder="Describe the image you want..."
+></textarea>
+
+<div class="presetRow">
+
+<button
+class="preset"
+onclick="setPreset('cyberpunk')"
+>
+Cyberpunk
+</button>
+
+<button
+class="preset"
+onclick="setPreset('anime')"
+>
+Anime
+</button>
+
+<button
+class="preset"
+onclick="setPreset('cinematic')"
+>
+Cinematic
+</button>
+
+<button
+class="preset"
+onclick="setPreset('product')"
+>
+Product
+</button>
+
+<button
+class="preset"
+onclick="randomPrompt()"
+>
+Random
+</button>
+
+</div>
+
+<div class="formActions">
+
+<button
+class="btn primary"
+id="imageBtn"
+onclick="generateImage()"
+>
+✦ Generate Image
+</button>
+
+<button
+class="btn"
+onclick="document.getElementById('imagePrompt').value=''"
+>
+Clear
+</button>
+
+</div>
+
+<div class="usageBox">
+
+<div class="usageLine">
+
+<span>
+Images remaining
+</span>
+
+<span id="createImages">
+20
+</span>
+
+</div>
+
+<div
+class="resetText"
+id="createReset"
+>
+Reset loading...
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div
+class="imageResult"
+id="imageResult"
+>
+
+<div class="placeholder">
+Your generated image will appear here.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- BRAIN -->
+
+<section class="page" id="page-brain">
+
+<div class="sectionTitle">
+Amzo Brain
+</div>
+
+<div class="formPanel">
+
+<label>
+Operation
+</label>
+
+<select
+class="select"
+id="brainMode"
+>
+
+<option>
+Explain
+</option>
+
+<option>
+Summarize
+</option>
+
+<option>
+Rewrite
+</option>
+
+<option>
+Brainstorm
+</option>
+
+<option>
+Translate
+</option>
+
+<option>
+Study Mode
+</option>
+
+</select>
+
+<div style="height:12px"></div>
+
+<label>
+Input
+</label>
+
+<textarea
+class="textarea"
+id="brainInput"
+placeholder="Enter text or a topic..."
+></textarea>
+
+<div class="formActions">
+
+<button
+class="btn primary"
+onclick="runBrain()"
+>
+🧠 Run Brain
+</button>
+
+<button
+class="btn"
+onclick="copyElement('brainOutput')"
+>
+Copy
+</button>
+
+</div>
+
+<div
+id="brainOutput"
+class="card"
+style="
+margin-top:14px;
+white-space:pre-wrap;
+line-height:1.6;
+"
+>
+Output will appear here.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- STUDIO -->
+
+<section class="page" id="page-studio">
+
+<div class="sectionTitle">
+Studio
+</div>
+
+<div class="formPanel">
+
+<label>
+Creative idea
+</label>
+
+<textarea
+class="textarea"
+id="studioInput"
+placeholder="Example: 15 second cardboard stickman vending machine..."
+></textarea>
+
+<div class="formActions">
+
+<button
+class="btn primary"
+onclick="runStudio()"
+>
+🎬 Create Storyboard
+</button>
+
+<button
+class="btn"
+onclick="copyElement('studioOutput')"
+>
+Copy
+</button>
+
+</div>
+
+<div
+id="studioOutput"
+class="card"
+style="
+margin-top:14px;
+white-space:pre-wrap;
+line-height:1.6;
+"
+>
+Your storyboard will appear here.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CODE -->
+
+<section class="page" id="page-code">
+
+<div class="sectionTitle">
+Code Lab
+</div>
+
+<div class="formPanel">
+
+<label>
+What should Amzo build or explain?
+</label>
+
+<textarea
+class="textarea"
+id="codeInput"
+placeholder="Example: Create a JavaScript counter with localStorage..."
+></textarea>
+
+<div class="formActions">
+
+<button
+class="btn primary"
+onclick="runCode()"
+>
+⌘ Generate Code
+</button>
+
+<button
+class="btn"
+onclick="copyElement('codeOutput')"
+>
+Copy
+</button>
+
+</div>
+
+<div
+id="codeOutput"
+class="card"
+style="
+margin-top:14px;
+white-space:pre-wrap;
+line-height:1.6;
+"
+>
+Code output will appear here.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PROJECTS -->
+
+<section class="page" id="page-projects">
+
+<div class="chatHeader">
+
+<div>
+
+<h2>
+Projects
+</h2>
+
+<p>
+Saved activity on this device.
+</p>
+
+</div>
+
+<button
+class="btn danger"
+onclick="clearProjects()"
+>
+Clear Projects
+</button>
+
+</div>
+
+<div
+class="galleryList"
+id="projectList"
+></div>
+
+</section>
+
+</div>
+
+</main>
+
+</div>
+
+
+<div
+class="toast"
+id="toast"
+></div>
+
+
+<!-- COMMAND SEARCH -->
+
+<div
+class="command"
+id="command"
+>
+
+<div class="commandBox">
+
+<input
+id="commandInput"
+class="commandInput"
+placeholder="Search Amzo commands..."
+>
+
+<div
+class="commandList"
+id="commandList"
+></div>
+
+</div>
+
+</div>
+
 
 <script>
+
 const API =
-  "https://ai-tool-api.amzoxamzoo.workers.dev/";
+"https://ai-tool-api.amzoxamzoo.workers.dev/";
 
-/* =========================
-   CLIENT ID
-========================= */
 
-const AMZO_CLIENT_ID = (() => {
+/* CLIENT ID */
 
-  let id =
-    localStorage.getItem(
-      "amzo_guest_id"
-    );
+const CLIENT_ID =
+(() => {
 
-  if (!id) {
+let id =
+localStorage.getItem(
+"amzo_guest_id"
+);
 
-    id =
-      crypto.randomUUID?.() ||
-      (
-        Date.now().toString(36) +
-        Math.random()
-          .toString(36)
-          .slice(2)
-      );
+if(!id){
 
-    localStorage.setItem(
-      "amzo_guest_id",
-      id
-    );
-  }
+id =
+crypto.randomUUID?.() ||
+Date.now().toString(36) +
+Math.random()
+.toString(36)
+.slice(2);
 
-  return id;
+localStorage.setItem(
+"amzo_guest_id",
+id
+);
+
+}
+
+return id;
 
 })();
 
-/* =========================
-   API
-========================= */
 
-async function callAPI(body) {
+/* PAGE TITLES */
 
-  const response =
-    await fetch(API, {
-      method:"POST",
-      headers:{
-        "Content-Type":
-          "application/json"
-      },
-      body:JSON.stringify({
-        ...body,
-        clientId:
-          AMZO_CLIENT_ID
-      })
-    });
+const titles = {
 
-  const data =
-    await response
-      .json()
-      .catch(() => ({
-        ok:false,
-        error:
-          "Invalid server response."
-      }));
+home:"Command Center",
+chat:"Amzo Chat",
+create:"AI Create",
+brain:"Amzo Brain",
+studio:"Studio",
+code:"Code Lab",
+projects:"Projects"
 
-  if (
-    !response.ok ||
-    data.ok === false
-  ) {
-
-    const error =
-      new Error(
-        data.error ||
-        data.details ||
-        "Server error."
-      );
-
-    error.limitType =
-      data.limitType;
-
-    error.remaining =
-      data.remaining;
-
-    error.resetAt =
-      data.resetAt;
-
-    throw error;
-  }
-
-  if (data.usage) {
-
-    window.dispatchEvent(
-      new CustomEvent(
-        "amzo-usage-update",
-        {
-          detail:data.usage
-        }
-      )
-    );
-
-  }
-
-  return data;
-}
-
-/* =========================
-   NAVIGATION
-========================= */
-
-const pageTitles = {
-  home:"Command Center",
-  chat:"Amzo Chat",
-  create:"AI Create",
-  brain:"Amzo Brain",
-  studio:"Studio",
-  code:"Code Lab",
-  projects:"Projects"
 };
 
-function openPage(name) {
 
-  document
-    .querySelectorAll(".page")
-    .forEach(
-      page =>
-        page.classList.remove(
-          "active"
-        )
-    );
+/* USAGE */
 
-  const target =
-    document.getElementById(
-      "page-" + name
-    );
+let usage = {
 
-  if (target) {
-    target.classList.add("active");
-  }
+messages:0,
+images:0,
 
-  document
-    .querySelectorAll(".nav button")
-    .forEach(button => {
+messagesRemaining:100,
+imagesRemaining:20,
 
-      button.classList.toggle(
-        "active",
-        button.dataset.page === name
-      );
+messageLimit:100,
+imageLimit:20,
 
-    });
+resetAt:
+Date.now() +
+86400000
 
-  document.getElementById(
-    "pageName"
-  ).textContent =
-    pageTitles[name] ||
-    name;
+};
 
-  document
-    .getElementById("sidebar")
-    .classList.remove("open");
+
+/* CHAT */
+
+let chats =
+JSON.parse(
+localStorage.getItem(
+"amzo_chat_messages"
+) || "[]"
+);
+
+
+/* API */
+
+async function callAPI(body){
+
+const response =
+await fetch(
+API,
+{
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:
+JSON.stringify({
+
+...body,
+
+clientId:
+CLIENT_ID
+
+})
+
+});
+
+const data =
+await response
+.json()
+.catch(
+() => ({
+ok:false,
+error:
+"Invalid server response."
+})
+);
+
+if(
+!response.ok ||
+data.ok === false
+){
+
+const error =
+new Error(
+data.error ||
+data.details ||
+"Server error."
+);
+
+error.limitType =
+data.limitType;
+
+error.remaining =
+data.remaining;
+
+error.resetAt =
+data.resetAt;
+
+throw error;
+
 }
 
-/* =========================
-   SIDEBAR
-========================= */
+if(data.usage){
+
+usage =
+data.usage;
+
+renderUsage(
+usage
+);
+
+}
+
+return data;
+
+}
+
+
+/* NAVIGATION */
+
+function openPage(name){
 
 document
-  .querySelectorAll(".nav button")
-  .forEach(button => {
+.querySelectorAll(".page")
+.forEach(
+page =>
+page.classList.remove(
+"active"
+)
+);
 
-    button.addEventListener(
-      "click",
-      () =>
-        openPage(
-          button.dataset.page
-        )
-    );
+const target =
+document.getElementById(
+"page-" + name
+);
 
-  });
+if(target){
+target.classList.add(
+"active"
+);
+}
 
 document
-  .getElementById("mobileMenu")
-  .addEventListener(
-    "click",
-    () => {
+.querySelectorAll(".nav button")
+.forEach(
+button => {
 
-      document
-        .getElementById("sidebar")
-        .classList.toggle("open");
+button.classList.toggle(
+"active",
+button.dataset.page === name
+);
 
-    }
-  );
+});
 
-/* =========================
-   TOAST
-========================= */
+document.getElementById(
+"pageName"
+).textContent =
+titles[name] || name;
+
+document
+.getElementById(
+"sidebar"
+)
+.classList.remove(
+"open"
+);
+
+}
+
+document
+.querySelectorAll(
+".nav button"
+)
+.forEach(
+button => {
+
+button.onclick =
+() =>
+openPage(
+button.dataset.page
+);
+
+});
+
+
+mobileMenu.onclick =
+() =>
+sidebar.classList.toggle(
+"open"
+);
+
+
+/* TOAST */
 
 let toastTimer;
 
 function showToast(
-  message,
-  error = false
-) {
-
-  const toast =
-    document.getElementById("toast");
-
-  toast.textContent =
-    message;
-
-  toast.classList.toggle(
-    "error",
-    error
-  );
-
-  toast.classList.add("show");
-
-  clearTimeout(
-    toastTimer
-  );
-
-  toastTimer =
-    setTimeout(
-      () =>
-        toast.classList.remove(
-          "show"
-        ),
-      3200
-    );
-}
-
-/* =========================
-   CHAT STORAGE
-========================= */
-
-let chatMessages =
-  JSON.parse(
-    localStorage.getItem(
-      "amzo_chat_messages"
-    ) || "[]"
-  );
-
-function saveChat() {
-
-  localStorage.setItem(
-    "amzo_chat_messages",
-    JSON.stringify(
-      chatMessages
-    )
-  );
-
-}
-
-function renderChat() {
-
-  const container =
-    document.getElementById(
-      "messages"
-    );
-
-  if (
-    chatMessages.length === 0
-  ) {
-
-    container.innerHTML = `
-      <div class="empty">
-        <div>
-          <strong>Amzo AI is ready.</strong>
-          Ask anything to start your conversation.
-        </div>
-      </div>
-    `;
-
-    return;
-  }
-
-  container.innerHTML = "";
-
-  chatMessages.forEach(
-    message => {
-
-      const wrap =
-        document.createElement(
-          "div"
-        );
-
-      wrap.className =
-        "message " +
-        (
-          message.role === "user"
-            ? "user"
-            : "ai"
-        );
-
-      const bubble =
-        document.createElement(
-          "div"
-        );
-
-      bubble.className =
-        "bubble";
-
-      const meta =
-        document.createElement(
-          "div"
-        );
-
-      meta.className =
-        "msgMeta";
-
-      meta.textContent =
-        message.role === "user"
-          ? "YOU"
-          : "AMZO AI";
-
-      bubble.appendChild(meta);
-
-      const text =
-        document.createElement(
-          "div"
-        );
-
-      text.textContent =
-        message.content;
-
-      bubble.appendChild(text);
-      wrap.appendChild(bubble);
-      container.appendChild(wrap);
-
-    }
-  );
-
-  container.scrollTop =
-    container.scrollHeight;
-}
-
-async function sendChat() {
-
-  const input =
-    document.getElementById(
-      "chatInput"
-    );
-
-  const sendBtn =
-    document.getElementById(
-      "sendBtn"
-    );
-
-  const text =
-    input.value.trim();
-
-  if (!text) return;
-
-  input.value = "";
-
-  chatMessages.push({
-    role:"user",
-    content:text
-  });
-
-  saveChat();
-  renderChat();
-
-  sendBtn.disabled = true;
-  sendBtn.textContent = "…";
-
-  const temp =
-    document.createElement(
-      "div"
-    );
-
-  temp.className =
-    "message ai";
-
-  temp.innerHTML = `
-    <div class="bubble">
-      <div class="msgMeta">AMZO AI</div>
-      Thinking...
-    </div>
-  `;
-
-  document
-    .getElementById("messages")
-    .appendChild(temp);
-
-  const container =
-    document.getElementById(
-      "messages"
-    );
-
-  container.scrollTop =
-    container.scrollHeight;
-
-  try {
-
-    const data =
-      await callAPI({
-        action:"chat",
-        message:text
-      });
-
-    const reply =
-      data.reply ||
-      data.response ||
-      data.text ||
-      "No response.";
-
-    temp
-      .querySelector(".bubble")
-      .innerHTML = `
-        <div class="msgMeta">AMZO AI</div>
-        ${escapeHTML(reply)
-          .replace(/\n/g,"<br>")}
-      `;
-
-    chatMessages.push({
-      role:"assistant",
-      content:reply
-    });
-
-    saveChat();
-
-  } catch(error) {
-
-    temp
-      .querySelector(".bubble")
-      .innerHTML = `
-        <div class="msgMeta">AMZO AI</div>
-        ${escapeHTML(
-          formatAPIError(error)
-        )}
-      `;
-
-    showToast(
-      formatAPIError(error),
-      true
-    );
-
-  } finally {
-
-    sendBtn.disabled = false;
-    sendBtn.textContent = "➤";
-
-  }
-
-}
-
-function formatAPIError(error) {
-
-  if (
-    error.limitType ===
-    "messages"
-  ) {
-
-    if (error.resetAt) {
-
-      return `
-        Daily message limit reached.
-        Remaining: 0.
-        Reset: ${new Date(
-          error.resetAt
-        ).toLocaleString()}
-      `;
-
-    }
-
-    return "Daily message limit reached.";
-
-  }
-
-  if (
-    error.limitType ===
-    "images"
-  ) {
-
-    return "Daily image limit reached.";
-
-  }
-
-  return (
-    error.message ||
-    "Something went wrong."
-  );
-}
-
-document
-  .getElementById("sendBtn")
-  .addEventListener(
-    "click",
-    sendChat
-  );
-
-document
-  .getElementById("chatInput")
-  .addEventListener(
-    "keydown",
-    event => {
-
-      if (
-        event.key === "Enter" &&
-        !event.shiftKey
-      ) {
-
-        event.preventDefault();
-        sendChat();
-
-      }
-
-    }
-  );
-
-document
-  .getElementById("newChatBtn")
-  .addEventListener(
-    "click",
-    () => {
-
-      chatMessages = [];
-
-      saveChat();
-      renderChat();
-
-      showToast(
-        "New chat started."
-      );
-
-    }
-  );
-
-document
-  .getElementById("clearChatBtn")
-  .addEventListener(
-    "click",
-    () => {
-
-      chatMessages = [];
-
-      saveChat();
-      renderChat();
-
-      showToast(
-        "Chat cleared."
-      );
-
-    }
-  );
-
-/* =========================
-   IMAGE
-========================= */
-
-async function generateImage() {
-
-  const prompt =
-    document
-      .getElementById(
-        "imagePrompt"
-      )
-      .value.trim();
-
-  if (!prompt) {
-
-    showToast(
-      "Enter an image prompt first.",
-      true
-    );
-
-    return;
-  }
-
-  const button =
-    document.getElementById(
-      "imageBtn"
-    );
-
-  const resultBox =
-    document.getElementById(
-      "imageResult"
-    );
-
-  button.disabled = true;
-  button.textContent =
-    "Generating...";
-
-  resultBox.innerHTML = `
-    <div class="placeholder">
-      Generating your image...
-    </div>
-  `;
-
-  try {
-
-    const data =
-      await callAPI({
-        action:"image",
-        prompt
-      });
-
-    if (!data.dataURI) {
-
-      throw new Error(
-        "No image returned."
-      );
-
-    }
-
-    resultBox.innerHTML = `
-      <div style="width:100%;">
-        <img
-          src="${data.dataURI}"
-          alt="Generated by Amzo AI"
-        >
-
-        <div
-          style="
-            display:flex;
-            gap:8px;
-            margin-top:10px;
-            flex-wrap:wrap;
-          "
-        >
-
-          <a
-            class="btn primary"
-            href="${data.dataURI}"
-            download="amzo-ai-image.jpg"
-          >
-            Download
-          </a>
-
-          <button
-            class="btn"
-            onclick="generateImage()"
-          >
-            Regenerate
-          </button>
-
-        </div>
-      </div>
-    `;
-
-    saveProject(
-      "AI Image",
-      prompt
-    );
-
-    showToast(
-      "Image created successfully."
-    );
-
-  } catch(error) {
-
-    resultBox.innerHTML = `
-      <div class="placeholder">
-        ${escapeHTML(
-          formatAPIError(error)
-        )}
-      </div>
-    `;
-
-    showToast(
-      formatAPIError(error),
-      true
-    );
-
-  } finally {
-
-    button.disabled = false;
-    button.textContent =
-      "✦ Generate Image";
-
-  }
-
-}
-
-function useImagePreset() {
-
-  document
-    .getElementById(
-      "imagePrompt"
-    )
-    .value =
-      "A futuristic cyberpunk city at night, cinematic lighting, neon cyan and purple atmosphere, ultra detailed, realistic";
-
-}
-
-/* =========================
-   BRAIN
-========================= */
-
-async function runBrain() {
-
-  const mode =
-    document
-      .getElementById(
-        "brainMode"
-      )
-      .value;
-
-  const input =
-    document
-      .getElementById(
-        "brainInput"
-      )
-      .value.trim();
-
-  const output =
-    document
-      .getElementById(
-        "brainOutput"
-      );
-
-  if (!input) {
-
-    showToast(
-      "Enter something first.",
-      true
-    );
-
-    return;
-  }
-
-  output.textContent =
-    "Amzo Brain is thinking...";
-
-  try {
-
-    const data =
-      await callAPI({
-        action:"chat",
-        message:
-          `${mode} the following input clearly and usefully:\n\n${input}`
-      });
-
-    const reply =
-      data.reply ||
-      data.response ||
-      data.text ||
-      "No response.";
-
-    output.textContent =
-      reply;
-
-    saveProject(
-      `Brain - ${mode}`,
-      input
-    );
-
-  } catch(error) {
-
-    output.textContent =
-      formatAPIError(error);
-
-    showToast(
-      formatAPIError(error),
-      true
-    );
-
-  }
-
-}
-
-/* =========================
-   STUDIO
-========================= */
-
-async function runStudio() {
-
-  const input =
-    document
-      .getElementById(
-        "studioInput"
-      )
-      .value.trim();
-
-  const output =
-    document
-      .getElementById(
-        "studioOutput"
-      );
-
-  if (!input) {
-
-    showToast(
-      "Enter a creative idea first.",
-      true
-    );
-
-    return;
-  }
-
-  output.textContent =
-    "Creating storyboard...";
-
-  const prompt = `
-Create a concise production storyboard for this idea:
-
-${input}
-
-Keep it practical, clear and organized.
-`;
-
-  try {
-
-    const data =
-      await callAPI({
-        action:"chat",
-        message:prompt
-      });
-
-    const reply =
-      data.reply ||
-      data.response ||
-      data.text ||
-      "No response.";
-
-    output.textContent =
-      reply;
-
-    saveProject(
-      "Studio Storyboard",
-      input
-    );
-
-  } catch(error) {
-
-    output.textContent =
-      formatAPIError(error);
-
-    showToast(
-      formatAPIError(error),
-      true
-    );
-
-  }
-
-}
-
-/* =========================
-   CODE
-========================= */
-
-async function runCode() {
-
-  const input =
-    document
-      .getElementById(
-        "codeInput"
-      )
-      .value.trim();
-
-  const output =
-    document
-      .getElementById(
-        "codeOutput"
-      );
-
-  if (!input) {
-
-    showToast(
-      "Describe what you want to build.",
-      true
-    );
-
-    return;
-  }
-
-  output.textContent =
-    "Generating code...";
-
-  const prompt = `
-You are Amzo Code Lab.
-Help with the following coding request.
-
-Return clean, usable code and a short explanation:
-
-${input}
-`;
-
-  try {
-
-    const data =
-      await callAPI({
-        action:"chat",
-        message:prompt
-      });
-
-    const reply =
-      data.reply ||
-      data.response ||
-      data.text ||
-      "No response.";
-
-    output.textContent =
-      reply;
-
-    saveProject(
-      "Code Lab",
-      input
-    );
-
-  } catch(error) {
-
-    output.textContent =
-      formatAPIError(error);
-
-    showToast(
-      formatAPIError(error),
-      true
-    );
-
-  }
-
-}
-
-/* =========================
-   USAGE
-========================= */
-
-let currentUsage = {
-  messages:0,
-  images:0,
-  messagesRemaining:100,
-  imagesRemaining:20,
-  messageLimit:100,
-  imageLimit:20,
-  resetAt:Date.now() +
-    24 * 60 * 60 * 1000
-};
-
-function renderUsage(
-  usage
-) {
-
-  if (!usage) return;
-
-  currentUsage =
-    usage;
-
-  const msgRemaining =
-    Number(
-      usage.messagesRemaining ??
-      100
-    );
-
-  const imgRemaining =
-    Number(
-      usage.imagesRemaining ??
-      20
-    );
-
-  const msgLimit =
-    Number(
-      usage.messageLimit ??
-      100
-    );
-
-  const imgLimit =
-    Number(
-      usage.imageLimit ??
-      20
-    );
-
-  document.getElementById(
-    "usageMini"
-  ).textContent =
-    `💬 ${msgRemaining} · 🖼️ ${imgRemaining}`;
-
-  document.getElementById(
-    "homeMessages"
-  ).textContent =
-    msgRemaining;
-
-  document.getElementById(
-    "homeImages"
-  ).textContent =
-    imgRemaining;
-
-  document.getElementById(
-    "createImages"
-  ).textContent =
-    imgRemaining;
-
-  document.getElementById(
-    "homeMsgText"
-  ).textContent =
-    `${msgLimit - msgRemaining} / ${msgLimit}`;
-
-  document.getElementById(
-    "homeImgText"
-  ).textContent =
-    `${imgLimit - imgRemaining} / ${imgLimit}`;
-
-  document.getElementById(
-    "homeMsgProgress"
-  ).style.width =
-    `${Math.min(
-      100,
-      (
-        (msgLimit - msgRemaining)
-        / msgLimit
-      ) * 100
-    )}%`;
-
-  document.getElementById(
-    "homeImgProgress"
-  ).style.width =
-    `${Math.min(
-      100,
-      (
-        (imgLimit - imgRemaining)
-        / imgLimit
-      ) * 100
-    )}%`;
-
-  updateResetText();
-
-}
-
-async function refreshUsage() {
-
-  try {
-
-    const data =
-      await callAPI({
-        action:"usage"
-      });
-
-    if (
-      data.ok &&
-      data.usage
-    ) {
-
-      renderUsage(
-        data.usage
-      );
-
-    }
-
-  } catch(error) {
-
-    console.error(
-      "Usage refresh error:",
-      error
-    );
-
-  }
-
-}
-
-function formatCountdown(ms) {
-
-  if (ms <= 0) {
-    return "Resetting...";
-  }
-
-  const seconds =
-    Math.floor(
-      ms / 1000
-    );
-
-  const hours =
-    Math.floor(
-      seconds / 3600
-    );
-
-  const minutes =
-    Math.floor(
-      (seconds % 3600) / 60
-    );
-
-  const secs =
-    seconds % 60;
-
-  return (
-    `${hours}h ` +
-    `${minutes}m ` +
-    `${secs}s`
-  );
-
-}
-
-function updateResetText() {
-
-  const resetAt =
-    Number(
-      currentUsage.resetAt ||
-      0
-    );
-
-  if (!resetAt) return;
-
-  const left =
-    resetAt - Date.now();
-
-  const text =
-    `Reset in ${formatCountdown(left)}`;
-
-  document.getElementById(
-    "homeReset"
-  ).textContent =
-    formatCountdown(left);
-
-  document.getElementById(
-    "homeResetLong"
-  ).textContent =
-    text;
-
-  document.getElementById(
-    "createReset"
-  ).textContent =
-    text;
-
-  if (left <= 0) {
-
-    refreshUsage();
-
-  }
-
-}
-
-window.setInterval(
-  updateResetText,
-  1000
+message,
+error=false
+){
+
+toast.textContent =
+message;
+
+toast.classList.toggle(
+"error",
+error
 );
 
-window.addEventListener(
-  "amzo-usage-update",
-  event => {
-
-    renderUsage(
-      event.detail
-    );
-
-  }
+toast.classList.add(
+"show"
 );
 
-/* =========================
-   PROJECTS
-========================= */
+clearTimeout(
+toastTimer
+);
 
-function getProjects() {
-
-  return JSON.parse(
-    localStorage.getItem(
-      "amzo_projects"
-    ) || "[]"
-  );
-
-}
-
-function saveProject(
-  title,
-  text
-) {
-
-  const projects =
-    getProjects();
-
-  projects.unshift({
-    id:
-      Date.now(),
-    title,
-    text:
-      String(text)
-        .slice(0,240),
-    createdAt:
-      new Date().toLocaleString()
-  });
-
-  localStorage.setItem(
-    "amzo_projects",
-    JSON.stringify(
-      projects.slice(0,30)
-    )
-  );
-
-  renderProjects();
+toastTimer =
+setTimeout(
+() =>
+toast.classList.remove(
+"show"
+),
+3200
+);
 
 }
 
-function renderProjects() {
 
-  const list =
-    document.getElementById(
-      "projectList"
-    );
-
-  const projects =
-    getProjects();
-
-  if (
-    projects.length === 0
-  ) {
-
-    list.innerHTML = `
-      <div class="card">
-        No saved activity yet.
-      </div>
-    `;
-
-    return;
-  }
-
-  list.innerHTML =
-    projects
-      .map(
-        project => `
-          <div class="projectItem">
-            <h3>
-              ${escapeHTML(
-                project.title
-              )}
-            </h3>
-
-            <p>
-              ${escapeHTML(
-                project.text
-              )}
-            </p>
-
-            <div
-              style="
-                margin-top:9px;
-                color:#6f778d;
-                font-size:9px;
-              "
-            >
-              ${escapeHTML(
-                project.createdAt
-              )}
-            </div>
-          </div>
-        `
-      )
-      .join("");
-
-}
-
-function clearProjects() {
-
-  localStorage.removeItem(
-    "amzo_projects"
-  );
-
-  renderProjects();
-
-  showToast(
-    "Projects cleared."
-  );
-
-}
-
-/* =========================
-   HELPERS
-========================= */
+/* HELPERS */
 
 function escapeHTML(
-  text
-) {
+text
+){
 
-  return String(text)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+return String(text)
+
+.replaceAll(
+"&",
+"&amp;"
+)
+
+.replaceAll(
+"<",
+"&lt;"
+)
+
+.replaceAll(
+">",
+"&gt;"
+)
+
+.replaceAll(
+'"',
+"&quot;"
+)
+
+.replaceAll(
+"'",
+"&#039;"
+);
 
 }
 
-/* =========================
-   STARTUP
-========================= */
+
+function apiError(error){
+
+if(
+error.limitType ===
+"messages"
+){
+
+return (
+"Daily message limit reached. Reset: " +
+(
+error.resetAt
+?
+new Date(
+error.resetAt
+).toLocaleString()
+:
+"soon"
+)
+);
+
+}
+
+if(
+error.limitType ===
+"images"
+){
+
+return "Daily image limit reached.";
+
+}
+
+return (
+error.message ||
+"Something went wrong."
+);
+
+}
+
+
+/* CHAT RENDER */
+
+function renderChat(){
+
+const container =
+document.getElementById(
+"messages"
+);
+
+if(!chats.length){
+
+container.innerHTML = `
+
+<div class="empty">
+
+<div>
+
+<strong>
+Amzo AI is ready.
+</strong>
+
+Ask anything to start your conversation.
+
+</div>
+
+</div>
+
+`;
+
+return;
+
+}
+
+container.innerHTML = "";
+
+chats.forEach(
+(message,index) => {
+
+const wrap =
+document.createElement(
+"div"
+);
+
+wrap.className =
+"message " +
+(
+message.role === "user"
+?
+"user"
+:
+"ai"
+);
+
+const bubble =
+document.createElement(
+"div"
+);
+
+bubble.className =
+"bubble";
+
+bubble.innerHTML = `
+
+<div class="msgMeta">
+
+${
+message.role === "user"
+?
+"YOU"
+:
+"AMZO AI"
+}
+
+</div>
+
+<div>
+
+${
+escapeHTML(
+message.content
+)
+.replace(
+/\n/g,
+"<br>"
+)
+
+}
+
+</div>
+
+`;
+
+if(
+message.role ===
+"assistant"
+){
+
+const actions =
+document.createElement(
+"div"
+);
+
+actions.className =
+"msgActions";
+
+actions.innerHTML = `
+
+<button
+onclick="copyText(chats[${index}].content)"
+>
+Copy
+</button>
+
+<button
+onclick="regenerate(${index})"
+>
+Regenerate
+</button>
+
+`;
+
+bubble.appendChild(
+actions
+);
+
+}
+
+wrap.appendChild(
+bubble
+);
+
+container.appendChild(
+wrap
+);
+
+});
+
+container.scrollTop =
+container.scrollHeight;
+
+}
+
+
+function saveChats(){
+
+localStorage.setItem(
+"amzo_chat_messages",
+JSON.stringify(
+chats
+)
+);
+
+}
+
+
+/* SEND CHAT */
+
+async function sendChat(){
+
+const input =
+document.getElementById(
+"chatInput"
+);
+
+const send =
+document.getElementById(
+"sendBtn"
+);
+
+const text =
+input.value.trim();
+
+if(!text)
+return;
+
+input.value = "";
+
+chats.push({
+role:"user",
+content:text
+});
+
+chats.push({
+role:"assistant",
+content:"Thinking..."
+});
+
+saveChats();
+renderChat();
+
+send.disabled = true;
+send.textContent =
+"…";
+
+const index =
+chats.length - 1;
+
+try{
+
+const data =
+await callAPI({
+
+action:"chat",
+
+message:text
+
+});
+
+const reply =
+data.reply ||
+data.response ||
+data.text ||
+"No response.";
+
+chats[index].content =
+reply;
+
+saveChats();
+renderChat();
+
+}
+
+catch(error){
+
+chats[index].content =
+apiError(error);
+
+saveChats();
+renderChat();
+
+showToast(
+apiError(error),
+true
+);
+
+}
+
+finally{
+
+send.disabled = false;
+send.textContent =
+"➤";
+
+}
+
+}
+
+
+/* REGENERATE */
+
+async function regenerate(
+index
+){
+
+if(
+!chats[index] ||
+chats[index].role !==
+"assistant" ||
+index < 1
+)
+return;
+
+const prompt =
+chats[index - 1]
+.content;
+
+chats[index].content =
+"Thinking...";
 
 renderChat();
-renderProjects();
+
+try{
+
+const data =
+await callAPI({
+
+action:"chat",
+
+message:prompt
+
+});
+
+chats[index].content =
+data.reply ||
+data.response ||
+data.text ||
+"No response.";
+
+saveChats();
+renderChat();
+
+}
+
+catch(error){
+
+chats[index].content =
+apiError(error);
+
+saveChats();
+renderChat();
+
+showToast(
+apiError(error),
+true
+);
+
+}
+
+}
+
+
+/* CHAT BUTTONS */
+
+sendBtn.onclick =
+sendChat;
+
+chatInput.onkeydown =
+event => {
+
+if(
+event.key === "Enter" &&
+!event.shiftKey
+){
+
+event.preventDefault();
+
+sendChat();
+
+}
+
+};
+
+
+newChatBtn.onclick =
+() => {
+
+chats = [];
+
+saveChats();
+
+renderChat();
+
+showToast(
+"New chat started."
+);
+
+};
+
+
+clearChatBtn.onclick =
+() => {
+
+chats = [];
+
+saveChats();
+
+renderChat();
+
+showToast(
+"Chat cleared."
+);
+
+};
+
+
+copyLastBtn.onclick =
+() => {
+
+const last =
+[...chats]
+.reverse()
+.find(
+message =>
+message.role ===
+"assistant"
+);
+
+if(!last){
+
+showToast(
+"No AI reply yet.",
+true
+);
+
+return;
+
+}
+
+copyText(
+last.content
+);
+
+};
+
+
+/* IMAGE */
+
+async function generateImage(){
+
+const prompt =
+document
+.getElementById(
+"imagePrompt"
+)
+.value
+.trim();
+
+if(!prompt){
+
+showToast(
+"Enter an image prompt first.",
+true
+);
+
+return;
+
+}
+
+const button =
+document.getElementById(
+"imageBtn"
+);
+
+const result =
+document.getElementById(
+"imageResult"
+);
+
+button.disabled =
+true;
+
+button.textContent =
+"Generating...";
+
+result.innerHTML = `
+
+<div class="placeholder">
+
+Generating your image...
+
+</div>
+
+`;
+
+try{
+
+const data =
+await callAPI({
+
+action:"image",
+
+prompt
+
+});
+
+if(!data.dataURI){
+
+throw new Error(
+"No image returned."
+);
+
+}
+
+result.innerHTML = `
+
+<div style="width:100%">
+
+<img
+src="${data.dataURI}"
+alt="Generated by Amzo AI"
+>
+
+<div class="formActions">
+
+<a
+class="btn primary"
+href="${data.dataURI}"
+download="amzo-ai-image.jpg"
+>
+Download
+</a>
+
+<button
+class="btn"
+onclick="generateImage()"
+>
+Regenerate
+</button>
+
+</div>
+
+</div>
+
+`;
+
+saveProject(
+"AI Image",
+prompt
+);
+
+showToast(
+"Image created successfully."
+);
+
+}
+
+catch(error){
+
+result.innerHTML = `
+
+<div class="placeholder">
+
+${escapeHTML(
+apiError(error)
+)}
+
+</div>
+
+`;
+
+showToast(
+apiError(error),
+true
+);
+
+}
+
+finally{
+
+button.disabled =
+false;
+
+button.textContent =
+"✦ Generate Image";
+
+}
+
+}
+
+
+/* IMAGE PRESETS */
+
+function setPreset(
+type
+){
+
+const presets = {
+
+cyberpunk:
+"A futuristic cyberpunk city at night, cinematic lighting, neon cyan and purple, ultra detailed",
+
+anime:
+"Original anime-style futuristic hero in a neon city, dynamic composition, dramatic lighting",
+
+cinematic:
+"Epic cinematic landscape, volumetric lighting, realistic detail, wide composition",
+
+product:
+"Premium futuristic tech product on a dark studio background, dramatic rim lighting"
+
+};
+
+imagePrompt.value =
+presets[type];
+
+}
+
+
+function randomPrompt(){
+
+const prompts = [
+
+"A futuristic AI laboratory",
+
+"A neon city above the clouds",
+
+"A tiny robot exploring an ancient temple",
+
+"A cyberpunk gaming room"
+
+];
+
+imagePrompt.value =
+prompts[
+Math.floor(
+Math.random() *
+prompts.length
+)
+] +
+", cinematic lighting, highly detailed, futuristic atmosphere";
+
+}
+
+
+/* BRAIN */
+
+async function runBrain(){
+
+const mode =
+brainMode.value;
+
+const input =
+brainInput.value.trim();
+
+if(!input){
+
+showToast(
+"Enter something first.",
+true
+);
+
+return;
+
+}
+
+brainOutput.textContent =
+"Amzo Brain is thinking...";
+
+try{
+
+const data =
+await callAPI({
+
+action:"chat",
+
+message:
+`${mode} the following clearly and usefully:
+
+${input}`
+
+});
+
+brainOutput.textContent =
+data.reply ||
+data.response ||
+data.text ||
+"No response.";
+
+saveProject(
+"Brain - " + mode,
+input
+);
+
+}
+
+catch(error){
+
+brainOutput.textContent =
+apiError(error);
+
+showToast(
+apiError(error),
+true
+);
+
+}
+
+}
+
+
+/* STUDIO */
+
+async function runStudio(){
+
+const input =
+studioInput.value.trim();
+
+if(!input){
+
+showToast(
+"Enter a creative idea first.",
+true
+);
+
+return;
+
+}
+
+studioOutput.textContent =
+"Creating storyboard...";
+
+try{
+
+const data =
+await callAPI({
+
+action:"chat",
+
+message:
+`Create a concise production storyboard for this idea:
+
+${input}
+
+Keep it practical, clear and organized.`
+
+});
+
+studioOutput.textContent =
+data.reply ||
+data.response ||
+data.text ||
+"No response.";
+
+saveProject(
+"Studio Storyboard",
+input
+);
+
+}
+
+catch(error){
+
+studioOutput.textContent =
+apiError(error);
+
+showToast(
+apiError(error),
+true
+);
+
+}
+
+}
+
+
+/* CODE */
+
+async function runCode(){
+
+const input =
+codeInput.value.trim();
+
+if(!input){
+
+showToast(
+"Describe what you want to build.",
+true
+);
+
+return;
+
+}
+
+codeOutput.textContent =
+"Generating code...";
+
+try{
+
+const data =
+await callAPI({
+
+action:"chat",
+
+message:
+`You are Amzo Code Lab.
+
+Help with this coding request.
+
+Return clean usable code and a short explanation:
+
+${input}`
+
+});
+
+codeOutput.textContent =
+data.reply ||
+data.response ||
+data.text ||
+"No response.";
+
+saveProject(
+"Code Lab",
+input
+);
+
+}
+
+catch(error){
+
+codeOutput.textContent =
+apiError(error);
+
+showToast(
+apiError(error),
+true
+);
+
+}
+
+}
+
+
+/* USAGE */
+
+function renderUsage(
+data
+){
+
+if(!data)
+return;
+
+usage =
+data;
+
+const messageRemaining =
+Number(
+data.messagesRemaining ??
+100
+);
+
+const imageRemaining =
+Number(
+data.imagesRemaining ??
+20
+);
+
+const messageLimit =
+Number(
+data.messageLimit ??
+100
+);
+
+const imageLimit =
+Number(
+data.imageLimit ??
+20
+);
+
+usageMini.textContent =
+`💬 ${messageRemaining} · 🖼️ ${imageRemaining}`;
+
+homeMessages.textContent =
+messageRemaining;
+
+homeImages.textContent =
+imageRemaining;
+
+createImages.textContent =
+imageRemaining;
+
+homeMsgText.textContent =
+`${messageLimit - messageRemaining} / ${messageLimit}`;
+
+homeImgText.textContent =
+`${imageLimit - imageRemaining} / ${imageLimit}`;
+
+homeMsgProgress.style.width =
+`${Math.min(
+100,
+(
+(messageLimit - messageRemaining)
+/
+messageLimit
+) * 100
+)}%`;
+
+homeImgProgress.style.width =
+`${Math.min(
+100,
+(
+(imageLimit - imageRemaining)
+/
+imageLimit
+) * 100
+)}%`;
+
+updateReset();
+
+}
+
+
+async function refreshUsage(){
+
+try{
+
+const data =
+await callAPI({
+action:"usage"
+});
+
+if(
+data.usage
+){
+
+renderUsage(
+data.usage
+);
+
+}
+
+}
+
+catch(error){
+
+console.log(
+"Usage endpoint unavailable:",
+error
+);
+
+}
+
+}
+
+
+function countdown(
+milliseconds
+){
+
+if(
+milliseconds <= 0
+)
+return "Resetting...";
+
+const seconds =
+Math.floor(
+milliseconds / 1000
+);
+
+const hours =
+Math.floor(
+seconds / 3600
+);
+
+const minutes =
+Math.floor(
+(
+seconds % 3600
+) / 60
+);
+
+const secs =
+seconds % 60;
+
+return (
+hours + "h " +
+minutes + "m " +
+secs + "s"
+);
+
+}
+
+
+function updateReset(){
+
+const left =
+Number(
+usage.resetAt || 0
+) -
+Date.now();
+
+const text =
+countdown(left);
+
+homeReset.textContent =
+text;
+
+homeResetLong.textContent =
+"Reset in " + text;
+
+createReset.textContent =
+"Reset in " + text;
+
+if(left <= 0){
+
 refreshUsage();
 
+}
+
+}
+
+setInterval(
+updateReset,
+1000
+);
+
+
+/* PROJECTS */
+
+function getProjects(){
+
+return JSON.parse(
+localStorage.getItem(
+"amzo_projects"
+) || "[]"
+);
+
+}
+
+
+function saveProject(
+title,
+text
+){
+
+const projects =
+getProjects();
+
+projects.unshift({
+
+id:
+Date.now(),
+
+title,
+
+text:
+String(text)
+.slice(0,240),
+
+createdAt:
+new Date()
+.toLocaleString()
+
+});
+
+localStorage.setItem(
+"amzo_projects",
+JSON.stringify(
+projects.slice(0,40)
+)
+);
+
+renderProjects();
+
+}
+
+
+function renderProjects(){
+
+const list =
+document.getElementById(
+"projectList"
+);
+
+const projects =
+getProjects();
+
+if(!projects.length){
+
+list.innerHTML = `
+
+<div class="card">
+
+No saved activity yet.
+
+</div>
+
+`;
+
+return;
+
+}
+
+list.innerHTML =
+projects
+.map(
+(project,index) => `
+
+<div class="projectItem">
+
+<h3>
+
+${escapeHTML(
+project.title
+)}
+
+</h3>
+
+<p>
+
+${escapeHTML(
+project.text
+)}
+
+</p>
+
+<div
+style="
+margin-top:8px;
+color:#6f778d;
+font-size:9px;
+"
+>
+
+${escapeHTML(
+project.createdAt
+)}
+
+</div>
+
+<div class="projectActions">
+
+<button
+class="btn"
+onclick="copyText(
+getProjects()[${index}].text
+)"
+>
+Copy
+</button>
+
+<button
+class="btn danger"
+onclick="deleteProject(${index})"
+>
+Delete
+</button>
+
+</div>
+
+</div>
+
+`
+)
+.join("");
+
+}
+
+
+function deleteProject(
+index
+){
+
+const projects =
+getProjects();
+
+projects.splice(
+index,
+1
+);
+
+localStorage.setItem(
+"amzo_projects",
+JSON.stringify(
+projects
+)
+);
+
+renderProjects();
+
+}
+
+
+function clearProjects(){
+
+localStorage.removeItem(
+"amzo_projects"
+);
+
+renderProjects();
+
+showToast(
+"Projects cleared."
+);
+
+}
+
+
+/* COPY */
+
+async function copyText(
+text
+){
+
+try{
+
+await navigator.clipboard.writeText(
+String(text)
+);
+
+showToast(
+"Copied."
+);
+
+}
+
+catch(error){
+
+showToast(
+"Copy failed.",
+true
+);
+
+}
+
+}
+
+
+function copyElement(
+id
+){
+
+copyText(
+document
+.getElementById(id)
+.textContent
+);
+
+}
+
+
+/* COMMAND SEARCH */
+
+const commands = [
+
+[
+"Command Center",
+"home"
+],
+
+[
+"Amzo Chat",
+"chat"
+],
+
+[
+"AI Create",
+"create"
+],
+
+[
+"Amzo Brain",
+"brain"
+],
+
+[
+"Studio",
+"studio"
+],
+
+[
+"Code Lab",
+"code"
+],
+
+[
+"Projects",
+"projects"
+]
+
+];
+
+
+function renderCommands(
+query=""
+){
+
+commandList.innerHTML =
+commands
+
+.filter(
+item =>
+item[0]
+.toLowerCase()
+.includes(
+query.toLowerCase()
+)
+)
+
+.map(
+item => `
+
+<div
+class="commandItem"
+onclick="
+openPage('${item[1]}');
+closeCommand();
+"
+>
+
+${item[0]}
+
+</div>
+
+`
+)
+
+.join("");
+
+}
+
+
+function closeCommand(){
+
+command.classList.remove(
+"show"
+);
+
+commandInput.value =
+"";
+
+}
+
+
+window.addEventListener(
+"keydown",
+event => {
+
+if(
+(event.ctrlKey ||
+event.metaKey) &&
+event.key.toLowerCase() ===
+"k"
+){
+
+event.preventDefault();
+
+command.classList.add(
+"show"
+);
+
+commandInput.focus();
+
+renderCommands();
+
+}
+
+if(
+event.key ===
+"Escape"
+){
+
+closeCommand();
+
+}
+
+});
+
+
+commandInput.oninput =
+() =>
+renderCommands(
+commandInput.value
+);
+
+command.onclick =
+event => {
+
+if(
+event.target ===
+command
+){
+
+closeCommand();
+
+}
+
+};
+
+
+/* START */
+
+renderChat();
+
+renderProjects();
+
+refreshUsage();
+
+updateReset();
+
+
+/* GLOBAL FUNCTIONS */
+
 window.openPage =
-  openPage;
+openPage;
 
 window.generateImage =
-  generateImage;
+generateImage;
 
-window.useImagePreset =
-  useImagePreset;
+window.setPreset =
+setPreset;
+
+window.randomPrompt =
+randomPrompt;
 
 window.runBrain =
-  runBrain;
+runBrain;
 
 window.runStudio =
-  runStudio;
+runStudio;
 
 window.runCode =
-  runCode;
+runCode;
 
 window.clearProjects =
-  clearProjects;
+clearProjects;
+
+window.copyText =
+copyText;
+
+window.deleteProject =
+deleteProject;
+
+window.regenerate =
+regenerate;
+
 </script>
 
 </body>
