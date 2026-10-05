@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Amzo AI — Your AI Universe</title>
 
 <style>
 :root{
   --bg:#05060b;
-  --panel:rgba(15,17,29,.72);
-  --panel2:rgba(20,22,38,.82);
+  --panel:rgba(15,17,29,.78);
+  --panel2:#111426;
   --line:rgba(255,255,255,.09);
   --text:#f5f7ff;
   --muted:#8f96ad;
@@ -18,7 +18,7 @@
   --pink:#ff3cac;
   --green:#39ff9b;
   --danger:#ff5577;
-  --radius:22px;
+  --radius:20px;
 }
 
 *{
@@ -30,8 +30,8 @@
 html,body{
   min-height:100%;
   background:
-    radial-gradient(circle at 20% 10%,rgba(0,234,255,.08),transparent 28%),
-    radial-gradient(circle at 80% 20%,rgba(155,92,255,.10),transparent 30%),
+    radial-gradient(circle at 15% 10%,rgba(0,234,255,.08),transparent 30%),
+    radial-gradient(circle at 85% 20%,rgba(155,92,255,.10),transparent 30%),
     var(--bg);
   color:var(--text);
   font-family:Inter,Segoe UI,Arial,sans-serif;
@@ -68,8 +68,8 @@ button{
   left:0;
   top:0;
   bottom:0;
-  z-index:20;
-  background:rgba(5,7,15,.88);
+  z-index:30;
+  background:rgba(5,7,15,.92);
   backdrop-filter:blur(25px);
   border-right:1px solid var(--line);
   padding:18px 12px;
@@ -87,13 +87,10 @@ button{
   width:38px;
   height:38px;
   border-radius:13px;
-  background:
-    linear-gradient(135deg,var(--cyan),var(--purple),var(--pink));
-  box-shadow:
-    0 0 25px rgba(0,234,255,.35),
-    0 0 40px rgba(155,92,255,.25);
   display:grid;
   place-items:center;
+  background:linear-gradient(135deg,var(--cyan),var(--purple),var(--pink));
+  box-shadow:0 0 25px rgba(0,234,255,.35);
   font-weight:900;
   color:#05060b;
 }
@@ -113,7 +110,6 @@ button{
 .sidebar-scroll{
   height:calc(100vh - 85px);
   overflow-y:auto;
-  padding-right:3px;
 }
 
 .group-title{
@@ -142,30 +138,21 @@ button{
 .nav:hover{
   color:white;
   background:rgba(255,255,255,.05);
-  transform:translateX(2px);
 }
 
 .nav.active{
   color:white;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,234,255,.12),
-      rgba(155,92,255,.13)
-    );
-  box-shadow:
-    inset 2px 0 var(--cyan),
-    0 0 20px rgba(0,234,255,.05);
+  background:linear-gradient(
+    90deg,
+    rgba(0,234,255,.12),
+    rgba(155,92,255,.13)
+  );
+  box-shadow:inset 2px 0 var(--cyan);
 }
 
 .nav .icon{
   width:25px;
   text-align:center;
-  font-size:15px;
-}
-
-.nav span:last-child{
-  font-size:13px;
 }
 
 /* MAIN */
@@ -180,13 +167,13 @@ button{
   height:68px;
   position:sticky;
   top:0;
-  z-index:10;
+  z-index:20;
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:0 28px;
   border-bottom:1px solid var(--line);
-  background:rgba(5,6,11,.72);
+  background:rgba(5,6,11,.76);
   backdrop-filter:blur(20px);
 }
 
@@ -224,7 +211,7 @@ button{
   border-color:rgba(0,234,255,.3);
 }
 
-/* PAGE */
+/* PAGES */
 
 .page{
   display:none;
@@ -260,7 +247,6 @@ button{
     radial-gradient(circle at 80% 50%,rgba(0,234,255,.08),transparent 30%),
     radial-gradient(circle at 55% 10%,rgba(155,92,255,.10),transparent 35%),
     var(--panel);
-  overflow:hidden;
 }
 
 .eyebrow{
@@ -274,7 +260,6 @@ button{
 .hero h1{
   font-size:clamp(36px,5vw,66px);
   line-height:.98;
-  max-width:720px;
 }
 
 .gradient{
@@ -316,14 +301,17 @@ button{
   background:linear-gradient(90deg,var(--cyan),var(--purple));
   color:#05060b;
   font-weight:800;
-  box-shadow:0 0 25px rgba(0,234,255,.18);
 }
 
-.btn:hover{
-  transform:translateY(-1px);
+.btn.danger{
+  border-color:rgba(255,85,119,.3);
+  color:#ff718d;
 }
 
-/* AI CORE */
+.btn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
 
 .core-wrap{
   display:grid;
@@ -337,13 +325,12 @@ button{
   position:relative;
   display:grid;
   place-items:center;
-  background:
-    radial-gradient(
-      circle,
-      rgba(0,234,255,.32),
-      rgba(155,92,255,.14) 35%,
-      transparent 66%
-    );
+  background:radial-gradient(
+    circle,
+    rgba(0,234,255,.32),
+    rgba(155,92,255,.14) 35%,
+    transparent 66%
+  );
   box-shadow:
     0 0 30px rgba(0,234,255,.25),
     0 0 80px rgba(155,92,255,.16);
@@ -375,14 +362,12 @@ button{
   place-items:center;
   font-size:26px;
   font-weight:900;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(0,234,255,.25),
-      rgba(155,92,255,.25)
-    );
+  background:linear-gradient(
+    135deg,
+    rgba(0,234,255,.25),
+    rgba(155,92,255,.25)
+  );
   border:1px solid rgba(255,255,255,.16);
-  box-shadow:inset 0 0 30px rgba(255,255,255,.04);
 }
 
 @keyframes spin{
@@ -423,12 +408,12 @@ button{
   border-radius:20px;
   padding:19px;
   transition:.2s;
+  cursor:pointer;
 }
 
 .card:hover{
   border-color:rgba(0,234,255,.25);
   transform:translateY(-3px);
-  box-shadow:0 15px 35px rgba(0,0,0,.2);
 }
 
 .card-icon{
@@ -447,17 +432,11 @@ button{
   line-height:1.55;
 }
 
-.stat{
-  margin-top:14px;
-  color:var(--cyan);
-  font-size:12px;
-}
-
 /* USAGE */
 
 .usage-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(3,1fr);
   gap:14px;
 }
 
@@ -495,7 +474,7 @@ button{
 /* WORKSPACE */
 
 .workspace{
-  max-width:1000px;
+  max-width:1050px;
   margin:auto;
 }
 
@@ -517,7 +496,8 @@ button{
 }
 
 textarea,
-input{
+input,
+select{
   width:100%;
   background:#080a12;
   color:white;
@@ -527,15 +507,19 @@ input{
   padding:14px;
 }
 
+select{
+  margin-top:10px;
+}
+
 textarea{
   min-height:120px;
   resize:vertical;
 }
 
 input:focus,
-textarea:focus{
+textarea:focus,
+select:focus{
   border-color:rgba(0,234,255,.45);
-  box-shadow:0 0 20px rgba(0,234,255,.06);
 }
 
 .form-row{
@@ -672,6 +656,95 @@ textarea:focus{
   margin-top:4px;
 }
 
+/* AUTH */
+
+.auth-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:500;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(18px);
+  place-items:center;
+  padding:20px;
+}
+
+.auth-overlay.open{
+  display:grid;
+}
+
+.auth-card{
+  width:min(420px,100%);
+  position:relative;
+  padding:30px;
+  border-radius:26px;
+  border:1px solid rgba(0,234,255,.18);
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(0,234,255,.10),
+      transparent 45%
+    ),
+    #090c16;
+  box-shadow:0 30px 100px rgba(0,0,0,.65);
+  text-align:center;
+}
+
+.auth-card h2{
+  margin-top:18px;
+  font-size:25px;
+}
+
+.auth-card p{
+  color:var(--muted);
+  font-size:12px;
+  margin:8px 0 20px;
+}
+
+.auth-card input{
+  margin-top:10px;
+}
+
+.auth-logo{
+  margin:auto;
+}
+
+.auth-submit{
+  width:100%;
+  margin-top:15px;
+}
+
+.auth-close{
+  position:absolute;
+  top:12px;
+  right:15px;
+  border:0;
+  background:transparent;
+  color:#8991a8;
+  font-size:25px;
+}
+
+.auth-switch{
+  margin-top:18px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.auth-link{
+  border:0;
+  background:none;
+  color:var(--cyan);
+  cursor:pointer;
+  margin-left:5px;
+}
+
+.auth-error{
+  min-height:18px;
+  margin-top:12px;
+  color:#ff718d;
+  font-size:12px;
+}
+
 /* SEARCH */
 
 .search-overlay{
@@ -695,7 +768,6 @@ textarea:focus{
   border:1px solid var(--line);
   border-radius:22px;
   padding:15px;
-  box-shadow:0 30px 100px #000;
 }
 
 .search-results{
@@ -719,7 +791,7 @@ textarea:focus{
   position:fixed;
   right:22px;
   bottom:22px;
-  z-index:200;
+  z-index:600;
   padding:13px 17px;
   border-radius:14px;
   background:#101421;
@@ -751,6 +823,10 @@ textarea:focus{
   .hero{
     grid-template-columns:1fr;
   }
+
+  .usage-grid{
+    grid-template-columns:1fr;
+  }
 }
 
 @media(max-width:800px){
@@ -780,8 +856,7 @@ textarea:focus{
     padding:0 15px;
   }
 
-  .grid,
-  .usage-grid{
+  .grid{
     grid-template-columns:1fr;
   }
 
@@ -796,6 +871,10 @@ textarea:focus{
 
   .chat-box{
     height:calc(100vh - 190px);
+  }
+
+  .message{
+    max-width:92%;
   }
 }
 </style>
@@ -841,12 +920,12 @@ textarea:focus{
       <span class="icon">◈</span><span>Image Lab</span>
     </button>
 
-    <button class="nav" onclick="openPage('video',this)">
-      <span class="icon">▶</span><span>Video Lab</span>
-    </button>
-
     <button class="nav" onclick="openPage('voice',this)">
       <span class="icon">♬</span><span>Voice AI</span>
+    </button>
+
+    <button class="nav" onclick="openPage('video',this)">
+      <span class="icon">▶</span><span>Video Lab</span>
     </button>
 
     <button class="nav" onclick="openPage('music',this)">
@@ -909,6 +988,7 @@ textarea:focus{
 <main class="main">
 
 <header class="topbar">
+
   <div class="status">
     <button class="top-btn mobile-menu" onclick="toggleSidebar()">☰</button>
     <span class="dot"></span>
@@ -916,116 +996,138 @@ textarea:focus{
   </div>
 
   <div class="top-actions">
-    <button class="top-btn" onclick="openSearch()">⌕ Search</button>
-    <button class="top-btn" onclick="openPage('settings')">⚙</button>
+
+    <button class="top-btn" onclick="openSearch()">
+      ⌕ Search
+    </button>
+
+    <button
+      class="top-btn"
+      id="accountButton"
+      onclick="accountAction()"
+    >
+      ♙ Login
+    </button>
+
   </div>
+
 </header>
 
 <!-- HOME -->
 
 <section class="page active" id="page-home">
 
-  <div class="hero">
+<div class="hero">
 
-    <div>
-      <div class="eyebrow">WELCOME TO YOUR AI UNIVERSE</div>
+<div>
 
-      <h1>
-        Build.
-        <span class="gradient">Create.</span>
-        Think.
-      </h1>
+<div class="eyebrow">
+WELCOME TO YOUR AI UNIVERSE
+</div>
 
-      <p>
-        Amzo AI is your personal futuristic AI workspace
-        for ideas, conversations, images, writing, study,
-        coding and creative projects.
-      </p>
+<h1>
+Build.
+<span class="gradient">Create.</span>
+Think.
+</h1>
 
-      <div class="hero-buttons">
-        <button class="btn primary" onclick="openPage('chat')">
-          Start Chat →
-        </button>
+<p>
+Amzo AI is your personal futuristic AI workspace
+for conversations, images, voice, writing, learning,
+coding and creative projects.
+</p>
 
-        <button class="btn" onclick="openPage('image')">
-          Create Image
-        </button>
+<div class="hero-buttons">
 
-        <button class="btn" onclick="openPage('tools')">
-          Explore Tools
-        </button>
-      </div>
-    </div>
+<button class="btn primary" onclick="openPage('chat')">
+Start Chat →
+</button>
 
-    <div class="core-wrap">
-      <div class="core">
-        <div class="core-inner">A</div>
-      </div>
-    </div>
+<button class="btn" onclick="openPage('image')">
+Create Image
+</button>
 
-  </div>
+<button class="btn" onclick="openPage('voice')">
+Voice AI
+</button>
 
-  <div class="section-title">
-    <h2>Quick Launch</h2>
-    <span>Everything starts here</span>
-  </div>
+</div>
 
-  <div class="grid">
+</div>
 
-    <div class="card" onclick="openPage('chat')">
-      <div class="card-icon">◉</div>
-      <h3>Amzo Chat</h3>
-      <p>Talk with your personal AI assistant.</p>
-    </div>
+<div class="core-wrap">
+<div class="core">
+<div class="core-inner">A</div>
+</div>
+</div>
 
-    <div class="card" onclick="openPage('image')">
-      <div class="card-icon">◈</div>
-      <h3>Image Lab</h3>
-      <p>Turn ideas into AI generated images.</p>
-    </div>
+</div>
 
-    <div class="card" onclick="openPage('writer')">
-      <div class="card-icon">✎</div>
-      <h3>AI Writer</h3>
-      <p>Create posts, scripts, descriptions and ideas.</p>
-    </div>
+<div class="section-title">
+<h2>Quick Launch</h2>
+<span>Everything starts here</span>
+</div>
 
-    <div class="card" onclick="openPage('study')">
-      <div class="card-icon">▣</div>
-      <h3>Study AI</h3>
-      <p>Explain difficult topics in simple language.</p>
-    </div>
+<div class="grid">
 
-  </div>
+<div class="card" onclick="openPage('chat')">
+<div class="card-icon">◉</div>
+<h3>Amzo Chat</h3>
+<p>Talk with your personal AI assistant.</p>
+</div>
 
-  <div class="section-title">
-    <h2>Usage</h2>
-    <span>24-hour rolling window</span>
-  </div>
+<div class="card" onclick="openPage('image')">
+<div class="card-icon">◈</div>
+<h3>Image Lab</h3>
+<p>Turn ideas into AI generated images.</p>
+</div>
 
-  <div class="usage-grid">
+<div class="card" onclick="openPage('voice')">
+<div class="card-icon">🔊</div>
+<h3>Voice AI</h3>
+<p>Turn text into AI voice.</p>
+</div>
 
-    <div class="usage-card">
-      <div class="usage-top">
-        <span>💬 AI Messages</span>
-        <span id="messageUsage">100 / 100</span>
-      </div>
-      <div class="bar">
-        <i id="messageBar"></i>
-      </div>
-    </div>
+<div class="card" onclick="openPage('study')">
+<div class="card-icon">▣</div>
+<h3>Study AI</h3>
+<p>Explain difficult topics simply.</p>
+</div>
 
-    <div class="usage-card">
-      <div class="usage-top">
-        <span>🖼️ AI Images</span>
-        <span id="imageUsage">20 / 20</span>
-      </div>
-      <div class="bar">
-        <i id="imageBar"></i>
-      </div>
-    </div>
+</div>
 
-  </div>
+<div class="section-title">
+<h2>Usage</h2>
+<span>24-hour window</span>
+</div>
+
+<div class="usage-grid">
+
+<div class="usage-card">
+<div class="usage-top">
+<span>💬 AI Messages</span>
+<span id="messageUsage">100 / 100</span>
+</div>
+<div class="bar"><i id="messageBar"></i></div>
+</div>
+
+<div class="usage-card">
+<div class="usage-top">
+<span>🖼️ AI Images</span>
+<span id="imageUsage">20 / 20</span>
+</div>
+<div class="bar"><i id="imageBar"></i></div>
+</div>
+
+<div class="usage-card">
+<div class="usage-top">
+<span>🔊 AI Voice</span>
+<span id="voiceUsage">20 / 20</span>
+</div>
+<div class="bar"><i id="voiceBar"></i></div>
+</div>
+
+</div>
 
 </section>
 
@@ -1035,42 +1137,49 @@ textarea:focus{
 
 <div class="chat-layout">
 
-  <div class="section-title">
-    <div>
-      <h2>Amzo Chat</h2>
-      <span>Personal AI conversation</span>
-    </div>
-    <button class="btn" onclick="newChat()">＋ New Chat</button>
-  </div>
+<div class="section-title">
 
-  <div class="chat-box">
+<div>
+<h2>Amzo Chat</h2>
+<span id="chatAccountStatus">
+Personal AI conversation
+</span>
+</div>
 
-    <div class="messages" id="messages">
+<button class="btn" onclick="newChat()">
+＋ New Chat
+</button>
 
-      <div class="message ai">
-        Hey! I'm Amzo AI. What are we building today?
-      </div>
+</div>
 
-    </div>
+<div class="chat-box">
 
-    <div class="chat-input">
+<div class="messages" id="messages">
 
-      <textarea
-        id="chatInput"
-        placeholder="Ask Amzo anything..."
-        onkeydown="chatKey(event)"
-      ></textarea>
+<div class="message ai">
+Hey! I'm Amzo AI. What are we building today?
+</div>
 
-      <button
-        class="btn primary"
-        onclick="sendChat()"
-      >
-        Send
-      </button>
+</div>
 
-    </div>
+<div class="chat-input">
 
-  </div>
+<textarea
+id="chatInput"
+placeholder="Ask Amzo anything..."
+onkeydown="chatKey(event)"
+></textarea>
+
+<button
+class="btn primary"
+onclick="sendChat()"
+>
+Send
+</button>
+
+</div>
+
+</div>
 
 </div>
 
@@ -1082,38 +1191,38 @@ textarea:focus{
 
 <div class="workspace">
 
-  <div class="section-title">
-    <h2>AI Create</h2>
-    <span>Turn ideas into outputs</span>
-  </div>
+<div class="section-title">
+<h2>AI Create</h2>
+<span>Turn ideas into outputs</span>
+</div>
 
-  <div class="grid">
+<div class="grid">
 
-    <div class="card" onclick="openPage('image')">
-      <div class="card-icon">🖼️</div>
-      <h3>Generate Image</h3>
-      <p>Create an image from your prompt.</p>
-    </div>
+<div class="card" onclick="openPage('image')">
+<div class="card-icon">🖼️</div>
+<h3>Generate Image</h3>
+<p>Create an image from a prompt.</p>
+</div>
 
-    <div class="card" onclick="openPage('writer')">
-      <div class="card-icon">✍️</div>
-      <h3>Write Anything</h3>
-      <p>Generate scripts, posts and content.</p>
-    </div>
+<div class="card" onclick="openPage('voice')">
+<div class="card-icon">🔊</div>
+<h3>Generate Voice</h3>
+<p>Create spoken AI audio.</p>
+</div>
 
-    <div class="card" onclick="openPage('code')">
-      <div class="card-icon">&lt;/&gt;</div>
-      <h3>Build Code</h3>
-      <p>Ask Amzo to explain or generate code.</p>
-    </div>
+<div class="card" onclick="openPage('writer')">
+<div class="card-icon">✍️</div>
+<h3>Write Anything</h3>
+<p>Generate scripts and content.</p>
+</div>
 
-    <div class="card" onclick="openPage('study')">
-      <div class="card-icon">🧠</div>
-      <h3>Learn</h3>
-      <p>Break complicated topics into simple steps.</p>
-    </div>
+<div class="card" onclick="openPage('code')">
+<div class="card-icon">&lt;/&gt;</div>
+<h3>Build Code</h3>
+<p>Ask Amzo to generate or explain code.</p>
+</div>
 
-  </div>
+</div>
 
 </div>
 
@@ -1125,122 +1234,198 @@ textarea:focus{
 
 <div class="workspace">
 
-  <div class="section-title">
-    <div>
-      <h2>Image Lab</h2>
-      <span>Powered by Amzo AI</span>
-    </div>
-  </div>
+<div class="section-title">
+<div>
+<h2>Image Lab</h2>
+<span>Powered by Amzo AI</span>
+</div>
+</div>
 
-  <div class="panel">
+<div class="panel">
 
-    <textarea
-      id="imagePrompt"
-      placeholder="Describe the image you want..."
-    ></textarea>
+<textarea
+id="imagePrompt"
+placeholder="Describe the image you want..."
+></textarea>
 
-    <div class="form-row">
+<div class="form-row">
 
-      <button
-        class="btn primary"
-        onclick="generateImage()"
-      >
-        ✦ Generate Image
-      </button>
+<button
+class="btn primary"
+onclick="generateImage()"
+>
+✦ Generate Image
+</button>
 
-      <button
-        class="btn"
-        onclick="clearImage()"
-      >
-        Clear
-      </button>
+<button
+class="btn"
+onclick="clearImage()"
+>
+Clear
+</button>
 
-    </div>
+</div>
 
-    <div class="image-result" id="imageResult">
+<div class="image-result" id="imageResult">
 
-      <img id="generatedImage" alt="Generated image">
+<img id="generatedImage" alt="Generated image">
 
-      <div class="image-actions">
+<div class="image-actions">
 
-        <button
-          class="btn primary"
-          onclick="downloadImage()"
-        >
-          ↓ Download
-        </button>
+<button
+class="btn primary"
+onclick="downloadImage()"
+>
+↓ Download
+</button>
 
-        <button
-          class="btn"
-          onclick="favoriteImage()"
-        >
-          ★ Favorite
-        </button>
+<button
+class="btn"
+onclick="favoriteImage()"
+>
+★ Favorite
+</button>
 
-      </div>
+</div>
 
-    </div>
+</div>
 
-  </div>
+</div>
 
 </div>
 
 </section>
 
-<!-- GENERIC AI PAGES -->
-
-<section class="page" id="page-brain">
-  <div id="brainContent"></div>
-</section>
-
-<section class="page" id="page-writer">
-  <div id="writerContent"></div>
-</section>
-
-<section class="page" id="page-study">
-  <div id="studyContent"></div>
-</section>
-
-<section class="page" id="page-research">
-  <div id="researchContent"></div>
-</section>
-
-<section class="page" id="page-code">
-  <div id="codeContent"></div>
-</section>
-
-<section class="page" id="page-studio">
-  <div id="studioContent"></div>
-</section>
+<!-- VOICE -->
 
 <section class="page" id="page-voice">
-  <div id="voiceContent"></div>
+
+<div class="workspace">
+
+<div class="section-title">
+<div>
+<h2>Voice AI</h2>
+<span>Turn text into speech</span>
+</div>
+</div>
+
+<div class="panel">
+
+<textarea
+id="voiceInput"
+placeholder="Write something for Amzo to speak..."
+></textarea>
+
+<select id="voiceLanguage">
+
+<option value="en">English</option>
+<option value="ur">Urdu</option>
+<option value="es">Spanish</option>
+<option value="fr">French</option>
+<option value="de">German</option>
+<option value="it">Italian</option>
+<option value="pt">Portuguese</option>
+<option value="hi">Hindi</option>
+
+</select>
+
+<div class="form-row">
+
+<button
+class="btn primary"
+onclick="generateVoice()"
+>
+🔊 Generate Voice
+</button>
+
+<button
+class="btn"
+onclick="clearVoice()"
+>
+Clear
+</button>
+
+</div>
+
+<div
+class="result"
+id="voiceResult"
+>
+Your generated voice will appear here.
+</div>
+
+<div
+id="voicePlayerBox"
+style="display:none;margin-top:15px"
+>
+
+<audio
+id="voicePlayer"
+controls
+style="width:100%"
+></audio>
+
+<div class="form-row">
+
+<button
+class="btn primary"
+onclick="downloadVoice()"
+>
+↓ Download MP3
+</button>
+
+<button
+class="btn"
+onclick="playVoice()"
+>
+▶ Play
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<section class="page" id="page-music">
-  <div id="musicContent"></div>
-</section>
+<!-- GENERIC -->
+
+<section class="page" id="page-brain"></section>
+<section class="page" id="page-writer"></section>
+<section class="page" id="page-study"></section>
+<section class="page" id="page-research"></section>
+<section class="page" id="page-code"></section>
+<section class="page" id="page-studio"></section>
+<section class="page" id="page-music"></section>
+
+<!-- VIDEO -->
 
 <section class="page" id="page-video">
 
 <div class="workspace">
 
-  <div class="panel">
+<div class="panel">
 
-    <div class="eyebrow">VIDEO LAB</div>
+<div class="eyebrow">VIDEO LAB</div>
 
-    <h2>Video generation</h2>
+<h2>Video generation</h2>
 
-    <p class="panel-sub">
-      Video generation is currently unavailable because
-      the AI Gateway account has insufficient credits.
-    </p>
+<p class="panel-sub">
+Video generation is currently unavailable because
+the required AI Gateway credits are unavailable.
+</p>
 
-    <button class="btn" onclick="toast('Video Lab is waiting for credits.')">
-      Currently unavailable
-    </button>
+<button
+class="btn"
+onclick="toast('Video Lab is waiting for credits.')"
+>
+Currently unavailable
+</button>
 
-  </div>
+</div>
 
 </div>
 
@@ -1252,38 +1437,38 @@ textarea:focus{
 
 <div class="workspace">
 
-  <div class="section-title">
-    <h2>AI Tools</h2>
-    <span>Small tools, big ideas</span>
-  </div>
+<div class="section-title">
+<h2>AI Tools</h2>
+<span>Small tools, big ideas</span>
+</div>
 
-  <div class="grid">
+<div class="grid">
 
-    <div class="card" onclick="toolIdeas()">
-      <div class="card-icon">💡</div>
-      <h3>Idea Generator</h3>
-      <p>Generate new ideas instantly.</p>
-    </div>
+<div class="card" onclick="toolIdeas()">
+<div class="card-icon">💡</div>
+<h3>Idea Generator</h3>
+<p>Generate new ideas instantly.</p>
+</div>
 
-    <div class="card" onclick="toolExplain()">
-      <div class="card-icon">🧠</div>
-      <h3>Quick Explain</h3>
-      <p>Make difficult things simple.</p>
-    </div>
+<div class="card" onclick="toolExplain()">
+<div class="card-icon">🧠</div>
+<h3>Quick Explain</h3>
+<p>Make difficult things simple.</p>
+</div>
 
-    <div class="card" onclick="toolBrainstorm()">
-      <div class="card-icon">⚡</div>
-      <h3>Brainstorm</h3>
-      <p>Expand one idea into many.</p>
-    </div>
+<div class="card" onclick="toolBrainstorm()">
+<div class="card-icon">⚡</div>
+<h3>Brainstorm</h3>
+<p>Expand one idea into many.</p>
+</div>
 
-    <div class="card" onclick="toolCounter()">
-      <div class="card-icon">#</div>
-      <h3>Text Counter</h3>
-      <p>Count words and characters.</p>
-    </div>
+<div class="card" onclick="toolCounter()">
+<div class="card-icon">#</div>
+<h3>Text Counter</h3>
+<p>Count words and characters.</p>
+</div>
 
-  </div>
+</div>
 
 </div>
 
@@ -1295,20 +1480,23 @@ textarea:focus{
 
 <div class="workspace">
 
-  <div class="section-title">
+<div class="section-title">
 
-    <div>
-      <h2>Projects</h2>
-      <span>Your local Amzo workspace</span>
-    </div>
+<div>
+<h2>Projects</h2>
+<span>Cloud workspace</span>
+</div>
 
-    <button class="btn primary" onclick="newProject()">
-      ＋ New Project
-    </button>
+<button
+class="btn primary"
+onclick="newProject()"
+>
+＋ New Project
+</button>
 
-  </div>
+</div>
 
-  <div class="list" id="projectList"></div>
+<div class="list" id="projectList"></div>
 
 </div>
 
@@ -1320,20 +1508,20 @@ textarea:focus{
 
 <div class="workspace">
 
-  <div class="section-title">
+<div class="section-title">
 
-    <div>
-      <h2>History</h2>
-      <span>Your recent activity</span>
-    </div>
+<div>
+<h2>History</h2>
+<span>Your recent activity</span>
+</div>
 
-    <button class="btn" onclick="clearHistory()">
-      Clear
-    </button>
+<button class="btn" onclick="clearHistory()">
+Clear
+</button>
 
-  </div>
+</div>
 
-  <div class="list" id="historyList"></div>
+<div class="list" id="historyList"></div>
 
 </div>
 
@@ -1345,12 +1533,12 @@ textarea:focus{
 
 <div class="workspace">
 
-  <div class="section-title">
-    <h2>Favorites</h2>
-    <span>Saved ideas and outputs</span>
-  </div>
+<div class="section-title">
+<h2>Favorites</h2>
+<span>Saved outputs</span>
+</div>
 
-  <div class="list" id="favoriteList"></div>
+<div class="list" id="favoriteList"></div>
 
 </div>
 
@@ -1362,61 +1550,116 @@ textarea:focus{
 
 <div class="workspace">
 
-  <div class="panel">
+<div class="panel">
 
-    <h2>Settings</h2>
+<h2>Settings</h2>
 
-    <p class="panel-sub">
-      Amzo AI configuration
-    </p>
+<p class="panel-sub">
+Amzo AI account and workspace settings
+</p>
 
-    <div class="list">
+<div class="list">
 
-      <div class="list-item">
-        <div>
-          <strong>Theme</strong>
-          <small>Futuristic dark RGB</small>
-        </div>
-        <span>●</span>
-      </div>
+<div class="list-item">
 
-      <div class="list-item">
-        <div>
-          <strong>AI status</strong>
-          <small>Connected to Amzo AI API</small>
-        </div>
-        <span style="color:var(--green)">ONLINE</span>
-      </div>
+<div>
+<strong>Account</strong>
+<small id="settingsAccount">
+Not logged in
+</small>
+</div>
 
-      <div class="list-item">
-        <div>
-          <strong>Messages</strong>
-          <small>100 per 24-hour window</small>
-        </div>
-        <span>100</span>
-      </div>
+<button
+class="btn"
+onclick="accountAction()"
+id="settingsAccountButton"
+>
+Login
+</button>
 
-      <div class="list-item">
-        <div>
-          <strong>Images</strong>
-          <small>20 per 24-hour window</small>
-        </div>
-        <span>20</span>
-      </div>
+</div>
 
-      <div class="list-item">
-        <div>
-          <strong>Local data</strong>
-          <small>Projects, history and favorites</small>
-        </div>
-        <button class="btn" onclick="clearAllData()">
-          Delete
-        </button>
-      </div>
+<div class="list-item">
 
-    </div>
+<div>
+<strong>AI status</strong>
+<small>Connected to Amzo AI API</small>
+</div>
 
-  </div>
+<span style="color:var(--green)">
+ONLINE
+</span>
+
+</div>
+
+<div class="list-item">
+
+<div>
+<strong>Messages</strong>
+<small>100 per 24-hour window</small>
+</div>
+
+<span>100</span>
+
+</div>
+
+<div class="list-item">
+
+<div>
+<strong>Images</strong>
+<small>20 per 24-hour window</small>
+</div>
+
+<span>20</span>
+
+</div>
+
+<div class="list-item">
+
+<div>
+<strong>Voice</strong>
+<small>20 per 24-hour window</small>
+</div>
+
+<span>20</span>
+
+</div>
+
+<div class="list-item">
+
+<div>
+<strong>Delete local data</strong>
+<small>Remove browser-only cached data</small>
+</div>
+
+<button
+class="btn danger"
+onclick="clearLocalData()"
+>
+Delete
+</button>
+
+</div>
+
+<div class="list-item">
+
+<div>
+<strong>Delete account</strong>
+<small>Permanently delete your Amzo cloud data</small>
+</div>
+
+<button
+class="btn danger"
+onclick="deleteAccount()"
+>
+Delete Account
+</button>
+
+</div>
+
+</div>
+
+</div>
 
 </div>
 
@@ -1428,27 +1671,34 @@ textarea:focus{
 
 <div class="workspace">
 
-  <div class="panel">
+<div class="panel">
 
-    <div class="eyebrow">AMZO AI</div>
+<div class="eyebrow">
+AMZO AI
+</div>
 
-    <h2>Your AI Universe.</h2>
+<h2>Your AI Universe.</h2>
 
-    <p class="panel-sub">
-      Amzo AI is a personal AI workspace built around
-      conversation, creation, learning and experimentation.
-    </p>
+<p class="panel-sub">
+A personal AI workspace for conversation,
+creation, learning and experimentation.
+</p>
 
-    <div class="result">
-      Version 1.0<br><br>
-      AI Chat: Online<br>
-      AI Image: Online<br>
-      Video: Waiting for credits<br>
-      Workspace: Local<br><br>
-      Built for the Amzo AI universe.
-    </div>
+<div class="result">
+Version 2.0
 
-  </div>
+AI Chat: Online
+AI Image: Online
+AI Voice: Online
+Video: Waiting for credits
+Cloud Account: Available
+Cloud Projects: Available
+Cloud Favorites: Available
+
+Built for the Amzo AI universe.
+</div>
+
+</div>
 
 </div>
 
@@ -1457,1241 +1707,2391 @@ textarea:focus{
 </main>
 </div>
 
-<div class="search-overlay" id="searchOverlay">
+<!-- AUTH -->
 
-  <div class="search-box">
+<div class="auth-overlay" id="authOverlay">
 
-    <input
-      id="searchInput"
-      placeholder="Search Amzo..."
-      oninput="searchPages()"
-      onkeydown="searchKey(event)"
-    >
+<div class="auth-card">
 
-    <div class="search-results" id="searchResults"></div>
+<button
+class="auth-close"
+onclick="closeAuth()"
+>
+×
+</button>
 
-  </div>
+<div class="logo-core auth-logo">
+A
+</div>
+
+<h2 id="authTitle">
+Welcome to Amzo
+</h2>
+
+<p id="authSubtitle">
+Create your personal Amzo AI account.
+</p>
+
+<div id="registerNameBox">
+
+<input
+id="authName"
+placeholder="Display name"
+autocomplete="name"
+>
 
 </div>
 
-<div class="toast" id="toast"></div>
+<input
+id="authEmail"
+type="email"
+placeholder="Email"
+autocomplete="email"
+>
+
+<input
+id="authPassword"
+type="password"
+placeholder="Password — minimum 8 characters"
+autocomplete="current-password"
+>
+
+<button
+class="btn primary auth-submit"
+id="authSubmit"
+onclick="submitAuth()"
+>
+Create Account
+</button>
+
+<div class="auth-switch">
+
+<span id="authSwitchText">
+Already have an account?
+</span>
+
+<button
+class="auth-link"
+onclick="toggleAuthMode()"
+id="authSwitchButton"
+>
+Login
+</button>
+
+</div>
+
+<div
+id="authError"
+class="auth-error"
+></div>
+
+</div>
+</div>
+
+<!-- SEARCH -->
+
+<div
+class="search-overlay"
+id="searchOverlay"
+>
+
+<div class="search-box">
+
+<input
+id="searchInput"
+placeholder="Search Amzo..."
+oninput="searchPages()"
+onkeydown="searchKey(event)"
+>
+
+<div
+class="search-results"
+id="searchResults"
+></div>
+
+</div>
+
+</div>
+
+<div
+class="toast"
+id="toast"
+></div>
 
 <script>
+
 const API =
-  "https://ai-tool-api.amzoxamzoo.workers.dev/";
+"https://ai-tool-api.amzoxamzoo.workers.dev/";
 
 const CLIENT_KEY =
-  "amzo_client_id";
+"amzo_client_id";
 
 const clientId =
-  localStorage.getItem(CLIENT_KEY) ||
-  crypto.randomUUID();
+localStorage.getItem(CLIENT_KEY) ||
+crypto.randomUUID();
 
 localStorage.setItem(
-  CLIENT_KEY,
-  clientId
+CLIENT_KEY,
+clientId
 );
 
+let currentUser = null;
+let authMode = "register";
 let currentImage = "";
+let currentVoice = "";
 let currentPage = "home";
+let currentChatId = null;
 
 const pages = [
-  ["home","Command Center"],
-  ["chat","Amzo Chat"],
-  ["create","AI Create"],
-  ["brain","Amzo Brain"],
-  ["image","Image Lab"],
-  ["video","Video Lab"],
-  ["voice","Voice AI"],
-  ["music","Music AI"],
-  ["writer","AI Writer"],
-  ["study","Study AI"],
-  ["research","Research"],
-  ["code","Code Lab"],
-  ["studio","Creative Studio"],
-  ["tools","AI Tools"],
-  ["projects","Projects"],
-  ["history","History"],
-  ["favorites","Favorites"],
-  ["settings","Settings"],
-  ["about","About Amzo"]
+
+["home","Command Center"],
+["chat","Amzo Chat"],
+["create","AI Create"],
+["brain","Amzo Brain"],
+["image","Image Lab"],
+["voice","Voice AI"],
+["video","Video Lab"],
+["music","Music AI"],
+["writer","AI Writer"],
+["study","Study AI"],
+["research","Research"],
+["code","Code Lab"],
+["studio","Creative Studio"],
+["tools","AI Tools"],
+["projects","Projects"],
+["history","History"],
+["favorites","Favorites"],
+["settings","Settings"],
+["about","About Amzo"]
+
 ];
+
+const genericInfo = {
+
+brain:[
+"Amzo Brain",
+"Think through problems, plans and ideas with Amzo.",
+"Think deeply about this..."
+],
+
+writer:[
+"AI Writer",
+"Create scripts, posts, descriptions and content.",
+"What do you want me to write?"
+],
+
+study:[
+"Study AI",
+"Learn difficult subjects step by step.",
+"Explain this topic to me..."
+],
+
+research:[
+"Research",
+"Analyze topics and organize information.",
+"Research this topic..."
+],
+
+code:[
+"Code Lab",
+"Generate, explain and improve code.",
+"Help me with this code..."
+],
+
+studio:[
+"Creative Studio",
+"Develop creative concepts and projects.",
+"Create a creative concept for..."
+],
+
+music:[
+"Music AI",
+"Plan songs, concepts and music ideas.",
+"Create a music concept for..."
+]
+
+};
+
+/* NAVIGATION */
 
 function openPage(name,button=null){
 
-  currentPage = name;
+currentPage = name;
 
-  document.querySelectorAll(".page")
-    .forEach(p => p.classList.remove("active"));
+document
+.querySelectorAll(".page")
+.forEach(p =>
+p.classList.remove("active")
+);
 
-  const page =
-    document.getElementById(
-      "page-" + name
-    );
+const page =
+document.getElementById(
+"page-" + name
+);
 
-  if(page){
-    page.classList.add("active");
-  }
+if(page){
+page.classList.add("active");
+}
 
-  document.querySelectorAll(".nav")
-    .forEach(n => n.classList.remove("active"));
+document
+.querySelectorAll(".nav")
+.forEach(n =>
+n.classList.remove("active")
+);
 
-  if(button){
-    button.classList.add("active");
-  }else{
-    document.querySelectorAll(".nav")
-      .forEach(n => {
-        if(
-          n.getAttribute("onclick") &&
-          n.getAttribute("onclick")
-            .includes("'" + name + "'")
-        ){
-          n.classList.add("active");
-        }
-      });
-  }
+if(button){
+button.classList.add("active");
+}else{
 
-  document.getElementById("sidebar")
-    .classList.remove("open");
+document
+.querySelectorAll(".nav")
+.forEach(n => {
 
-  if(
-    ["brain","writer","study","research",
-     "code","studio","voice","music"]
-     .includes(name)
-  ){
-    renderGeneric(name);
-  }
+const onclick =
+n.getAttribute("onclick") || "";
 
-  if(name === "projects"){
-    renderProjects();
-  }
+if(
+onclick.includes(
+"'" + name + "'"
+)
+){
+n.classList.add("active");
+}
 
-  if(name === "history"){
-    renderHistory();
-  }
+});
 
-  if(name === "favorites"){
-    renderFavorites();
-  }
+}
+
+document
+.getElementById("sidebar")
+.classList.remove("open");
+
+if(genericInfo[name]){
+renderGeneric(name);
+}
+
+if(name === "projects"){
+renderProjects();
+}
+
+if(name === "history"){
+renderHistory();
+}
+
+if(name === "favorites"){
+renderFavorites();
+}
+
+if(name === "chat"){
+loadChats();
+}
+
+if(name === "settings"){
+updateSettings();
+}
+
 }
 
 function toggleSidebar(){
-  document
-    .getElementById("sidebar")
-    .classList.toggle("open");
-}
 
-function toast(message){
+document
+.getElementById("sidebar")
+.classList.toggle("open");
 
-  const el =
-    document.getElementById("toast");
-
-  el.textContent = message;
-  el.classList.add("show");
-
-  clearTimeout(window.__toast);
-
-  window.__toast =
-    setTimeout(
-      () => el.classList.remove("show"),
-      2600
-    );
 }
 
 /* API */
 
 async function api(action,data={}){
 
-  const response =
-    await fetch(API,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        action,
-        clientId,
-        ...data
-      })
-    });
+const response =
+await fetch(API,{
 
-  const result =
-    await response.json();
+method:"POST",
 
-  if(!response.ok){
+headers:{
+"Content-Type":"application/json",
+"X-Amzo-Client":clientId
+},
 
-    const error =
-      new Error(
-        result.error ||
-        "Request failed."
-      );
+credentials:"include",
 
-    error.data = result;
+body:JSON.stringify({
 
-    throw error;
-  }
+action,
+clientId,
+...data
 
-  return result;
+})
+
+});
+
+let result;
+
+try{
+result =
+await response.json();
+}catch{
+throw new Error(
+"Server returned an invalid response."
+);
+}
+
+if(!response.ok){
+
+const error =
+new Error(
+result.error ||
+"Request failed."
+);
+
+error.data = result;
+
+throw error;
+
+}
+
+return result;
+
+}
+
+/* AUTH */
+
+function openAuth(mode="register"){
+
+authMode = mode;
+
+document
+.getElementById("authOverlay")
+.classList.add("open");
+
+updateAuthUI();
+
+}
+
+function closeAuth(){
+
+document
+.getElementById("authOverlay")
+.classList.remove("open");
+
+}
+
+function toggleAuthMode(){
+
+authMode =
+authMode === "register"
+? "login"
+: "register";
+
+updateAuthUI();
+
+}
+
+function updateAuthUI(){
+
+const register =
+authMode === "register";
+
+document.getElementById(
+"authTitle"
+).textContent =
+register
+? "Welcome to Amzo"
+: "Welcome Back";
+
+document.getElementById(
+"authSubtitle"
+).textContent =
+register
+? "Create your personal Amzo AI account."
+: "Login to your Amzo AI workspace.";
+
+document.getElementById(
+"registerNameBox"
+).style.display =
+register
+? "block"
+: "none";
+
+document.getElementById(
+"authSubmit"
+).textContent =
+register
+? "Create Account"
+: "Login";
+
+document.getElementById(
+"authSwitchText"
+).textContent =
+register
+? "Already have an account?"
+: "Don't have an account?";
+
+document.getElementById(
+"authSwitchButton"
+).textContent =
+register
+? "Login"
+: "Register";
+
+document.getElementById(
+"authError"
+).textContent = "";
+
+}
+
+async function submitAuth(){
+
+const email =
+document.getElementById(
+"authEmail"
+).value.trim();
+
+const password =
+document.getElementById(
+"authPassword"
+).value;
+
+const name =
+document.getElementById(
+"authName"
+).value.trim();
+
+const errorBox =
+document.getElementById(
+"authError"
+);
+
+errorBox.textContent = "";
+
+if(!email || !password){
+
+errorBox.textContent =
+"Email and password are required.";
+
+return;
+
+}
+
+if(
+authMode === "register" &&
+password.length < 8
+){
+
+errorBox.textContent =
+"Password must be at least 8 characters.";
+
+return;
+
+}
+
+const button =
+document.getElementById(
+"authSubmit"
+);
+
+button.disabled = true;
+button.textContent =
+"Please wait...";
+
+try{
+
+const result =
+await api(
+
+authMode === "register"
+? "register"
+: "login",
+
+{
+email,
+password,
+displayName:
+name || "Amzo User"
+}
+
+);
+
+if(result.user){
+currentUser =
+result.user;
+}
+
+closeAuth();
+
+updateAccountUI();
+
+await loadCloudData();
+
+toast(
+authMode === "register"
+? "Account created."
+: "Logged in."
+);
+
+}catch(error){
+
+errorBox.textContent =
+error.message ||
+"Authentication failed.";
+
+}finally{
+
+button.disabled = false;
+
+button.textContent =
+authMode === "register"
+? "Create Account"
+: "Login";
+
+}
+
+}
+
+async function checkLogin(){
+
+try{
+
+const result =
+await api("me");
+
+if(result.loggedIn){
+
+currentUser =
+result.user;
+
+}else{
+
+currentUser = null;
+
+}
+
+updateAccountUI();
+
+if(currentUser){
+await loadCloudData();
+}
+
+}catch(error){
+
+console.error(
+"Login check failed:",
+error
+);
+
+}
+
+}
+
+function accountAction(){
+
+if(currentUser){
+
+openPage("settings");
+
+}else{
+
+openAuth("login");
+
+}
+
+}
+
+function updateAccountUI(){
+
+const button =
+document.getElementById(
+"accountButton"
+);
+
+const settingsButton =
+document.getElementById(
+"settingsAccountButton"
+);
+
+const settingsAccount =
+document.getElementById(
+"settingsAccount"
+);
+
+if(currentUser){
+
+button.textContent =
+"👤 " +
+(
+currentUser.displayName ||
+"Account"
+);
+
+settingsButton.textContent =
+"Logout";
+
+settingsButton.onclick =
+logout;
+
+settingsAccount.textContent =
+currentUser.email;
+
+document.getElementById(
+"chatAccountStatus"
+).textContent =
+"Cloud account connected";
+
+}else{
+
+button.textContent =
+"♙ Login";
+
+settingsButton.textContent =
+"Login";
+
+settingsButton.onclick =
+() => openAuth("login");
+
+settingsAccount.textContent =
+"Not logged in";
+
+document.getElementById(
+"chatAccountStatus"
+).textContent =
+"Guest conversation";
+
+}
+
+}
+
+async function logout(){
+
+try{
+
+await api("logout");
+
+currentUser = null;
+currentChatId = null;
+
+updateAccountUI();
+
+toast("Logged out.");
+
+}catch(error){
+
+toast(
+error.message ||
+"Logout failed."
+);
+
+}
+
 }
 
 /* USAGE */
 
 async function loadUsage(){
 
-  try{
+try{
 
-    const result =
-      await api("usage");
+const result =
+await api("usage");
 
-    if(result.usage){
-      updateUsage(result.usage);
-    }
+if(result.usage){
+updateUsage(result.usage);
+}
 
-  }catch(error){
-    console.error(error);
-  }
+}catch(error){
+
+console.error(
+"Usage error:",
+error
+);
+
+}
+
 }
 
 function updateUsage(usage){
 
-  const messages =
-    Number(
-      usage.messagesRemaining ??
-      usage.messageLimit
-    );
+const messages =
+Number(
+usage.messagesRemaining ??
+usage.messageLimit ??
+100
+);
 
-  const images =
-    Number(
-      usage.imagesRemaining ??
-      usage.imageLimit
-    );
+const images =
+Number(
+usage.imagesRemaining ??
+usage.imageLimit ??
+20
+);
 
-  const messageLimit =
-    Number(
-      usage.messageLimit || 100
-    );
+const voice =
+Number(
+usage.voiceRemaining ??
+usage.voiceLimit ??
+20
+);
 
-  const imageLimit =
-    Number(
-      usage.imageLimit || 20
-    );
+const messageLimit =
+Number(
+usage.messageLimit || 100
+);
 
-  document.getElementById(
-    "messageUsage"
-  ).textContent =
-    `${messages} / ${messageLimit}`;
+const imageLimit =
+Number(
+usage.imageLimit || 20
+);
 
-  document.getElementById(
-    "imageUsage"
-  ).textContent =
-    `${images} / ${imageLimit}`;
+const voiceLimit =
+Number(
+usage.voiceLimit || 20
+);
 
-  document.getElementById(
-    "messageBar"
-  ).style.width =
-    `${Math.max(
-      0,
-      Math.min(
-        100,
-        (messages / messageLimit) * 100
-      )
-    )}%`;
+document.getElementById(
+"messageUsage"
+).textContent =
+`${messages} / ${messageLimit}`;
 
-  document.getElementById(
-    "imageBar"
-  ).style.width =
-    `${Math.max(
-      0,
-      Math.min(
-        100,
-        (images / imageLimit) * 100
-      )
-    )}%`;
+document.getElementById(
+"imageUsage"
+).textContent =
+`${images} / ${imageLimit}`;
+
+document.getElementById(
+"voiceUsage"
+).textContent =
+`${voice} / ${voiceLimit}`;
+
+document.getElementById(
+"messageBar"
+).style.width =
+`${messages / messageLimit * 100}%`;
+
+document.getElementById(
+"imageBar"
+).style.width =
+`${images / imageLimit * 100}%`;
+
+document.getElementById(
+"voiceBar"
+).style.width =
+`${voice / voiceLimit * 100}%`;
+
 }
 
 /* CHAT */
 
 function chatKey(event){
 
-  if(
-    event.key === "Enter" &&
-    !event.shiftKey
-  ){
-    event.preventDefault();
-    sendChat();
-  }
+if(
+event.key === "Enter" &&
+!event.shiftKey
+){
+
+event.preventDefault();
+
+sendChat();
+
+}
+
 }
 
 function addMessage(type,text){
 
-  const box =
-    document.getElementById("messages");
+const box =
+document.getElementById(
+"messages"
+);
 
-  const el =
-    document.createElement("div");
+const el =
+document.createElement("div");
 
-  el.className =
-    `message ${type}`;
+el.className =
+`message ${type}`;
 
-  el.textContent = text;
+el.textContent =
+text;
 
-  box.appendChild(el);
+box.appendChild(el);
 
-  box.scrollTop =
-    box.scrollHeight;
+box.scrollTop =
+box.scrollHeight;
+
 }
 
 async function sendChat(){
 
-  const input =
-    document.getElementById("chatInput");
+const input =
+document.getElementById(
+"chatInput"
+);
 
-  const message =
-    input.value.trim();
+const message =
+input.value.trim();
 
-  if(!message) return;
+if(!message)return;
 
-  input.value = "";
+input.value = "";
 
-  addMessage("user",message);
+addMessage(
+"user",
+message
+);
 
-  const loading =
-    document.createElement("div");
+const loading =
+document.createElement("div");
 
-  loading.className =
-    "message ai loading";
+loading.className =
+"message ai loading";
 
-  loading.textContent =
-    "Amzo is thinking...";
+loading.textContent =
+"Amzo is thinking...";
 
-  document
-    .getElementById("messages")
-    .appendChild(loading);
+document
+.getElementById("messages")
+.appendChild(loading);
 
-  try{
+try{
 
-    const result =
-      await api("chat",{message});
+const result =
+await api(
+"chat",
+{message}
+);
 
-    loading.remove();
+loading.remove();
 
-    addMessage(
-      "ai",
-      result.reply ||
-      result.response ||
-      result.text ||
-      "No response."
-    );
+const reply =
+result.reply ||
+result.response ||
+result.text ||
+"No response.";
 
-    saveHistory(
-      "Chat",
-      message
-    );
+addMessage(
+"ai",
+reply
+);
 
-    if(result.usage){
-      updateUsage(result.usage);
-    }else{
-      loadUsage();
-    }
+saveHistory(
+"Chat",
+message
+);
 
-  }catch(error){
+if(
+currentUser &&
+currentChatId
+){
 
-    loading.remove();
+await api(
+"save_message",
+{
+chatId:
+currentChatId,
+role:"user",
+content:message
+}
+);
 
-    if(
-      error.data &&
-      error.data.limitType === "messages"
-    ){
+await api(
+"save_message",
+{
+chatId:
+currentChatId,
+role:"assistant",
+content:reply
+}
+);
 
-      addMessage(
-        "ai",
-        "⚡ Daily message limit reached.\n\nTry again after the 24-hour reset."
-      );
-
-    }else{
-
-      addMessage(
-        "ai",
-        "⚠️ " +
-        (
-          error.message ||
-          "Something went wrong."
-        )
-      );
-    }
-
-    loadUsage();
-  }
 }
 
-function newChat(){
+if(result.usage){
+updateUsage(result.usage);
+}else{
+loadUsage();
+}
 
-  document.getElementById(
-    "messages"
-  ).innerHTML = `
-    <div class="message ai">
-      New Amzo chat started. What are we building?
-    </div>
-  `;
+}catch(error){
 
-  toast("New chat started.");
+loading.remove();
+
+addMessage(
+"ai",
+"⚠️ " +
+(
+error.message ||
+"Something went wrong."
+)
+);
+
+loadUsage();
+
+}
+
+}
+
+async function newChat(){
+
+document.getElementById(
+"messages"
+).innerHTML = `
+<div class="message ai">
+New Amzo chat started. What are we building?
+</div>
+`;
+
+currentChatId = null;
+
+if(currentUser){
+
+try{
+
+const result =
+await api(
+"create_chat",
+{
+title:"New Chat"
+}
+);
+
+currentChatId =
+result.chat.id;
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+toast(
+currentUser
+? "Cloud chat created."
+: "New chat started."
+);
+
+}
+
+async function loadChats(){
+
+if(!currentUser)return;
+
+try{
+
+const result =
+await api("list_chats");
+
+const chats =
+result.chats || [];
+
+if(
+chats.length &&
+!currentChatId
+){
+
+currentChatId =
+chats[0].id;
+
+const chat =
+await api(
+"get_chat",
+{
+chatId:
+currentChatId
+}
+);
+
+document.getElementById(
+"messages"
+).innerHTML = "";
+
+for(
+const message
+of chat.messages || []
+){
+
+addMessage(
+message.role === "user"
+? "user"
+: "ai",
+message.content
+);
+
+}
+
+}
+
+}catch(error){
+
+console.error(
+"Chats error:",
+error
+);
+
+}
+
 }
 
 /* IMAGE */
 
 async function generateImage(){
 
-  const input =
-    document.getElementById(
-      "imagePrompt"
-    );
+const prompt =
+document.getElementById(
+"imagePrompt"
+).value.trim();
 
-  const prompt =
-    input.value.trim();
+if(!prompt){
 
-  if(!prompt){
-    toast("Enter an image prompt first.");
-    return;
-  }
+toast(
+"Enter an image prompt first."
+);
 
-  const resultBox =
-    document.getElementById(
-      "imageResult"
-    );
+return;
 
-  resultBox.style.display =
-    "block";
+}
 
-  const image =
-    document.getElementById(
-      "generatedImage"
-    );
+document.getElementById(
+"imageResult"
+).style.display =
+"block";
 
-  image.removeAttribute("src");
+const image =
+document.getElementById(
+"generatedImage"
+);
 
-  toast("Creating your image...");
+image.removeAttribute("src");
 
-  try{
+toast(
+"Creating your image..."
+);
 
-    const result =
-      await api(
-        "image",
-        {prompt}
-      );
+try{
 
-    if(!result.dataURI){
-      throw new Error(
-        "No image returned."
-      );
-    }
+const result =
+await api(
+"image",
+{prompt}
+);
 
-    currentImage =
-      result.dataURI;
+if(!result.dataURI){
+throw new Error(
+"No image returned."
+);
+}
 
-    image.src =
-      currentImage;
+currentImage =
+result.dataURI;
 
-    saveHistory(
-      "Image",
-      prompt
-    );
+image.src =
+currentImage;
 
-    if(result.usage){
-      updateUsage(result.usage);
-    }else{
-      loadUsage();
-    }
+saveHistory(
+"Image",
+prompt
+);
 
-    toast("Image created successfully.");
+if(result.usage){
+updateUsage(result.usage);
+}else{
+loadUsage();
+}
 
-  }catch(error){
+toast(
+"Image created successfully."
+);
 
-    if(
-      error.data &&
-      error.data.limitType === "images"
-    ){
+}catch(error){
 
-      toast(
-        "Daily image limit reached."
-      );
+document.getElementById(
+"imageResult"
+).style.display =
+"none";
 
-    }else{
+toast(
+error.message ||
+"Image generation failed."
+);
 
-      toast(
-        error.message ||
-        "Image generation failed."
-      );
-    }
+loadUsage();
 
-    resultBox.style.display =
-      "none";
+}
 
-    loadUsage();
-  }
 }
 
 function clearImage(){
 
-  currentImage = "";
+currentImage = "";
 
-  document.getElementById(
-    "imagePrompt"
-  ).value = "";
+document.getElementById(
+"imagePrompt"
+).value = "";
 
-  document.getElementById(
-    "imageResult"
-  ).style.display = "none";
+document.getElementById(
+"imageResult"
+).style.display =
+"none";
+
 }
 
 function downloadImage(){
 
-  if(!currentImage){
-    toast("No image available.");
-    return;
-  }
+if(!currentImage){
 
-  const a =
-    document.createElement("a");
+toast(
+"No image available."
+);
 
-  a.href = currentImage;
-  a.download =
-    "amzo-ai-image.jpg";
+return;
 
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-
-  toast("Image download started.");
 }
 
-function favoriteImage(){
+const a =
+document.createElement("a");
 
-  if(!currentImage){
-    toast("Generate an image first.");
-    return;
-  }
+a.href =
+currentImage;
 
-  const favorites =
-    JSON.parse(
-      localStorage.getItem(
-        "amzo_favorites"
-      ) || "[]"
-    );
+a.download =
+"amzo-ai-image.jpg";
 
-  favorites.unshift({
-    type:"image",
-    title:"Generated Image",
-    data:currentImage,
-    time:Date.now()
-  });
+a.click();
 
-  localStorage.setItem(
-    "amzo_favorites",
-    JSON.stringify(
-      favorites.slice(0,50)
-    )
-  );
+toast(
+"Download started."
+);
 
-  toast("Saved to Favorites.");
+}
+
+async function favoriteImage(){
+
+if(!currentImage){
+
+toast(
+"Generate an image first."
+);
+
+return;
+
+}
+
+if(currentUser){
+
+try{
+
+await api(
+"save_favorite",
+{
+type:"image",
+title:"Generated Image",
+data:{
+image:currentImage
+}
+}
+);
+
+toast(
+"Saved to cloud favorites."
+);
+
+return;
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+const favorites =
+JSON.parse(
+localStorage.getItem(
+"amzo_favorites"
+) || "[]"
+);
+
+favorites.unshift({
+type:"image",
+title:"Generated Image",
+data:currentImage,
+time:Date.now()
+});
+
+localStorage.setItem(
+"amzo_favorites",
+JSON.stringify(
+favorites.slice(0,50)
+)
+);
+
+toast(
+"Saved locally."
+);
+
+}
+
+/* VOICE */
+
+async function generateVoice(){
+
+const text =
+document.getElementById(
+"voiceInput"
+).value.trim();
+
+const lang =
+document.getElementById(
+"voiceLanguage"
+).value;
+
+if(!text){
+
+toast(
+"Write something first."
+);
+
+return;
+
+}
+
+const resultBox =
+document.getElementById(
+"voiceResult"
+);
+
+resultBox.className =
+"result loading";
+
+resultBox.textContent =
+"Generating voice...";
+
+try{
+
+const result =
+await api(
+"voice",
+{
+text,
+lang
+}
+);
+
+if(!result.dataURI){
+throw new Error(
+"No audio returned."
+);
+}
+
+currentVoice =
+result.dataURI;
+
+const player =
+document.getElementById(
+"voicePlayer"
+);
+
+player.src =
+currentVoice;
+
+document.getElementById(
+"voicePlayerBox"
+).style.display =
+"block";
+
+resultBox.className =
+"result";
+
+resultBox.textContent =
+"Voice generated successfully.";
+
+saveHistory(
+"Voice",
+text
+);
+
+if(result.usage){
+updateUsage(result.usage);
+}else{
+loadUsage();
+}
+
+toast(
+"Voice generated."
+);
+
+}catch(error){
+
+resultBox.className =
+"result error";
+
+resultBox.textContent =
+error.message ||
+"Voice generation failed.";
+
+loadUsage();
+
+}
+
+}
+
+function playVoice(){
+
+const player =
+document.getElementById(
+"voicePlayer"
+);
+
+if(player.src){
+
+player.play();
+
+}
+
+}
+
+function downloadVoice(){
+
+if(!currentVoice){
+
+toast(
+"No voice available."
+);
+
+return;
+
+}
+
+const a =
+document.createElement("a");
+
+a.href =
+currentVoice;
+
+a.download =
+"amzo-ai-voice.mp3";
+
+a.click();
+
+toast(
+"MP3 download started."
+);
+
+}
+
+function clearVoice(){
+
+currentVoice = "";
+
+document.getElementById(
+"voiceInput"
+).value = "";
+
+document.getElementById(
+"voiceResult"
+).textContent =
+"Your generated voice will appear here.";
+
+document.getElementById(
+"voiceResult"
+).className =
+"result";
+
+document.getElementById(
+"voicePlayerBox"
+).style.display =
+"none";
+
 }
 
 /* GENERIC AI */
 
-const genericInfo = {
-
-  brain:[
-    "Amzo Brain",
-    "Think through problems, plans and ideas with Amzo.",
-    "Think deeply about this..."
-  ],
-
-  writer:[
-    "AI Writer",
-    "Create scripts, posts, descriptions, emails and more.",
-    "What do you want me to write?"
-  ],
-
-  study:[
-    "Study AI",
-    "Learn difficult subjects step by step.",
-    "Explain this topic to me..."
-  ],
-
-  research:[
-    "Research",
-    "Use Amzo for structured research and analysis.",
-    "Research this topic..."
-  ],
-
-  code:[
-    "Code Lab",
-    "Generate, explain and improve code.",
-    "Help me with this code..."
-  ],
-
-  studio:[
-    "Creative Studio",
-    "Develop creative concepts, stories and projects.",
-    "Create a creative concept for..."
-  ],
-
-  voice:[
-    "Voice AI",
-    "Voice generation integration will be added here.",
-    "Create a voice concept for..."
-  ],
-
-  music:[
-    "Music AI",
-    "Music generation integration will be added here.",
-    "Create a music concept for..."
-  ]
-};
-
 function renderGeneric(name){
 
-  const data =
-    genericInfo[name];
+const data =
+genericInfo[name];
 
-  if(!data) return;
+if(!data)return;
 
-  const container =
-    document.getElementById(
-      name + "Content"
-    );
+const page =
+document.getElementById(
+"page-" + name
+);
 
-  container.innerHTML = `
-    <div class="workspace">
-      <div class="section-title">
-        <div>
-          <h2>${data[0]}</h2>
-          <span>${data[1]}</span>
-        </div>
-      </div>
+page.innerHTML = `
 
-      <div class="panel">
+<div class="workspace">
 
-        <textarea
-          id="${name}Input"
-          placeholder="${data[2]}"
-        ></textarea>
+<div class="section-title">
 
-        <div class="form-row">
+<div>
+<h2>${escapeHTML(data[0])}</h2>
+<span>${escapeHTML(data[1])}</span>
+</div>
 
-          <button
-            class="btn primary"
-            onclick="runGeneric('${name}')"
-          >
-            ✦ Ask Amzo
-          </button>
+</div>
 
-          <button
-            class="btn"
-            onclick="document.getElementById('${name}Input').value=''"
-          >
-            Clear
-          </button>
+<div class="panel">
 
-        </div>
+<textarea
+id="${name}Input"
+placeholder="${escapeHTML(data[2])}"
+></textarea>
 
-        <div
-          class="result"
-          id="${name}Result"
-        >
-          Your result will appear here.
-        </div>
+<div class="form-row">
 
-      </div>
-    </div>
-  `;
+<button
+class="btn primary"
+onclick="runGeneric('${name}')"
+>
+✦ Ask Amzo
+</button>
+
+<button
+class="btn"
+onclick="clearGeneric('${name}')"
+>
+Clear
+</button>
+
+</div>
+
+<div
+class="result"
+id="${name}Result"
+>
+Your result will appear here.
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+function clearGeneric(name){
+
+document.getElementById(
+name + "Input"
+).value = "";
+
+document.getElementById(
+name + "Result"
+).textContent =
+"Your result will appear here.";
+
 }
 
 async function runGeneric(name){
 
-  const input =
-    document.getElementById(
-      name + "Input"
-    );
+const input =
+document.getElementById(
+name + "Input"
+);
 
-  const resultBox =
-    document.getElementById(
-      name + "Result"
-    );
+const resultBox =
+document.getElementById(
+name + "Result"
+);
 
-  const message =
-    input.value.trim();
+const message =
+input.value.trim();
 
-  if(!message){
-    toast("Enter something first.");
-    return;
-  }
+if(!message){
 
-  resultBox.className =
-    "result loading";
+toast(
+"Enter something first."
+);
 
-  resultBox.textContent =
-    "Amzo is thinking...";
+return;
 
-  try{
+}
 
-    const result =
-      await api(
-        "chat",
-        {message}
-      );
+resultBox.className =
+"result loading";
 
-    resultBox.className =
-      "result";
+resultBox.textContent =
+"Amzo is thinking...";
 
-    resultBox.textContent =
-      result.reply ||
-      result.response ||
-      result.text ||
-      "No response.";
+try{
 
-    saveHistory(
-      name,
-      message
-    );
+const result =
+await api(
+"chat",
+{message}
+);
 
-    if(result.usage){
-      updateUsage(result.usage);
-    }
+resultBox.className =
+"result";
 
-  }catch(error){
+resultBox.textContent =
+result.reply ||
+result.response ||
+result.text ||
+"No response.";
 
-    resultBox.className =
-      "result error";
+saveHistory(
+name,
+message
+);
 
-    resultBox.textContent =
-      error.message ||
-      "Something went wrong.";
+if(result.usage){
+updateUsage(result.usage);
+}
 
-    loadUsage();
-  }
+}catch(error){
+
+resultBox.className =
+"result error";
+
+resultBox.textContent =
+error.message ||
+"Something went wrong.";
+
+loadUsage();
+
+}
+
 }
 
 /* TOOLS */
 
-async function toolIdeas(){
-  openPage("chat");
-  document.getElementById(
-    "chatInput"
-  ).value =
-    "Give me 10 unique AI business ideas.";
-  document.getElementById(
-    "chatInput"
-  ).focus();
+function toolIdeas(){
+
+openPage("chat");
+
+const input =
+document.getElementById(
+"chatInput"
+);
+
+input.value =
+"Give me 10 unique AI business ideas.";
+
+input.focus();
+
 }
 
-async function toolExplain(){
-  openPage("chat");
-  document.getElementById(
-    "chatInput"
-  ).value =
-    "Explain this concept in very simple language: ";
-  document.getElementById(
-    "chatInput"
-  ).focus();
+function toolExplain(){
+
+openPage("chat");
+
+const input =
+document.getElementById(
+"chatInput"
+);
+
+input.value =
+"Explain this concept in very simple language: ";
+
+input.focus();
+
 }
 
-async function toolBrainstorm(){
-  openPage("chat");
-  document.getElementById(
-    "chatInput"
-  ).value =
-    "Brainstorm creative ideas about: ";
-  document.getElementById(
-    "chatInput"
-  ).focus();
+function toolBrainstorm(){
+
+openPage("chat");
+
+const input =
+document.getElementById(
+"chatInput"
+);
+
+input.value =
+"Brainstorm creative ideas about: ";
+
+input.focus();
+
 }
 
 function toolCounter(){
 
-  const text =
-    prompt(
-      "Paste your text:"
-    );
+const text =
+prompt(
+"Paste your text:"
+);
 
-  if(text === null) return;
+if(text === null)return;
 
-  const words =
-    text.trim()
-      ? text.trim().split(/\s+/).length
-      : 0;
+const words =
+text.trim()
+? text.trim().split(/\s+/).length
+: 0;
 
-  alert(
-    `Words: ${words}\nCharacters: ${text.length}`
-  );
+alert(
+`Words: ${words}\nCharacters: ${text.length}`
+);
+
+}
+
+/* PROJECTS */
+
+async function newProject(){
+
+if(!currentUser){
+
+openAuth("login");
+
+toast(
+"Login required for cloud projects."
+);
+
+return;
+
+}
+
+const name =
+prompt(
+"Project name:"
+);
+
+if(!name)return;
+
+try{
+
+await api(
+"save_project",
+{
+name,
+data:{
+createdFrom:"Amzo AI"
+}
+}
+);
+
+renderProjects();
+
+toast(
+"Project saved to cloud."
+);
+
+}catch(error){
+
+toast(
+error.message ||
+"Could not create project."
+);
+
+}
+
+}
+
+async function renderProjects(){
+
+const list =
+document.getElementById(
+"projectList"
+);
+
+if(!currentUser){
+
+list.innerHTML = `
+<div class="card">
+<h3>Login required</h3>
+<p>Login to save projects to your Amzo cloud workspace.</p>
+<button
+class="btn primary"
+onclick="openAuth('login')"
+>
+Login
+</button>
+</div>
+`;
+
+return;
+
+}
+
+try{
+
+const result =
+await api(
+"list_projects"
+);
+
+const projects =
+result.projects || [];
+
+if(!projects.length){
+
+list.innerHTML = `
+<div class="card">
+<h3>No projects yet</h3>
+<p>Create your first Amzo project.</p>
+</div>
+`;
+
+return;
+
+}
+
+list.innerHTML =
+projects.map(
+project => `
+
+<div class="list-item">
+
+<div>
+<strong>
+${escapeHTML(project.name)}
+</strong>
+
+<small>
+Cloud project
+</small>
+</div>
+
+<button
+class="btn danger"
+onclick="deleteProject('${project.id}')"
+>
+×
+</button>
+
+</div>
+
+`
+).join("");
+
+}catch(error){
+
+list.innerHTML = `
+<div class="card">
+<h3>Could not load projects</h3>
+<p>${escapeHTML(error.message)}</p>
+</div>
+`;
+
+}
+
+}
+
+async function deleteProject(projectId){
+
+if(!currentUser)return;
+
+if(
+!confirm(
+"Delete this project?"
+)
+)return;
+
+try{
+
+await api(
+"delete_project",
+{
+projectId
+}
+);
+
+renderProjects();
+
+toast(
+"Project deleted."
+);
+
+}catch(error){
+
+toast(
+error.message ||
+"Delete failed."
+);
+
+}
+
 }
 
 /* HISTORY */
 
 function saveHistory(type,text){
 
-  const history =
-    JSON.parse(
-      localStorage.getItem(
-        "amzo_history"
-      ) || "[]"
-    );
+const history =
+JSON.parse(
+localStorage.getItem(
+"amzo_history"
+) || "[]"
+);
 
-  history.unshift({
-    type,
-    text,
-    time:Date.now()
-  });
+history.unshift({
+type,
+text,
+time:Date.now()
+});
 
-  localStorage.setItem(
-    "amzo_history",
-    JSON.stringify(
-      history.slice(0,100)
-    )
-  );
+localStorage.setItem(
+"amzo_history",
+JSON.stringify(
+history.slice(0,100)
+)
+);
+
 }
 
 function renderHistory(){
 
-  const list =
-    document.getElementById(
-      "historyList"
-    );
+const list =
+document.getElementById(
+"historyList"
+);
 
-  const history =
-    JSON.parse(
-      localStorage.getItem(
-        "amzo_history"
-      ) || "[]"
-    );
+const history =
+JSON.parse(
+localStorage.getItem(
+"amzo_history"
+) || "[]"
+);
 
-  if(!history.length){
+if(!history.length){
 
-    list.innerHTML = `
-      <div class="card">
-        <h3>No history yet</h3>
-        <p>Your activity will appear here.</p>
-      </div>
-    `;
+list.innerHTML = `
+<div class="card">
+<h3>No history yet</h3>
+<p>Your recent activity will appear here.</p>
+</div>
+`;
 
-    return;
-  }
+return;
 
-  list.innerHTML =
-    history.map(
-      (item,index) => `
-        <div class="list-item">
-          <div>
-            <strong>${escapeHTML(item.type)}</strong>
-            <small>
-              ${escapeHTML(item.text)}
-            </small>
-          </div>
+}
 
-          <button
-            class="btn"
-            onclick="deleteHistory(${index})"
-          >
-            ×
-          </button>
-        </div>
-      `
-    ).join("");
+list.innerHTML =
+history.map(
+(item,index) => `
+
+<div class="list-item">
+
+<div>
+<strong>
+${escapeHTML(item.type)}
+</strong>
+
+<small>
+${escapeHTML(item.text)}
+</small>
+</div>
+
+<button
+class="btn"
+onclick="deleteHistory(${index})"
+>
+×
+</button>
+
+</div>
+
+`
+).join("");
+
 }
 
 function deleteHistory(index){
 
-  const history =
-    JSON.parse(
-      localStorage.getItem(
-        "amzo_history"
-      ) || "[]"
-    );
+const history =
+JSON.parse(
+localStorage.getItem(
+"amzo_history"
+) || "[]"
+);
 
-  history.splice(index,1);
+history.splice(index,1);
 
-  localStorage.setItem(
-    "amzo_history",
-    JSON.stringify(history)
-  );
+localStorage.setItem(
+"amzo_history",
+JSON.stringify(history)
+);
 
-  renderHistory();
+renderHistory();
+
 }
 
 function clearHistory(){
 
-  localStorage.removeItem(
-    "amzo_history"
-  );
+localStorage.removeItem(
+"amzo_history"
+);
 
-  renderHistory();
+renderHistory();
 
-  toast("History cleared.");
-}
+toast(
+"History cleared."
+);
 
-/* PROJECTS */
-
-function newProject(){
-
-  const name =
-    prompt(
-      "Project name:"
-    );
-
-  if(!name) return;
-
-  const projects =
-    JSON.parse(
-      localStorage.getItem(
-        "amzo_projects"
-      ) || "[]"
-    );
-
-  projects.unshift({
-    name,
-    time:Date.now()
-  });
-
-  localStorage.setItem(
-    "amzo_projects",
-    JSON.stringify(projects)
-  );
-
-  renderProjects();
-
-  toast("Project created.");
-}
-
-function renderProjects(){
-
-  const list =
-    document.getElementById(
-      "projectList"
-    );
-
-  if(!list) return;
-
-  const projects =
-    JSON.parse(
-      localStorage.getItem(
-        "amzo_projects"
-      ) || "[]"
-    );
-
-  if(!projects.length){
-
-    list.innerHTML = `
-      <div class="card">
-        <h3>No projects yet</h3>
-        <p>Create your first Amzo project.</p>
-      </div>
-    `;
-
-    return;
-  }
-
-  list.innerHTML =
-    projects.map(
-      (project,index) => `
-        <div class="list-item">
-
-          <div>
-            <strong>
-              ${escapeHTML(project.name)}
-            </strong>
-
-            <small>
-              Amzo project
-            </small>
-          </div>
-
-          <button
-            class="btn"
-            onclick="deleteProject(${index})"
-          >
-            ×
-          </button>
-
-        </div>
-      `
-    ).join("");
-}
-
-function deleteProject(index){
-
-  const projects =
-    JSON.parse(
-      localStorage.getItem(
-        "amzo_projects"
-      ) || "[]"
-    );
-
-  projects.splice(index,1);
-
-  localStorage.setItem(
-    "amzo_projects",
-    JSON.stringify(projects)
-  );
-
-  renderProjects();
 }
 
 /* FAVORITES */
 
-function renderFavorites(){
+async function renderFavorites(){
 
-  const list =
-    document.getElementById(
-      "favoriteList"
-    );
+const list =
+document.getElementById(
+"favoriteList"
+);
 
-  const favorites =
-    JSON.parse(
-      localStorage.getItem(
-        "amzo_favorites"
-      ) || "[]"
-    );
+if(currentUser){
 
-  if(!favorites.length){
+try{
 
-    list.innerHTML = `
-      <div class="card">
-        <h3>No favorites yet</h3>
-        <p>Save useful AI outputs here.</p>
-      </div>
-    `;
+const result =
+await api(
+"list_favorites"
+);
 
-    return;
-  }
+const favorites =
+result.favorites || [];
 
-  list.innerHTML =
-    favorites.map(
-      (item,index) => {
+if(!favorites.length){
 
-        if(item.type === "image"){
+list.innerHTML = `
+<div class="card">
+<h3>No cloud favorites yet</h3>
+<p>Save AI outputs to your account.</p>
+</div>
+`;
 
-          return `
-            <div class="list-item">
-              <div>
-                <strong>🖼️ Generated Image</strong>
-                <small>Saved AI image</small>
-              </div>
+return;
 
-              <button
-                class="btn"
-                onclick="deleteFavorite(${index})"
-              >
-                ×
-              </button>
-            </div>
-          `;
-        }
+}
 
-        return `
-          <div class="list-item">
-            <div>
-              <strong>
-                ${escapeHTML(item.title || "Favorite")}
-              </strong>
-              <small>
-                ${escapeHTML(item.text || "")}
-              </small>
-            </div>
+list.innerHTML =
+favorites.map(
+item => `
 
-            <button
-              class="btn"
-              onclick="deleteFavorite(${index})"
-            >
-              ×
-            </button>
-          </div>
-        `;
-      }
-    ).join("");
+<div class="list-item">
+
+<div>
+<strong>
+${escapeHTML(item.title)}
+</strong>
+
+<small>
+${escapeHTML(item.type)}
+</small>
+</div>
+
+<button
+class="btn danger"
+onclick="deleteCloudFavorite('${item.id}')"
+>
+×
+</button>
+
+</div>
+
+`
+).join("");
+
+return;
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+const favorites =
+JSON.parse(
+localStorage.getItem(
+"amzo_favorites"
+) || "[]"
+);
+
+if(!favorites.length){
+
+list.innerHTML = `
+<div class="card">
+<h3>No favorites yet</h3>
+<p>Save useful AI outputs here.</p>
+</div>
+`;
+
+return;
+
+}
+
+list.innerHTML =
+favorites.map(
+(item,index) => `
+
+<div class="list-item">
+
+<div>
+<strong>
+${escapeHTML(item.title || "Favorite")}
+</strong>
+
+<small>
+${escapeHTML(item.type || "")}
+</small>
+</div>
+
+<button
+class="btn"
+onclick="deleteFavorite(${index})"
+>
+×
+</button>
+
+</div>
+
+`
+).join("");
+
+}
+
+async function deleteCloudFavorite(id){
+
+try{
+
+await api(
+"delete_favorite",
+{
+favoriteId:id
+}
+);
+
+renderFavorites();
+
+toast(
+"Favorite deleted."
+);
+
+}catch(error){
+
+toast(
+error.message ||
+"Delete failed."
+);
+
+}
+
 }
 
 function deleteFavorite(index){
 
-  const favorites =
-    JSON.parse(
-      localStorage.getItem(
-        "amzo_favorites"
-      ) || "[]"
-    );
+const favorites =
+JSON.parse(
+localStorage.getItem(
+"amzo_favorites"
+) || "[]"
+);
 
-  favorites.splice(index,1);
+favorites.splice(index,1);
 
-  localStorage.setItem(
-    "amzo_favorites",
-    JSON.stringify(favorites)
-  );
+localStorage.setItem(
+"amzo_favorites",
+JSON.stringify(favorites)
+);
 
-  renderFavorites();
+renderFavorites();
+
+}
+
+/* CLOUD DATA */
+
+async function loadCloudData(){
+
+if(!currentUser)return;
+
+await loadChats();
+await renderProjects();
+await renderFavorites();
+
+}
+
+/* SETTINGS */
+
+function updateSettings(){
+
+updateAccountUI();
+
+}
+
+/* ACCOUNT DELETE */
+
+async function deleteAccount(){
+
+if(!currentUser){
+
+toast(
+"Login first."
+);
+
+return;
+
+}
+
+const answer =
+prompt(
+"Type DELETE to permanently delete your account:"
+);
+
+if(answer !== "DELETE"){
+
+toast(
+"Account deletion cancelled."
+);
+
+return;
+
+}
+
+try{
+
+await api(
+"delete_account"
+);
+
+currentUser = null;
+currentChatId = null;
+
+updateAccountUI();
+
+toast(
+"Account deleted."
+);
+
+openPage("home");
+
+}catch(error){
+
+toast(
+error.message ||
+"Could not delete account."
+);
+
+}
+
+}
+
+function clearLocalData(){
+
+if(
+!confirm(
+"Delete browser-only history and local data?"
+)
+)return;
+
+localStorage.removeItem(
+"amzo_history"
+);
+
+localStorage.removeItem(
+"amzo_favorites"
+);
+
+renderHistory();
+renderFavorites();
+
+toast(
+"Local data deleted."
+);
+
 }
 
 /* SEARCH */
 
 function openSearch(){
 
-  const overlay =
-    document.getElementById(
-      "searchOverlay"
-    );
+const overlay =
+document.getElementById(
+"searchOverlay"
+);
 
-  overlay.classList.add("open");
+overlay.classList.add("open");
 
-  const input =
-    document.getElementById(
-      "searchInput"
-    );
+const input =
+document.getElementById(
+"searchInput"
+);
 
-  input.value = "";
-  input.focus();
+input.value = "";
 
-  searchPages();
+input.focus();
+
+searchPages();
+
 }
 
 function closeSearch(){
 
-  document
-    .getElementById(
-      "searchOverlay"
-    )
-    .classList.remove("open");
+document
+.getElementById(
+"searchOverlay"
+)
+.classList.remove("open");
+
 }
 
 function searchPages(){
 
-  const query =
-    document.getElementById(
-      "searchInput"
-    ).value
-      .toLowerCase()
-      .trim();
+const query =
+document.getElementById(
+"searchInput"
+)
+.value
+.toLowerCase()
+.trim();
 
-  const results =
-    document.getElementById(
-      "searchResults"
-    );
+const results =
+document.getElementById(
+"searchResults"
+);
 
-  const matches =
-    pages.filter(
-      p =>
-        !query ||
-        p[0].includes(query) ||
-        p[1].toLowerCase().includes(query)
-    );
+const matches =
+pages.filter(
+page =>
+!query ||
+page[0].includes(query) ||
+page[1].toLowerCase().includes(query)
+);
 
-  results.innerHTML =
-    matches.map(
-      p => `
-        <div
-          class="search-result"
-          onclick="selectSearch('${p[0]}')"
-        >
-          ✦ ${p[1]}
-        </div>
-      `
-    ).join("");
+results.innerHTML =
+matches.map(
+page => `
+
+<div
+class="search-result"
+onclick="selectSearch('${page[0]}')"
+>
+✦ ${escapeHTML(page[1])}
+</div>
+
+`
+).join("");
+
 }
 
 function selectSearch(page){
 
-  closeSearch();
+closeSearch();
 
-  openPage(page);
+openPage(page);
+
 }
 
 function searchKey(event){
 
-  if(event.key === "Escape"){
-    closeSearch();
-  }
+if(event.key === "Escape"){
+closeSearch();
 }
 
-/* DATA */
-
-function clearAllData(){
-
-  if(
-    !confirm(
-      "Delete local Amzo projects, history and favorites?"
-    )
-  ) return;
-
-  localStorage.removeItem(
-    "amzo_history"
-  );
-
-  localStorage.removeItem(
-    "amzo_projects"
-  );
-
-  localStorage.removeItem(
-    "amzo_favorites"
-  );
-
-  toast("Local data deleted.");
-
-  renderHistory();
-  renderProjects();
-  renderFavorites();
 }
+
+/* TOAST */
+
+function toast(message){
+
+const el =
+document.getElementById(
+"toast"
+);
+
+el.textContent =
+message;
+
+el.classList.add("show");
+
+clearTimeout(
+window.__toast
+);
+
+window.__toast =
+setTimeout(
+() =>
+el.classList.remove("show"),
+2600
+);
+
+}
+
+/* HTML ESCAPE */
 
 function escapeHTML(value){
 
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+return String(value)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
 }
 
 /* KEYBOARD */
 
 document.addEventListener(
-  "keydown",
-  event => {
+"keydown",
+event => {
 
-    if(
-      event.ctrlKey &&
-      event.key.toLowerCase() === "k"
-    ){
-      event.preventDefault();
-      openSearch();
-    }
+if(
+event.ctrlKey &&
+event.key.toLowerCase() === "k"
+){
 
-    if(event.key === "Escape"){
-      closeSearch();
-    }
-  }
+event.preventDefault();
+
+openSearch();
+
+}
+
+if(event.key === "Escape"){
+closeSearch();
+}
+
+}
 );
 
 document
-  .getElementById("searchOverlay")
-  .addEventListener(
-    "click",
-    event => {
-      if(
-        event.target.id ===
-        "searchOverlay"
-      ){
-        closeSearch();
-      }
-    }
-  );
+.getElementById(
+"searchOverlay"
+)
+.addEventListener(
+"click",
+event => {
+
+if(
+event.target.id ===
+"searchOverlay"
+){
+
+closeSearch();
+
+}
+
+}
+);
 
 /* START */
 
+renderGeneric("brain");
+renderGeneric("writer");
+renderGeneric("study");
+renderGeneric("research");
+renderGeneric("code");
+renderGeneric("studio");
+renderGeneric("music");
+
 loadUsage();
+
+checkLogin();
+
 renderProjects();
+
 renderHistory();
+
 renderFavorites();
 
 setInterval(
-  loadUsage,
-  30000
+loadUsage,
+30000
 );
+
 </script>
 
 </body>
