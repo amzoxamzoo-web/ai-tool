@@ -2,223 +2,177 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Amzo AI — Your AI Universe</title>
 
 <style>
 :root{
   --bg:#05060b;
-  --panel:#0b0e18;
-  --panel2:#101421;
+  --panel:rgba(15,17,29,.72);
+  --panel2:rgba(20,22,38,.82);
   --line:rgba(255,255,255,.09);
   --text:#f5f7ff;
-  --muted:#858ca3;
+  --muted:#8f96ad;
   --cyan:#00eaff;
-  --purple:#8b5cf6;
-  --pink:#ff2bd6;
-  --green:#39ff88;
-  --orange:#ff9f43;
+  --purple:#9b5cff;
+  --pink:#ff3cac;
+  --green:#39ff9b;
+  --danger:#ff5577;
+  --radius:22px;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 html,body{
-  width:100%;
   min-height:100%;
-  font-family:Inter,Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
-
-body{
-  overflow-x:hidden;
-}
-
-body:before{
-  content:"";
-  position:fixed;
-  inset:-30%;
-  z-index:-3;
   background:
-    radial-gradient(circle at 15% 20%,rgba(0,234,255,.13),transparent 25%),
-    radial-gradient(circle at 85% 15%,rgba(139,92,246,.15),transparent 25%),
-    radial-gradient(circle at 75% 85%,rgba(255,43,214,.10),transparent 25%);
-  filter:blur(20px);
-  animation:bgmove 12s ease-in-out infinite alternate;
+    radial-gradient(circle at 20% 10%,rgba(0,234,255,.08),transparent 28%),
+    radial-gradient(circle at 80% 20%,rgba(155,92,255,.10),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,Segoe UI,Arial,sans-serif;
 }
 
-@keyframes bgmove{
-  from{transform:scale(1)}
-  to{transform:scale(1.12) rotate(2deg)}
+button,input,textarea{
+  font:inherit;
 }
-
-button,input,textarea{font:inherit}
 
 button{
   cursor:pointer;
-  border:0;
+}
+
+::-webkit-scrollbar{
+  width:7px;
+}
+
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(var(--cyan),var(--purple));
+  border-radius:20px;
 }
 
 .app{
-  display:flex;
   min-height:100vh;
+  display:flex;
 }
 
 /* SIDEBAR */
 
 .sidebar{
+  width:255px;
+  min-height:100vh;
   position:fixed;
   left:0;
   top:0;
   bottom:0;
-  width:250px;
-  background:rgba(7,9,16,.92);
-  border-right:1px solid var(--line);
+  z-index:20;
+  background:rgba(5,7,15,.88);
   backdrop-filter:blur(25px);
-  z-index:50;
-  display:flex;
-  flex-direction:column;
+  border-right:1px solid var(--line);
+  padding:18px 12px;
   overflow:hidden;
 }
 
-.sidebar-scroll{
-  overflow-y:auto;
-  overflow-x:hidden;
-  padding:14px;
-  flex:1;
-}
-
-.sidebar-scroll::-webkit-scrollbar{
-  width:5px;
-}
-
-.sidebar-scroll::-webkit-scrollbar-thumb{
-  background:linear-gradient(var(--cyan),var(--purple));
-  border-radius:20px;
-}
-
 .logo{
-  height:62px;
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:8px 12px;
-  margin-bottom:12px;
+  gap:11px;
+  padding:8px 10px 20px;
 }
 
 .logo-core{
-  width:40px;
-  height:40px;
+  width:38px;
+  height:38px;
   border-radius:13px;
+  background:
+    linear-gradient(135deg,var(--cyan),var(--purple),var(--pink));
+  box-shadow:
+    0 0 25px rgba(0,234,255,.35),
+    0 0 40px rgba(155,92,255,.25);
   display:grid;
   place-items:center;
-  background:linear-gradient(135deg,var(--cyan),var(--purple),var(--pink));
-  box-shadow:0 0 25px rgba(0,234,255,.3);
   font-weight:900;
+  color:#05060b;
 }
 
-.logo h2{
+.logo strong{
   font-size:19px;
 }
 
 .logo small{
-  color:var(--muted);
-  font-size:10px;
   display:block;
+  color:var(--muted);
+  font-size:9px;
+  letter-spacing:2px;
   margin-top:2px;
 }
 
-.side-title{
-  color:#555c73;
-  font-size:10px;
-  letter-spacing:1.5px;
+.sidebar-scroll{
+  height:calc(100vh - 85px);
+  overflow-y:auto;
+  padding-right:3px;
+}
+
+.group-title{
+  color:#656d85;
+  font-size:9px;
   font-weight:800;
-  padding:12px 10px 7px;
+  letter-spacing:1.8px;
+  padding:15px 11px 7px;
 }
 
 .nav{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-
-.nav button{
   width:100%;
-  min-height:44px;
+  border:0;
+  background:transparent;
+  color:#9da4bb;
+  padding:10px 12px;
+  border-radius:13px;
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:10px 12px;
-  border-radius:12px;
-  background:transparent;
-  color:#9299ae;
+  gap:11px;
+  margin:3px 0;
   text-align:left;
   transition:.2s;
 }
 
-.nav button:hover{
-  background:rgba(255,255,255,.055);
+.nav:hover{
   color:white;
-  transform:translateX(3px);
+  background:rgba(255,255,255,.05);
+  transform:translateX(2px);
 }
 
-.nav button.active{
+.nav.active{
   color:white;
-  background:linear-gradient(90deg,rgba(0,234,255,.13),rgba(139,92,246,.11));
-  box-shadow:inset 3px 0 var(--cyan),0 0 18px rgba(0,234,255,.05);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,234,255,.12),
+      rgba(155,92,255,.13)
+    );
+  box-shadow:
+    inset 2px 0 var(--cyan),
+    0 0 20px rgba(0,234,255,.05);
 }
 
-.nav-icon{
+.nav .icon{
   width:25px;
   text-align:center;
-  font-size:18px;
+  font-size:15px;
 }
 
-.bottom-profile{
-  padding:12px;
-  border-top:1px solid var(--line);
-  background:rgba(5,6,11,.9);
-}
-
-.profile{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:10px;
-  border:1px solid var(--line);
-  border-radius:13px;
-}
-
-.avatar{
-  width:34px;
-  height:34px;
-  border-radius:10px;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,var(--purple),var(--pink));
-  font-weight:bold;
-}
-
-.profile-text{
-  min-width:0;
-}
-
-.profile-text b{
-  font-size:12px;
-}
-
-.profile-text small{
-  display:block;
-  color:var(--green);
-  font-size:10px;
-  margin-top:3px;
+.nav span:last-child{
+  font-size:13px;
 }
 
 /* MAIN */
 
 .main{
-  margin-left:250px;
-  width:calc(100% - 250px);
+  margin-left:255px;
+  width:calc(100% - 255px);
   min-height:100vh;
 }
 
@@ -226,21 +180,21 @@ button{
   height:68px;
   position:sticky;
   top:0;
-  z-index:30;
+  z-index:10;
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:0 28px;
+  border-bottom:1px solid var(--line);
   background:rgba(5,6,11,.72);
   backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--line);
 }
 
 .status{
   display:flex;
   align-items:center;
-  gap:9px;
-  color:#9ba2b7;
+  gap:8px;
+  color:#8e97ad;
   font-size:12px;
 }
 
@@ -258,261 +212,374 @@ button{
 }
 
 .top-btn{
-  height:38px;
-  padding:0 14px;
-  border-radius:10px;
-  color:#b7bdd0;
-  background:rgba(255,255,255,.045);
   border:1px solid var(--line);
+  color:#b8bfd2;
+  background:rgba(255,255,255,.035);
+  border-radius:12px;
+  padding:9px 12px;
 }
 
 .top-btn:hover{
   color:white;
-  border-color:rgba(0,234,255,.4);
-}
-
-.content{
-  max-width:1500px;
-  margin:auto;
-  padding:32px;
+  border-color:rgba(0,234,255,.3);
 }
 
 /* PAGE */
 
 .page{
   display:none;
-  animation:pagein .25s ease;
+  padding:30px;
+  animation:pageIn .25s ease;
 }
 
 .page.active{
   display:block;
 }
 
-@keyframes pagein{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:none}
+@keyframes pageIn{
+  from{
+    opacity:0;
+    transform:translateY(7px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
-
-.page-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  margin-bottom:25px;
-}
-
-.page-head h1{
-  font-size:32px;
-  letter-spacing:-1px;
-}
-
-.page-head p{
-  color:var(--muted);
-  margin-top:7px;
-}
-
-.badge{
-  padding:7px 11px;
-  border-radius:20px;
-  font-size:10px;
-  color:var(--cyan);
-  border:1px solid rgba(0,234,255,.2);
-  background:rgba(0,234,255,.06);
-}
-
-/* HERO */
 
 .hero{
-  position:relative;
-  min-height:350px;
-  padding:45px;
+  min-height:300px;
+  display:grid;
+  grid-template-columns:1fr 330px;
+  gap:25px;
+  align-items:center;
+  padding:30px;
   border:1px solid var(--line);
-  border-radius:26px;
-  overflow:hidden;
+  border-radius:30px;
   background:
-    linear-gradient(135deg,rgba(0,234,255,.06),rgba(139,92,246,.08)),
-    rgba(10,13,23,.8);
+    radial-gradient(circle at 80% 50%,rgba(0,234,255,.08),transparent 30%),
+    radial-gradient(circle at 55% 10%,rgba(155,92,255,.10),transparent 35%),
+    var(--panel);
+  overflow:hidden;
 }
 
-.hero:after{
-  content:"";
-  position:absolute;
-  width:330px;
-  height:330px;
-  right:-80px;
-  top:-100px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(0,234,255,.18),transparent 65%);
-  filter:blur(8px);
+.eyebrow{
+  color:var(--cyan);
+  letter-spacing:2px;
+  font-size:10px;
+  font-weight:800;
+  margin-bottom:13px;
 }
 
 .hero h1{
-  max-width:650px;
-  font-size:52px;
-  line-height:1.02;
-  letter-spacing:-2.5px;
+  font-size:clamp(36px,5vw,66px);
+  line-height:.98;
+  max-width:720px;
 }
 
 .gradient{
-  background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));
+  background:linear-gradient(
+    90deg,
+    var(--cyan),
+    #fff,
+    var(--purple),
+    var(--pink)
+  );
   -webkit-background-clip:text;
   color:transparent;
 }
 
 .hero p{
-  color:#9aa1b6;
-  max-width:620px;
-  margin-top:18px;
+  color:var(--muted);
+  max-width:650px;
   line-height:1.7;
+  margin-top:18px;
 }
 
 .hero-buttons{
   display:flex;
   gap:10px;
-  margin-top:28px;
+  margin-top:24px;
   flex-wrap:wrap;
 }
 
-.primary{
-  padding:12px 18px;
-  border-radius:11px;
-  color:#001014;
-  background:linear-gradient(90deg,var(--cyan),#8ff8ff);
-  font-weight:800;
-  box-shadow:0 0 25px rgba(0,234,255,.2);
-}
-
-.secondary{
-  padding:12px 18px;
-  border-radius:11px;
-  color:white;
-  background:rgba(255,255,255,.055);
+.btn{
   border:1px solid var(--line);
+  background:rgba(255,255,255,.045);
+  color:white;
+  border-radius:13px;
+  padding:11px 16px;
 }
 
-/* CORE */
+.btn.primary{
+  border:0;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  color:#05060b;
+  font-weight:800;
+  box-shadow:0 0 25px rgba(0,234,255,.18);
+}
 
-.ai-core{
-  position:absolute;
-  right:100px;
-  top:85px;
-  width:170px;
-  height:170px;
+.btn:hover{
+  transform:translateY(-1px);
+}
+
+/* AI CORE */
+
+.core-wrap{
+  display:grid;
+  place-items:center;
+}
+
+.core{
+  width:210px;
+  height:210px;
   border-radius:50%;
+  position:relative;
   display:grid;
   place-items:center;
   background:
-    radial-gradient(circle,#121827 25%,transparent 26%),
-    conic-gradient(var(--cyan),var(--purple),var(--pink),var(--cyan));
-  animation:spin 8s linear infinite;
-  box-shadow:0 0 70px rgba(0,234,255,.18);
+    radial-gradient(
+      circle,
+      rgba(0,234,255,.32),
+      rgba(155,92,255,.14) 35%,
+      transparent 66%
+    );
+  box-shadow:
+    0 0 30px rgba(0,234,255,.25),
+    0 0 80px rgba(155,92,255,.16);
+  animation:pulse 4s infinite ease-in-out;
 }
 
-.ai-core:before{
-  content:"AMZO";
-  width:105px;
-  height:105px;
+.core:before,
+.core:after{
+  content:"";
+  position:absolute;
+  inset:13px;
+  border-radius:50%;
+  border:1px solid rgba(0,234,255,.45);
+  animation:spin 8s linear infinite;
+}
+
+.core:after{
+  inset:32px;
+  border-color:rgba(255,60,172,.4);
+  animation-direction:reverse;
+  animation-duration:5s;
+}
+
+.core-inner{
+  width:85px;
+  height:85px;
+  border-radius:28px;
   display:grid;
   place-items:center;
-  border-radius:50%;
-  background:#080b13;
-  color:white;
-  font-size:14px;
+  font-size:26px;
   font-weight:900;
-  letter-spacing:2px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,234,255,.25),
+      rgba(155,92,255,.25)
+    );
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:inset 0 0 30px rgba(255,255,255,.04);
 }
 
 @keyframes spin{
   to{transform:rotate(360deg)}
 }
 
-/* GRID */
+@keyframes pulse{
+  50%{transform:scale(1.04)}
+}
+
+/* CARDS */
+
+.section-title{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  margin:30px 0 15px;
+}
+
+.section-title h2{
+  font-size:22px;
+}
+
+.section-title span{
+  color:var(--muted);
+  font-size:12px;
+}
 
 .grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:14px;
-  margin-top:18px;
 }
 
 .card{
-  padding:20px;
   border:1px solid var(--line);
-  border-radius:18px;
-  background:rgba(10,13,22,.78);
-  transition:.25s;
+  background:var(--panel);
+  border-radius:20px;
+  padding:19px;
+  transition:.2s;
 }
 
 .card:hover{
-  transform:translateY(-4px);
-  border-color:rgba(0,234,255,.24);
-  box-shadow:0 15px 35px rgba(0,0,0,.25);
+  border-color:rgba(0,234,255,.25);
+  transform:translateY(-3px);
+  box-shadow:0 15px 35px rgba(0,0,0,.2);
 }
 
 .card-icon{
-  font-size:25px;
-  margin-bottom:13px;
+  font-size:23px;
+  margin-bottom:14px;
 }
 
 .card h3{
   font-size:15px;
+  margin-bottom:7px;
 }
 
 .card p{
   color:var(--muted);
   font-size:12px;
-  line-height:1.6;
-  margin-top:7px;
+  line-height:1.55;
 }
 
 .stat{
-  font-size:25px;
-  font-weight:800;
-  margin-top:10px;
+  margin-top:14px;
+  color:var(--cyan);
+  font-size:12px;
 }
 
-/* QUICK */
+/* USAGE */
 
-.quick{
+.usage-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:1fr 1fr;
   gap:14px;
-  margin-top:18px;
 }
 
-.quick button{
-  text-align:left;
+.usage-card{
   padding:18px;
-  border-radius:17px;
-  color:white;
-  background:rgba(255,255,255,.04);
   border:1px solid var(--line);
+  border-radius:18px;
+  background:var(--panel);
 }
 
-.quick button:hover{
-  border-color:var(--cyan);
-  background:rgba(0,234,255,.06);
+.usage-top{
+  display:flex;
+  justify-content:space-between;
+  color:#cbd1e1;
+  font-size:12px;
 }
 
-.quick strong{
+.bar{
+  height:7px;
+  background:#151827;
+  border-radius:10px;
+  margin-top:12px;
+  overflow:hidden;
+}
+
+.bar i{
   display:block;
-  margin-top:7px;
+  height:100%;
+  width:0%;
+  border-radius:10px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  transition:.4s;
 }
 
-.quick span{
+/* WORKSPACE */
+
+.workspace{
+  max-width:1000px;
+  margin:auto;
+}
+
+.panel{
+  border:1px solid var(--line);
+  background:var(--panel);
+  border-radius:22px;
+  padding:22px;
+}
+
+.panel h2{
+  margin-bottom:7px;
+}
+
+.panel-sub{
   color:var(--muted);
-  font-size:11px;
+  font-size:12px;
+  margin-bottom:20px;
+}
+
+textarea,
+input{
+  width:100%;
+  background:#080a12;
+  color:white;
+  border:1px solid var(--line);
+  outline:none;
+  border-radius:14px;
+  padding:14px;
+}
+
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+input:focus,
+textarea:focus{
+  border-color:rgba(0,234,255,.45);
+  box-shadow:0 0 20px rgba(0,234,255,.06);
+}
+
+.form-row{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+
+.result{
+  margin-top:16px;
+  padding:18px;
+  min-height:80px;
+  white-space:pre-wrap;
+  line-height:1.7;
+  color:#dfe4f2;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:#070910;
+}
+
+.loading{
+  color:var(--cyan);
+}
+
+.error{
+  color:#ff718d;
 }
 
 /* CHAT */
 
+.chat-layout{
+  max-width:1050px;
+  margin:auto;
+}
+
 .chat-box{
-  height:650px;
+  height:calc(100vh - 240px);
+  min-height:450px;
   display:flex;
   flex-direction:column;
   border:1px solid var(--line);
-  border-radius:20px;
+  border-radius:22px;
+  background:var(--panel);
   overflow:hidden;
-  background:rgba(8,11,18,.85);
 }
 
 .messages{
@@ -522,24 +589,28 @@ button{
 }
 
 .message{
-  max-width:75%;
-  padding:13px 16px;
-  border-radius:15px;
-  margin-bottom:12px;
+  max-width:80%;
+  margin-bottom:15px;
+  padding:13px 15px;
+  border-radius:16px;
   line-height:1.6;
   font-size:13px;
   white-space:pre-wrap;
 }
 
-.message.ai{
-  background:rgba(255,255,255,.055);
-  border:1px solid var(--line);
-}
-
 .message.user{
   margin-left:auto;
-  background:linear-gradient(135deg,rgba(0,234,255,.14),rgba(139,92,246,.16));
+  background:linear-gradient(
+    135deg,
+    rgba(0,234,255,.15),
+    rgba(155,92,255,.15)
+  );
   border:1px solid rgba(0,234,255,.16);
+}
+
+.message.ai{
+  background:rgba(255,255,255,.045);
+  border:1px solid var(--line);
 }
 
 .chat-input{
@@ -550,134 +621,55 @@ button{
 }
 
 .chat-input textarea{
-  flex:1;
   min-height:48px;
-  max-height:130px;
+  height:48px;
   resize:none;
-  color:white;
-  outline:none;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.035);
-  border-radius:12px;
-  padding:14px;
 }
 
-.send{
-  width:54px;
-  border-radius:12px;
-  color:#001014;
-  background:var(--cyan);
-  font-weight:bold;
-}
+/* IMAGE */
 
-/* CREATE */
-
-.create-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-}
-
-.create-card{
-  min-height:180px;
-  padding:25px;
-  border-radius:20px;
-  border:1px solid var(--line);
-  background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
-  cursor:pointer;
-  transition:.25s;
-}
-
-.create-card:hover{
-  transform:translateY(-5px) scale(1.01);
-  border-color:rgba(0,234,255,.35);
-  box-shadow:0 0 35px rgba(0,234,255,.07);
-}
-
-.create-card .big{
-  font-size:36px;
-}
-
-.create-card h2{
-  margin-top:17px;
-  font-size:18px;
-}
-
-.create-card p{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:6px;
-}
-
-/* FORM */
-
-.form-panel{
-  max-width:850px;
-  padding:22px;
-  border:1px solid var(--line);
-  border-radius:20px;
-  background:rgba(9,12,20,.8);
-}
-
-textarea.prompt,
-input.text{
-  width:100%;
-  outline:none;
-  color:white;
-  background:rgba(255,255,255,.035);
-  border:1px solid var(--line);
-  border-radius:13px;
-  padding:15px;
-}
-
-textarea.prompt{
-  min-height:160px;
-  resize:vertical;
-}
-
-.form-row{
-  display:flex;
-  gap:10px;
-  margin-top:12px;
-}
-
-.result{
+.image-result{
   margin-top:18px;
-  padding:18px;
+  display:none;
+}
+
+.image-result img{
+  width:100%;
+  max-height:650px;
+  object-fit:contain;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:#02030a;
+}
+
+.image-actions{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
+
+/* LIST */
+
+.list{
+  display:grid;
+  gap:10px;
+}
+
+.list-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  padding:14px;
   border:1px solid var(--line);
   border-radius:15px;
-  background:rgba(255,255,255,.03);
-  white-space:pre-wrap;
-  line-height:1.7;
+  background:rgba(255,255,255,.025);
 }
 
-.result img{
-  max-width:100%;
-  border-radius:14px;
-}
-
-/* TOOLS */
-
-.tools-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-}
-
-.tool{
-  padding:18px;
-  border:1px solid var(--line);
-  border-radius:16px;
-  background:rgba(255,255,255,.035);
-}
-
-.tool button{
-  margin-top:14px;
-  padding:9px 12px;
-  border-radius:9px;
-  background:rgba(0,234,255,.1);
-  color:var(--cyan);
-  border:1px solid rgba(0,234,255,.2);
+.list-item small{
+  display:block;
+  color:var(--muted);
+  margin-top:4px;
 }
 
 /* SEARCH */
@@ -687,8 +679,8 @@ textarea.prompt{
   position:fixed;
   inset:0;
   z-index:100;
-  background:rgba(0,0,0,.65);
-  backdrop-filter:blur(12px);
+  background:rgba(0,0,0,.7);
+  backdrop-filter:blur(15px);
   place-items:start center;
   padding-top:100px;
 }
@@ -698,123 +690,112 @@ textarea.prompt{
 }
 
 .search-box{
-  width:min(650px,90%);
+  width:min(650px,90vw);
+  background:#0a0d17;
+  border:1px solid var(--line);
+  border-radius:22px;
   padding:15px;
-  border:1px solid rgba(0,234,255,.25);
-  border-radius:18px;
-  background:#0b0f19;
-  box-shadow:0 20px 70px #000;
-}
-
-.search-box input{
-  width:100%;
-  padding:15px;
-  color:white;
-  background:transparent;
-  border:0;
-  outline:0;
-  font-size:17px;
+  box-shadow:0 30px 100px #000;
 }
 
 .search-results{
-  border-top:1px solid var(--line);
-  margin-top:5px;
+  margin-top:10px;
 }
 
-.search-results button{
-  width:100%;
+.search-result{
   padding:12px;
-  text-align:left;
-  background:transparent;
-  color:#bbbfd0;
-  border-radius:9px;
+  border-radius:12px;
+  color:#cbd1e1;
+  cursor:pointer;
 }
 
-.search-results button:hover{
+.search-result:hover{
   background:rgba(255,255,255,.05);
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:200;
+  padding:13px 17px;
+  border-radius:14px;
+  background:#101421;
+  border:1px solid rgba(0,234,255,.2);
   color:white;
+  box-shadow:0 15px 50px #000;
+  transform:translateY(20px);
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:none;
 }
 
 /* MOBILE */
 
-@media(max-width:900px){
-  .sidebar{
-    width:78px;
-  }
+.mobile-menu{
+  display:none;
+}
 
-  .sidebar .logo h2,
-  .sidebar .logo small,
-  .side-title,
-  .nav button span:not(.nav-icon),
-  .profile-text{
-    display:none;
-  }
-
-  .logo{
-    justify-content:center;
-  }
-
-  .nav button{
-    justify-content:center;
-  }
-
-  .profile{
-    justify-content:center;
-  }
-
-  .main{
-    margin-left:78px;
-    width:calc(100% - 78px);
-  }
-
+@media(max-width:1100px){
   .grid{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .create-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .tools-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .ai-core{
-    opacity:.25;
-    right:30px;
+  .hero{
+    grid-template-columns:1fr;
   }
 }
 
-@media(max-width:600px){
-  .content{
+@media(max-width:800px){
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.25s;
+  }
+
+  .sidebar.open{
+    transform:none;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+  }
+
+  .mobile-menu{
+    display:block;
+  }
+
+  .page{
     padding:18px;
   }
 
   .topbar{
-    padding:0 14px;
-  }
-
-  .hero{
-    padding:25px;
-  }
-
-  .hero h1{
-    font-size:36px;
+    padding:0 15px;
   }
 
   .grid,
-  .quick,
-  .create-grid,
-  .tools-grid{
+  .usage-grid{
     grid-template-columns:1fr;
   }
 
-  .ai-core{
-    display:none;
+  .hero{
+    padding:22px;
   }
 
-  .message{
-    max-width:90%;
+  .core{
+    width:160px;
+    height:160px;
+  }
+
+  .chat-box{
+    height:calc(100vh - 190px);
   }
 }
 </style>
@@ -824,124 +805,114 @@ textarea.prompt{
 
 <div class="app">
 
-<!-- SIDEBAR -->
-
-<aside class="sidebar">
+<aside class="sidebar" id="sidebar">
 
   <div class="logo">
     <div class="logo-core">A</div>
     <div>
-      <h2>Amzo AI</h2>
-      <small>YOUR AI UNIVERSE</small>
+      <strong>Amzo AI</strong>
+      <small>AI UNIVERSE</small>
     </div>
   </div>
 
   <div class="sidebar-scroll">
 
-    <div class="side-title">MAIN</div>
+    <div class="group-title">MAIN</div>
 
-    <div class="nav">
-      <button class="active" onclick="openPage('home',this)">
-        <span class="nav-icon">⌂</span><span>Command Center</span>
-      </button>
-      <button onclick="openPage('chat',this)">
-        <span class="nav-icon">◉</span><span>Amzo Chat</span>
-      </button>
-      <button onclick="openPage('create',this)">
-        <span class="nav-icon">✦</span><span>AI Create</span>
-      </button>
-    </div>
+    <button class="nav active" onclick="openPage('home',this)">
+      <span class="icon">⌂</span><span>Command Center</span>
+    </button>
 
-    <div class="side-title">AI LABS</div>
+    <button class="nav" onclick="openPage('chat',this)">
+      <span class="icon">◉</span><span>Amzo Chat</span>
+    </button>
 
-    <div class="nav">
-      <button onclick="openPage('brain',this)">
-        <span class="nav-icon">🧠</span><span>Amzo Brain</span>
-      </button>
-      <button onclick="openPage('image',this)">
-        <span class="nav-icon">🎨</span><span>Image Lab</span>
-      </button>
-      <button onclick="openPage('video',this)">
-        <span class="nav-icon">🎬</span><span>Video Lab</span>
-      </button>
-      <button onclick="openPage('voice',this)">
-        <span class="nav-icon">🎙️</span><span>Voice AI</span>
-      </button>
-      <button onclick="openPage('music',this)">
-        <span class="nav-icon">🎵</span><span>Music AI</span>
-      </button>
-    </div>
+    <button class="nav" onclick="openPage('create',this)">
+      <span class="icon">✦</span><span>AI Create</span>
+    </button>
 
-    <div class="side-title">WORK</div>
+    <div class="group-title">AI LABS</div>
 
-    <div class="nav">
-      <button onclick="openPage('writer',this)">
-        <span class="nav-icon">✍️</span><span>AI Writer</span>
-      </button>
-      <button onclick="openPage('study',this)">
-        <span class="nav-icon">📚</span><span>Study AI</span>
-      </button>
-      <button onclick="openPage('research',this)">
-        <span class="nav-icon">🔎</span><span>Research</span>
-      </button>
-      <button onclick="openPage('code',this)">
-        <span class="nav-icon">💻</span><span>Code Lab</span>
-      </button>
-      <button onclick="openPage('studio',this)">
-        <span class="nav-icon">🎞️</span><span>Creative Studio</span>
-      </button>
-    </div>
+    <button class="nav" onclick="openPage('brain',this)">
+      <span class="icon">🧠</span><span>Amzo Brain</span>
+    </button>
 
-    <div class="side-title">WORKSPACE</div>
+    <button class="nav" onclick="openPage('image',this)">
+      <span class="icon">◈</span><span>Image Lab</span>
+    </button>
 
-    <div class="nav">
-      <button onclick="openPage('tools',this)">
-        <span class="nav-icon">🛠️</span><span>AI Tools</span>
-      </button>
-      <button onclick="openPage('projects',this)">
-        <span class="nav-icon">📁</span><span>Projects</span>
-      </button>
-      <button onclick="openPage('history',this)">
-        <span class="nav-icon">🕘</span><span>History</span>
-      </button>
-      <button onclick="openPage('favorites',this)">
-        <span class="nav-icon">⭐</span><span>Favorites</span>
-      </button>
-    </div>
+    <button class="nav" onclick="openPage('video',this)">
+      <span class="icon">▶</span><span>Video Lab</span>
+    </button>
 
-    <div class="side-title">SYSTEM</div>
+    <button class="nav" onclick="openPage('voice',this)">
+      <span class="icon">♬</span><span>Voice AI</span>
+    </button>
 
-    <div class="nav">
-      <button onclick="openPage('settings',this)">
-        <span class="nav-icon">⚙️</span><span>Settings</span>
-      </button>
-      <button onclick="openPage('about',this)">
-        <span class="nav-icon">ⓘ</span><span>About Amzo</span>
-      </button>
-    </div>
+    <button class="nav" onclick="openPage('music',this)">
+      <span class="icon">♫</span><span>Music AI</span>
+    </button>
+
+    <div class="group-title">WORK</div>
+
+    <button class="nav" onclick="openPage('writer',this)">
+      <span class="icon">✎</span><span>AI Writer</span>
+    </button>
+
+    <button class="nav" onclick="openPage('study',this)">
+      <span class="icon">▣</span><span>Study AI</span>
+    </button>
+
+    <button class="nav" onclick="openPage('research',this)">
+      <span class="icon">⌕</span><span>Research</span>
+    </button>
+
+    <button class="nav" onclick="openPage('code',this)">
+      <span class="icon">&lt;/&gt;</span><span>Code Lab</span>
+    </button>
+
+    <button class="nav" onclick="openPage('studio',this)">
+      <span class="icon">◆</span><span>Creative Studio</span>
+    </button>
+
+    <div class="group-title">WORKSPACE</div>
+
+    <button class="nav" onclick="openPage('tools',this)">
+      <span class="icon">⚙</span><span>AI Tools</span>
+    </button>
+
+    <button class="nav" onclick="openPage('projects',this)">
+      <span class="icon">▤</span><span>Projects</span>
+    </button>
+
+    <button class="nav" onclick="openPage('history',this)">
+      <span class="icon">◷</span><span>History</span>
+    </button>
+
+    <button class="nav" onclick="openPage('favorites',this)">
+      <span class="icon">★</span><span>Favorites</span>
+    </button>
+
+    <div class="group-title">SYSTEM</div>
+
+    <button class="nav" onclick="openPage('settings',this)">
+      <span class="icon">⚙</span><span>Settings</span>
+    </button>
+
+    <button class="nav" onclick="openPage('about',this)">
+      <span class="icon">ⓘ</span><span>About Amzo</span>
+    </button>
 
   </div>
-
-  <div class="bottom-profile">
-    <div class="profile">
-      <div class="avatar">A</div>
-      <div class="profile-text">
-        <b>Amzo User</b>
-        <small>● AI ONLINE</small>
-      </div>
-    </div>
-  </div>
-
 </aside>
-
-<!-- MAIN -->
 
 <main class="main">
 
 <header class="topbar">
   <div class="status">
+    <button class="top-btn mobile-menu" onclick="toggleSidebar()">☰</button>
     <span class="dot"></span>
-    AMZO AI SYSTEM ONLINE
+    <span>Amzo AI online</span>
   </div>
 
   <div class="top-actions">
@@ -950,90 +921,109 @@ textarea.prompt{
   </div>
 </header>
 
-<div class="content">
-
 <!-- HOME -->
 
-<section id="home" class="page active">
+<section class="page active" id="page-home">
 
   <div class="hero">
 
-    <div class="ai-core"></div>
+    <div>
+      <div class="eyebrow">WELCOME TO YOUR AI UNIVERSE</div>
 
-    <span class="badge">AMZO AI v1.0</span>
+      <h1>
+        Build.
+        <span class="gradient">Create.</span>
+        Think.
+      </h1>
 
-    <h1>
-      Your personal
-      <span class="gradient">AI Universe.</span>
-    </h1>
+      <p>
+        Amzo AI is your personal futuristic AI workspace
+        for ideas, conversations, images, writing, study,
+        coding and creative projects.
+      </p>
 
-    <p>
-      Chat, create, research, study, write, code and explore
-      your ideas from one futuristic AI workspace.
-    </p>
+      <div class="hero-buttons">
+        <button class="btn primary" onclick="openPage('chat')">
+          Start Chat →
+        </button>
 
-    <div class="hero-buttons">
-      <button class="primary" onclick="openPage('chat')">
-        Start Chat →
-      </button>
-      <button class="secondary" onclick="openPage('create')">
-        Create Something
-      </button>
+        <button class="btn" onclick="openPage('image')">
+          Create Image
+        </button>
+
+        <button class="btn" onclick="openPage('tools')">
+          Explore Tools
+        </button>
+      </div>
     </div>
 
+    <div class="core-wrap">
+      <div class="core">
+        <div class="core-inner">A</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-title">
+    <h2>Quick Launch</h2>
+    <span>Everything starts here</span>
   </div>
 
   <div class="grid">
 
-    <div class="card">
-      <div class="card-icon">💬</div>
-      <h3>AI Conversations</h3>
-      <p>Talk with Amzo AI and turn ideas into actions.</p>
-      <div class="stat">∞</div>
+    <div class="card" onclick="openPage('chat')">
+      <div class="card-icon">◉</div>
+      <h3>Amzo Chat</h3>
+      <p>Talk with your personal AI assistant.</p>
     </div>
 
-    <div class="card">
-      <div class="card-icon">🎨</div>
-      <h3>AI Images</h3>
-      <p>Create visual concepts directly from prompts.</p>
-      <div class="stat">AI</div>
+    <div class="card" onclick="openPage('image')">
+      <div class="card-icon">◈</div>
+      <h3>Image Lab</h3>
+      <p>Turn ideas into AI generated images.</p>
     </div>
 
-    <div class="card">
-      <div class="card-icon">🧠</div>
-      <h3>Smart Brain</h3>
-      <p>Think, plan, explain and organize your ideas.</p>
-      <div class="stat">ON</div>
+    <div class="card" onclick="openPage('writer')">
+      <div class="card-icon">✎</div>
+      <h3>AI Writer</h3>
+      <p>Create posts, scripts, descriptions and ideas.</p>
     </div>
 
-    <div class="card">
-      <div class="card-icon">⚡</div>
-      <h3>Fast Workspace</h3>
-      <p>Everything you need inside one AI universe.</p>
-      <div class="stat">24/7</div>
+    <div class="card" onclick="openPage('study')">
+      <div class="card-icon">▣</div>
+      <h3>Study AI</h3>
+      <p>Explain difficult topics in simple language.</p>
     </div>
 
   </div>
 
-  <div class="quick">
+  <div class="section-title">
+    <h2>Usage</h2>
+    <span>24-hour rolling window</span>
+  </div>
 
-    <button onclick="openPage('chat')">
-      💬
-      <strong>Ask Amzo</strong>
-      <span>Start a new conversation</span>
-    </button>
+  <div class="usage-grid">
 
-    <button onclick="openPage('image')">
-      🎨
-      <strong>Create Image</strong>
-      <span>Turn your idea into art</span>
-    </button>
+    <div class="usage-card">
+      <div class="usage-top">
+        <span>💬 AI Messages</span>
+        <span id="messageUsage">100 / 100</span>
+      </div>
+      <div class="bar">
+        <i id="messageBar"></i>
+      </div>
+    </div>
 
-    <button onclick="openPage('study')">
-      📚
-      <strong>Study With AI</strong>
-      <span>Learn something new</span>
-    </button>
+    <div class="usage-card">
+      <div class="usage-top">
+        <span>🖼️ AI Images</span>
+        <span id="imageUsage">20 / 20</span>
+      </div>
+      <div class="bar">
+        <i id="imageBar"></i>
+      </div>
+    </div>
 
   </div>
 
@@ -1041,801 +1031,1324 @@ textarea.prompt{
 
 <!-- CHAT -->
 
-<section id="chat" class="page">
+<section class="page" id="page-chat">
 
-  <div class="page-head">
+<div class="chat-layout">
+
+  <div class="section-title">
     <div>
-      <h1>Amzo Chat</h1>
-      <p>Your AI conversation space.</p>
+      <h2>Amzo Chat</h2>
+      <span>Personal AI conversation</span>
     </div>
-    <span class="badge">AI ONLINE</span>
+    <button class="btn" onclick="newChat()">＋ New Chat</button>
   </div>
 
   <div class="chat-box">
 
-    <div id="messages" class="messages">
+    <div class="messages" id="messages">
+
       <div class="message ai">
-        Hey! I'm Amzo AI. ⚡
-        What do you want to build, learn or explore?
+        Hey! I'm Amzo AI. What are we building today?
       </div>
+
     </div>
 
     <div class="chat-input">
-      <textarea id="chatInput" placeholder="Message Amzo AI..."></textarea>
-      <button class="send" onclick="sendMessage()">➤</button>
+
+      <textarea
+        id="chatInput"
+        placeholder="Ask Amzo anything..."
+        onkeydown="chatKey(event)"
+      ></textarea>
+
+      <button
+        class="btn primary"
+        onclick="sendChat()"
+      >
+        Send
+      </button>
+
     </div>
 
   </div>
+
+</div>
 
 </section>
 
 <!-- CREATE -->
 
-<section id="create" class="page">
+<section class="page" id="page-create">
 
-  <div class="page-head">
-    <div>
-      <h1>AI Create</h1>
-      <p>Choose your creation engine.</p>
-    </div>
+<div class="workspace">
+
+  <div class="section-title">
+    <h2>AI Create</h2>
+    <span>Turn ideas into outputs</span>
   </div>
 
-  <div class="create-grid">
+  <div class="grid">
 
-    <div class="create-card" onclick="openPage('image')">
-      <div class="big">🎨</div>
-      <h2>Image Generator</h2>
-      <p>Generate images from your imagination.</p>
+    <div class="card" onclick="openPage('image')">
+      <div class="card-icon">🖼️</div>
+      <h3>Generate Image</h3>
+      <p>Create an image from your prompt.</p>
     </div>
 
-    <div class="create-card" onclick="openPage('video')">
-      <div class="big">🎬</div>
-      <h2>Video Lab</h2>
-      <p>AI video workspace.</p>
+    <div class="card" onclick="openPage('writer')">
+      <div class="card-icon">✍️</div>
+      <h3>Write Anything</h3>
+      <p>Generate scripts, posts and content.</p>
     </div>
 
-    <div class="create-card" onclick="openPage('writer')">
-      <div class="big">✍️</div>
-      <h2>AI Writer</h2>
-      <p>Write ideas, posts and documents.</p>
+    <div class="card" onclick="openPage('code')">
+      <div class="card-icon">&lt;/&gt;</div>
+      <h3>Build Code</h3>
+      <p>Ask Amzo to explain or generate code.</p>
     </div>
 
-    <div class="create-card" onclick="openPage('code')">
-      <div class="big">💻</div>
-      <h2>Code Lab</h2>
-      <p>Build and understand code with AI.</p>
-    </div>
-
-    <div class="create-card" onclick="openPage('music')">
-      <div class="big">🎵</div>
-      <h2>Music AI</h2>
-      <p>Creative music workspace.</p>
-    </div>
-
-    <div class="create-card" onclick="openPage('voice')">
-      <div class="big">🎙️</div>
-      <h2>Voice AI</h2>
-      <p>Explore voice-powered creation.</p>
+    <div class="card" onclick="openPage('study')">
+      <div class="card-icon">🧠</div>
+      <h3>Learn</h3>
+      <p>Break complicated topics into simple steps.</p>
     </div>
 
   </div>
+
+</div>
 
 </section>
 
 <!-- IMAGE -->
 
-<section id="image" class="page">
+<section class="page" id="page-image">
 
-  <div class="page-head">
+<div class="workspace">
+
+  <div class="section-title">
     <div>
-      <h1>Image Lab</h1>
-      <p>Turn text into visual ideas.</p>
+      <h2>Image Lab</h2>
+      <span>Powered by Amzo AI</span>
     </div>
   </div>
 
-  <div class="form-panel">
+  <div class="panel">
 
-    <textarea id="imagePrompt" class="prompt"
-      placeholder="Describe the image you want..."></textarea>
+    <textarea
+      id="imagePrompt"
+      placeholder="Describe the image you want..."
+    ></textarea>
 
     <div class="form-row">
-      <button class="primary" onclick="generateImage()">
+
+      <button
+        class="btn primary"
+        onclick="generateImage()"
+      >
         ✦ Generate Image
       </button>
+
+      <button
+        class="btn"
+        onclick="clearImage()"
+      >
+        Clear
+      </button>
+
     </div>
 
-    <div id="imageResult"></div>
+    <div class="image-result" id="imageResult">
+
+      <img id="generatedImage" alt="Generated image">
+
+      <div class="image-actions">
+
+        <button
+          class="btn primary"
+          onclick="downloadImage()"
+        >
+          ↓ Download
+        </button>
+
+        <button
+          class="btn"
+          onclick="favoriteImage()"
+        >
+          ★ Favorite
+        </button>
+
+      </div>
+
+    </div>
 
   </div>
+
+</div>
 
 </section>
 
 <!-- GENERIC AI PAGES -->
 
-<section id="brain" class="page ai-page">
-  <div class="page-head">
-    <div><h1>🧠 Amzo Brain</h1><p>Think through complex ideas with Amzo.</p></div>
-  </div>
-  <div class="form-panel">
-    <textarea class="prompt genericPrompt" placeholder="What should Amzo Brain think about?"></textarea>
-    <button class="primary" onclick="genericAI(this)">Think With Amzo →</button>
-    <div class="result genericResult">Your result will appear here.</div>
-  </div>
+<section class="page" id="page-brain">
+  <div id="brainContent"></div>
 </section>
 
-<section id="writer" class="page ai-page">
-  <div class="page-head">
-    <div><h1>✍️ AI Writer</h1><p>Turn rough ideas into polished writing.</p></div>
-  </div>
-  <div class="form-panel">
-    <textarea class="prompt genericPrompt" placeholder="What do you want Amzo to write?"></textarea>
-    <button class="primary" onclick="genericAI(this)">Write With AI →</button>
-    <div class="result genericResult">Your writing will appear here.</div>
-  </div>
+<section class="page" id="page-writer">
+  <div id="writerContent"></div>
 </section>
 
-<section id="study" class="page ai-page">
-  <div class="page-head">
-    <div><h1>📚 Study AI</h1><p>Learn topics step by step.</p></div>
-  </div>
-  <div class="form-panel">
-    <textarea class="prompt genericPrompt" placeholder="What do you want to learn?"></textarea>
-    <button class="primary" onclick="genericAI(this)">Learn With Amzo →</button>
-    <div class="result genericResult">Your lesson will appear here.</div>
-  </div>
+<section class="page" id="page-study">
+  <div id="studyContent"></div>
 </section>
 
-<section id="research" class="page ai-page">
-  <div class="page-head">
-    <div><h1>🔎 Research AI</h1><p>Break down questions and ideas.</p></div>
-  </div>
-  <div class="form-panel">
-    <textarea class="prompt genericPrompt" placeholder="What do you want to research?"></textarea>
-    <button class="primary" onclick="genericAI(this)">Research →</button>
-    <div class="result genericResult">Your research workspace.</div>
-  </div>
+<section class="page" id="page-research">
+  <div id="researchContent"></div>
 </section>
 
-<section id="code" class="page ai-page">
-  <div class="page-head">
-    <div><h1>💻 Code Lab</h1><p>Build, explain and improve code.</p></div>
-  </div>
-  <div class="form-panel">
-    <textarea class="prompt genericPrompt" placeholder="Describe the code or project you need..."></textarea>
-    <button class="primary" onclick="genericAI(this)">Generate Code →</button>
-    <div class="result genericResult">Your coding result will appear here.</div>
-  </div>
+<section class="page" id="page-code">
+  <div id="codeContent"></div>
 </section>
 
-<section id="studio" class="page ai-page">
-  <div class="page-head">
-    <div><h1>🎞️ Creative Studio</h1><p>Your creative command center.</p></div>
-  </div>
-  <div class="form-panel">
-    <textarea class="prompt genericPrompt" placeholder="Describe your creative project..."></textarea>
-    <button class="primary" onclick="genericAI(this)">Create Plan →</button>
-    <div class="result genericResult">Creative output will appear here.</div>
-  </div>
+<section class="page" id="page-studio">
+  <div id="studioContent"></div>
 </section>
 
-<!-- VIDEO -->
+<section class="page" id="page-voice">
+  <div id="voiceContent"></div>
+</section>
 
-<section id="video" class="page">
-  <div class="page-head">
-    <div><h1>🎬 Video Lab</h1><p>AI video workspace.</p></div>
-    <span class="badge">LAB</span>
-  </div>
+<section class="page" id="page-music">
+  <div id="musicContent"></div>
+</section>
 
-  <div class="form-panel">
-    <textarea class="prompt" placeholder="Describe your video idea..."></textarea>
-    <button class="primary" onclick="alert('Video generation is currently unavailable. Image generation is ready.')">
-      🎬 Generate Video
+<section class="page" id="page-video">
+
+<div class="workspace">
+
+  <div class="panel">
+
+    <div class="eyebrow">VIDEO LAB</div>
+
+    <h2>Video generation</h2>
+
+    <p class="panel-sub">
+      Video generation is currently unavailable because
+      the AI Gateway account has insufficient credits.
+    </p>
+
+    <button class="btn" onclick="toast('Video Lab is waiting for credits.')">
+      Currently unavailable
     </button>
-    <div class="result">
-      Video generation is currently unavailable because the AI video service requires available credits.
-    </div>
-  </div>
-</section>
 
-<!-- VOICE -->
-
-<section id="voice" class="page">
-  <div class="page-head">
-    <div><h1>🎙️ Voice AI</h1><p>Voice tools coming into the Amzo universe.</p></div>
   </div>
 
-  <div class="grid">
-    <div class="card"><div class="card-icon">🎙️</div><h3>Voice Generator</h3><p>AI voice workspace.</p></div>
-    <div class="card"><div class="card-icon">🗣️</div><h3>Voice Chat</h3><p>Talk with AI naturally.</p></div>
-    <div class="card"><div class="card-icon">🔊</div><h3>Audio Lab</h3><p>Explore future audio tools.</p></div>
-  </div>
-</section>
+</div>
 
-<!-- MUSIC -->
-
-<section id="music" class="page">
-  <div class="page-head">
-    <div><h1>🎵 Music AI</h1><p>Creative audio ideas and concepts.</p></div>
-  </div>
-
-  <div class="form-panel">
-    <textarea class="prompt genericPrompt" placeholder="Describe your music idea..."></textarea>
-    <button class="primary" onclick="genericAI(this)">Create Music Concept →</button>
-    <div class="result genericResult">Your music concept will appear here.</div>
-  </div>
 </section>
 
 <!-- TOOLS -->
 
-<section id="tools" class="page">
+<section class="page" id="page-tools">
 
-  <div class="page-head">
-    <div><h1>🛠️ AI Tools</h1><p>Small utilities inside Amzo.</p></div>
+<div class="workspace">
+
+  <div class="section-title">
+    <h2>AI Tools</h2>
+    <span>Small tools, big ideas</span>
   </div>
 
-  <div class="tools-grid">
+  <div class="grid">
 
-    <div class="tool">
-      📝
+    <div class="card" onclick="toolIdeas()">
+      <div class="card-icon">💡</div>
+      <h3>Idea Generator</h3>
+      <p>Generate new ideas instantly.</p>
+    </div>
+
+    <div class="card" onclick="toolExplain()">
+      <div class="card-icon">🧠</div>
+      <h3>Quick Explain</h3>
+      <p>Make difficult things simple.</p>
+    </div>
+
+    <div class="card" onclick="toolBrainstorm()">
+      <div class="card-icon">⚡</div>
+      <h3>Brainstorm</h3>
+      <p>Expand one idea into many.</p>
+    </div>
+
+    <div class="card" onclick="toolCounter()">
+      <div class="card-icon">#</div>
       <h3>Text Counter</h3>
       <p>Count words and characters.</p>
-      <button onclick="textCounter()">Open</button>
-    </div>
-
-    <div class="tool">
-      💡
-      <h3>Idea Generator</h3>
-      <p>Generate project ideas.</p>
-      <button onclick="toolIdea()">Generate</button>
-    </div>
-
-    <div class="tool">
-      📋
-      <h3>Prompt Builder</h3>
-      <p>Create better AI prompts.</p>
-      <button onclick="promptBuilder()">Open</button>
-    </div>
-
-    <div class="tool">
-      ⚡
-      <h3>Quick Explain</h3>
-      <p>Explain difficult topics.</p>
-      <button onclick="openPage('chat')">Use AI</button>
-    </div>
-
-    <div class="tool">
-      🧠
-      <h3>Brainstorm</h3>
-      <p>Expand your ideas.</p>
-      <button onclick="openPage('brain')">Open</button>
-    </div>
-
-    <div class="tool">
-      📚
-      <h3>Study Helper</h3>
-      <p>Learn step by step.</p>
-      <button onclick="openPage('study')">Open</button>
-    </div>
-
-    <div class="tool">
-      💻
-      <h3>Code Helper</h3>
-      <p>Ask coding questions.</p>
-      <button onclick="openPage('code')">Open</button>
-    </div>
-
-    <div class="tool">
-      🎨
-      <h3>Image Lab</h3>
-      <p>Create AI images.</p>
-      <button onclick="openPage('image')">Open</button>
     </div>
 
   </div>
+
+</div>
 
 </section>
 
 <!-- PROJECTS -->
 
-<section id="projects" class="page">
+<section class="page" id="page-projects">
 
-  <div class="page-head">
-    <div><h1>📁 Projects</h1><p>Your Amzo workspace.</p></div>
-    <button class="primary" onclick="newProject()">+ New Project</button>
+<div class="workspace">
+
+  <div class="section-title">
+
+    <div>
+      <h2>Projects</h2>
+      <span>Your local Amzo workspace</span>
+    </div>
+
+    <button class="btn primary" onclick="newProject()">
+      ＋ New Project
+    </button>
+
   </div>
 
-  <div id="projectsList" class="grid"></div>
+  <div class="list" id="projectList"></div>
+
+</div>
 
 </section>
 
 <!-- HISTORY -->
 
-<section id="history" class="page">
+<section class="page" id="page-history">
 
-  <div class="page-head">
-    <div><h1>🕘 History</h1><p>Your recent AI activity.</p></div>
+<div class="workspace">
+
+  <div class="section-title">
+
+    <div>
+      <h2>History</h2>
+      <span>Your recent activity</span>
+    </div>
+
+    <button class="btn" onclick="clearHistory()">
+      Clear
+    </button>
+
   </div>
 
-  <div id="historyList" class="grid"></div>
+  <div class="list" id="historyList"></div>
+
+</div>
 
 </section>
 
 <!-- FAVORITES -->
 
-<section id="favorites" class="page">
+<section class="page" id="page-favorites">
 
-  <div class="page-head">
-    <div><h1>⭐ Favorites</h1><p>Save the things you want to find quickly.</p></div>
+<div class="workspace">
+
+  <div class="section-title">
+    <h2>Favorites</h2>
+    <span>Saved ideas and outputs</span>
   </div>
 
-  <div class="card">
-    <div class="card-icon">⭐</div>
-    <h3>No favorites yet</h3>
-    <p>Your saved AI creations will appear here.</p>
-  </div>
+  <div class="list" id="favoriteList"></div>
+
+</div>
 
 </section>
 
 <!-- SETTINGS -->
 
-<section id="settings" class="page">
+<section class="page" id="page-settings">
 
-  <div class="page-head">
-    <div><h1>⚙️ Settings</h1><p>Customize your Amzo experience.</p></div>
+<div class="workspace">
+
+  <div class="panel">
+
+    <h2>Settings</h2>
+
+    <p class="panel-sub">
+      Amzo AI configuration
+    </p>
+
+    <div class="list">
+
+      <div class="list-item">
+        <div>
+          <strong>Theme</strong>
+          <small>Futuristic dark RGB</small>
+        </div>
+        <span>●</span>
+      </div>
+
+      <div class="list-item">
+        <div>
+          <strong>AI status</strong>
+          <small>Connected to Amzo AI API</small>
+        </div>
+        <span style="color:var(--green)">ONLINE</span>
+      </div>
+
+      <div class="list-item">
+        <div>
+          <strong>Messages</strong>
+          <small>100 per 24-hour window</small>
+        </div>
+        <span>100</span>
+      </div>
+
+      <div class="list-item">
+        <div>
+          <strong>Images</strong>
+          <small>20 per 24-hour window</small>
+        </div>
+        <span>20</span>
+      </div>
+
+      <div class="list-item">
+        <div>
+          <strong>Local data</strong>
+          <small>Projects, history and favorites</small>
+        </div>
+        <button class="btn" onclick="clearAllData()">
+          Delete
+        </button>
+      </div>
+
+    </div>
+
   </div>
 
-  <div class="grid">
-
-    <div class="card">
-      <h3>🎨 Interface</h3>
-      <p>Futuristic dark mode is active.</p>
-      <button class="secondary" style="margin-top:14px" onclick="alert('Dark futuristic mode is currently active.')">
-        Current Theme
-      </button>
-    </div>
-
-    <div class="card">
-      <h3>🤖 AI Engine</h3>
-      <p>Cloud AI engine connected.</p>
-      <div class="stat" style="color:var(--green)">ONLINE</div>
-    </div>
-
-    <div class="card">
-      <h3>🔐 Privacy</h3>
-      <p>Amzo uses your browser for local workspace data.</p>
-    </div>
-
-    <div class="card">
-      <h3>⚡ Performance</h3>
-      <p>Interface animations enabled.</p>
-    </div>
-
-  </div>
+</div>
 
 </section>
 
 <!-- ABOUT -->
 
-<section id="about" class="page">
+<section class="page" id="page-about">
 
-  <div class="page-head">
-    <div><h1>ⓘ About Amzo</h1><p>The idea behind the AI universe.</p></div>
-  </div>
+<div class="workspace">
 
-  <div class="hero">
-    <span class="badge">AMZO AI</span>
-    <h1>One universe.<br><span class="gradient">Many possibilities.</span></h1>
-    <p>
-      Amzo AI is a personal AI workspace designed to bring
-      conversations, creativity, learning, research and tools
-      together in one futuristic interface.
+  <div class="panel">
+
+    <div class="eyebrow">AMZO AI</div>
+
+    <h2>Your AI Universe.</h2>
+
+    <p class="panel-sub">
+      Amzo AI is a personal AI workspace built around
+      conversation, creation, learning and experimentation.
     </p>
+
+    <div class="result">
+      Version 1.0<br><br>
+      AI Chat: Online<br>
+      AI Image: Online<br>
+      Video: Waiting for credits<br>
+      Workspace: Local<br><br>
+      Built for the Amzo AI universe.
+    </div>
+
   </div>
+
+</div>
 
 </section>
 
-</div>
 </main>
 </div>
 
-<!-- SEARCH -->
+<div class="search-overlay" id="searchOverlay">
 
-<div id="searchOverlay" class="search-overlay" onclick="closeSearch(event)">
-
-  <div class="search-box" onclick="event.stopPropagation()">
+  <div class="search-box">
 
     <input
       id="searchInput"
       placeholder="Search Amzo..."
       oninput="searchPages()"
+      onkeydown="searchKey(event)"
     >
 
-    <div id="searchResults" class="search-results"></div>
+    <div class="search-results" id="searchResults"></div>
 
   </div>
 
 </div>
 
-<script>
+<div class="toast" id="toast"></div>
 
-const API = "https://ai-tool-api.amzoxamzoo.workers.dev/";
+<script>
+const API =
+  "https://ai-tool-api.amzoxamzoo.workers.dev/";
+
+const CLIENT_KEY =
+  "amzo_client_id";
+
+const clientId =
+  localStorage.getItem(CLIENT_KEY) ||
+  crypto.randomUUID();
+
+localStorage.setItem(
+  CLIENT_KEY,
+  clientId
+);
+
+let currentImage = "";
+let currentPage = "home";
 
 const pages = [
-  ["home","Command Center","⌂"],
-  ["chat","Amzo Chat","◉"],
-  ["create","AI Create","✦"],
-  ["brain","Amzo Brain","🧠"],
-  ["image","Image Lab","🎨"],
-  ["video","Video Lab","🎬"],
-  ["voice","Voice AI","🎙️"],
-  ["music","Music AI","🎵"],
-  ["writer","AI Writer","✍️"],
-  ["study","Study AI","📚"],
-  ["research","Research","🔎"],
-  ["code","Code Lab","💻"],
-  ["studio","Creative Studio","🎞️"],
-  ["tools","AI Tools","🛠️"],
-  ["projects","Projects","📁"],
-  ["history","History","🕘"],
-  ["favorites","Favorites","⭐"],
-  ["settings","Settings","⚙️"],
-  ["about","About Amzo","ⓘ"]
+  ["home","Command Center"],
+  ["chat","Amzo Chat"],
+  ["create","AI Create"],
+  ["brain","Amzo Brain"],
+  ["image","Image Lab"],
+  ["video","Video Lab"],
+  ["voice","Voice AI"],
+  ["music","Music AI"],
+  ["writer","AI Writer"],
+  ["study","Study AI"],
+  ["research","Research"],
+  ["code","Code Lab"],
+  ["studio","Creative Studio"],
+  ["tools","AI Tools"],
+  ["projects","Projects"],
+  ["history","History"],
+  ["favorites","Favorites"],
+  ["settings","Settings"],
+  ["about","About Amzo"]
 ];
 
-function openPage(id,btn){
+function openPage(name,button=null){
 
-  document.querySelectorAll(".page").forEach(p=>{
-    p.classList.remove("active");
-  });
+  currentPage = name;
 
-  const page=document.getElementById(id);
+  document.querySelectorAll(".page")
+    .forEach(p => p.classList.remove("active"));
 
-  if(page) page.classList.add("active");
+  const page =
+    document.getElementById(
+      "page-" + name
+    );
 
-  document.querySelectorAll(".nav button").forEach(b=>{
-    b.classList.remove("active");
-  });
+  if(page){
+    page.classList.add("active");
+  }
 
-  if(btn) btn.classList.add("active");
+  document.querySelectorAll(".nav")
+    .forEach(n => n.classList.remove("active"));
 
-  if(id==="projects") renderProjects();
-  if(id==="history") renderHistory();
+  if(button){
+    button.classList.add("active");
+  }else{
+    document.querySelectorAll(".nav")
+      .forEach(n => {
+        if(
+          n.getAttribute("onclick") &&
+          n.getAttribute("onclick")
+            .includes("'" + name + "'")
+        ){
+          n.classList.add("active");
+        }
+      });
+  }
 
-  window.scrollTo({top:0,behavior:"smooth"});
+  document.getElementById("sidebar")
+    .classList.remove("open");
+
+  if(
+    ["brain","writer","study","research",
+     "code","studio","voice","music"]
+     .includes(name)
+  ){
+    renderGeneric(name);
+  }
+
+  if(name === "projects"){
+    renderProjects();
+  }
+
+  if(name === "history"){
+    renderHistory();
+  }
+
+  if(name === "favorites"){
+    renderFavorites();
+  }
 }
 
-async function sendMessage(){
+function toggleSidebar(){
+  document
+    .getElementById("sidebar")
+    .classList.toggle("open");
+}
 
-  const input=document.getElementById("chatInput");
-  const text=input.value.trim();
+function toast(message){
 
-  if(!text) return;
+  const el =
+    document.getElementById("toast");
 
-  addMessage(text,"user");
+  el.textContent = message;
+  el.classList.add("show");
 
-  input.value="";
+  clearTimeout(window.__toast);
 
-  const loading=addMessage("Amzo is thinking...","ai");
+  window.__toast =
+    setTimeout(
+      () => el.classList.remove("show"),
+      2600
+    );
+}
 
-  try{
+/* API */
 
-    const res=await fetch(API,{
+async function api(action,data={}){
+
+  const response =
+    await fetch(API,{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
       },
       body:JSON.stringify({
-        action:"chat",
-        message:text
+        action,
+        clientId,
+        ...data
       })
     });
 
-    const data=await res.json();
+  const result =
+    await response.json();
 
-    loading.remove();
+  if(!response.ok){
 
-    if(data.ok){
-
-      addMessage(
-        data.reply || data.response || data.text || "No response.",
-        "ai"
+    const error =
+      new Error(
+        result.error ||
+        "Request failed."
       );
 
-      saveHistory("Chat",text);
+    error.data = result;
 
-    }else{
+    throw error;
+  }
 
-      addMessage(
-        data.error || "AI request failed.",
-        "ai"
-      );
+  return result;
+}
 
+/* USAGE */
+
+async function loadUsage(){
+
+  try{
+
+    const result =
+      await api("usage");
+
+    if(result.usage){
+      updateUsage(result.usage);
     }
 
-  }catch(err){
+  }catch(error){
+    console.error(error);
+  }
+}
+
+function updateUsage(usage){
+
+  const messages =
+    Number(
+      usage.messagesRemaining ??
+      usage.messageLimit
+    );
+
+  const images =
+    Number(
+      usage.imagesRemaining ??
+      usage.imageLimit
+    );
+
+  const messageLimit =
+    Number(
+      usage.messageLimit || 100
+    );
+
+  const imageLimit =
+    Number(
+      usage.imageLimit || 20
+    );
+
+  document.getElementById(
+    "messageUsage"
+  ).textContent =
+    `${messages} / ${messageLimit}`;
+
+  document.getElementById(
+    "imageUsage"
+  ).textContent =
+    `${images} / ${imageLimit}`;
+
+  document.getElementById(
+    "messageBar"
+  ).style.width =
+    `${Math.max(
+      0,
+      Math.min(
+        100,
+        (messages / messageLimit) * 100
+      )
+    )}%`;
+
+  document.getElementById(
+    "imageBar"
+  ).style.width =
+    `${Math.max(
+      0,
+      Math.min(
+        100,
+        (images / imageLimit) * 100
+      )
+    )}%`;
+}
+
+/* CHAT */
+
+function chatKey(event){
+
+  if(
+    event.key === "Enter" &&
+    !event.shiftKey
+  ){
+    event.preventDefault();
+    sendChat();
+  }
+}
+
+function addMessage(type,text){
+
+  const box =
+    document.getElementById("messages");
+
+  const el =
+    document.createElement("div");
+
+  el.className =
+    `message ${type}`;
+
+  el.textContent = text;
+
+  box.appendChild(el);
+
+  box.scrollTop =
+    box.scrollHeight;
+}
+
+async function sendChat(){
+
+  const input =
+    document.getElementById("chatInput");
+
+  const message =
+    input.value.trim();
+
+  if(!message) return;
+
+  input.value = "";
+
+  addMessage("user",message);
+
+  const loading =
+    document.createElement("div");
+
+  loading.className =
+    "message ai loading";
+
+  loading.textContent =
+    "Amzo is thinking...";
+
+  document
+    .getElementById("messages")
+    .appendChild(loading);
+
+  try{
+
+    const result =
+      await api("chat",{message});
 
     loading.remove();
 
     addMessage(
-      "Connection error. Please try again.",
-      "ai"
+      "ai",
+      result.reply ||
+      result.response ||
+      result.text ||
+      "No response."
     );
 
-  }
+    saveHistory(
+      "Chat",
+      message
+    );
 
-}
-
-function addMessage(text,type){
-
-  const box=document.getElementById("messages");
-
-  const el=document.createElement("div");
-
-  el.className="message "+type;
-
-  el.textContent=text;
-
-  box.appendChild(el);
-
-  box.scrollTop=box.scrollHeight;
-
-  return el;
-}
-
-async function generateImage(){
-
-  const prompt=document.getElementById("imagePrompt").value.trim();
-  const result=document.getElementById("imageResult");
-
-  if(!prompt){
-    result.innerHTML='<div class="result">Enter an image prompt first.</div>';
-    return;
-  }
-
-  result.innerHTML='<div class="result">🎨 Generating your image...</div>';
-
-  try{
-
-    const res=await fetch(API,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        action:"image",
-        prompt:prompt
-      })
-    });
-
-    const data=await res.json();
-
-    if(data.ok && data.dataURI){
-
-      result.innerHTML=`
-        <div class="result">
-          <img src="${data.dataURI}" alt="Generated image">
-          <br><br>
-          <button class="primary" onclick="downloadImage('${data.dataURI}')">
-            Download Image
-          </button>
-        </div>
-      `;
-
-      saveHistory("Image",prompt);
-
+    if(result.usage){
+      updateUsage(result.usage);
     }else{
-
-      result.innerHTML=
-        `<div class="result">❌ ${data.error || "Image generation failed."}</div>`;
-
+      loadUsage();
     }
 
   }catch(error){
 
-    result.innerHTML=
-      `<div class="result">❌ Connection error.</div>`;
+    loading.remove();
 
+    if(
+      error.data &&
+      error.data.limitType === "messages"
+    ){
+
+      addMessage(
+        "ai",
+        "⚡ Daily message limit reached.\n\nTry again after the 24-hour reset."
+      );
+
+    }else{
+
+      addMessage(
+        "ai",
+        "⚠️ " +
+        (
+          error.message ||
+          "Something went wrong."
+        )
+      );
+    }
+
+    loadUsage();
   }
-
 }
 
-function downloadImage(src){
+function newChat(){
 
-  const a=document.createElement("a");
+  document.getElementById(
+    "messages"
+  ).innerHTML = `
+    <div class="message ai">
+      New Amzo chat started. What are we building?
+    </div>
+  `;
 
-  a.href=src;
-  a.download="amzo-ai-image.jpg";
+  toast("New chat started.");
+}
+
+/* IMAGE */
+
+async function generateImage(){
+
+  const input =
+    document.getElementById(
+      "imagePrompt"
+    );
+
+  const prompt =
+    input.value.trim();
+
+  if(!prompt){
+    toast("Enter an image prompt first.");
+    return;
+  }
+
+  const resultBox =
+    document.getElementById(
+      "imageResult"
+    );
+
+  resultBox.style.display =
+    "block";
+
+  const image =
+    document.getElementById(
+      "generatedImage"
+    );
+
+  image.removeAttribute("src");
+
+  toast("Creating your image...");
+
+  try{
+
+    const result =
+      await api(
+        "image",
+        {prompt}
+      );
+
+    if(!result.dataURI){
+      throw new Error(
+        "No image returned."
+      );
+    }
+
+    currentImage =
+      result.dataURI;
+
+    image.src =
+      currentImage;
+
+    saveHistory(
+      "Image",
+      prompt
+    );
+
+    if(result.usage){
+      updateUsage(result.usage);
+    }else{
+      loadUsage();
+    }
+
+    toast("Image created successfully.");
+
+  }catch(error){
+
+    if(
+      error.data &&
+      error.data.limitType === "images"
+    ){
+
+      toast(
+        "Daily image limit reached."
+      );
+
+    }else{
+
+      toast(
+        error.message ||
+        "Image generation failed."
+      );
+    }
+
+    resultBox.style.display =
+      "none";
+
+    loadUsage();
+  }
+}
+
+function clearImage(){
+
+  currentImage = "";
+
+  document.getElementById(
+    "imagePrompt"
+  ).value = "";
+
+  document.getElementById(
+    "imageResult"
+  ).style.display = "none";
+}
+
+function downloadImage(){
+
+  if(!currentImage){
+    toast("No image available.");
+    return;
+  }
+
+  const a =
+    document.createElement("a");
+
+  a.href = currentImage;
+  a.download =
+    "amzo-ai-image.jpg";
 
   document.body.appendChild(a);
   a.click();
   a.remove();
 
+  toast("Image download started.");
 }
 
-async function genericAI(button){
+function favoriteImage(){
 
-  const parent=button.parentElement;
-
-  const prompt=parent.querySelector(".genericPrompt").value.trim();
-
-  const result=parent.querySelector(".genericResult");
-
-  if(!prompt){
-    result.textContent="Enter something first.";
+  if(!currentImage){
+    toast("Generate an image first.");
     return;
   }
 
-  result.textContent="Amzo AI is thinking...";
+  const favorites =
+    JSON.parse(
+      localStorage.getItem(
+        "amzo_favorites"
+      ) || "[]"
+    );
+
+  favorites.unshift({
+    type:"image",
+    title:"Generated Image",
+    data:currentImage,
+    time:Date.now()
+  });
+
+  localStorage.setItem(
+    "amzo_favorites",
+    JSON.stringify(
+      favorites.slice(0,50)
+    )
+  );
+
+  toast("Saved to Favorites.");
+}
+
+/* GENERIC AI */
+
+const genericInfo = {
+
+  brain:[
+    "Amzo Brain",
+    "Think through problems, plans and ideas with Amzo.",
+    "Think deeply about this..."
+  ],
+
+  writer:[
+    "AI Writer",
+    "Create scripts, posts, descriptions, emails and more.",
+    "What do you want me to write?"
+  ],
+
+  study:[
+    "Study AI",
+    "Learn difficult subjects step by step.",
+    "Explain this topic to me..."
+  ],
+
+  research:[
+    "Research",
+    "Use Amzo for structured research and analysis.",
+    "Research this topic..."
+  ],
+
+  code:[
+    "Code Lab",
+    "Generate, explain and improve code.",
+    "Help me with this code..."
+  ],
+
+  studio:[
+    "Creative Studio",
+    "Develop creative concepts, stories and projects.",
+    "Create a creative concept for..."
+  ],
+
+  voice:[
+    "Voice AI",
+    "Voice generation integration will be added here.",
+    "Create a voice concept for..."
+  ],
+
+  music:[
+    "Music AI",
+    "Music generation integration will be added here.",
+    "Create a music concept for..."
+  ]
+};
+
+function renderGeneric(name){
+
+  const data =
+    genericInfo[name];
+
+  if(!data) return;
+
+  const container =
+    document.getElementById(
+      name + "Content"
+    );
+
+  container.innerHTML = `
+    <div class="workspace">
+      <div class="section-title">
+        <div>
+          <h2>${data[0]}</h2>
+          <span>${data[1]}</span>
+        </div>
+      </div>
+
+      <div class="panel">
+
+        <textarea
+          id="${name}Input"
+          placeholder="${data[2]}"
+        ></textarea>
+
+        <div class="form-row">
+
+          <button
+            class="btn primary"
+            onclick="runGeneric('${name}')"
+          >
+            ✦ Ask Amzo
+          </button>
+
+          <button
+            class="btn"
+            onclick="document.getElementById('${name}Input').value=''"
+          >
+            Clear
+          </button>
+
+        </div>
+
+        <div
+          class="result"
+          id="${name}Result"
+        >
+          Your result will appear here.
+        </div>
+
+      </div>
+    </div>
+  `;
+}
+
+async function runGeneric(name){
+
+  const input =
+    document.getElementById(
+      name + "Input"
+    );
+
+  const resultBox =
+    document.getElementById(
+      name + "Result"
+    );
+
+  const message =
+    input.value.trim();
+
+  if(!message){
+    toast("Enter something first.");
+    return;
+  }
+
+  resultBox.className =
+    "result loading";
+
+  resultBox.textContent =
+    "Amzo is thinking...";
 
   try{
 
-    const res=await fetch(API,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        action:"chat",
-        message:prompt
-      })
-    });
+    const result =
+      await api(
+        "chat",
+        {message}
+      );
 
-    const data=await res.json();
+    resultBox.className =
+      "result";
 
-    result.textContent=
-      data.reply ||
-      data.response ||
-      data.text ||
-      data.error ||
-      "No result.";
+    resultBox.textContent =
+      result.reply ||
+      result.response ||
+      result.text ||
+      "No response.";
 
-    saveHistory("AI Tool",prompt);
+    saveHistory(
+      name,
+      message
+    );
 
-  }catch(e){
+    if(result.usage){
+      updateUsage(result.usage);
+    }
 
-    result.textContent="Connection error.";
+  }catch(error){
 
+    resultBox.className =
+      "result error";
+
+    resultBox.textContent =
+      error.message ||
+      "Something went wrong.";
+
+    loadUsage();
   }
-
 }
 
-function openSearch(){
+/* TOOLS */
 
-  document.getElementById("searchOverlay").classList.add("open");
-
-  setTimeout(()=>{
-    document.getElementById("searchInput").focus();
-  },100);
-
-  searchPages();
-
+async function toolIdeas(){
+  openPage("chat");
+  document.getElementById(
+    "chatInput"
+  ).value =
+    "Give me 10 unique AI business ideas.";
+  document.getElementById(
+    "chatInput"
+  ).focus();
 }
 
-function closeSearch(e){
-
-  if(!e || e.target.id==="searchOverlay"){
-    document.getElementById("searchOverlay").classList.remove("open");
-  }
-
+async function toolExplain(){
+  openPage("chat");
+  document.getElementById(
+    "chatInput"
+  ).value =
+    "Explain this concept in very simple language: ";
+  document.getElementById(
+    "chatInput"
+  ).focus();
 }
 
-function searchPages(){
+async function toolBrainstorm(){
+  openPage("chat");
+  document.getElementById(
+    "chatInput"
+  ).value =
+    "Brainstorm creative ideas about: ";
+  document.getElementById(
+    "chatInput"
+  ).focus();
+}
 
-  const q=document.getElementById("searchInput").value.toLowerCase();
+function toolCounter(){
 
-  const box=document.getElementById("searchResults");
+  const text =
+    prompt(
+      "Paste your text:"
+    );
 
-  const filtered=pages.filter(p=>
-    p[1].toLowerCase().includes(q)
+  if(text === null) return;
+
+  const words =
+    text.trim()
+      ? text.trim().split(/\s+/).length
+      : 0;
+
+  alert(
+    `Words: ${words}\nCharacters: ${text.length}`
   );
-
-  box.innerHTML="";
-
-  filtered.forEach(p=>{
-
-    const b=document.createElement("button");
-
-    b.innerHTML=`${p[2]} &nbsp; ${p[1]}`;
-
-    b.onclick=()=>{
-
-      document.getElementById("searchOverlay").classList.remove("open");
-
-      openPage(p[0]);
-
-    };
-
-    box.appendChild(b);
-
-  });
-
 }
 
-document.addEventListener("keydown",e=>{
-
-  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){
-
-    e.preventDefault();
-
-    openSearch();
-
-  }
-
-  if(e.key==="Escape"){
-
-    document.getElementById("searchOverlay").classList.remove("open");
-
-  }
-
-});
+/* HISTORY */
 
 function saveHistory(type,text){
 
-  let history=JSON.parse(
-    localStorage.getItem("amzo_history")||"[]"
-  );
+  const history =
+    JSON.parse(
+      localStorage.getItem(
+        "amzo_history"
+      ) || "[]"
+    );
 
   history.unshift({
     type,
     text,
-    time:new Date().toLocaleString()
+    time:Date.now()
   });
 
-  history=history.slice(0,30);
+  localStorage.setItem(
+    "amzo_history",
+    JSON.stringify(
+      history.slice(0,100)
+    )
+  );
+}
+
+function renderHistory(){
+
+  const list =
+    document.getElementById(
+      "historyList"
+    );
+
+  const history =
+    JSON.parse(
+      localStorage.getItem(
+        "amzo_history"
+      ) || "[]"
+    );
+
+  if(!history.length){
+
+    list.innerHTML = `
+      <div class="card">
+        <h3>No history yet</h3>
+        <p>Your activity will appear here.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  list.innerHTML =
+    history.map(
+      (item,index) => `
+        <div class="list-item">
+          <div>
+            <strong>${escapeHTML(item.type)}</strong>
+            <small>
+              ${escapeHTML(item.text)}
+            </small>
+          </div>
+
+          <button
+            class="btn"
+            onclick="deleteHistory(${index})"
+          >
+            ×
+          </button>
+        </div>
+      `
+    ).join("");
+}
+
+function deleteHistory(index){
+
+  const history =
+    JSON.parse(
+      localStorage.getItem(
+        "amzo_history"
+      ) || "[]"
+    );
+
+  history.splice(index,1);
 
   localStorage.setItem(
     "amzo_history",
     JSON.stringify(history)
   );
 
+  renderHistory();
 }
 
-function renderHistory(){
+function clearHistory(){
 
-  const box=document.getElementById("historyList");
-
-  const history=JSON.parse(
-    localStorage.getItem("amzo_history")||"[]"
+  localStorage.removeItem(
+    "amzo_history"
   );
 
-  if(!history.length){
+  renderHistory();
 
-    box.innerHTML=`
-      <div class="card">
-        <div class="card-icon">🕘</div>
-        <h3>No activity yet</h3>
-        <p>Your recent Amzo activity will appear here.</p>
-      </div>
-    `;
-
-    return;
-
-  }
-
-  box.innerHTML=history.map(x=>`
-    <div class="card">
-      <div class="card-icon">⚡</div>
-      <h3>${escapeHTML(x.type)}</h3>
-      <p>${escapeHTML(x.text)}</p>
-      <small style="color:#626a80">${escapeHTML(x.time)}</small>
-    </div>
-  `).join("");
-
+  toast("History cleared.");
 }
+
+/* PROJECTS */
 
 function newProject(){
 
-  const name=prompt("Project name:");
+  const name =
+    prompt(
+      "Project name:"
+    );
 
   if(!name) return;
 
-  let projects=JSON.parse(
-    localStorage.getItem("amzo_projects")||"[]"
-  );
+  const projects =
+    JSON.parse(
+      localStorage.getItem(
+        "amzo_projects"
+      ) || "[]"
+    );
 
-  projects.push({
+  projects.unshift({
     name,
-    created:new Date().toLocaleString()
+    time:Date.now()
   });
 
   localStorage.setItem(
@@ -1845,98 +2358,340 @@ function newProject(){
 
   renderProjects();
 
+  toast("Project created.");
 }
 
 function renderProjects(){
 
-  const box=document.getElementById("projectsList");
+  const list =
+    document.getElementById(
+      "projectList"
+    );
 
-  const projects=JSON.parse(
-    localStorage.getItem("amzo_projects")||"[]"
-  );
+  if(!list) return;
+
+  const projects =
+    JSON.parse(
+      localStorage.getItem(
+        "amzo_projects"
+      ) || "[]"
+    );
 
   if(!projects.length){
 
-    box.innerHTML=`
+    list.innerHTML = `
       <div class="card">
-        <div class="card-icon">📁</div>
-        <h3>No projects</h3>
+        <h3>No projects yet</h3>
         <p>Create your first Amzo project.</p>
       </div>
     `;
 
     return;
-
   }
 
-  box.innerHTML=projects.map(p=>`
-    <div class="card">
-      <div class="card-icon">📁</div>
-      <h3>${escapeHTML(p.name)}</h3>
-      <p>Created ${escapeHTML(p.created)}</p>
-    </div>
-  `).join("");
+  list.innerHTML =
+    projects.map(
+      (project,index) => `
+        <div class="list-item">
 
+          <div>
+            <strong>
+              ${escapeHTML(project.name)}
+            </strong>
+
+            <small>
+              Amzo project
+            </small>
+          </div>
+
+          <button
+            class="btn"
+            onclick="deleteProject(${index})"
+          >
+            ×
+          </button>
+
+        </div>
+      `
+    ).join("");
 }
 
-function escapeHTML(text){
+function deleteProject(index){
 
-  return String(text)
+  const projects =
+    JSON.parse(
+      localStorage.getItem(
+        "amzo_projects"
+      ) || "[]"
+    );
+
+  projects.splice(index,1);
+
+  localStorage.setItem(
+    "amzo_projects",
+    JSON.stringify(projects)
+  );
+
+  renderProjects();
+}
+
+/* FAVORITES */
+
+function renderFavorites(){
+
+  const list =
+    document.getElementById(
+      "favoriteList"
+    );
+
+  const favorites =
+    JSON.parse(
+      localStorage.getItem(
+        "amzo_favorites"
+      ) || "[]"
+    );
+
+  if(!favorites.length){
+
+    list.innerHTML = `
+      <div class="card">
+        <h3>No favorites yet</h3>
+        <p>Save useful AI outputs here.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  list.innerHTML =
+    favorites.map(
+      (item,index) => {
+
+        if(item.type === "image"){
+
+          return `
+            <div class="list-item">
+              <div>
+                <strong>🖼️ Generated Image</strong>
+                <small>Saved AI image</small>
+              </div>
+
+              <button
+                class="btn"
+                onclick="deleteFavorite(${index})"
+              >
+                ×
+              </button>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="list-item">
+            <div>
+              <strong>
+                ${escapeHTML(item.title || "Favorite")}
+              </strong>
+              <small>
+                ${escapeHTML(item.text || "")}
+              </small>
+            </div>
+
+            <button
+              class="btn"
+              onclick="deleteFavorite(${index})"
+            >
+              ×
+            </button>
+          </div>
+        `;
+      }
+    ).join("");
+}
+
+function deleteFavorite(index){
+
+  const favorites =
+    JSON.parse(
+      localStorage.getItem(
+        "amzo_favorites"
+      ) || "[]"
+    );
+
+  favorites.splice(index,1);
+
+  localStorage.setItem(
+    "amzo_favorites",
+    JSON.stringify(favorites)
+  );
+
+  renderFavorites();
+}
+
+/* SEARCH */
+
+function openSearch(){
+
+  const overlay =
+    document.getElementById(
+      "searchOverlay"
+    );
+
+  overlay.classList.add("open");
+
+  const input =
+    document.getElementById(
+      "searchInput"
+    );
+
+  input.value = "";
+  input.focus();
+
+  searchPages();
+}
+
+function closeSearch(){
+
+  document
+    .getElementById(
+      "searchOverlay"
+    )
+    .classList.remove("open");
+}
+
+function searchPages(){
+
+  const query =
+    document.getElementById(
+      "searchInput"
+    ).value
+      .toLowerCase()
+      .trim();
+
+  const results =
+    document.getElementById(
+      "searchResults"
+    );
+
+  const matches =
+    pages.filter(
+      p =>
+        !query ||
+        p[0].includes(query) ||
+        p[1].toLowerCase().includes(query)
+    );
+
+  results.innerHTML =
+    matches.map(
+      p => `
+        <div
+          class="search-result"
+          onclick="selectSearch('${p[0]}')"
+        >
+          ✦ ${p[1]}
+        </div>
+      `
+    ).join("");
+}
+
+function selectSearch(page){
+
+  closeSearch();
+
+  openPage(page);
+}
+
+function searchKey(event){
+
+  if(event.key === "Escape"){
+    closeSearch();
+  }
+}
+
+/* DATA */
+
+function clearAllData(){
+
+  if(
+    !confirm(
+      "Delete local Amzo projects, history and favorites?"
+    )
+  ) return;
+
+  localStorage.removeItem(
+    "amzo_history"
+  );
+
+  localStorage.removeItem(
+    "amzo_projects"
+  );
+
+  localStorage.removeItem(
+    "amzo_favorites"
+  );
+
+  toast("Local data deleted.");
+
+  renderHistory();
+  renderProjects();
+  renderFavorites();
+}
+
+function escapeHTML(value){
+
+  return String(value)
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
     .replaceAll('"',"&quot;")
     .replaceAll("'","&#039;");
-
 }
 
-function textCounter(){
+/* KEYBOARD */
 
-  const text=prompt("Paste your text:");
+document.addEventListener(
+  "keydown",
+  event => {
 
-  if(text===null) return;
+    if(
+      event.ctrlKey &&
+      event.key.toLowerCase() === "k"
+    ){
+      event.preventDefault();
+      openSearch();
+    }
 
-  alert(
-    "Characters: "+text.length+
-    "\nWords: "+(text.trim()?text.trim().split(/\s+/).length:0)
+    if(event.key === "Escape"){
+      closeSearch();
+    }
+  }
+);
+
+document
+  .getElementById("searchOverlay")
+  .addEventListener(
+    "click",
+    event => {
+      if(
+        event.target.id ===
+        "searchOverlay"
+      ){
+        closeSearch();
+      }
+    }
   );
 
-}
+/* START */
 
-function toolIdea(){
-
-  const ideas=[
-    "AI Study Planner",
-    "AI Thumbnail Lab",
-    "Personal AI Dashboard",
-    "AI Story Builder",
-    "AI Project Generator",
-    "AI Productivity Assistant"
-  ];
-
-  alert(
-    "Amzo Idea:\n\n"+
-    ideas[Math.floor(Math.random()*ideas.length)]
-  );
-
-}
-
-function promptBuilder(){
-
-  const goal=prompt("What do you want AI to do?");
-
-  if(!goal) return;
-
-  alert(
-    "Your AI prompt:\n\n"+
-    "Act as an expert assistant. Help me with "+goal+
-    ". Give a clear, practical and detailed answer."
-  );
-
-}
-
+loadUsage();
 renderProjects();
+renderHistory();
+renderFavorites();
 
+setInterval(
+  loadUsage,
+  30000
+);
 </script>
 
 </body>
