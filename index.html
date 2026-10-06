@@ -34,17 +34,10 @@ html,body{
   color:var(--text);
 }
 
-body{
-  overflow:hidden;
-}
+body{overflow:hidden}
 
-button,input,textarea{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
 
 #bg{
   position:fixed;
@@ -424,7 +417,6 @@ button{
     radial-gradient(circle,#fff 0 2%,transparent 3%),
     radial-gradient(circle,rgba(0,229,255,.45),transparent 42%),
     conic-gradient(var(--cyan),var(--blue),var(--purple),var(--pink),var(--cyan));
-  filter:blur(.2px);
   box-shadow:
     0 0 35px rgba(0,229,255,.28),
     0 0 100px rgba(155,77,255,.2);
@@ -512,7 +504,7 @@ button{
   line-height:1.6;
 }
 
-/* COMMON PANELS */
+/* COMMON */
 
 .page{
   max-width:1250px;
@@ -854,7 +846,7 @@ textarea.big{
   resize:vertical;
 }
 
-/* TABLE/CARDS */
+/* CARDS */
 
 .card{
   border:1px solid var(--line);
@@ -878,12 +870,232 @@ textarea.big{
   padding:13px;
 }
 
-.muted{
-  color:var(--muted);
+.muted{color:var(--muted)}
+.small{font-size:11px}
+
+/* =========================
+   AMZO DNA
+========================= */
+
+.dna-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
 }
 
-.small{
-  font-size:11px;
+.dna-core-card{
+  min-height:430px;
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:
+    radial-gradient(circle at center,rgba(0,229,255,.13),transparent 34%),
+    radial-gradient(circle at 30% 80%,rgba(155,77,255,.13),transparent 35%),
+    var(--panel);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+.dna-core{
+  width:190px;
+  height:190px;
+  border-radius:50%;
+  padding:5px;
+  background:
+    conic-gradient(
+      from 0deg,
+      var(--cyan),
+      var(--blue),
+      var(--purple),
+      var(--pink),
+      var(--cyan)
+    );
+  box-shadow:
+    0 0 35px rgba(0,229,255,.3),
+    0 0 90px rgba(155,77,255,.2);
+  animation:dnaPulse 4s ease-in-out infinite,
+            dnaHue 10s linear infinite;
+  position:relative;
+  z-index:2;
+}
+
+.dna-core-inner{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 35% 30%,rgba(255,255,255,.15),transparent 12%),
+    #060914;
+  display:grid;
+  place-items:center;
+  font-size:55px;
+  font-weight:900;
+  letter-spacing:3px;
+  box-shadow:inset 0 0 50px rgba(0,229,255,.12);
+}
+
+.dna-core-inner span{
+  background:
+    linear-gradient(135deg,var(--cyan),var(--purple),var(--pink));
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+@keyframes dnaPulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.07)}
+}
+
+@keyframes dnaHue{
+  to{filter:hue-rotate(360deg)}
+}
+
+.dna-orbit{
+  position:absolute;
+  border:1px solid rgba(0,229,255,.16);
+  border-radius:50%;
+  pointer-events:none;
+}
+
+.orbit1{
+  width:280px;
+  height:280px;
+  transform:rotate(35deg);
+  animation:orbit1 8s linear infinite;
+}
+
+.orbit2{
+  width:350px;
+  height:150px;
+  transform:rotate(-35deg);
+  border-color:rgba(255,60,172,.12);
+  animation:orbit2 11s linear infinite reverse;
+}
+
+@keyframes orbit1{
+  to{transform:rotate(395deg)}
+}
+
+@keyframes orbit2{
+  to{transform:rotate(325deg)}
+}
+
+.dna-name{
+  margin-top:20px;
+  font-size:17px;
+  font-weight:900;
+  letter-spacing:4px;
+}
+
+.dna-level{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+.dna-level span{
+  color:var(--cyan);
+  font-weight:800;
+}
+
+.dna-stats{
+  display:grid;
+  gap:12px;
+  align-content:center;
+}
+
+.dna-stat{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+  border-radius:18px;
+  padding:20px;
+}
+
+.dna-stat-top{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:12px;
+  font-size:13px;
+}
+
+.dna-stat-top strong{
+  color:var(--cyan);
+}
+
+.dna-bar{
+  height:7px;
+  border-radius:99px;
+  background:rgba(255,255,255,.06);
+  overflow:hidden;
+}
+
+.dna-bar span{
+  display:block;
+  height:100%;
+  width:0;
+  border-radius:99px;
+  background:
+    linear-gradient(90deg,var(--cyan),var(--blue),var(--purple));
+  box-shadow:0 0 14px rgba(0,229,255,.3);
+  transition:1s cubic-bezier(.2,.8,.2,1);
+}
+
+.dna-insight{
+  margin-top:15px;
+  border:1px solid var(--line);
+  background:var(--panel);
+  border-radius:22px;
+  padding:23px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+
+.dna-insight h2{
+  margin:7px 0;
+  background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.dna-insight p{
+  color:var(--muted);
+  font-size:12px;
+  max-width:550px;
+  line-height:1.6;
+  margin:0;
+}
+
+.dna-next{
+  min-width:210px;
+  border:1px solid rgba(0,229,255,.13);
+  background:rgba(0,229,255,.045);
+  border-radius:16px;
+  padding:16px;
+}
+
+.dna-next span{
+  display:block;
+  color:#6c7891;
+  font-size:9px;
+  letter-spacing:1.5px;
+  margin-bottom:7px;
+}
+
+.dna-next strong{
+  color:#a8f7ff;
+  font-size:13px;
+}
+
+.dna-actions{
+  display:flex;
+  gap:9px;
+  margin-top:15px;
 }
 
 /* MODAL */
@@ -983,34 +1195,118 @@ textarea.big{
 /* RESPONSIVE */
 
 @media(max-width:1050px){
-  .features,.stats{grid-template-columns:repeat(2,1fr)}
-  .core{opacity:.35;right:-50px}
-  .tool-grid{grid-template-columns:repeat(2,1fr)}
+  .features,.stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .core{
+    opacity:.35;
+    right:-50px;
+  }
+
+  .tool-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .dna-layout{
+    grid-template-columns:1fr;
+  }
 }
 
 @media(max-width:800px){
-  .sidebar{width:72px;padding:12px 8px}
-  .brand strong,.brand small,.nav button span,.nav-title,.account-info{display:none}
-  .brand{justify-content:center}
-  .nav button{justify-content:center}
-  .account{justify-content:center}
-  .home{padding:25px 18px}
-  .hero{padding:30px 25px}
-  .core{display:none}
-  .chat-workspace{grid-template-columns:220px minmax(0,1fr)}
+  .sidebar{
+    width:72px;
+    padding:12px 8px;
+  }
+
+  .brand strong,
+  .brand small,
+  .nav button span,
+  .nav-title,
+  .account-info{
+    display:none;
+  }
+
+  .brand{
+    justify-content:center;
+  }
+
+  .nav button{
+    justify-content:center;
+  }
+
+  .account{
+    justify-content:center;
+  }
+
+  .home{
+    padding:25px 18px;
+  }
+
+  .hero{
+    padding:30px 25px;
+  }
+
+  .core{
+    display:none;
+  }
+
+  .chat-workspace{
+    grid-template-columns:220px minmax(0,1fr);
+  }
+
+  .dna-insight{
+    flex-direction:column;
+    align-items:flex-start;
+  }
 }
 
 @media(max-width:650px){
-  .topbar{padding:0 12px}
-  .status{display:none}
-  .page{padding:20px 14px}
-  .features,.stats,.tool-grid{grid-template-columns:1fr}
-  .hero h1{font-size:48px}
-  .hero-buttons{flex-direction:column}
-  .chat-page{padding:8px}
-  .chat-workspace{grid-template-columns:1fr}
-  .chat-sidebar-panel{display:none}
-  .messages{padding:18px 10px}
+  .topbar{
+    padding:0 12px;
+  }
+
+  .status{
+    display:none;
+  }
+
+  .page{
+    padding:20px 14px;
+  }
+
+  .features,
+  .stats,
+  .tool-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero h1{
+    font-size:48px;
+  }
+
+  .hero-buttons{
+    flex-direction:column;
+  }
+
+  .chat-page{
+    padding:8px;
+  }
+
+  .chat-workspace{
+    grid-template-columns:1fr;
+  }
+
+  .chat-sidebar-panel{
+    display:none;
+  }
+
+  .messages{
+    padding:18px 10px;
+  }
+
+  .dna-actions{
+    flex-direction:column;
+  }
 }
 </style>
 </head>
@@ -1066,6 +1362,10 @@ textarea.big{
       <span class="nav-icon">🧠</span><span>Brain</span>
     </button>
 
+    <button data-page="dna" onclick="openPage('dna')">
+      <span class="nav-icon">🧬</span><span>AMZO DNA</span>
+    </button>
+
     <button data-page="study" onclick="openPage('study')">
       <span class="nav-icon">◇</span><span>Study</span>
     </button>
@@ -1105,13 +1405,16 @@ textarea.big{
   </div>
 
   <div class="sidebar-bottom">
+
     <div class="account">
       <div class="avatar" id="avatar">A</div>
+
       <div class="account-info">
         <div class="account-name" id="accountName">Guest</div>
         <div class="account-email" id="accountEmail">Not signed in</div>
       </div>
     </div>
+
   </div>
 
 </aside>
@@ -1119,6 +1422,7 @@ textarea.big{
 <main class="main">
 
 <header class="topbar">
+
   <div>
     <div class="top-title">AMZO <span>AI</span></div>
   </div>
@@ -1132,6 +1436,7 @@ textarea.big{
     <button class="icon-btn" onclick="openPage('chat')" title="New chat">＋</button>
     <button class="icon-btn" onclick="refreshApp()" title="Refresh">↻</button>
   </div>
+
 </header>
 
 <div class="content">
@@ -1139,6 +1444,7 @@ textarea.big{
 <!-- HOME -->
 
 <section class="view active" id="view-home">
+
 <div class="home">
 
   <div class="hero">
@@ -1156,18 +1462,20 @@ textarea.big{
       </h1>
 
       <p>
-        One intelligent workspace for conversations, creation, images,
-        voice, ideas, projects and your next big thing.
+        One intelligent workspace for conversations, creation,
+        images, voice, ideas, projects and your next big thing.
       </p>
 
       <div class="hero-buttons">
+
         <button class="primary" onclick="openPage('chat')">
           Enter AI Chat →
         </button>
 
-        <button class="secondary" onclick="openPage('create')">
-          Create something
+        <button class="secondary" onclick="openPage('dna')">
+          🧬 Discover Your DNA
         </button>
+
       </div>
 
     </div>
@@ -1202,10 +1510,10 @@ textarea.big{
 
   <div class="features">
 
-    <div class="feature" onclick="openPage('chat')">
-      <div class="feature-icon">◈</div>
-      <h3>AI Chat</h3>
-      <p>Talk with Amzo and keep your conversations automatically.</p>
+    <div class="feature" onclick="openPage('dna')">
+      <div class="feature-icon">🧬</div>
+      <h3>AMZO DNA</h3>
+      <p>Your AI identity evolves as you think, create, build and learn.</p>
     </div>
 
     <div class="feature" onclick="openPage('image')">
@@ -1229,6 +1537,7 @@ textarea.big{
   </div>
 
 </div>
+
 </section>
 
 <!-- CHAT -->
@@ -1267,6 +1576,7 @@ textarea.big{
   <section class="chat-main">
 
     <div class="chat-header">
+
       <div>
         <div class="chat-header-title" id="currentChatTitle">
           New conversation
@@ -1275,12 +1585,15 @@ textarea.big{
       </div>
 
       <button class="icon-btn" onclick="newChat()">＋</button>
+
     </div>
 
     <div class="messages" id="messages">
 
       <div class="welcome" id="welcome">
+
         <div>
+
           <div class="welcome-core">
             <span>A</span>
           </div>
@@ -1290,7 +1603,9 @@ textarea.big{
           <div>
             Ask anything, create something, or start an idea.
           </div>
+
         </div>
+
       </div>
 
     </div>
@@ -1316,25 +1631,32 @@ textarea.big{
 </div>
 
 </div>
+
 </section>
 
 <!-- CREATE -->
 
 <section class="view" id="view-create">
+
 <div class="page">
 
   <div class="page-head">
+
     <div>
       <h2>Creation Lab</h2>
       <p>Turn a simple idea into something useful.</p>
     </div>
+
   </div>
 
   <div class="tool-grid">
 
     <div class="tool-card">
+
       <div class="feature-icon">✦</div>
+
       <h3>Idea Generator</h3>
+
       <p>Generate unique ideas around any topic.</p>
 
       <input
@@ -1350,11 +1672,15 @@ textarea.big{
       </button>
 
       <div id="ideaResult" class="card" style="margin-top:15px;display:none"></div>
+
     </div>
 
     <div class="tool-card">
+
       <div class="feature-icon">✎</div>
+
       <h3>AI Writer</h3>
+
       <p>Ask Amzo to write, rewrite or improve something.</p>
 
       <textarea
@@ -1370,11 +1696,15 @@ textarea.big{
       </button>
 
       <div id="writerResult"></div>
+
     </div>
 
     <div class="tool-card">
+
       <div class="feature-icon">⚡</div>
+
       <h3>Quick AI</h3>
+
       <p>Use the AI engine for any quick experiment.</p>
 
       <textarea
@@ -1390,23 +1720,28 @@ textarea.big{
       </button>
 
       <div id="quickResult"></div>
+
     </div>
 
   </div>
 
 </div>
+
 </section>
 
 <!-- IMAGE -->
 
 <section class="view" id="view-image">
+
 <div class="page">
 
   <div class="page-head">
+
     <div>
       <h2>Image Lab</h2>
       <p>Create visual concepts with AI.</p>
     </div>
+
   </div>
 
   <div class="card">
@@ -1428,18 +1763,22 @@ textarea.big{
   </div>
 
 </div>
+
 </section>
 
 <!-- VOICE -->
 
 <section class="view" id="view-voice">
+
 <div class="page">
 
   <div class="page-head">
+
     <div>
       <h2>Voice Lab</h2>
       <p>Turn text into AI voice.</p>
     </div>
+
   </div>
 
   <div class="card">
@@ -1461,18 +1800,22 @@ textarea.big{
   </div>
 
 </div>
+
 </section>
 
 <!-- BRAIN -->
 
 <section class="view" id="view-brain">
+
 <div class="page">
 
   <div class="page-head">
+
     <div>
       <h2>Amzo Brain</h2>
       <p>Your AI workspace intelligence.</p>
     </div>
+
   </div>
 
   <div class="stats">
@@ -1500,18 +1843,178 @@ textarea.big{
   </div>
 
 </div>
+
+</section>
+
+<!-- AMZO DNA -->
+
+<section class="view" id="view-dna">
+
+<div class="page">
+
+  <div class="page-head">
+
+    <div>
+      <h2>🧬 AMZO DNA</h2>
+      <p>Your evolving AI identity.</p>
+    </div>
+
+    <div class="badge">
+      <span class="status-dot"></span>
+      EVOLVING
+    </div>
+
+  </div>
+
+  <div class="dna-layout">
+
+    <div class="dna-core-card">
+
+      <div class="dna-orbit orbit1"></div>
+      <div class="dna-orbit orbit2"></div>
+
+      <div class="dna-core">
+
+        <div class="dna-core-inner">
+          <span id="dnaInitial">A</span>
+        </div>
+
+      </div>
+
+      <div class="dna-name">
+        AMZO DNA
+      </div>
+
+      <div class="dna-level">
+        LEVEL <span id="dnaLevel">1</span>
+      </div>
+
+    </div>
+
+    <div class="dna-stats">
+
+      <div class="dna-stat">
+
+        <div class="dna-stat-top">
+          <span>🧠 Thinking</span>
+          <strong id="dnaThinking">12</strong>
+        </div>
+
+        <div class="dna-bar">
+          <span id="dnaThinkingBar"></span>
+        </div>
+
+      </div>
+
+      <div class="dna-stat">
+
+        <div class="dna-stat-top">
+          <span>🎨 Creativity</span>
+          <strong id="dnaCreativity">18</strong>
+        </div>
+
+        <div class="dna-bar">
+          <span id="dnaCreativityBar"></span>
+        </div>
+
+      </div>
+
+      <div class="dna-stat">
+
+        <div class="dna-stat-top">
+          <span>🛠️ Building</span>
+          <strong id="dnaBuilding">10</strong>
+        </div>
+
+        <div class="dna-bar">
+          <span id="dnaBuildingBar"></span>
+        </div>
+
+      </div>
+
+      <div class="dna-stat">
+
+        <div class="dna-stat-top">
+          <span>📚 Learning</span>
+          <strong id="dnaLearning">8</strong>
+        </div>
+
+        <div class="dna-bar">
+          <span id="dnaLearningBar"></span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="dna-insight">
+
+    <div>
+
+      <div class="small muted">
+        CURRENT PATTERN
+      </div>
+
+      <h2 id="dnaPattern">
+        CREATOR
+      </h2>
+
+      <p id="dnaDescription">
+        Your Amzo DNA is still developing.
+        Every creation, project and interaction can evolve it.
+      </p>
+
+    </div>
+
+    <div class="dna-next">
+
+      <span>
+        ⚡ NEXT EVOLUTION
+      </span>
+
+      <strong id="dnaNext">
+        Create something new
+      </strong>
+
+    </div>
+
+  </div>
+
+  <div class="dna-actions">
+
+    <button class="primary" onclick="dnaMission()">
+      ⚡ Start DNA Mission
+    </button>
+
+    <button class="secondary" onclick="openPage('create')">
+      ✦ Create Something
+    </button>
+
+    <button class="secondary" onclick="openPage('study')">
+      ◇ Learn Something
+    </button>
+
+  </div>
+
+</div>
+
 </section>
 
 <!-- STUDY -->
 
 <section class="view" id="view-study">
+
 <div class="page">
 
   <div class="page-head">
+
     <div>
       <h2>Study Mode</h2>
       <p>Learn difficult topics step by step.</p>
     </div>
+
   </div>
 
   <div class="card">
@@ -1533,18 +2036,22 @@ textarea.big{
   </div>
 
 </div>
+
 </section>
 
 <!-- RESEARCH -->
 
 <section class="view" id="view-research">
+
 <div class="page">
 
   <div class="page-head">
+
     <div>
       <h2>Research</h2>
       <p>Organize a question and explore it with AI.</p>
     </div>
+
   </div>
 
   <div class="card">
@@ -1566,18 +2073,22 @@ textarea.big{
   </div>
 
 </div>
+
 </section>
 
 <!-- CODE -->
 
 <section class="view" id="view-code">
+
 <div class="page">
 
   <div class="page-head">
+
     <div>
       <h2>Code Lab</h2>
       <p>Ask Amzo to explain or generate code.</p>
     </div>
+
   </div>
 
   <div class="card">
@@ -1599,69 +2110,85 @@ textarea.big{
   </div>
 
 </div>
+
 </section>
 
 <!-- PROJECTS -->
 
 <section class="view" id="view-projects">
+
 <div class="page">
 
   <div class="page-head">
+
     <div>
       <h2>Projects</h2>
       <p>Your saved AI creations.</p>
     </div>
+
   </div>
 
   <div class="list" id="projectsList"></div>
 
 </div>
+
 </section>
 
 <!-- HISTORY -->
 
 <section class="view" id="view-history">
+
 <div class="page">
 
   <div class="page-head">
+
     <div>
       <h2>History</h2>
       <p>Your previous conversations.</p>
     </div>
+
   </div>
 
   <div class="list" id="historyList"></div>
 
 </div>
+
 </section>
 
 <!-- FAVORITES -->
 
 <section class="view" id="view-favorites">
+
 <div class="page">
 
   <div class="page-head">
+
     <div>
       <h2>Favorites</h2>
       <p>Your saved AI outputs.</p>
     </div>
+
   </div>
 
   <div class="list" id="favoritesList"></div>
 
 </div>
+
 </section>
 
 <!-- SETTINGS -->
 
 <section class="view" id="view-settings">
+
 <div class="page">
 
   <div class="page-head">
+
     <div>
       <h2>Settings</h2>
       <p>Amzo AI configuration.</p>
     </div>
+
   </div>
 
   <div class="card">
@@ -1681,18 +2208,22 @@ textarea.big{
   </div>
 
 </div>
+
 </section>
 
 <!-- ABOUT -->
 
 <section class="view" id="view-about">
+
 <div class="page">
 
   <div class="hero" style="min-height:auto">
 
     <div class="hero-content">
 
-      <div class="badge">AMZO AI</div>
+      <div class="badge">
+        AMZO AI
+      </div>
 
       <h1 style="font-size:55px">
         Your AI<br>
@@ -1701,7 +2232,7 @@ textarea.big{
 
       <p>
         Amzo AI is a personal AI workspace designed for thinking,
-        creating, learning and building.
+        creating, learning, building and evolving your own AI DNA.
       </p>
 
     </div>
@@ -1709,6 +2240,7 @@ textarea.big{
   </div>
 
 </div>
+
 </section>
 
 </div>
@@ -1726,6 +2258,7 @@ textarea.big{
     <input id="renameInput" placeholder="Chat name">
 
     <div class="modal-buttons">
+
       <button class="secondary" onclick="closeRenameModal()">
         Cancel
       </button>
@@ -1733,6 +2266,7 @@ textarea.big{
       <button class="primary" onclick="confirmRename()">
         Save
       </button>
+
     </div>
 
   </div>
@@ -1742,18 +2276,25 @@ textarea.big{
 <div id="toast"></div>
 
 <script>
+
 /* =========================
    AMZO API
 ========================= */
 
-const API = "https://ai-tool-api.amzoxamzoo.workers.dev/";
-const CLIENT_KEY = "amzo_client_id";
+const API =
+  "https://ai-tool-api.amzoxamzoo.workers.dev/";
+
+const CLIENT_KEY =
+  "amzo_client_id";
 
 const clientId =
   localStorage.getItem(CLIENT_KEY) ||
   crypto.randomUUID();
 
-localStorage.setItem(CLIENT_KEY,clientId);
+localStorage.setItem(
+  CLIENT_KEY,
+  clientId
+);
 
 let currentUser = null;
 let currentChatId = null;
@@ -1761,32 +2302,47 @@ let allChats = [];
 let renameTargetId = null;
 
 async function api(action,data={}){
-  const response = await fetch(API,{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json",
-      "X-Amzo-Client":clientId
-    },
-    credentials:"include",
-    body:JSON.stringify({
-      action,
-      clientId,
-      ...data
-    })
-  });
 
-  const text = await response.text();
+  const response =
+    await fetch(API,{
+      method:"POST",
+
+      headers:{
+        "Content-Type":"application/json",
+        "X-Amzo-Client":clientId
+      },
+
+      credentials:"include",
+
+      body:JSON.stringify({
+        action,
+        clientId,
+        ...data
+      })
+    });
+
+  const text =
+    await response.text();
 
   let result;
 
   try{
-    result = JSON.parse(text);
+    result=JSON.parse(text);
   }catch{
-    throw new Error(text || "Invalid server response");
+    throw new Error(
+      text || "Invalid server response"
+    );
   }
 
-  if(!response.ok || result.ok === false){
-    throw new Error(result.details || result.error || "Request failed");
+  if(
+    !response.ok ||
+    result.ok === false
+  ){
+    throw new Error(
+      result.details ||
+      result.error ||
+      "Request failed"
+    );
   }
 
   return result;
@@ -1798,37 +2354,50 @@ async function api(action,data={}){
 
 function openPage(page){
 
-  document.querySelectorAll(".view").forEach(v=>{
-    v.classList.remove("active");
-  });
+  document
+    .querySelectorAll(".view")
+    .forEach(v=>{
+      v.classList.remove("active");
+    });
 
-  const view = document.getElementById("view-"+page);
+  const view =
+    document.getElementById(
+      "view-"+page
+    );
 
   if(view){
     view.classList.add("active");
   }
 
-  document.querySelectorAll(".nav button").forEach(btn=>{
-    btn.classList.toggle(
-      "active",
-      btn.dataset.page === page
-    );
-  });
+  document
+    .querySelectorAll(".nav button")
+    .forEach(btn=>{
 
-  if(page === "chat"){
+      btn.classList.toggle(
+        "active",
+        btn.dataset.page === page
+      );
+
+    });
+
+  if(page==="chat"){
     loadChatSidebar();
   }
 
-  if(page === "projects"){
+  if(page==="projects"){
     loadProjects();
   }
 
-  if(page === "history"){
+  if(page==="history"){
     loadHistory();
   }
 
-  if(page === "favorites"){
+  if(page==="favorites"){
     loadFavorites();
+  }
+
+  if(page==="dna"){
+    updateDNA();
   }
 }
 
@@ -1838,34 +2407,51 @@ function openPage(page){
 
 function handleChatKey(e){
 
-  if(e.key === "Enter" && !e.shiftKey){
+  if(
+    e.key==="Enter" &&
+    !e.shiftKey
+  ){
+
     e.preventDefault();
+
     sendChat();
   }
 }
 
 function newChat(){
 
-  currentChatId = null;
+  currentChatId=null;
 
-  document.getElementById("currentChatTitle").textContent =
-    "New conversation";
+  document
+    .getElementById("currentChatTitle")
+    .textContent="New conversation";
 
-  document.getElementById("messages").innerHTML = `
-    <div class="welcome" id="welcome">
-      <div>
-        <div class="welcome-core">
-          <span>A</span>
-        </div>
-        <h2>What are we building?</h2>
+  document
+    .getElementById("messages")
+    .innerHTML=`
+
+      <div class="welcome" id="welcome">
+
         <div>
-          Ask anything, create something, or start an idea.
-        </div>
-      </div>
-    </div>
-  `;
 
-  document.getElementById("chatInput").value = "";
+          <div class="welcome-core">
+            <span>A</span>
+          </div>
+
+          <h2>What are we building?</h2>
+
+          <div>
+            Ask anything, create something, or start an idea.
+          </div>
+
+        </div>
+
+      </div>
+    `;
+
+  document
+    .getElementById("chatInput")
+    .value="";
 
   loadChatSidebar();
 
@@ -1874,62 +2460,85 @@ function newChat(){
 
 function addMessage(text,type){
 
-  const welcome = document.getElementById("welcome");
+  const welcome =
+    document.getElementById("welcome");
 
   if(welcome){
     welcome.remove();
   }
 
-  const messages = document.getElementById("messages");
+  const messages =
+    document.getElementById("messages");
 
-  const div = document.createElement("div");
+  const div =
+    document.createElement("div");
 
-  div.className = "message " + type;
+  div.className=
+    "message "+type;
 
   const avatar =
-    type === "user" ? "YOU" : "AI";
+    type==="user"
+      ? "YOU"
+      : "AI";
 
-  div.innerHTML = `
-    <div class="msg-avatar">${avatar}</div>
+  div.innerHTML=`
+
+    <div class="msg-avatar">
+      ${avatar}
+    </div>
+
     <div class="bubble"></div>
   `;
 
-  div.querySelector(".bubble").textContent = text;
+  div
+    .querySelector(".bubble")
+    .textContent=text;
 
   messages.appendChild(div);
 
-  messages.scrollTop = messages.scrollHeight;
+  messages.scrollTop =
+    messages.scrollHeight;
 }
 
 function showThinking(){
 
-  const messages = document.getElementById("messages");
+  const messages =
+    document.getElementById("messages");
 
-  const div = document.createElement("div");
+  const div =
+    document.createElement("div");
 
-  div.id = "thinking";
+  div.id="thinking";
 
-  div.className = "message ai";
+  div.className="message ai";
 
-  div.innerHTML = `
-    <div class="msg-avatar">AI</div>
+  div.innerHTML=`
+
+    <div class="msg-avatar">
+      AI
+    </div>
+
     <div class="bubble">
+
       <span class="loading">
         <span></span>
         <span></span>
         <span></span>
       </span>
+
     </div>
   `;
 
   messages.appendChild(div);
 
-  messages.scrollTop = messages.scrollHeight;
+  messages.scrollTop =
+    messages.scrollHeight;
 }
 
 function removeThinking(){
 
-  const thinking = document.getElementById("thinking");
+  const thinking =
+    document.getElementById("thinking");
 
   if(thinking){
     thinking.remove();
@@ -1938,26 +2547,32 @@ function removeThinking(){
 
 function makeChatTitle(text){
 
-  const clean = text
-    .replace(/\s+/g," ")
-    .trim();
+  const clean =
+    text
+      .replace(/\s+/g," ")
+      .trim();
 
   if(!clean){
     return "New Chat";
   }
 
-  if(clean.length <= 42){
+  if(clean.length<=42){
     return clean;
   }
 
-  return clean.slice(0,42).trim() + "…";
+  return (
+    clean.slice(0,42).trim()+
+    "…"
+  );
 }
 
 async function sendChat(){
 
-  const input = document.getElementById("chatInput");
+  const input =
+    document.getElementById("chatInput");
 
-  const text = input.value.trim();
+  const text =
+    input.value.trim();
 
   if(!text){
     return;
@@ -1968,18 +2583,25 @@ async function sendChat(){
     return;
   }
 
-  input.value = "";
+  input.value="";
 
-  addMessage(text,"user");
+  addMessage(
+    text,
+    "user"
+  );
 
   showThinking();
 
   try{
 
-    const result = await api("chat",{
-      message:text,
-      chatId:currentChatId
-    });
+    const result =
+      await api(
+        "chat",
+        {
+          message:text,
+          chatId:currentChatId
+        }
+      );
 
     removeThinking();
 
@@ -1990,32 +2612,54 @@ async function sendChat(){
       result.output ||
       "I couldn't generate a response.";
 
-    addMessage(answer,"ai");
+    addMessage(
+      answer,
+      "ai"
+    );
 
-    await saveCurrentChatMessages(text,answer);
+    evolveDNA(
+      "thinking",
+      1
+    );
+
+    await saveCurrentChatMessages(
+      text,
+      answer
+    );
 
   }catch(error){
 
     removeThinking();
 
     addMessage(
-      "Amzo AI error: " + error.message,
+      "Amzo AI error: "+
+      error.message,
       "ai"
     );
 
-    showToast(error.message);
+    showToast(
+      error.message
+    );
   }
 }
 
-async function saveCurrentChatMessages(userText,assistantText){
+async function saveCurrentChatMessages(
+  userText,
+  assistantText
+){
 
   try{
 
     if(!currentChatId){
 
-      const created = await api("create_chat",{
-        title:makeChatTitle(userText)
-      });
+      const created =
+        await api(
+          "create_chat",
+          {
+            title:
+              makeChatTitle(userText)
+          }
+        );
 
       currentChatId =
         created.chat?.id ||
@@ -2023,37 +2667,54 @@ async function saveCurrentChatMessages(userText,assistantText){
         created.id;
 
       if(!currentChatId){
-        throw new Error("Chat ID was not returned");
+        throw new Error(
+          "Chat ID was not returned"
+        );
       }
     }
 
-    await api("save_message",{
-      chatId:currentChatId,
-      role:"user",
-      content:userText
-    });
+    await api(
+      "save_message",
+      {
+        chatId:currentChatId,
+        role:"user",
+        content:userText
+      }
+    );
 
-    await api("save_message",{
-      chatId:currentChatId,
-      role:"assistant",
-      content:assistantText
-    });
+    await api(
+      "save_message",
+      {
+        chatId:currentChatId,
+        role:"assistant",
+        content:assistantText
+      }
+    );
 
-    document.getElementById("currentChatTitle").textContent =
-      makeChatTitle(userText);
+    document
+      .getElementById(
+        "currentChatTitle"
+      )
+      .textContent =
+        makeChatTitle(userText);
 
     await loadChatSidebar();
 
   }catch(error){
 
-    console.error("Chat save error:",error);
-
+    console.error(
+      "Chat save error:",
+      error
+    );
   }
 }
 
 async function loadChatSidebar(){
 
-  const list = document.getElementById("chatList");
+  const list =
+    document.getElementById(
+      "chatList"
+    );
 
   if(!list){
     return;
@@ -2061,10 +2722,12 @@ async function loadChatSidebar(){
 
   if(!currentUser){
 
-    list.innerHTML = `
+    list.innerHTML=`
+
       <div class="chat-empty">
         Login to save conversations.
       </div>
+
     `;
 
     return;
@@ -2072,32 +2735,52 @@ async function loadChatSidebar(){
 
   try{
 
-    const result = await api("list_chats");
+    const result =
+      await api("list_chats");
 
     allChats =
       result.chats ||
       result.data ||
       [];
 
-    allChats.sort((a,b)=>
-      Number(b.updated_at || b.created_at || 0) -
-      Number(a.updated_at || a.created_at || 0)
+    allChats.sort(
+      (a,b)=>
+        Number(
+          b.updated_at ||
+          b.created_at ||
+          0
+        )-
+        Number(
+          a.updated_at ||
+          a.created_at ||
+          0
+        )
     );
 
     renderChatList();
 
-    document.getElementById("statChats").textContent =
-      allChats.length;
+    document
+      .getElementById(
+        "statChats"
+      )
+      .textContent =
+        allChats.length;
 
-    document.getElementById("brainChats").textContent =
-      allChats.length;
+    document
+      .getElementById(
+        "brainChats"
+      )
+      .textContent =
+        allChats.length;
 
   }catch(error){
 
-    list.innerHTML = `
+    list.innerHTML=`
+
       <div class="chat-empty">
         Couldn't load chats.
       </div>
+
     `;
 
     console.error(error);
@@ -2110,114 +2793,156 @@ function filterChatList(){
 
 function renderChatList(){
 
-  const list = document.getElementById("chatList");
+  const list =
+    document.getElementById(
+      "chatList"
+    );
 
   if(!list){
     return;
   }
 
   const query =
-    document.getElementById("chatSearch")?.value
+    document
+      .getElementById("chatSearch")
+      ?.value
       .toLowerCase()
-      .trim() || "";
+      .trim() ||
+      "";
 
-  const chats = allChats.filter(chat=>{
+  const chats =
+    allChats.filter(chat=>{
 
-    const title =
-      chat.title ||
-      "New Chat";
+      const title =
+        chat.title ||
+        "New Chat";
 
-    return title
-      .toLowerCase()
-      .includes(query);
+      return title
+        .toLowerCase()
+        .includes(query);
 
-  });
+    });
 
   if(!chats.length){
 
-    list.innerHTML = `
+    list.innerHTML=`
+
       <div class="chat-empty">
-        ${query ? "No matching chats." : "No chats yet. Start a new conversation."}
+
+        ${
+          query
+            ? "No matching chats."
+            : "No chats yet. Start a new conversation."
+        }
+
       </div>
+
     `;
 
     return;
   }
 
-  list.innerHTML = chats.map(chat=>{
+  list.innerHTML =
+    chats.map(chat=>{
 
-    const id =
-      chat.id ||
-      chat.chatId;
+      const id =
+        chat.id ||
+        chat.chatId;
 
-    const title =
-      chat.title ||
-      "New Chat";
+      const title =
+        chat.title ||
+        "New Chat";
 
-    const date =
-      formatDate(
-        chat.updated_at ||
-        chat.created_at
-      );
+      const date =
+        formatDate(
+          chat.updated_at ||
+          chat.created_at
+        );
 
-    return `
-      <div
-        class="chat-item ${id === currentChatId ? "active" : ""}"
-        onclick="loadChat('${escapeAttr(id)}')"
-      >
+      return `
 
-        <div class="chat-item-main">
+        <div
+          class="chat-item ${
+            id===currentChatId
+              ? "active"
+              : ""
+          }"
+          onclick="loadChat('${escapeAttr(id)}')"
+        >
 
-          <div class="chat-item-title">
-            ${escapeHtml(title)}
+          <div class="chat-item-main">
+
+            <div class="chat-item-title">
+              ${escapeHtml(title)}
+            </div>
+
+            <div class="chat-item-date">
+              ${date}
+            </div>
+
           </div>
 
-          <div class="chat-item-date">
-            ${date}
+          <div class="chat-actions">
+
+            <button
+              class="chat-mini"
+              onclick="
+                event.stopPropagation();
+                openRenameModal(
+                  '${escapeAttr(id)}',
+                  '${escapeAttr(title)}'
+                )
+              "
+              title="Rename"
+            >✎</button>
+
+            <button
+              class="chat-mini"
+              onclick="
+                event.stopPropagation();
+                deleteChat(
+                  '${escapeAttr(id)}'
+                )
+              "
+              title="Delete"
+            >×</button>
+
           </div>
 
         </div>
+      `;
 
-        <div class="chat-actions">
-
-          <button
-            class="chat-mini"
-            onclick="event.stopPropagation();openRenameModal('${escapeAttr(id)}','${escapeAttr(title)}')"
-            title="Rename"
-          >✎</button>
-
-          <button
-            class="chat-mini"
-            onclick="event.stopPropagation();deleteChat('${escapeAttr(id)}')"
-            title="Delete"
-          >×</button>
-
-        </div>
-
-      </div>
-    `;
-
-  }).join("");
+    }).join("");
 }
 
 async function loadChat(chatId){
 
   try{
 
-    const result = await api("get_chat",{
-      chatId
-    });
+    const result =
+      await api(
+        "get_chat",
+        {chatId}
+      );
 
-    currentChatId = chatId;
+    currentChatId =
+      chatId;
 
     const chat =
       result.chat ||
-      allChats.find(c=>
-        (c.id || c.chatId) === chatId
+      allChats.find(
+        c=>
+          (c.id || c.chatId) ===
+          chatId
       );
 
-    document.getElementById("currentChatTitle").textContent =
-      chat?.title || "Conversation";
+    document
+      .getElementById(
+        "currentChatTitle"
+      )
+      .textContent =
+        chat?.title ||
+        "Conversation";
 
     const messages =
       result.messages ||
@@ -2225,21 +2950,37 @@ async function loadChat(chatId){
       [];
 
     const container =
-      document.getElementById("messages");
+      document.getElementById(
+        "messages"
+      );
 
-    container.innerHTML = "";
+    container.innerHTML="";
 
     if(!messages.length){
 
-      container.innerHTML = `
-        <div class="welcome" id="welcome">
+      container.innerHTML=`
+
+        <div
+          class="welcome"
+          id="welcome"
+        >
+
           <div>
+
             <div class="welcome-core">
               <span>A</span>
             </div>
-            <h2>Empty conversation</h2>
-            <div>Send a message to begin.</div>
+
+            <h2>
+              Empty conversation
+            </h2>
+
+            <div>
+              Send a message to begin.
+            </div>
+
           </div>
+
         </div>
       `;
 
@@ -2248,48 +2989,66 @@ async function loadChat(chatId){
       messages.forEach(msg=>{
 
         const role =
-          msg.role === "user"
+          msg.role==="user"
             ? "user"
             : "ai";
 
         addMessage(
-          msg.content || msg.text || "",
+          msg.content ||
+          msg.text ||
+          "",
           role
         );
 
       });
-
     }
 
     await loadChatSidebar();
 
   }catch(error){
 
-    showToast(error.message);
-
+    showToast(
+      error.message
+    );
   }
 }
 
-function openRenameModal(id,title){
+function openRenameModal(
+  id,
+  title
+){
 
-  renameTargetId = id;
+  renameTargetId=id;
 
-  document.getElementById("renameInput").value =
-    title;
+  document
+    .getElementById(
+      "renameInput"
+    )
+    .value=title;
 
-  document.getElementById("renameModal")
+  document
+    .getElementById(
+      "renameModal"
+    )
     .classList.add("show");
 
   setTimeout(()=>{
-    document.getElementById("renameInput").focus();
+    document
+      .getElementById(
+        "renameInput"
+      )
+      .focus();
   },50);
 }
 
 function closeRenameModal(){
 
-  renameTargetId = null;
+  renameTargetId=null;
 
-  document.getElementById("renameModal")
+  document
+    .getElementById(
+      "renameModal"
+    )
     .classList.remove("show");
 }
 
@@ -2300,66 +3059,97 @@ async function confirmRename(){
   }
 
   const title =
-    document.getElementById("renameInput")
-      .value.trim();
+    document
+      .getElementById(
+        "renameInput"
+      )
+      .value
+      .trim();
 
   if(!title){
-    showToast("Enter a chat name");
+
+    showToast(
+      "Enter a chat name"
+    );
+
     return;
   }
 
   try{
 
-    await api("rename_chat",{
-      chatId:renameTargetId,
-      title
-    });
+    await api(
+      "rename_chat",
+      {
+        chatId:renameTargetId,
+        title
+      }
+    );
 
-    if(renameTargetId === currentChatId){
+    if(
+      renameTargetId ===
+      currentChatId
+    ){
 
-      document.getElementById(
-        "currentChatTitle"
-      ).textContent = title;
-
+      document
+        .getElementById(
+          "currentChatTitle"
+        )
+        .textContent =
+          title;
     }
 
     closeRenameModal();
 
     await loadChatSidebar();
 
-    showToast("Chat renamed");
+    showToast(
+      "Chat renamed"
+    );
 
   }catch(error){
 
-    showToast(error.message);
-
+    showToast(
+      error.message
+    );
   }
 }
 
 async function deleteChat(chatId){
 
-  if(!confirm("Delete this chat?")){
+  if(
+    !confirm(
+      "Delete this chat?"
+    )
+  ){
     return;
   }
 
   try{
 
-    await api("delete_chat",{
-      chatId
-    });
+    await api(
+      "delete_chat",
+      {chatId}
+    );
 
-    if(chatId === currentChatId){
+    if(
+      chatId ===
+      currentChatId
+    ){
+
       newChat();
     }
 
     await loadChatSidebar();
 
-    showToast("Chat deleted");
+    showToast(
+      "Chat deleted"
+    );
 
   }catch(error){
 
-    showToast(error.message);
-
+    showToast(
+      error.message
+    );
   }
 }
 
@@ -2367,30 +3157,51 @@ async function deleteChat(chatId){
    AI TOOLS
 ========================= */
 
-async function runTool(inputId,resultId){
+async function runTool(
+  inputId,
+  resultId
+){
 
   const input =
-    document.getElementById(inputId);
+    document.getElementById(
+      inputId
+    );
 
   const output =
-    document.getElementById(resultId);
+    document.getElementById(
+      resultId
+    );
 
   const text =
     input.value.trim();
 
   if(!text){
-    showToast("Enter something first");
+
+    showToast(
+      "Enter something first"
+    );
+
     return;
   }
 
-  output.innerHTML =
-    `<div class="card" style="margin-top:15px">Thinking...</div>`;
+  output.innerHTML=`
+
+    <div
+      class="card"
+      style="margin-top:15px"
+    >
+      Thinking...
+    </div>
+
+  `;
 
   try{
 
-    const result = await api("chat",{
-      message:text
-    });
+    const result =
+      await api(
+        "chat",
+        {message:text}
+      );
 
     const answer =
       result.reply ||
@@ -2399,51 +3210,93 @@ async function runTool(inputId,resultId){
       result.output ||
       "No result.";
 
-    output.innerHTML = `
-      <div class="card" style="margin-top:15px">
-        <div class="small muted">AMZO AI</div>
+    output.innerHTML=`
+
+      <div
+        class="card"
+        style="margin-top:15px"
+      >
+
+        <div class="small muted">
+          AMZO AI
+        </div>
+
         <br>
-        <div style="white-space:pre-wrap;line-height:1.7">
+
+        <div
+          style="
+            white-space:pre-wrap;
+            line-height:1.7
+          "
+        >
           ${escapeHtml(answer)}
         </div>
+
       </div>
+
     `;
+
+    evolveDNA(
+      "learning",
+      1
+    );
 
   }catch(error){
 
-    output.innerHTML = `
-      <div class="card" style="margin-top:15px">
+    output.innerHTML=`
+
+      <div
+        class="card"
+        style="margin-top:15px"
+      >
         ${escapeHtml(error.message)}
       </div>
-    `;
 
+    `;
   }
 }
 
 async function generateIdeas(){
 
   const topic =
-    document.getElementById("ideaTopic")
-      .value.trim();
+    document
+      .getElementById(
+        "ideaTopic"
+      )
+      .value
+      .trim();
 
   if(!topic){
-    showToast("Enter a topic");
+
+    showToast(
+      "Enter a topic"
+    );
+
     return;
   }
 
   const resultBox =
-    document.getElementById("ideaResult");
+    document.getElementById(
+      "ideaResult"
+    );
 
-  resultBox.style.display = "block";
-  resultBox.textContent = "Generating ideas...";
+  resultBox.style.display =
+    "block";
+
+  resultBox.textContent =
+    "Generating ideas...";
 
   try{
 
-    const result = await api("chat",{
-      message:
-        "Generate 10 creative and realistic ideas about: " +
-        topic
-    });
+    const result =
+      await api(
+        "chat",
+        {
+          message:
+            "Generate 10 creative and realistic ideas about: "+
+            topic
+        }
+      );
 
     const answer =
       result.reply ||
@@ -2452,13 +3305,18 @@ async function generateIdeas(){
       result.output ||
       "No ideas generated.";
 
-    resultBox.textContent = answer;
+    resultBox.textContent =
+      answer;
+
+    evolveDNA(
+      "creativity",
+      2
+    );
 
   }catch(error){
 
     resultBox.textContent =
       error.message;
-
   }
 }
 
@@ -2469,25 +3327,42 @@ async function generateIdeas(){
 async function generateImage(){
 
   const prompt =
-    document.getElementById("imagePrompt")
-      .value.trim();
+    document
+      .getElementById(
+        "imagePrompt"
+      )
+      .value
+      .trim();
 
   if(!prompt){
-    showToast("Describe your image first");
+
+    showToast(
+      "Describe your image first"
+    );
+
     return;
   }
 
   const resultBox =
-    document.getElementById("imageResult");
+    document.getElementById(
+      "imageResult"
+    );
 
-  resultBox.innerHTML =
-    `<div class="card">Generating image...</div>`;
+  resultBox.innerHTML=`
+
+    <div class="card">
+      Generating image...
+    </div>
+
+  `;
 
   try{
 
-    const result = await api("image",{
-      prompt
-    });
+    const result =
+      await api(
+        "image",
+        {prompt}
+      );
 
     const url =
       result.url ||
@@ -2496,7 +3371,8 @@ async function generateImage(){
 
     if(url){
 
-      resultBox.innerHTML = `
+      resultBox.innerHTML=`
+
         <img
           src="${escapeAttr(url)}"
           style="
@@ -2506,26 +3382,34 @@ async function generateImage(){
             border:1px solid var(--line);
           "
         >
+
       `;
+
+      evolveDNA(
+        "creativity",
+        3
+      );
 
     }else{
 
-      resultBox.innerHTML = `
+      resultBox.innerHTML=`
+
         <div class="card">
           Image generated, but the server didn't return a preview URL.
         </div>
-      `;
 
+      `;
     }
 
   }catch(error){
 
-    resultBox.innerHTML = `
+    resultBox.innerHTML=`
+
       <div class="card">
         ${escapeHtml(error.message)}
       </div>
-    `;
 
+    `;
   }
 }
 
@@ -2536,25 +3420,42 @@ async function generateImage(){
 async function generateVoice(){
 
   const text =
-    document.getElementById("voiceText")
-      .value.trim();
+    document
+      .getElementById(
+        "voiceText"
+      )
+      .value
+      .trim();
 
   if(!text){
-    showToast("Enter text first");
+
+    showToast(
+      "Enter text first"
+    );
+
     return;
   }
 
   const box =
-    document.getElementById("voiceResult");
+    document.getElementById(
+      "voiceResult"
+    );
 
-  box.innerHTML =
-    `<div class="card">Generating voice...</div>`;
+  box.innerHTML=`
+
+    <div class="card">
+      Generating voice...
+    </div>
+
+  `;
 
   try{
 
-    const result = await api("voice",{
-      text
-    });
+    const result =
+      await api(
+        "voice",
+        {text}
+      );
 
     const url =
       result.url ||
@@ -2563,34 +3464,45 @@ async function generateVoice(){
 
     if(url){
 
-      box.innerHTML = `
+      box.innerHTML=`
+
         <div class="card">
+
           <audio
             controls
             style="width:100%"
             src="${escapeAttr(url)}"
           ></audio>
+
         </div>
+
       `;
+
+      evolveDNA(
+        "creativity",
+        2
+      );
 
     }else{
 
-      box.innerHTML = `
+      box.innerHTML=`
+
         <div class="card">
           Voice generated, but no audio URL was returned.
         </div>
-      `;
 
+      `;
     }
 
   }catch(error){
 
-    box.innerHTML = `
+    box.innerHTML=`
+
       <div class="card">
         ${escapeHtml(error.message)}
       </div>
-    `;
 
+    `;
   }
 }
 
@@ -2601,28 +3513,42 @@ async function generateVoice(){
 async function loadProjects(){
 
   const box =
-    document.getElementById("projectsList");
+    document.getElementById(
+      "projectsList"
+    );
 
   try{
 
     const result =
-      await api("list_projects");
+      await api(
+        "list_projects"
+      );
 
     const items =
       result.projects ||
       result.data ||
       [];
 
-    document.getElementById("statProjects")
-      .textContent = items.length;
+    document
+      .getElementById(
+        "statProjects"
+      )
+      .textContent =
+        items.length;
 
-    document.getElementById("brainProjects")
-      .textContent = items.length;
+    document
+      .getElementById(
+        "brainProjects"
+      )
+      .textContent =
+        items.length;
 
     if(!items.length){
 
-      box.innerHTML =
-        `<div class="card muted">No projects yet.</div>`;
+      box.innerHTML=
+        `<div class="card muted">
+          No projects yet.
+        </div>`;
 
       return;
     }
@@ -2633,13 +3559,21 @@ async function loadProjects(){
         <div class="list-row">
 
           <div>
+
             <strong>
-              ${escapeHtml(item.title || item.name || "Project")}
+              ${escapeHtml(
+                item.title ||
+                item.name ||
+                "Project"
+              )}
             </strong>
 
             <div class="small muted">
-              ${formatDate(item.created_at)}
+              ${formatDate(
+                item.created_at
+              )}
             </div>
+
           </div>
 
         </div>
@@ -2648,36 +3582,54 @@ async function loadProjects(){
 
   }catch(error){
 
-    box.innerHTML =
-      `<div class="card">${escapeHtml(error.message)}</div>`;
-
+    box.innerHTML=
+      `<div class="card">
+        ${escapeHtml(
+          error.message
+        )}
+      </div>`;
   }
 }
 
 async function loadHistory(){
 
   const box =
-    document.getElementById("historyList");
+    document.getElementById(
+      "historyList"
+    );
 
   try{
 
     const result =
-      await api("list_chats");
+      await api(
+        "list_chats"
+      );
 
     const items =
       result.chats ||
       result.data ||
       [];
 
-    items.sort((a,b)=>
-      Number(b.updated_at || b.created_at || 0) -
-      Number(a.updated_at || a.created_at || 0)
+    items.sort(
+      (a,b)=>
+        Number(
+          b.updated_at ||
+          b.created_at ||
+          0
+        )-
+        Number(
+          a.updated_at ||
+          a.created_at ||
+          0
+        )
     );
 
     if(!items.length){
 
-      box.innerHTML =
-        `<div class="card muted">No history yet.</div>`;
+      box.innerHTML=
+        `<div class="card muted">
+          No history yet.
+        </div>`;
 
       return;
     }
@@ -2688,17 +3640,33 @@ async function loadHistory(){
         <div
           class="list-row"
           style="cursor:pointer"
-          onclick="openPage('chat');loadChat('${escapeAttr(item.id || item.chatId)}')"
+          onclick="
+            openPage('chat');
+            loadChat(
+              '${escapeAttr(
+                item.id ||
+                item.chatId
+              )}'
+            )
+          "
         >
 
           <div>
+
             <strong>
-              ${escapeHtml(item.title || "New Chat")}
+              ${escapeHtml(
+                item.title ||
+                "New Chat"
+              )}
             </strong>
 
             <div class="small muted">
-              ${formatDate(item.updated_at || item.created_at)}
+              ${formatDate(
+                item.updated_at ||
+                item.created_at
+              )}
             </div>
+
           </div>
 
           <span>→</span>
@@ -2709,21 +3677,28 @@ async function loadHistory(){
 
   }catch(error){
 
-    box.innerHTML =
-      `<div class="card">${escapeHtml(error.message)}</div>`;
-
+    box.innerHTML=
+      `<div class="card">
+        ${escapeHtml(
+          error.message
+        )}
+      </div>`;
   }
 }
 
 async function loadFavorites(){
 
   const box =
-    document.getElementById("favoritesList");
+    document.getElementById(
+      "favoritesList"
+    );
 
   try{
 
     const result =
-      await api("list_favorites");
+      await api(
+        "list_favorites"
+      );
 
     const items =
       result.favorites ||
@@ -2732,8 +3707,10 @@ async function loadFavorites(){
 
     if(!items.length){
 
-      box.innerHTML =
-        `<div class="card muted">No favorites yet.</div>`;
+      box.innerHTML=
+        `<div class="card muted">
+          No favorites yet.
+        </div>`;
 
       return;
     }
@@ -2744,13 +3721,21 @@ async function loadFavorites(){
         <div class="list-row">
 
           <div>
+
             <strong>
-              ${escapeHtml(item.title || "Favorite")}
+              ${escapeHtml(
+                item.title ||
+                "Favorite"
+              )}
             </strong>
 
             <div class="small muted">
-              ${escapeHtml(item.content || "")}
+              ${escapeHtml(
+                item.content ||
+                ""
+              )}
             </div>
+
           </div>
 
         </div>
@@ -2759,9 +3744,12 @@ async function loadFavorites(){
 
   }catch(error){
 
-    box.innerHTML =
-      `<div class="card">${escapeHtml(error.message)}</div>`;
-
+    box.innerHTML=
+      `<div class="card">
+        ${escapeHtml(
+          error.message
+        )}
+      </div>`;
   }
 }
 
@@ -2774,7 +3762,9 @@ async function checkLogin(){
   try{
 
     const result =
-      await api("me");
+      await api(
+        "me"
+      );
 
     currentUser =
       result.user ||
@@ -2789,9 +3779,9 @@ async function checkLogin(){
 
   }catch{
 
-    currentUser = null;
-    updateAccount();
+    currentUser=null;
 
+    updateAccount();
   }
 }
 
@@ -2806,63 +3796,399 @@ function updateAccount(){
     currentUser?.email ||
     "Not signed in";
 
-  document.getElementById("accountName")
-    .textContent = name;
+  document
+    .getElementById(
+      "accountName"
+    )
+    .textContent=name;
 
-  document.getElementById("accountEmail")
-    .textContent = email;
+  document
+    .getElementById(
+      "accountEmail"
+    )
+    .textContent=email;
 
-  document.getElementById("avatar")
-    .textContent =
-      name.charAt(0).toUpperCase();
+  document
+    .getElementById(
+      "avatar"
+    )
+    .textContent=
+      name
+        .charAt(0)
+        .toUpperCase();
 
-  document.getElementById("settingsAccount")
-    .textContent =
+  document
+    .getElementById(
+      "settingsAccount"
+    )
+    .textContent=
       currentUser
         ? email
         : "Not signed in.";
 
-  document.getElementById("statLevel")
-    .textContent =
-      currentUser?.level || 1;
+  document
+    .getElementById(
+      "statLevel"
+    )
+    .textContent=
+      currentUser?.level ||
+      1;
 
-  document.getElementById("brainLevel")
-    .textContent =
-      currentUser?.level || 1;
+  document
+    .getElementById(
+      "brainLevel"
+    )
+    .textContent=
+      currentUser?.level ||
+      1;
 
-  document.getElementById("brainXP")
-    .textContent =
-      currentUser?.xp || 0;
+  document
+    .getElementById(
+      "brainXP"
+    )
+    .textContent=
+      currentUser?.xp ||
+      0;
+
+  updateDNA();
 }
 
 async function logout(){
 
   try{
-    await api("logout");
+    await api(
+      "logout"
+    );
   }catch{}
 
-  currentUser = null;
-  currentChatId = null;
-  allChats = [];
+  currentUser=null;
+  currentChatId=null;
+  allChats=[];
 
   updateAccount();
 
   newChat();
 
-  showToast("Logged out");
-
+  showToast(
+    "Logged out"
+  );
 }
 
 async function loadCloudData(){
 
   try{
+
     await loadProjects();
     await loadChatSidebar();
     await loadFavorites();
+
   }catch(error){
-    console.error(error);
+
+    console.error(
+      error
+    );
+  }
+}
+
+/* =========================
+   AMZO DNA ENGINE
+========================= */
+
+let amzoDNA =
+  JSON.parse(
+    localStorage.getItem(
+      "amzo_dna"
+    ) ||
+    "null"
+  ) ||
+  {
+    thinking:12,
+    creativity:18,
+    building:10,
+    learning:8
+  };
+
+function saveDNA(){
+
+  localStorage.setItem(
+    "amzo_dna",
+    JSON.stringify(
+      amzoDNA
+    )
+  );
+}
+
+function dnaLevel(){
+
+  const total =
+    amzoDNA.thinking +
+    amzoDNA.creativity +
+    amzoDNA.building +
+    amzoDNA.learning;
+
+  return Math.max(
+    1,
+    Math.floor(
+      total / 25
+    )
+  );
+}
+
+function updateDNA(){
+
+  const initial =
+    (
+      currentUser?.display_name ||
+      "A"
+    )
+      .charAt(0)
+      .toUpperCase();
+
+  const setText =
+    (id,value)=>{
+
+      const el =
+        document.getElementById(
+          id
+        );
+
+      if(el){
+        el.textContent=value;
+      }
+    };
+
+  setText(
+    "dnaInitial",
+    initial
+  );
+
+  setText(
+    "dnaLevel",
+    dnaLevel()
+  );
+
+  setText(
+    "dnaThinking",
+    amzoDNA.thinking
+  );
+
+  setText(
+    "dnaCreativity",
+    amzoDNA.creativity
+  );
+
+  setText(
+    "dnaBuilding",
+    amzoDNA.building
+  );
+
+  setText(
+    "dnaLearning",
+    amzoDNA.learning
+  );
+
+  const bars={
+
+    dnaThinkingBar:
+      amzoDNA.thinking,
+
+    dnaCreativityBar:
+      amzoDNA.creativity,
+
+    dnaBuildingBar:
+      amzoDNA.building,
+
+    dnaLearningBar:
+      amzoDNA.learning
+
+  };
+
+  Object.entries(
+    bars
+  ).forEach(
+    ([id,value])=>{
+
+      const el =
+        document.getElementById(
+          id
+        );
+
+      if(el){
+
+        el.style.width =
+          Math.min(
+            value,
+            100
+          )+"%";
+      }
+
+    }
+  );
+
+  const values=[
+
+    [
+      "THINKER",
+      amzoDNA.thinking
+    ],
+
+    [
+      "CREATOR",
+      amzoDNA.creativity
+    ],
+
+    [
+      "BUILDER",
+      amzoDNA.building
+    ],
+
+    [
+      "LEARNER",
+      amzoDNA.learning
+    ]
+
+  ];
+
+  values.sort(
+    (a,b)=>
+      b[1]-a[1]
+  );
+
+  const pattern =
+    values[0][0];
+
+  setText(
+    "dnaPattern",
+    pattern
+  );
+
+  const descriptions={
+
+    THINKER:
+      "You naturally explore ideas and think deeply before acting.",
+
+    CREATOR:
+      "Your strongest pattern is creating new ideas and possibilities.",
+
+    BUILDER:
+      "You have a strong tendency to turn ideas into real things.",
+
+    LEARNER:
+      "Your strongest pattern is learning and discovering new knowledge."
+
+  };
+
+  setText(
+    "dnaDescription",
+    descriptions[pattern]
+  );
+
+  const next={
+
+    THINKER:
+      "Explore a new idea",
+
+    CREATOR:
+      "Create something new",
+
+    BUILDER:
+      "Build a project",
+
+    LEARNER:
+      "Learn something difficult"
+
+  };
+
+  setText(
+    "dnaNext",
+    next[pattern]
+  );
+}
+
+function evolveDNA(
+  type,
+  amount=3
+){
+
+  if(
+    typeof amzoDNA[type] !==
+    "number"
+  ){
+    return;
   }
 
+  amzoDNA[type] =
+    Math.min(
+      100,
+      amzoDNA[type]+amount
+    );
+
+  saveDNA();
+
+  updateDNA();
+
+  showToast(
+    "🧬 DNA evolved +"+
+    amount
+  );
+}
+
+function dnaMission(){
+
+  const missions=[
+
+    {
+      text:
+        "Think of one completely new idea.",
+      type:
+        "thinking"
+    },
+
+    {
+      text:
+        "Create something you have never made.",
+      type:
+        "creativity"
+    },
+
+    {
+      text:
+        "Build a small project today.",
+      type:
+        "building"
+    },
+
+    {
+      text:
+        "Learn one difficult concept.",
+      type:
+        "learning"
+    }
+
+  ];
+
+  const mission =
+    missions[
+      Math.floor(
+        Math.random()*
+        missions.length
+      )
+    ];
+
+  showToast(
+    "⚡ "+
+    mission.text
+  );
+
+  setTimeout(
+    ()=>{
+      evolveDNA(
+        mission.type,
+        2
+      );
+    },
+    1200
+  );
 }
 
 /* =========================
@@ -2879,16 +4205,24 @@ function formatDate(value){
     return "";
   }
 
-  let number = Number(value);
+  let number =
+    Number(value);
 
-  if(number < 10000000000){
-    number *= 1000;
+  if(
+    number <
+    10000000000
+  ){
+    number *=1000;
   }
 
   const date =
     new Date(number);
 
-  if(isNaN(date.getTime())){
+  if(
+    isNaN(
+      date.getTime()
+    )
+  ){
     return "";
   }
 
@@ -2903,22 +4237,56 @@ function formatDate(value){
 
 function escapeHtml(value){
 
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  return String(
+    value ?? ""
+  )
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 }
 
 function escapeAttr(value){
 
-  return String(value ?? "")
-    .replaceAll("\\","\\\\")
-    .replaceAll("'","\\'")
-    .replaceAll('"',"&quot;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;");
+  return String(
+    value ?? ""
+  )
+    .replaceAll(
+      "\\",
+      "\\\\"
+    )
+    .replaceAll(
+      "'",
+      "\\'"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    );
 }
 
 let toastTimer;
@@ -2926,18 +4294,30 @@ let toastTimer;
 function showToast(message){
 
   const toast =
-    document.getElementById("toast");
+    document.getElementById(
+      "toast"
+    );
 
-  toast.textContent = message;
+  toast.textContent =
+    message;
 
-  toast.classList.add("show");
+  toast.classList.add(
+    "show"
+  );
 
-  clearTimeout(toastTimer);
+  clearTimeout(
+    toastTimer
+  );
 
   toastTimer =
-    setTimeout(()=>{
-      toast.classList.remove("show");
-    },2800);
+    setTimeout(
+      ()=>{
+        toast.classList.remove(
+          "show"
+        );
+      },
+      2800
+    );
 }
 
 /* =========================
@@ -2949,27 +4329,37 @@ async function init(){
   try{
 
     const result =
-      await api("health");
+      await api(
+        "health"
+      );
 
     if(result.ok){
 
-      document.getElementById("systemStatus")
-        .textContent = "System online";
-
+      document
+        .getElementById(
+          "systemStatus"
+        )
+        .textContent=
+          "System online";
     }
 
   }catch{
 
-    document.getElementById("systemStatus")
-      .textContent = "API unavailable";
-
+    document
+      .getElementById(
+        "systemStatus"
+      )
+      .textContent=
+        "API unavailable";
   }
 
-  await checkLogin();
+  updateDNA();
 
+  await checkLogin();
 }
 
 init();
+
 </script>
 
 </body>
