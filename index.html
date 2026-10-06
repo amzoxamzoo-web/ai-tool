@@ -3,864 +3,2738 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMZO AI — NEXT</title>
+<title>AMZO AI — The AI Universe</title>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#07090f;
-  --panel:#0d111b;
-  --panel2:#111827;
-  --line:rgba(255,255,255,.08);
-  --text:#f4f7ff;
-  --muted:#8993a8;
-  --cyan:#4de8ff;
-  --violet:#8b6cff;
-  --pink:#ff4fd8;
-  --green:#54f2a6;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
+
+:root{
+  --bg:#05070d;
+  --panel:#0b0f19;
+  --panel2:#101624;
+  --line:rgba(255,255,255,.08);
+  --text:#f5f7ff;
+  --muted:#8993a8;
+  --cyan:#43e7ff;
+  --purple:#866cff;
+  --pink:#ff4bd8;
+  --green:#4df2a5;
+}
+
 body{
   min-height:100vh;
   background:
-    radial-gradient(circle at 15% 15%,rgba(77,232,255,.10),transparent 30%),
-    radial-gradient(circle at 85% 20%,rgba(139,108,255,.12),transparent 32%),
+    radial-gradient(circle at 10% 10%,rgba(67,231,255,.10),transparent 30%),
+    radial-gradient(circle at 90% 15%,rgba(134,108,255,.13),transparent 30%),
+    radial-gradient(circle at 50% 100%,rgba(255,75,216,.07),transparent 35%),
     var(--bg);
   color:var(--text);
   font-family:Inter,Arial,sans-serif;
-  overflow-x:hidden;
 }
-button,input,textarea{font:inherit}
-button{cursor:pointer}
+
+button,
+input,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
 .app{
   min-height:100vh;
-  display:grid;
-  grid-template-columns:250px 1fr;
+  display:flex;
 }
+
+/* SIDEBAR */
+
 .sidebar{
+  width:250px;
+  min-height:100vh;
   position:fixed;
   left:0;
   top:0;
   bottom:0;
-  width:250px;
-  padding:25px 18px;
+  padding:24px 16px;
   border-right:1px solid var(--line);
-  background:rgba(7,9,15,.86);
-  backdrop-filter:blur(20px);
-  z-index:10;
+  background:rgba(5,7,13,.88);
+  backdrop-filter:blur(25px);
+  z-index:20;
 }
-.logo{
+
+.brand{
   display:flex;
   align-items:center;
   gap:12px;
-  margin-bottom:38px;
+  margin-bottom:35px;
 }
-.logoMark{
-  width:42px;height:42px;border-radius:13px;
-  display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--cyan),var(--violet),var(--pink));
-  color:#05070c;font-weight:900;
-  box-shadow:0 0 35px rgba(77,232,255,.22);
+
+.logo{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  color:#05070d;
+  background:linear-gradient(
+    135deg,
+    var(--cyan),
+    var(--purple),
+    var(--pink)
+  );
+  box-shadow:0 0 35px rgba(67,231,255,.25);
 }
-.logoText b{font-size:18px;letter-spacing:2px}
-.logoText span{
+
+.brand h2{
+  font-size:17px;
+  letter-spacing:2px;
+}
+
+.brand span{
   display:block;
-  font-size:9px;
-  color:var(--muted);
-  letter-spacing:3px;
   margin-top:3px;
+  font-size:8px;
+  letter-spacing:3px;
+  color:var(--muted);
 }
+
 .nav{
   display:flex;
   flex-direction:column;
-  gap:7px;
+  gap:5px;
 }
+
 .nav button{
+  width:100%;
   border:0;
   background:transparent;
-  color:#8e98ac;
+  color:#8993a8;
   text-align:left;
-  padding:12px 13px;
-  border-radius:12px;
+  padding:11px 13px;
+  border-radius:11px;
   transition:.2s;
 }
-.nav button:hover,.nav button.active{
+
+.nav button:hover,
+.nav button.active{
   color:white;
-  background:rgba(255,255,255,.06);
+  background:rgba(255,255,255,.055);
 }
+
 .nav button.active{
   box-shadow:inset 3px 0 var(--cyan);
 }
-.bottom{
+
+.sidebarBottom{
   position:absolute;
-  bottom:22px;
-  left:18px;
-  right:18px;
+  bottom:20px;
+  left:16px;
+  right:16px;
 }
-.status{
+
+.online{
+  padding:12px;
   border:1px solid var(--line);
-  border-radius:14px;
-  padding:13px;
+  border-radius:13px;
   background:rgba(255,255,255,.025);
+  color:var(--muted);
+  font-size:11px;
 }
-.dot{
+
+.onlineDot{
   display:inline-block;
-  width:7px;height:7px;border-radius:50%;
+  width:7px;
+  height:7px;
+  border-radius:50%;
   background:var(--green);
   box-shadow:0 0 12px var(--green);
   margin-right:7px;
 }
+
+/* MAIN */
+
 .main{
-  grid-column:2;
-  min-width:0;
+  width:calc(100% - 250px);
+  margin-left:250px;
 }
+
 .topbar{
-  height:72px;
+  height:70px;
+  padding:0 32px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 34px;
   border-bottom:1px solid var(--line);
-  background:rgba(7,9,15,.55);
-  backdrop-filter:blur(16px);
+  background:rgba(5,7,13,.65);
+  backdrop-filter:blur(20px);
   position:sticky;
   top:0;
-  z-index:5;
+  z-index:10;
 }
-.topbar small{color:var(--muted)}
-.avatar{
-  width:38px;height:38px;border-radius:50%;
-  display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--violet),var(--pink));
+
+.topbarTitle{
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:3px;
+}
+
+.profile{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
   font-weight:800;
+  background:linear-gradient(
+    135deg,
+    var(--purple),
+    var(--pink)
+  );
 }
+
 .page{
-  max-width:1200px;
+  max-width:1250px;
   margin:auto;
-  padding:55px 34px 80px;
+  padding:45px 32px 80px;
 }
+
+.view{
+  display:none;
+  animation:pageIn .3s ease;
+}
+
+.view.active{
+  display:block;
+}
+
+@keyframes pageIn{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* HOME */
+
 .hero{
-  min-height:360px;
+  min-height:430px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:40px;
 }
-.hero h1{
-  font-size:clamp(42px,6vw,78px);
-  line-height:.94;
-  letter-spacing:-4px;
-  max-width:720px;
+
+.heroText{
+  max-width:700px;
 }
+
+.eyebrow{
+  color:var(--cyan);
+  font-size:10px;
+  letter-spacing:4px;
+  margin-bottom:20px;
+}
+
+.hero h1{
+  font-size:clamp(45px,6vw,82px);
+  line-height:.94;
+  letter-spacing:-5px;
+}
+
 .gradient{
-  background:linear-gradient(90deg,var(--cyan),#fff,var(--violet),var(--pink));
+  background:
+    linear-gradient(
+      90deg,
+      var(--cyan),
+      white,
+      var(--purple),
+      var(--pink)
+    );
   -webkit-background-clip:text;
   color:transparent;
 }
+
 .hero p{
   color:var(--muted);
-  max-width:600px;
-  margin-top:24px;
   line-height:1.7;
+  max-width:620px;
+  margin-top:24px;
 }
-.core{
-  width:260px;height:260px;
-  border-radius:50%;
-  position:relative;
-  flex:none;
-  display:grid;
-  place-items:center;
-}
-.core:before{
-  content:"";
-  position:absolute;
-  inset:30px;
-  border-radius:50%;
-  background:
-    radial-gradient(circle,#fff 0 2%,var(--cyan) 4%,var(--violet) 22%,transparent 63%);
-  filter:blur(2px);
-  box-shadow:
-    0 0 35px var(--cyan),
-    0 0 80px rgba(139,108,255,.5);
-  animation:pulse 3s infinite ease-in-out;
-}
-.core:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border:1px solid rgba(77,232,255,.35);
-  border-radius:50%;
-  box-shadow:0 0 50px rgba(77,232,255,.12);
-  animation:spin 12s linear infinite;
-}
-.core span{
-  position:relative;
-  z-index:2;
-  font-size:11px;
-  letter-spacing:4px;
-  font-weight:800;
-}
-@keyframes pulse{
-  50%{transform:scale(1.12);opacity:.75}
-}
-@keyframes spin{to{transform:rotate(360deg)}}
+
 .command{
-  margin-top:10px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.035);
-  border-radius:20px;
-  padding:10px;
   display:flex;
-  gap:10px;
-  box-shadow:0 20px 60px rgba(0,0,0,.22);
+  gap:8px;
+  margin-top:25px;
+  padding:8px;
+  border:1px solid var(--line);
+  border-radius:17px;
+  background:rgba(255,255,255,.035);
 }
+
 .command input{
   flex:1;
   min-width:0;
   border:0;
   outline:0;
-  color:white;
   background:transparent;
-  padding:15px;
+  color:white;
+  padding:13px;
 }
-.command button,.primary{
+
+.primary{
   border:0;
-  border-radius:13px;
-  padding:13px 20px;
-  color:#05070c;
+  border-radius:11px;
+  padding:12px 19px;
+  color:#05070d;
   font-weight:800;
-  background:linear-gradient(135deg,var(--cyan),var(--violet));
+  background:linear-gradient(
+    135deg,
+    var(--cyan),
+    var(--purple)
+  );
 }
-.sectionTitle{
-  margin:55px 0 18px;
+
+.core{
+  width:270px;
+  height:270px;
+  flex:none;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  position:relative;
 }
-.sectionTitle h2{font-size:24px}
-.sectionTitle p{color:var(--muted);margin-top:5px}
+
+.core::before{
+  content:"";
+  position:absolute;
+  inset:38px;
+  border-radius:50%;
+  background:
+    radial-gradient(
+      circle,
+      white 0 2%,
+      var(--cyan) 5%,
+      var(--purple) 25%,
+      transparent 67%
+    );
+  box-shadow:
+    0 0 45px var(--cyan),
+    0 0 100px rgba(134,108,255,.45);
+  animation:corePulse 3s infinite ease-in-out;
+}
+
+.core::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:1px solid rgba(67,231,255,.35);
+  box-shadow:0 0 55px rgba(67,231,255,.15);
+  animation:coreSpin 12s linear infinite;
+}
+
+.coreText{
+  position:relative;
+  z-index:2;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:4px;
+  text-align:center;
+}
+
+@keyframes corePulse{
+  50%{
+    transform:scale(1.12);
+    opacity:.72;
+  }
+}
+
+@keyframes coreSpin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+/* SECTIONS */
+
+.sectionHead{
+  margin:55px 0 20px;
+}
+
+.sectionHead h2{
+  font-size:25px;
+}
+
+.sectionHead p{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:5px;
+}
+
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:14px;
+  gap:15px;
 }
+
 .card{
+  padding:21px;
+  border-radius:18px;
   border:1px solid var(--line);
   background:rgba(255,255,255,.035);
-  border-radius:18px;
-  padding:20px;
-  min-height:150px;
   transition:.25s;
 }
+
 .card:hover{
-  transform:translateY(-3px);
-  border-color:rgba(77,232,255,.25);
-  background:rgba(255,255,255,.05);
+  transform:translateY(-4px);
+  border-color:rgba(67,231,255,.25);
+  background:rgba(255,255,255,.055);
 }
-.icon{
-  width:38px;height:38px;border-radius:11px;
-  display:grid;place-items:center;
-  background:rgba(77,232,255,.08);
+
+.cardIcon{
+  width:40px;
+  height:40px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:rgba(67,231,255,.08);
   margin-bottom:15px;
 }
-.card h3{font-size:16px}
+
+.card h3{
+  font-size:16px;
+}
+
 .card p{
   color:var(--muted);
-  font-size:13px;
   line-height:1.6;
+  font-size:13px;
   margin-top:8px;
 }
+
 .stats{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:12px;
 }
+
 .stat{
   padding:20px;
   border:1px solid var(--line);
   border-radius:16px;
   background:rgba(255,255,255,.025);
 }
+
 .stat strong{
   display:block;
-  font-size:28px;
+  font-size:29px;
 }
-.stat span{color:var(--muted);font-size:12px}
-.workspace{display:none}
-.workspace.active{display:block}
-.chatbox{
-  height:520px;
+
+.stat span{
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* TOOL PAGES */
+
+.workspace{
   border:1px solid var(--line);
   border-radius:20px;
   background:rgba(255,255,255,.025);
-  display:flex;
-  flex-direction:column;
+  padding:22px;
 }
-.messages{
-  flex:1;
-  overflow:auto;
-  padding:20px;
+
+.workspaceTitle{
+  margin-bottom:20px;
 }
-.msg{
-  max-width:80%;
-  padding:13px 15px;
-  border-radius:15px;
-  margin-bottom:12px;
-  line-height:1.55;
-  font-size:14px;
+
+.workspaceTitle h2{
+  font-size:28px;
 }
-.user{
-  margin-left:auto;
-  background:linear-gradient(135deg,rgba(77,232,255,.15),rgba(139,108,255,.15));
+
+.workspaceTitle p{
+  color:var(--muted);
+  margin-top:5px;
 }
-.ai{
-  background:rgba(255,255,255,.05);
-  color:#dce3f2;
-}
-.chatInput{
-  padding:12px;
-  border-top:1px solid var(--line);
-  display:flex;
-  gap:8px;
-}
-.chatInput textarea{
-  flex:1;
-  resize:none;
-  height:50px;
-  border:0;
-  outline:0;
-  color:white;
-  background:transparent;
-  padding:12px;
-}
-.tools{
+
+.toolGrid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:15px;
 }
-.tool{
+
+.toolBox{
+  padding:20px;
   border:1px solid var(--line);
-  background:rgba(255,255,255,.035);
-  padding:22px;
-  border-radius:18px;
+  border-radius:16px;
+  background:rgba(255,255,255,.025);
 }
-.tool input,.tool textarea{
+
+.toolBox input,
+.toolBox textarea{
   width:100%;
   margin-top:13px;
+  padding:13px;
   border:1px solid var(--line);
-  border-radius:12px;
-  padding:12px;
-  background:#090c14;
+  border-radius:11px;
+  outline:0;
+  background:#080b13;
   color:white;
-  outline:none;
 }
-.tool textarea{min-height:120px;resize:vertical}
+
+.toolBox textarea{
+  min-height:130px;
+  resize:vertical;
+}
+
+.toolBox button{
+  margin-top:12px;
+}
+
 .result{
-  margin-top:15px;
-  color:#cbd4e5;
-  white-space:pre-wrap;
+  margin-top:16px;
+  color:#d8e0ef;
   line-height:1.6;
+  white-space:pre-wrap;
 }
-@media(max-width:850px){
-  .app{grid-template-columns:1fr}
+
+/* CHAT */
+
+.chat{
+  height:560px;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.messages{
+  flex:1;
+  overflow:auto;
+  padding:18px;
+}
+
+.message{
+  max-width:80%;
+  padding:13px 15px;
+  border-radius:14px;
+  margin-bottom:12px;
+  line-height:1.55;
+  font-size:14px;
+}
+
+.message.user{
+  margin-left:auto;
+  background:linear-gradient(
+    135deg,
+    rgba(67,231,255,.13),
+    rgba(134,108,255,.17)
+  );
+}
+
+.message.ai{
+  background:rgba(255,255,255,.045);
+}
+
+.chatBottom{
+  border-top:1px solid var(--line);
+  padding:11px;
+  display:flex;
+  gap:8px;
+}
+
+.chatBottom textarea{
+  flex:1;
+  height:52px;
+  resize:none;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:white;
+  padding:12px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
   .sidebar{
-    position:relative;
     width:100%;
     height:auto;
+    min-height:auto;
+    position:relative;
     border-right:0;
     border-bottom:1px solid var(--line);
   }
+
+  .sidebarBottom{
+    display:none;
+  }
+
   .nav{
     display:grid;
     grid-template-columns:repeat(3,1fr);
   }
-  .bottom{display:none}
-  .main{grid-column:1}
-  .hero{flex-direction:column;align-items:flex-start}
-  .core{align-self:center}
-  .grid,.stats,.tools{grid-template-columns:1fr}
+
+  .app{
+    display:block;
+  }
+
+  .main{
+    width:100%;
+    margin-left:0;
+  }
+
+  .hero{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .core{
+    align-self:center;
+  }
+
+  .grid,
+  .stats,
+  .toolGrid{
+    grid-template-columns:1fr;
+  }
 }
 </style>
 </head>
+
 <body>
 
 <div class="app">
 
 <aside class="sidebar">
-  <div class="logo">
-    <div class="logoMark">A</div>
-    <div class="logoText">
-      <b>AMZO AI</b>
-      <span>NEXT GENERATION</span>
+
+  <div class="brand">
+    <div class="logo">A</div>
+
+    <div>
+      <h2>AMZO AI</h2>
+      <span>THE AI UNIVERSE</span>
     </div>
   </div>
 
   <nav class="nav">
-    <button class="active" onclick="showPage('home',this)">⌂ Home</button>
-    <button onclick="showPage('chat',this)">◉ AI Core</button>
-    <button onclick="showPage('create',this)">✦ Create</button>
-    <button onclick="showPage('dna',this)">◈ DNA</button>
-    <button onclick="showPage('lab',this)">◇ AI Lab</button>
+
+    <button class="active" onclick="openPage('home',this)">
+      ⌂ Home
+    </button>
+
+    <button onclick="openPage('chat',this)">
+      ◉ AI Core
+    </button>
+
+    <button onclick="openPage('create',this)">
+      ✦ Create
+    </button>
+
+    <button onclick="openPage('image',this)">
+      ◇ Image Lab
+    </button>
+
+    <button onclick="openPage('voice',this)">
+      ♫ Voice Lab
+    </button>
+
+    <button onclick="openPage('study',this)">
+      ▣ Study
+    </button>
+
+    <button onclick="openPage('research',this)">
+      ◎ Research
+    </button>
+
+    <button onclick="openPage('code',this)">
+      </ Code
+    </button>
+
+    <button onclick="openPage('dna',this)">
+      ◈ AMZO DNA
+    </button>
+
+    <button onclick="openPage('projects',this)">
+      ▰ Projects
+    </button>
+
+    <button onclick="openPage('history',this)">
+      ◷ History
+    </button>
+
+    <button onclick="openPage('favorites',this)">
+      ★ Favorites
+    </button>
+
+    <button onclick="openPage('settings',this)">
+      ⚙ Settings
+    </button>
+
   </nav>
 
-  <div class="bottom">
-    <div class="status">
-      <span class="dot"></span>
-      <small>AMZO CORE ONLINE</small>
+  <div class="sidebarBottom">
+    <div class="online">
+      <span class="onlineDot"></span>
+      AMZO CORE ONLINE
     </div>
   </div>
+
 </aside>
 
 <main class="main">
 
 <header class="topbar">
-  <small>AMZO AI // NEXT</small>
-  <div class="avatar">A</div>
+
+  <div class="topbarTitle">
+    AMZO AI // NEXT
+  </div>
+
+  <div class="profile">
+    A
+  </div>
+
 </header>
 
 <div class="page">
 
-<section id="home" class="workspace active">
+<!-- HOME -->
+
+<section id="home" class="view active">
 
   <div class="hero">
-    <div>
-      <div style="color:var(--cyan);font-size:11px;letter-spacing:4px">
+
+    <div class="heroText">
+
+      <div class="eyebrow">
         PERSONAL AI UNIVERSE
       </div>
 
       <h1>
-        Build ideas.<br>
-        <span class="gradient">Make them real.</span>
+        Your ideas.<br>
+        <span class="gradient">
+          Amplified by AI.
+        </span>
       </h1>
 
       <p>
-        Amzo AI is your personal command center for thinking, creating,
-        learning and building with artificial intelligence.
+        Think, create, learn and build inside one intelligent workspace.
+        AMZO AI turns simple thoughts into possibilities.
       </p>
 
       <div class="command">
-        <input id="homeCommand" placeholder="Tell Amzo what you want to build...">
-        <button onclick="runHomeCommand()">GO</button>
+
+        <input
+          id="homeInput"
+          placeholder="Tell Amzo what you want..."
+        >
+
+        <button
+          class="primary"
+          onclick="homeCommand()"
+        >
+          GO
+        </button>
+
       </div>
+
     </div>
 
     <div class="core">
-      <span>AMZO<br>CORE</span>
+
+      <div class="coreText">
+        AMZO<br>
+        CORE
+      </div>
+
     </div>
+
   </div>
 
-  <div class="sectionTitle">
-    <h2>What can you do?</h2>
-    <p>One AI universe. Multiple capabilities.</p>
+  <div class="sectionHead">
+
+    <h2>
+      Explore AMZO
+    </h2>
+
+    <p>
+      Everything is one click away.
+    </p>
+
   </div>
 
   <div class="grid">
-    <div class="card" onclick="showPage('chat')">
-      <div class="icon">◉</div>
-      <h3>AI Core</h3>
-      <p>Talk to your AI and turn thoughts into useful answers.</p>
+
+    <div class="card" onclick="openPage('chat')">
+
+      <div class="cardIcon">◉</div>
+
+      <h3>
+        AI Core
+      </h3>
+
+      <p>
+        Chat with your personal AI.
+      </p>
+
     </div>
 
-    <div class="card" onclick="showPage('create')">
-      <div class="icon">✦</div>
-      <h3>Creation Engine</h3>
-      <p>Generate ideas, concepts, plans and creative directions.</p>
+    <div class="card" onclick="openPage('create')">
+
+      <div class="cardIcon">✦</div>
+
+      <h3>
+        Create
+      </h3>
+
+      <p>
+        Generate ideas and content.
+      </p>
+
     </div>
 
-    <div class="card" onclick="showPage('dna')">
-      <div class="icon">◈</div>
-      <h3>AMZO DNA</h3>
-      <p>Your AI identity evolves as you use the platform.</p>
+    <div class="card" onclick="openPage('image')">
+
+      <div class="cardIcon">◇</div>
+
+      <h3>
+        Image Lab
+      </h3>
+
+      <p>
+        Turn prompts into visuals.
+      </p>
+
     </div>
+
+    <div class="card" onclick="openPage('voice')">
+
+      <div class="cardIcon">♫</div>
+
+      <h3>
+        Voice Lab
+      </h3>
+
+      <p>
+        Generate AI voice.
+      </p>
+
+    </div>
+
+    <div class="card" onclick="openPage('study')">
+
+      <div class="cardIcon">▣</div>
+
+      <h3>
+        Study
+      </h3>
+
+      <p>
+        Learn with an AI tutor.
+      </p>
+
+    </div>
+
+    <div class="card" onclick="openPage('research')">
+
+      <div class="cardIcon">◎</div>
+
+      <h3>
+        Research
+      </h3>
+
+      <p>
+        Explore topics intelligently.
+      </p>
+
+    </div>
+
   </div>
 
-  <div class="sectionTitle">
-    <h2>Core stats</h2>
+  <div class="sectionHead">
+
+    <h2>
+      Your Universe
+    </h2>
+
   </div>
 
   <div class="stats">
+
     <div class="stat">
-      <strong id="statActions">0</strong>
+      <strong id="actions">0</strong>
       <span>AI actions</span>
     </div>
+
     <div class="stat">
-      <strong id="statIdeas">0</strong>
-      <span>ideas created</span>
+      <strong id="ideas">0</strong>
+      <span>ideas</span>
     </div>
+
     <div class="stat">
-      <strong id="statLevel">1</strong>
+      <strong id="level">1</strong>
       <span>DNA level</span>
     </div>
+
     <div class="stat">
       <strong>∞</strong>
       <span>possibilities</span>
     </div>
+
   </div>
 
 </section>
 
-<section id="chat" class="workspace">
-  <div class="sectionTitle">
-    <h2>AMZO AI Core</h2>
-    <p>Your direct AI workspace.</p>
+
+<!-- CHAT -->
+
+<section id="chat" class="view">
+
+  <div class="workspaceTitle">
+
+    <h2>
+      AMZO AI Core
+    </h2>
+
+    <p>
+      Talk directly with your AI.
+    </p>
+
   </div>
 
-  <div class="chatbox">
-    <div class="messages" id="messages">
-      <div class="msg ai">
-        Hey. I'm Amzo Core. Tell me what you're thinking.
+  <div class="workspace chat">
+
+    <div
+      class="messages"
+      id="messages"
+    >
+
+      <div class="message ai">
+        Hey. I'm Amzo Core. What are we building today?
       </div>
+
     </div>
 
-    <div class="chatInput">
-      <textarea id="chatInput" placeholder="Message Amzo..."></textarea>
-      <button class="primary" onclick="sendChat()">Send</button>
+    <div class="chatBottom">
+
+      <textarea
+        id="chatInput"
+        placeholder="Message Amzo..."
+      ></textarea>
+
+      <button
+        class="primary"
+        onclick="sendChat()"
+      >
+        Send
+      </button>
+
     </div>
+
   </div>
+
 </section>
 
-<section id="create" class="workspace">
-  <div class="sectionTitle">
-    <h2>Creation Engine</h2>
-    <p>Turn a thought into something you can actually use.</p>
+
+<!-- CREATE -->
+
+<section id="create" class="view">
+
+  <div class="workspaceTitle">
+
+    <h2>
+      Creation Studio
+    </h2>
+
+    <p>
+      Turn thoughts into useful outputs.
+    </p>
+
   </div>
 
-  <div class="tools">
-    <div class="tool">
-      <h3>⚡ Idea Generator</h3>
-      <input id="ideaInput" placeholder="Example: AI business">
-      <button class="primary" style="margin-top:12px" onclick="generateIdeas()">
-        Generate
+  <div class="toolGrid">
+
+    <div class="toolBox">
+
+      <h3>
+        💡 Idea Generator
+      </h3>
+
+      <input
+        id="ideaInput"
+        placeholder="Example: AI business"
+      >
+
+      <button
+        class="primary"
+        onclick="generateIdeas()"
+      >
+        Generate Ideas
       </button>
-      <div class="result" id="ideaResult"></div>
+
+      <div
+        class="result"
+        id="ideaResult"
+      ></div>
+
     </div>
 
-    <div class="tool">
-      <h3>✍ AI Writer</h3>
-      <textarea id="writerInput" placeholder="What should Amzo write?"></textarea>
-      <button class="primary" style="margin-top:12px" onclick="generateWriter()">
+    <div class="toolBox">
+
+      <h3>
+        ✍ AI Writer
+      </h3>
+
+      <textarea
+        id="writerInput"
+        placeholder="What should Amzo write?"
+      ></textarea>
+
+      <button
+        class="primary"
+        onclick="generateWriter()"
+      >
         Write
       </button>
-      <div class="result" id="writerResult"></div>
+
+      <div
+        class="result"
+        id="writerResult"
+      ></div>
+
     </div>
+
   </div>
+
 </section>
 
-<section id="dna" class="workspace">
-  <div class="sectionTitle">
-    <h2>AMZO DNA</h2>
-    <p>Your AI identity evolves through your activity.</p>
+
+<!-- IMAGE -->
+
+<section id="image" class="view">
+
+  <div class="workspaceTitle">
+
+    <h2>
+      Image Lab
+    </h2>
+
+    <p>
+      Create visuals from your imagination.
+    </p>
+
+  </div>
+
+  <div class="toolBox">
+
+    <h3>
+      🎨 AI Image Generator
+    </h3>
+
+    <input
+      id="imagePrompt"
+      placeholder="Describe the image..."
+    >
+
+    <button
+      class="primary"
+      onclick="generateImage()"
+    >
+      Generate Image
+    </button>
+
+    <div
+      class="result"
+      id="imageResult"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- VOICE -->
+
+<section id="voice" class="view">
+
+  <div class="workspaceTitle">
+
+    <h2>
+      Voice Lab
+    </h2>
+
+    <p>
+      Turn text into AI speech.
+    </p>
+
+  </div>
+
+  <div class="toolBox">
+
+    <h3>
+      🔊 AI Voice
+    </h3>
+
+    <textarea
+      id="voiceText"
+      placeholder="Enter text for AI voice..."
+    ></textarea>
+
+    <button
+      class="primary"
+      onclick="generateVoice()"
+    >
+      Generate Voice
+    </button>
+
+    <div
+      class="result"
+      id="voiceResult"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- STUDY -->
+
+<section id="study" class="view">
+
+  <div class="workspaceTitle">
+
+    <h2>
+      Study Mode
+    </h2>
+
+    <p>
+      Learn difficult topics with AI.
+    </p>
+
+  </div>
+
+  <div class="toolBox">
+
+    <h3>
+      📚 AI Tutor
+    </h3>
+
+    <textarea
+      id="studyInput"
+      placeholder="What do you want to learn?"
+    ></textarea>
+
+    <button
+      class="primary"
+      onclick="study()"
+    >
+      Teach Me
+    </button>
+
+    <div
+      class="result"
+      id="studyResult"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- RESEARCH -->
+
+<section id="research" class="view">
+
+  <div class="workspaceTitle">
+
+    <h2>
+      Research Mode
+    </h2>
+
+    <p>
+      Break down a topic and investigate it.
+    </p>
+
+  </div>
+
+  <div class="toolBox">
+
+    <h3>
+      🔬 Research Assistant
+    </h3>
+
+    <textarea
+      id="researchInput"
+      placeholder="Enter a research topic..."
+    ></textarea>
+
+    <button
+      class="primary"
+      onclick="research()"
+    >
+      Research
+    </button>
+
+    <div
+      class="result"
+      id="researchResult"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- CODE -->
+
+<section id="code" class="view">
+
+  <div class="workspaceTitle">
+
+    <h2>
+      Code Lab
+    </h2>
+
+    <p>
+      Ask Amzo to explain or create code.
+    </p>
+
+  </div>
+
+  <div class="toolBox">
+
+    <h3>
+      💻 AI Coding Assistant
+    </h3>
+
+    <textarea
+      id="codeInput"
+      placeholder="Example: make a calculator in JavaScript"
+    ></textarea>
+
+    <button
+      class="primary"
+      onclick="codeHelp()"
+    >
+      Generate Code
+    </button>
+
+    <div
+      class="result"
+      id="codeResult"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- DNA -->
+
+<section id="dna" class="view">
+
+  <div class="workspaceTitle">
+
+    <h2>
+      AMZO DNA
+    </h2>
+
+    <p>
+      Your AI identity evolves as you use AMZO.
+    </p>
+
   </div>
 
   <div class="stats">
+
     <div class="stat">
       <strong id="dnaThinking">12</strong>
       <span>Thinking</span>
     </div>
+
     <div class="stat">
       <strong id="dnaCreativity">18</strong>
       <span>Creativity</span>
     </div>
+
     <div class="stat">
       <strong id="dnaBuilding">10</strong>
       <span>Building</span>
     </div>
+
     <div class="stat">
       <strong id="dnaLearning">8</strong>
       <span>Learning</span>
     </div>
+
   </div>
 
-  <div class="card" style="margin-top:18px">
-    <h3 id="dnaPattern">Creator / Builder</h3>
-    <p id="dnaText">
-      Your AMZO DNA is beginning to form.
-      Keep using the system and your pattern will evolve.
+  <div
+    class="card"
+    style="margin-top:18px"
+  >
+
+    <h3 id="dnaPattern">
+      Creator / Builder
+    </h3>
+
+    <p id="dnaDescription">
+      Your AMZO identity is evolving.
     </p>
+
   </div>
+
 </section>
 
-<section id="lab" class="workspace">
-  <div class="sectionTitle">
-    <h2>AI Lab</h2>
-    <p>Experimental tools.</p>
+
+<!-- PROJECTS -->
+
+<section id="projects" class="view">
+
+  <div class="workspaceTitle">
+
+    <h2>
+      Projects
+    </h2>
+
+    <p>
+      Your saved creations will appear here.
+    </p>
+
+  </div>
+
+  <div
+    class="grid"
+    id="projectGrid"
+  >
+
+    <div class="card">
+
+      <div class="cardIcon">
+        📁
+      </div>
+
+      <h3>
+        No projects yet
+      </h3>
+
+      <p>
+        Create something with AMZO and save it here.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- HISTORY -->
+
+<section id="history" class="view">
+
+  <div class="workspaceTitle">
+
+    <h2>
+      History
+    </h2>
+
+    <p>
+      Your recent AMZO activity.
+    </p>
+
+  </div>
+
+  <div
+    class="card"
+    id="historyList"
+  >
+    No activity yet.
+  </div>
+
+</section>
+
+
+<!-- FAVORITES -->
+
+<section id="favorites" class="view">
+
+  <div class="workspaceTitle">
+
+    <h2>
+      Favorites
+    </h2>
+
+    <p>
+      Keep your best AI outputs here.
+    </p>
+
+  </div>
+
+  <div
+    class="card"
+    id="favoritesList"
+  >
+    No favorites yet.
+  </div>
+
+</section>
+
+
+<!-- SETTINGS -->
+
+<section id="settings" class="view">
+
+  <div class="workspaceTitle">
+
+    <h2>
+      Settings
+    </h2>
+
+    <p>
+      Control your AMZO experience.
+    </p>
+
   </div>
 
   <div class="grid">
+
     <div class="card">
-      <div class="icon">🧠</div>
-      <h3>Deep Think</h3>
-      <p>Break a complicated problem into smaller pieces.</p>
+
+      <div class="cardIcon">
+        ⚡
+      </div>
+
+      <h3>
+        AI Core
+      </h3>
+
+      <p>
+        Cloudflare AI connected.
+      </p>
+
     </div>
 
     <div class="card">
-      <div class="icon">🔬</div>
-      <h3>Research Mode</h3>
-      <p>Prepare structured research questions and investigation plans.</p>
+
+      <div class="cardIcon">
+        🌌
+      </div>
+
+      <h3>
+        Interface
+      </h3>
+
+      <p>
+        AMZO futuristic interface enabled.
+      </p>
+
     </div>
 
     <div class="card">
-      <div class="icon">🚀</div>
-      <h3>Build Mode</h3>
-      <p>Turn an idea into a step-by-step project plan.</p>
+
+      <div class="cardIcon">
+        🧬
+      </div>
+
+      <h3>
+        DNA Engine
+      </h3>
+
+      <p>
+        Your activity can evolve your AMZO DNA.
+      </p>
+
     </div>
+
   </div>
+
 </section>
 
 </div>
 </main>
-</div>
+</div><script>
+/* ================================
+   AMZO AI // NEXT ENGINE
+================================ */
 
-<script>
-const API="https://ai-tool-api.amzoxamzoo.workers.dev/";
-const CLIENT_KEY="amzo_next_client";
+const API = "https://ai-tool-api.amzoxamzoo.workers.dev/";
+const CLIENT_KEY = "amzo_next_client";
 
-let clientId=localStorage.getItem(CLIENT_KEY);
+let clientId = localStorage.getItem(CLIENT_KEY);
 
-if(!clientId){
-  clientId=crypto.randomUUID();
-  localStorage.setItem(CLIENT_KEY,clientId);
+if (!clientId) {
+  clientId = crypto.randomUUID();
+  localStorage.setItem(CLIENT_KEY, clientId);
 }
 
-let statsData=JSON.parse(
-  localStorage.getItem("amzo_next_stats") ||
+
+/* ================================
+   LOCAL STATE
+================================ */
+
+let amzoStats = JSON.parse(
+  localStorage.getItem("amzo_stats") ||
   '{"actions":0,"ideas":0}'
 );
 
-let dna=JSON.parse(
-  localStorage.getItem("amzo_next_dna") ||
+let amzoDNA = JSON.parse(
+  localStorage.getItem("amzo_dna") ||
   '{"thinking":12,"creativity":18,"building":10,"learning":8}'
 );
 
-function saveState(){
-  localStorage.setItem("amzo_next_stats",JSON.stringify(statsData));
-  localStorage.setItem("amzo_next_dna",JSON.stringify(dna));
+let amzoHistory = JSON.parse(
+  localStorage.getItem("amzo_history") ||
+  "[]"
+);
+
+let amzoFavorites = JSON.parse(
+  localStorage.getItem("amzo_favorites") ||
+  "[]"
+);
+
+let amzoProjects = JSON.parse(
+  localStorage.getItem("amzo_projects") ||
+  "[]"
+);
+
+function saveState() {
+  localStorage.setItem(
+    "amzo_stats",
+    JSON.stringify(amzoStats)
+  );
+
+  localStorage.setItem(
+    "amzo_dna",
+    JSON.stringify(amzoDNA)
+  );
+
+  localStorage.setItem(
+    "amzo_history",
+    JSON.stringify(amzoHistory)
+  );
+
+  localStorage.setItem(
+    "amzo_favorites",
+    JSON.stringify(amzoFavorites)
+  );
+
+  localStorage.setItem(
+    "amzo_projects",
+    JSON.stringify(amzoProjects)
+  );
 }
 
-function api(action,data={}){
-  return fetch(API,{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json",
-      "X-Amzo-Client":clientId
+
+/* ================================
+   API
+================================ */
+
+async function api(action, data = {}) {
+
+  const response = await fetch(API, {
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json",
+      "X-Amzo-Client": clientId
     },
-    credentials:"include",
-    body:JSON.stringify({
+
+    credentials: "include",
+
+    body: JSON.stringify({
       action,
       clientId,
       ...data
     })
-  }).then(async r=>{
-    const text=await r.text();
-    let json;
-    try{json=JSON.parse(text)}
-    catch{throw new Error(text||"API error")}
-    if(!r.ok) throw new Error(json.error||"API error");
-    return json;
   });
-}
 
-function showPage(id,btn){
-  document.querySelectorAll(".workspace")
-    .forEach(x=>x.classList.remove("active"));
+  const text = await response.text();
 
-  const page=document.getElementById(id);
-  if(page) page.classList.add("active");
+  let result;
 
-  document.querySelectorAll(".nav button")
-    .forEach(x=>x.classList.remove("active"));
-
-  if(btn) btn.classList.add("active");
-
-  updateUI();
-}
-
-function updateUI(){
-  document.getElementById("statActions").textContent=statsData.actions;
-  document.getElementById("statIdeas").textContent=statsData.ideas;
-
-  const level=Math.max(
-    1,
-    Math.floor(
-      (dna.thinking+dna.creativity+dna.building+dna.learning)/20
-    )
-  );
-
-  document.getElementById("statLevel").textContent=level;
-
-  document.getElementById("dnaThinking").textContent=dna.thinking;
-  document.getElementById("dnaCreativity").textContent=dna.creativity;
-  document.getElementById("dnaBuilding").textContent=dna.building;
-  document.getElementById("dnaLearning").textContent=dna.learning;
-
-  let pattern="Creator / Builder";
-
-  if(dna.creativity>dna.thinking && dna.creativity>dna.learning)
-    pattern="Creative Mind";
-
-  if(dna.building>dna.creativity && dna.building>dna.learning)
-    pattern="Builder";
-
-  if(dna.learning>dna.creativity && dna.learning>dna.building)
-    pattern="Explorer";
-
-  document.getElementById("dnaPattern").textContent=pattern;
-}
-
-function escapeHTML(str){
-  return String(str)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;");
-}
-
-function addMessage(text,type){
-  const box=document.getElementById("messages");
-  const div=document.createElement("div");
-
-  div.className="msg "+type;
-  div.innerHTML=escapeHTML(text).replace(/\n/g,"<br>");
-
-  box.appendChild(div);
-  box.scrollTop=box.scrollHeight;
-}
-
-async function sendChat(){
-  const input=document.getElementById("chatInput");
-  const text=input.value.trim();
-
-  if(!text)return;
-
-  input.value="";
-  addMessage(text,"user");
-
-  statsData.actions++;
-  dna.thinking++;
-  saveState();
-  updateUI();
-
-  addMessage("Thinking...","ai");
-
-  try{
-    const result=await api("chat",{
-      message:text,
-      messages:[
-        {role:"user",content:text}
-      ]
-    });
-
-    const box=document.getElementById("messages");
-    const last=box.lastElementChild;
-    if(last)last.remove();
-
-    addMessage(
-      result.reply ||
-      result.response ||
-      result.text ||
-      "I couldn't generate a response.",
-      "ai"
+  try {
+    result = JSON.parse(text);
+  } catch {
+    throw new Error(
+      text || "Invalid response from Amzo API"
     );
-  }catch(error){
-    const box=document.getElementById("messages");
-    const last=box.lastElementChild;
-    if(last)last.remove();
-
-    addMessage("⚠️ "+error.message,"ai");
   }
+
+  if (!response.ok) {
+    throw new Error(
+      result.error ||
+      result.message ||
+      "Amzo API error"
+    );
+  }
+
+  return result;
 }
 
-async function generateIdeas(){
-  const input=document.getElementById("ideaInput");
-  const result=document.getElementById("ideaResult");
-  const topic=input.value.trim();
 
-  if(!topic){
-    result.textContent="Enter a topic first.";
-    return;
-  }
+/* ================================
+   NAVIGATION
+================================ */
 
-  result.textContent="Generating...";
+function openPage(id, button) {
 
-  statsData.actions++;
-  statsData.ideas++;
-  dna.creativity+=2;
-  saveState();
-  updateUI();
-
-  try{
-    const response=await api("chat",{
-      message:
-        "Generate 10 unique practical ideas about: "+topic+
-        ". Make them concise and useful.",
-      messages:[
-        {
-          role:"user",
-          content:
-            "Generate 10 unique practical ideas about: "+topic
-        }
-      ]
+  document
+    .querySelectorAll(".view")
+    .forEach(page => {
+      page.classList.remove("active");
     });
 
-    result.textContent=
-      response.reply ||
-      response.response ||
-      response.text ||
-      "No ideas returned.";
-  }catch(error){
-    result.textContent="⚠️ "+error.message;
-  }
-}
+  const target = document.getElementById(id);
 
-async function generateWriter(){
-  const input=document.getElementById("writerInput");
-  const result=document.getElementById("writerResult");
-  const prompt=input.value.trim();
-
-  if(!prompt){
-    result.textContent="Enter something first.";
-    return;
+  if (target) {
+    target.classList.add("active");
   }
 
-  result.textContent="Writing...";
-
-  statsData.actions++;
-  dna.creativity++;
-  saveState();
-  updateUI();
-
-  try{
-    const response=await api("chat",{
-      message:
-        "Write this professionally and clearly:\n"+prompt,
-      messages:[
-        {
-          role:"user",
-          content:
-            "Write this professionally and clearly:\n"+prompt
-        }
-      ]
+  document
+    .querySelectorAll(".nav button")
+    .forEach(btn => {
+      btn.classList.remove("active");
     });
 
-    result.textContent=
-      response.reply ||
-      response.response ||
-      response.text ||
-      "No result returned.";
-  }catch(error){
-    result.textContent="⚠️ "+error.message;
+  if (button) {
+    button.classList.add("active");
+  } else {
+
+    const buttons =
+      document.querySelectorAll(".nav button");
+
+    buttons.forEach(btn => {
+
+      const text =
+        btn.textContent
+          .toLowerCase()
+          .replace(/[^a-z]/g, "");
+
+      if (
+        text.includes(id.toLowerCase())
+      ) {
+        btn.classList.add("active");
+      }
+
+    });
   }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  updateUI();
 }
 
-function runHomeCommand(){
-  const input=document.getElementById("homeCommand");
-  const value=input.value.trim();
 
-  if(!value)return;
+/* ================================
+   HOME COMMAND
+================================ */
 
-  showPage("chat");
+function homeCommand() {
 
-  const chat=document.getElementById("chatInput");
-  chat.value=value;
+  const input =
+    document.getElementById("homeInput");
+
+  const value =
+    input.value.trim();
+
+  if (!value) return;
+
+  openPage("chat");
+
+  const chat =
+    document.getElementById("chatInput");
+
+  chat.value = value;
 
   sendChat();
 }
 
+
+/* ================================
+   CHAT
+================================ */
+
+function addMessage(text, type) {
+
+  const box =
+    document.getElementById("messages");
+
+  const message =
+    document.createElement("div");
+
+  message.className =
+    "message " + type;
+
+  message.textContent = text;
+
+  box.appendChild(message);
+
+  box.scrollTop =
+    box.scrollHeight;
+
+  return message;
+}
+
+
+async function sendChat() {
+
+  const input =
+    document.getElementById("chatInput");
+
+  const text =
+    input.value.trim();
+
+  if (!text) return;
+
+  input.value = "";
+
+  addMessage(text, "user");
+
+  amzoStats.actions++;
+  amzoDNA.thinking++;
+
+  addHistory(
+    "AI Chat",
+    text
+  );
+
+  saveState();
+  updateUI();
+
+  const thinking =
+    addMessage(
+      "AMZO is thinking...",
+      "ai"
+    );
+
+  try {
+
+    const result =
+      await api("chat", {
+
+        message:text,
+
+        messages:[
+          {
+            role:"user",
+            content:text
+          }
+        ]
+
+      });
+
+    thinking.remove();
+
+    const answer =
+      result.reply ||
+      result.response ||
+      result.text ||
+      "No response returned.";
+
+    addMessage(
+      answer,
+      "ai"
+    );
+
+  } catch(error) {
+
+    thinking.textContent =
+      "⚠️ " + error.message;
+
+  }
+
+}
+
+
+/* ================================
+   IDEAS
+================================ */
+
+async function generateIdeas() {
+
+  const input =
+    document.getElementById("ideaInput");
+
+  const output =
+    document.getElementById("ideaResult");
+
+  const topic =
+    input.value.trim();
+
+  if (!topic) {
+
+    output.textContent =
+      "Enter a topic first.";
+
+    return;
+  }
+
+  output.textContent =
+    "AMZO is generating ideas...";
+
+  amzoStats.actions++;
+  amzoStats.ideas++;
+  amzoDNA.creativity += 2;
+
+  addHistory(
+    "Idea Generator",
+    topic
+  );
+
+  saveState();
+  updateUI();
+
+  try {
+
+    const result =
+      await api("chat", {
+
+        message:
+          `Generate 10 unique,
+          practical and interesting ideas
+          about: ${topic}.
+          Keep them concise.`,
+
+        messages:[
+          {
+            role:"user",
+            content:
+              `Generate 10 unique practical ideas about: ${topic}`
+          }
+        ]
+
+      });
+
+    output.textContent =
+      result.reply ||
+      result.response ||
+      result.text ||
+      "No ideas generated.";
+
+  } catch(error) {
+
+    output.textContent =
+      "⚠️ " + error.message;
+
+  }
+
+}
+
+
+/* ================================
+   AI WRITER
+================================ */
+
+async function generateWriter() {
+
+  const input =
+    document.getElementById("writerInput");
+
+  const output =
+    document.getElementById("writerResult");
+
+  const prompt =
+    input.value.trim();
+
+  if (!prompt) {
+
+    output.textContent =
+      "Enter something to write.";
+
+    return;
+  }
+
+  output.textContent =
+    "AMZO is writing...";
+
+  amzoStats.actions++;
+  amzoDNA.creativity++;
+
+  addHistory(
+    "AI Writer",
+    prompt
+  );
+
+  saveState();
+  updateUI();
+
+  try {
+
+    const result =
+      await api("chat", {
+
+        message:
+          "Write this clearly and professionally:\n" +
+          prompt,
+
+        messages:[
+          {
+            role:"user",
+            content:
+              "Write this clearly and professionally:\n" +
+              prompt
+          }
+        ]
+
+      });
+
+    output.textContent =
+      result.reply ||
+      result.response ||
+      result.text ||
+      "No result.";
+
+  } catch(error) {
+
+    output.textContent =
+      "⚠️ " + error.message;
+
+  }
+
+}
+
+
+/* ================================
+   IMAGE
+================================ */
+
+async function generateImage() {
+
+  const input =
+    document.getElementById("imagePrompt");
+
+  const output =
+    document.getElementById("imageResult");
+
+  const prompt =
+    input.value.trim();
+
+  if (!prompt) {
+
+    output.textContent =
+      "Describe the image first.";
+
+    return;
+  }
+
+  output.textContent =
+    "🎨 Creating your image...";
+
+  amzoStats.actions++;
+  amzoDNA.creativity += 3;
+
+  addHistory(
+    "Image Generator",
+    prompt
+  );
+
+  saveState();
+  updateUI();
+
+  try {
+
+    const result =
+      await api("image", {
+        prompt
+      });
+
+    const imageURL =
+      result.url ||
+      result.imageUrl ||
+      result.dataURI ||
+      result.dataUri;
+
+    if (!imageURL) {
+
+      output.textContent =
+        "Image generated, but no image URL was returned.";
+
+      return;
+    }
+
+    output.innerHTML = `
+      <div style="
+        margin-top:12px;
+        border:1px solid rgba(255,255,255,.08);
+        border-radius:16px;
+        overflow:hidden;
+      ">
+
+        <img
+          src="${imageURL}"
+          style="
+            display:block;
+            width:100%;
+            max-height:600px;
+            object-fit:contain;
+            background:#05070d;
+          "
+        >
+
+      </div>
+
+      <button
+        class="primary"
+        style="margin-top:12px"
+        onclick="saveFavorite('${escapeAttr(imageURL)}')"
+      >
+        ★ Save
+      </button>
+    `;
+
+  } catch(error) {
+
+    output.textContent =
+      "⚠️ " + error.message;
+
+  }
+
+}
+
+
+/* ================================
+   VOICE
+================================ */
+
+async function generateVoice() {
+
+  const input =
+    document.getElementById("voiceText");
+
+  const output =
+    document.getElementById("voiceResult");
+
+  const text =
+    input.value.trim();
+
+  if (!text) {
+
+    output.textContent =
+      "Enter text first.";
+
+    return;
+  }
+
+  output.textContent =
+    "🔊 Generating voice...";
+
+  amzoStats.actions++;
+  amzoDNA.creativity += 2;
+
+  addHistory(
+    "Voice Generator",
+    text
+  );
+
+  saveState();
+  updateUI();
+
+  try {
+
+    const result =
+      await api("voice", {
+        text
+      });
+
+    const audioURL =
+      result.audioUrl ||
+      result.url ||
+      result.audio ||
+      result.dataURI ||
+      result.dataUri;
+
+    if (!audioURL) {
+
+      output.textContent =
+        "Voice generated, but no audio URL was returned.";
+
+      return;
+    }
+
+    output.innerHTML = `
+      <div class="card">
+
+        <h3>🔊 AMZO Voice</h3>
+
+        <audio
+          controls
+          style="
+            width:100%;
+            margin-top:14px;
+          "
+          src="${audioURL}"
+        ></audio>
+
+      </div>
+    `;
+
+  } catch(error) {
+
+    output.textContent =
+      "⚠️ " + error.message;
+
+  }
+
+}
+
+
+/* ================================
+   STUDY
+================================ */
+
+async function study() {
+
+  const input =
+    document.getElementById("studyInput");
+
+  const output =
+    document.getElementById("studyResult");
+
+  const topic =
+    input.value.trim();
+
+  if (!topic) {
+
+    output.textContent =
+      "Enter something you want to learn.";
+
+    return;
+  }
+
+  output.textContent =
+    "📚 Preparing your lesson...";
+
+  amzoStats.actions++;
+  amzoDNA.learning += 2;
+
+  addHistory(
+    "Study",
+    topic
+  );
+
+  saveState();
+  updateUI();
+
+  try {
+
+    const result =
+      await api("chat", {
+
+        message:
+          `Teach me this topic step by step.
+          Assume I am a beginner.
+          Use simple language and examples:
+
+          ${topic}`,
+
+        messages:[
+          {
+            role:"user",
+            content:
+              `Teach me this topic step by step: ${topic}`
+          }
+        ]
+
+      });
+
+    output.textContent =
+      result.reply ||
+      result.response ||
+      result.text ||
+      "No lesson generated.";
+
+  } catch(error) {
+
+    output.textContent =
+      "⚠️ " + error.message;
+
+  }
+
+}
+
+
+/* ================================
+   RESEARCH
+================================ */
+
+async function research() {
+
+  const input =
+    document.getElementById("researchInput");
+
+  const output =
+    document.getElementById("researchResult");
+
+  const topic =
+    input.value.trim();
+
+  if (!topic) {
+
+    output.textContent =
+      "Enter a research topic.";
+
+    return;
+  }
+
+  output.textContent =
+    "🔬 Building research framework...";
+
+  amzoStats.actions++;
+  amzoDNA.learning += 2;
+
+  addHistory(
+    "Research",
+    topic
+  );
+
+  saveState();
+  updateUI();
+
+  try {
+
+    const result =
+      await api("chat", {
+
+        message:
+          `Create a structured research guide
+          for this topic:
+
+          ${topic}
+
+          Include:
+          1. Overview
+          2. Important questions
+          3. Key areas to investigate
+          4. Possible sources
+          5. What to verify`,
+
+        messages:[
+          {
+            role:"user",
+            content:
+              `Create a structured research guide for: ${topic}`
+          }
+        ]
+
+      });
+
+    output.textContent =
+      result.reply ||
+      result.response ||
+      result.text ||
+      "No research result.";
+
+  } catch(error) {
+
+    output.textContent =
+      "⚠️ " + error.message;
+
+  }
+
+}
+
+
+/* ================================
+   CODE
+================================ */
+
+async function codeHelp() {
+
+  const input =
+    document.getElementById("codeInput");
+
+  const output =
+    document.getElementById("codeResult");
+
+  const prompt =
+    input.value.trim();
+
+  if (!prompt) {
+
+    output.textContent =
+      "Tell Amzo what code you need.";
+
+    return;
+  }
+
+  output.textContent =
+    "💻 Building code...";
+
+  amzoStats.actions++;
+  amzoDNA.building += 2;
+
+  addHistory(
+    "Code Lab",
+    prompt
+  );
+
+  saveState();
+  updateUI();
+
+  try {
+
+    const result =
+      await api("chat", {
+
+        message:
+          `Act as a coding assistant.
+          Explain the solution clearly.
+          Provide complete code when appropriate.
+
+          Request:
+          ${prompt}`,
+
+        messages:[
+          {
+            role:"user",
+            content:
+              `Coding request: ${prompt}`
+          }
+        ]
+
+      });
+
+    output.textContent =
+      result.reply ||
+      result.response ||
+      result.text ||
+      "No code generated.";
+
+  } catch(error) {
+
+    output.textContent =
+      "⚠️ " + error.message;
+
+  }
+
+}
+
+
+/* ================================
+   HISTORY
+================================ */
+
+function addHistory(type, text) {
+
+  amzoHistory.unshift({
+
+    id:Date.now(),
+
+    type,
+
+    text,
+
+    time:new Date().toLocaleString()
+
+  });
+
+  amzoHistory =
+    amzoHistory.slice(0,100);
+
+  saveState();
+
+  renderHistory();
+}
+
+
+function renderHistory() {
+
+  const box =
+    document.getElementById("historyList");
+
+  if (!box) return;
+
+  if (!amzoHistory.length) {
+
+    box.textContent =
+      "No activity yet.";
+
+    return;
+  }
+
+  box.innerHTML =
+    amzoHistory
+      .slice(0,30)
+      .map(item => `
+
+        <div style="
+          padding:14px 0;
+          border-bottom:1px solid rgba(255,255,255,.07);
+        ">
+
+          <strong>
+            ${escapeHTML(item.type)}
+          </strong>
+
+          <div style="
+            color:#8993a8;
+            margin-top:5px;
+            font-size:13px;
+          ">
+            ${escapeHTML(item.text)}
+          </div>
+
+          <small style="
+            color:#596275;
+            display:block;
+            margin-top:5px;
+          ">
+            ${escapeHTML(item.time)}
+          </small>
+
+        </div>
+
+      `)
+      .join("");
+
+}
+
+
+/* ================================
+   FAVORITES
+================================ */
+
+function saveFavorite(value) {
+
+  if (!value) return;
+
+  amzoFavorites.unshift({
+
+    id:Date.now(),
+
+    value
+
+  });
+
+  amzoFavorites =
+    amzoFavorites.slice(0,50);
+
+  saveState();
+
+  renderFavorites();
+
+  alert("Saved to Favorites ⭐");
+
+}
+
+
+function renderFavorites() {
+
+  const box =
+    document.getElementById("favoritesList");
+
+  if (!box) return;
+
+  if (!amzoFavorites.length) {
+
+    box.textContent =
+      "No favorites yet.";
+
+    return;
+
+  }
+
+  box.innerHTML =
+    amzoFavorites
+      .map(item => `
+
+        <div style="
+          margin-bottom:15px;
+          padding:12px;
+          border:1px solid rgba(255,255,255,.07);
+          border-radius:12px;
+          overflow:hidden;
+        ">
+
+          ${
+            String(item.value).startsWith("data:image") ||
+            String(item.value).startsWith("http")
+            ?
+            `<img
+              src="${item.value}"
+              style="
+                width:100%;
+                max-height:350px;
+                object-fit:contain;
+              "
+            >`
+            :
+            `<div>${escapeHTML(item.value)}</div>`
+          }
+
+        </div>
+
+      `)
+      .join("");
+
+}
+
+
+/* ================================
+   PROJECTS
+================================ */
+
+function addProject(name, description) {
+
+  amzoProjects.unshift({
+
+    id:Date.now(),
+
+    name,
+
+    description,
+
+    created:new Date().toLocaleString()
+
+  });
+
+  amzoProjects =
+    amzoProjects.slice(0,50);
+
+  amzoDNA.building += 3;
+
+  saveState();
+
+  renderProjects();
+
+}
+
+
+function renderProjects() {
+
+  const box =
+    document.getElementById("projectGrid");
+
+  if (!box) return;
+
+  if (!amzoProjects.length) {
+
+    box.innerHTML = `
+      <div class="card">
+
+        <div class="cardIcon">
+          📁
+        </div>
+
+        <h3>
+          No projects yet
+        </h3>
+
+        <p>
+          Create something with AMZO
+          and save it here.
+        </p>
+
+      </div>
+    `;
+
+    return;
+
+  }
+
+  box.innerHTML =
+    amzoProjects
+      .map(project => `
+
+        <div class="card">
+
+          <div class="cardIcon">
+            📁
+          </div>
+
+          <h3>
+            ${escapeHTML(project.name)}
+          </h3>
+
+          <p>
+            ${escapeHTML(project.description)}
+          </p>
+
+          <small style="
+            display:block;
+            color:#596275;
+            margin-top:12px;
+          ">
+            ${escapeHTML(project.created)}
+          </small>
+
+        </div>
+
+      `)
+      .join("");
+
+}
+
+
+/* ================================
+   UI
+================================ */
+
+function updateUI() {
+
+  const actions =
+    document.getElementById("actions");
+
+  const ideas =
+    document.getElementById("ideas");
+
+  const level =
+    document.getElementById("level");
+
+  if (actions)
+    actions.textContent =
+      amzoStats.actions;
+
+  if (ideas)
+    ideas.textContent =
+      amzoStats.ideas;
+
+  const totalDNA =
+    amzoDNA.thinking +
+    amzoDNA.creativity +
+    amzoDNA.building +
+    amzoDNA.learning;
+
+  const dnaLevel =
+    Math.max(
+      1,
+      Math.floor(totalDNA / 20)
+    );
+
+  if (level)
+    level.textContent =
+      dnaLevel;
+
+  const thinking =
+    document.getElementById("dnaThinking");
+
+  const creativity =
+    document.getElementById("dnaCreativity");
+
+  const building =
+    document.getElementById("dnaBuilding");
+
+  const learning =
+    document.getElementById("dnaLearning");
+
+  if (thinking)
+    thinking.textContent =
+      amzoDNA.thinking;
+
+  if (creativity)
+    creativity.textContent =
+      amzoDNA.creativity;
+
+  if (building)
+    building.textContent =
+      amzoDNA.building;
+
+  if (learning)
+    learning.textContent =
+      amzoDNA.learning;
+
+  const pattern =
+    document.getElementById("dnaPattern");
+
+  const description =
+    document.getElementById("dnaDescription");
+
+  let dnaPattern =
+    "Creator / Builder";
+
+  if (
+    amzoDNA.creativity >
+    amzoDNA.thinking &&
+    amzoDNA.creativity >
+    amzoDNA.building
+  ) {
+    dnaPattern =
+      "Creative Mind";
+  }
+
+  if (
+    amzoDNA.building >
+    amzoDNA.creativity &&
+    amzoDNA.building >
+    amzoDNA.learning
+  ) {
+    dnaPattern =
+      "Builder";
+  }
+
+  if (
+    amzoDNA.learning >
+    amzoDNA.creativity &&
+    amzoDNA.learning >
+    amzoDNA.building
+  ) {
+    dnaPattern =
+      "Explorer";
+  }
+
+  if (pattern)
+    pattern.textContent =
+      dnaPattern;
+
+  if (description) {
+
+    description.textContent =
+      `Your current AMZO pattern is ${dnaPattern}. 
+      Continue using the platform to evolve your AI identity.`;
+
+  }
+
+}
+
+
+/* ================================
+   SECURITY / HTML
+================================ */
+
+function escapeHTML(value) {
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttr(value) {
+
+  return String(value)
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* ================================
+   STARTUP
+================================ */
+
+renderHistory();
+renderFavorites();
+renderProjects();
 updateUI();
+
 </script>
 
 </body>
