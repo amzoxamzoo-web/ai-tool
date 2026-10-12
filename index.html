@@ -1,230 +1,307 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080b14">
-<title>Amzo AI — Your AI Workspace</title>
-<style>
-:root{--bg:#080b14;--panel:#101522;--card:#121a2a;--border:#252d40;--text:#f3f6ff;--muted:#929bb2;--cyan:#61e7f5;--purple:#9b87ff;--green:#6ce5b1}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;min-height:100vh}
-button,input,textarea{font:inherit}
-button{cursor:pointer}
-.layout{display:flex;min-height:100vh}
-.sidebar{width:248px;flex-shrink:0;background:#0b0f19;border-right:1px solid var(--border);padding:25px 16px;display:flex;flex-direction:column;gap:27px}
-.brand{display:flex;align-items:center;gap:11px;padding:0 8px}
-.logo{height:40px;width:40px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#07101b;font-size:21px;font-weight:900;box-shadow:0 0 28px #61e7f526}
-.brand-name{font-weight:850;font-size:19px;letter-spacing:-.7px}
-.brand-name span{color:var(--cyan)}
-.small{font-size:11px;color:var(--muted);letter-spacing:1.7px;text-transform:uppercase;padding:0 10px;margin-bottom:10px;font-weight:700}
-.nav{display:grid;gap:5px}
-.nav button{border:1px solid transparent;color:var(--muted);background:transparent;text-align:left;padding:12px 13px;border-radius:10px;display:flex;gap:12px;align-items:center;font-size:13px;transition:.2s}
-.nav button:hover,.nav button.active{background:#172133;color:#fff;border-color:#29374b}
-.nav button.active{box-shadow:inset 3px 0 var(--cyan)}
-.nav .ico{width:19px;text-align:center;font-size:16px}
-.side-bottom{margin-top:auto}
-.status{border:1px solid var(--border);background:#101725;padding:14px;border-radius:13px}
-.status-line{display:flex;gap:8px;align-items:center;font-size:12px}
-.dot{width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 10px #6ce5b1}
-.status p{font-size:11px;color:var(--muted);line-height:1.6;margin:10px 0 0}
-.main{min-width:0;flex:1;padding:27px clamp(18px,4vw,55px) 55px;max-width:1700px;margin:auto}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:32px}
-.crumb{color:var(--muted);font-size:13px}
-.crumb strong{color:var(--text);font-weight:650}
-.top-right{display:flex;align-items:center;gap:12px}
-.pill{border:1px solid var(--border);border-radius:999px;padding:8px 12px;font-size:11px;color:var(--muted);background:#101522}
-.avatar{height:34px;width:34px;display:grid;place-items:center;background:linear-gradient(135deg,#6de5ed,#9a86ff);color:#0b1120;border-radius:50%;font-weight:900}
-.menu-btn{display:none}
-.hero{position:relative;overflow:hidden;border:1px solid #28364a;border-radius:25px;padding:clamp(25px,4vw,48px);background:radial-gradient(ellipse at 90% 5%,#533ba433,transparent 42%),radial-gradient(ellipse at 70% 100%,#1ca8bd18,transparent 45%),linear-gradient(120deg,#121b2c,#101421 65%);margin-bottom:34px}
-.hero:after{content:"";position:absolute;width:250px;height:250px;border:1px solid #8f8cff18;border-radius:50%;right:-70px;top:-105px;box-shadow:0 0 0 35px #8f8cff08,0 0 0 70px #8f8cff05;pointer-events:none}
-.eyebrow{display:inline-flex;gap:8px;align-items:center;border:1px solid #405064;background:#101b2b;padding:7px 11px;border-radius:999px;font-size:11px;color:#b6eaf0;letter-spacing:.7px}
-.hero h1{font-size:clamp(34px,5vw,57px);line-height:1.09;letter-spacing:-2.4px;margin:22px 0 14px;max-width:680px}
-.gradient{background:linear-gradient(95deg,var(--cyan),#b6a2ff 75%);color:transparent;background-clip:text}
-.hero p{font-size:14px;color:#a6b1c7;line-height:1.8;max-width:570px;margin:0}
-.hero-bottom{display:flex;gap:12px;flex-wrap:wrap;margin-top:27px}
-.btn{border:1px solid var(--border);border-radius:11px;padding:12px 17px;background:#151d2d;color:#f3f6ff;font-size:12px;font-weight:700;transition:.2s}
-.btn:hover{transform:translateY(-2px);border-color:#64748b}
-.btn-primary{background:linear-gradient(110deg,#6ae4ed,#a9a0ff);color:#08101c;border:0}
-.btn-primary:hover{box-shadow:0 6px 28px #70dfe733}
-.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:31px 0 17px}
-.section-head h2{font-size:19px;margin:0;letter-spacing:-.5px}
-.section-head p{font-size:12px;color:var(--muted);margin:7px 0 0}
-.search{width:min(280px,100%);background:#101522;border:1px solid var(--border);border-radius:10px;color:var(--text);padding:11px 13px;outline:none;font-size:12px}
-.search:focus,input:focus,textarea:focus{border-color:#69dbe9}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:24px 0 32px}
-.stat{border:1px solid var(--border);background:#0e1420;border-radius:15px;padding:17px}
-.stat .symbol{font-size:18px;margin-bottom:12px}
-.stat strong{display:block;font-size:21px}
-.stat span{font-size:11px;color:var(--muted);display:block;margin-top:5px}
-.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
-.tool{min-width:0;position:relative;overflow:hidden;border:1px solid var(--border);background:linear-gradient(145deg,#141b2a,#0e1420);border-radius:17px;padding:20px;text-align:left;color:var(--text);transition:transform .22s,border-color .22s;display:flex;flex-direction:column;min-height:190px}
-.tool:hover{transform:translateY(-4px);border-color:#51647e}
-.tool:before{content:"";position:absolute;right:-45px;top:-50px;width:115px;height:115px;border-radius:50%;background:var(--glow,#61e7f5);filter:blur(65px);opacity:.13}
-.tool-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;background:var(--tint,#1b303c);font-size:20px;margin-bottom:20px;border:1px solid #ffffff0b}
-.tool h3{font-size:14px;margin:0 0 8px}
-.tool p{font-size:12px;line-height:1.7;color:var(--muted);margin:0 0 19px}
-.tool-footer{display:flex;justify-content:space-between;align-items:center;margin-top:auto;font-size:11px;color:#aab5cb}
-.arrow{color:var(--cyan);font-size:17px}
-.workspace{display:none}
-.workspace.active{display:block;animation:appear .25s ease}
-.home.hidden{display:none}
-.panel{background:#0e1420;border:1px solid var(--border);border-radius:18px;padding:22px;margin-top:20px}
-.panel h3{margin:0 0 8px;font-size:15px}
-.panel p{color:var(--muted);font-size:12px;line-height:1.7}
-.field-label{display:block;font-size:12px;color:#bdc7d9;margin:18px 0 8px}
-textarea,.text-input{width:100%;background:#090e18;border:1px solid var(--border);border-radius:11px;padding:14px;color:var(--text);outline:none;font-size:13px;resize:vertical}
-textarea{min-height:125px}
-.result{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8;font-size:13px;color:#d5def0;margin-top:16px}
-.result:empty{display:none}
-.footer{margin-top:50px;border-top:1px solid var(--border);padding-top:20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#78839b;font-size:11px}
-.toast{position:fixed;bottom:22px;right:22px;max-width:calc(100vw - 44px);padding:13px 17px;border-radius:12px;background:#172333;border:1px solid #36475b;color:white;font-size:12px;display:none;z-index:10}
-.toast.show{display:block;animation:appear .2s}
-@keyframes appear{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:1000px){.tools{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:650px){.sidebar{position:fixed;z-index:5;left:-270px;top:0;bottom:0;transition:left .25s;box-shadow:20px 0 50px #0008}.sidebar.open{left:0}.menu-btn{display:inline-block}.main{padding:19px 15px 35px}.topbar{margin-bottom:22px}.pill{display:none}.hero{padding:26px 21px;border-radius:19px}.hero h1{letter-spacing:-1.5px}.tools{grid-template-columns:1fr 1fr;gap:10px}.tool{padding:15px;min-height:180px}.tool-icon{margin-bottom:15px}.tool p{font-size:11px}.section-head{align-items:stretch;flex-direction:column}.search{width:100%}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:17px}.stat span{font-size:10px}.stat .symbol{margin-bottom:8px}}
-@media(max-width:390px){.tools{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:span 2}}
-</style>
-</head>
-<body>
-<div class="layout">
-<aside class="sidebar" id="sidebar">
-  <div class="brand"><div class="logo">A</div><div class="brand-name">AMZO <span>AI</span></div></div>
-  <div><div class="small">Workspace</div><nav class="nav" id="nav">
-    <button class="active" data-page="home"><span class="ico">⌂</span>Overview</button>
-    <button data-page="chat"><span class="ico">✳</span>AI Chat</button>
-    <button data-page="writer"><span class="ico">✎</span>AI Writer</button>
-    <button data-page="ideas"><span class="ico">✧</span>Idea Lab</button>
-    <button data-page="study"><span class="ico">▤</span>Study Assistant</button>
-    <button data-page="business"><span class="ico">◈</span>Business Helper</button>
-    <button data-page="youtube"><span class="ico">▷</span>YouTube Creator</button>
-    <button data-page="research"><span class="ico">⌕</span>Research</button>
-    <button data-page="code"><span class="ico">⌘</span>Code Helper</button>
-    <button data-page="image"><span class="ico">▧</span>Image Studio</button>
-    <button data-page="projects"><span class="ico">▣</span>My Projects</button>
-  </nav></div>
-  <div class="side-bottom">
-    <div class="small">System</div>
-    <nav class="nav"><button data-page="settings"><span class="ico">⚙</span>Settings</button><button data-page="about"><span class="ico">ⓘ</span>About Amzo AI</button></nav>
-    <div class="status"><div class="status-line"><span class="dot"></span><strong>Workspace ready</strong></div><p>Your creative workspace. Sign-in is not required for this demo.</p></div>
-  </div>
-</aside>
-<main class="main">
-<header class="topbar">
-  <div style="display:flex;align-items:center;gap:12px"><button class="btn menu-btn" id="menuBtn" aria-label="Open menu">☰</button><div class="crumb">Amzo AI <span style="color:#4e5c73"> / </span> <strong id="crumb">Overview</strong></div></div>
-  <div class="top-right"><div class="pill">✦ AI WORKSPACE</div><div class="avatar">A</div></div>
-</header>
-<section class="home" id="home">
-  <div class="hero">
-    <div class="eyebrow"><span>✦</span> YOUR PERSONAL AI WORKSPACE</div>
-    <h1>Make room for<br><span class="gradient">bigger ideas.</span></h1>
-    <p>One workspace for thinking, creating, learning and building. Pick a tool, share your idea, and let Amzo AI help you take the next step.</p>
-    <div class="hero-bottom"><button class="btn btn-primary" data-go="chat">✦ Start chatting <span>→</span></button><button class="btn" data-go="ideas">Explore your tools ↗</button></div>
-  </div>
-  <div class="stats">
-    <div class="stat"><div class="symbol">✳</div><strong>AI Chat</strong><span>Ask, explore, create</span></div>
-    <div class="stat"><div class="symbol">✧</div><strong>Idea Lab</strong><span>Turn thoughts into plans</span></div>
-    <div class="stat"><div class="symbol">⌘</div><strong>Code Helper</strong><span>Build and learn</span></div>
-  </div>
-  <div class="section-head"><div><h2>Your creative toolkit</h2><p>Choose a tool to get started.</p></div><input class="search" id="search" placeholder="⌕  Search tools..." aria-label="Search tools"></div>
-  <div class="tools" id="toolGrid">
-    <button class="tool" data-page="chat" data-name="AI Chat conversation assistant" style="--glow:#61e7f5;--tint:#16323c"><div class="tool-icon">✳</div><h3>AI Chat</h3><p>Ask questions, brainstorm and work through ideas with your AI assistant.</p><div class="tool-footer">Start a conversation <span class="arrow">↗</span></div></button>
-    <button class="tool" data-page="writer" data-name="AI Writer content writing" style="--glow:#a18aff;--tint:#28223f"><div class="tool-icon">✎</div><h3>AI Writer</h3><p>Draft posts, descriptions, emails and clear written content.</p><div class="tool-footer">Create content <span class="arrow">↗</span></div></button>
-    <button class="tool" data-page="ideas" data-name="Idea Lab generator startup business" style="--glow:#ffbd70;--tint:#382a1f"><div class="tool-icon">✧</div><h3>Idea Lab</h3><p>Explore original ideas, opportunities and practical next steps.</p><div class="tool-footer">Find inspiration <span class="arrow">↗</span></div></button>
-    <button class="tool" data-page="study" data-name="Study Assistant learn explain lessons" style="--glow:#6ce5b1;--tint:#19352e"><div class="tool-icon">▤</div><h3>Study Assistant</h3><p>Understand difficult topics through beginner-friendly explanations.</p><div class="tool-footer">Learn something <span class="arrow">↗</span></div></button>
-    <button class="tool" data-page="business" data-name="Business Helper strategy marketing" style="--glow:#61e7f5;--tint:#16323c"><div class="tool-icon">◈</div><h3>Business Helper</h3><p>Explore business plans, customer problems and marketing strategies.</p><div class="tool-footer">Build your plan <span class="arrow">↗</span></div></button>
-    <button class="tool" data-page="youtube" data-name="YouTube Creator titles hooks scripts" style="--glow:#ff777e;--tint:#382128"><div class="tool-icon">▷</div><h3>YouTube Creator</h3><p>Generate video concepts, hooks, titles and script outlines.</p><div class="tool-footer">Create a video plan <span class="arrow">↗</span></div></button>
-    <button class="tool" data-page="research" data-name="Research summarize topics" style="--glow:#84a8ff;--tint:#202c46"><div class="tool-icon">⌕</div><h3>Research Assistant</h3><p>Break a topic into useful questions, key points and areas to investigate.</p><div class="tool-footer">Explore a topic <span class="arrow">↗</span></div></button>
-    <button class="tool" data-page="code" data-name="Code Helper programming website" style="--glow:#6ce5b1;--tint:#19352e"><div class="tool-icon">⌘</div><h3>Code Helper</h3><p>Understand code, troubleshoot errors and plan website features.</p><div class="tool-footer">Start building <span class="arrow">↗</span></div></button>
-    <button class="tool" data-page="image" data-name="Image Studio image prompt art" style="--glow:#c5a0ff;--tint:#2b2240"><div class="tool-icon">▧</div><h3>Image Studio</h3><p>Write detailed prompts for AI image generators and visual concepts.</p><div class="tool-footer">Design a prompt <span class="arrow">↗</span></div></button>
-  </div>
-</section>
-<section class="workspace" id="workspace">
-  <div class="hero" style="padding:28px 30px;margin-bottom:20px"><div class="eyebrow">✦ AMZO AI TOOL</div><h1 id="pageTitle" style="font-size:35px;margin:17px 0 9px">AI Chat</h1><p id="pageDesc">Your AI workspace.</p></div>
-  <div class="panel" id="toolPanel">
-    <h3 id="panelTitle">What would you like to do?</h3>
-    <p id="panelDesc">Enter a prompt below. Your request will be sent to your configured AI backend.</p>
-    <label class="field-label" for="prompt">Your prompt</label>
-    <textarea id="prompt" placeholder="Tell Amzo AI what you want to create..."></textarea>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:13px"><button class="btn btn-primary" id="sendBtn">✦ Generate response</button><button class="btn" id="clearBtn">Clear</button></div>
-    <div class="result" id="result" aria-live="polite"></div>
-    <button class="btn" id="copyBtn" style="display:none;margin-top:14px">Copy response</button>
-  </div>
-  <div class="panel" id="extraPanel" style="display:none"><h3>My saved projects</h3><p>Projects are stored in this browser.</p><div id="projectList" class="result"></div></div>
-</section>
-<footer class="footer"><span>© <span id="year"></span> Amzo AI</span><span>Built for ideas that go further. ✦</span></footer>
-</main>
-</div>
-<div class="toast" id="toast" role="status"></div>
-<script>
-const API_URL="https://ai-tool-api.amzoxamzoo.workers.dev/";
-const CLIENT_ID="amzo-ai-web";
-const configs={
-chat:{title:"AI Chat",desc:"A space to ask questions, explore ideas and think out loud.",prompt:"You are Amzo AI, a helpful and clear AI assistant. Answer accurately and be honest about limitations.",placeholder:"Ask anything..."},
-writer:{title:"AI Writer",desc:"Turn rough thoughts into polished writing.",prompt:"You are an expert writing assistant. Create clear, original content matching the user's requested tone and format.",placeholder:"What do you want to write? Include topic, audience and tone..."},
-ideas:{title:"Idea Lab",desc:"Discover ideas and turn them into practical plans.",prompt:"You are Amzo AI Idea Lab. Generate original, realistic ideas. For each, explain the problem, audience, solution, first steps and free validation method.",placeholder:"Example: Give me original AI website ideas I can build for free..."},
-study:{title:"Study Assistant",desc:"Learn at your own pace with clear explanations.",prompt:"You are a patient tutor. Explain from the beginner level using simple language, short steps and examples. Ask a small practice question at the end when useful.",placeholder:"What topic do you want to understand?"},
-business:{title:"Business Helper",desc:"Plan, test and improve your next business idea.",prompt:"You are a practical business planning assistant. Focus on realistic low-cost steps, customer needs, validation, ethical marketing and risks. Do not promise guaranteed income.",placeholder:"Describe your business idea, audience or problem..."},
-youtube:{title:"YouTube Creator",desc:"Develop stronger video concepts, hooks and scripts.",prompt:"You are a YouTube content strategist. Create original video ideas, engaging hooks, title options, scene outlines and calls to action appropriate to the requested format.",placeholder:"Video topic, channel type, language and target length..."},
-research:{title:"Research Assistant",desc:"Organize a topic into questions, evidence and key points.",prompt:"You are a research planning assistant. Distinguish known facts from assumptions, identify what needs verification, and provide a structured overview. Do not pretend to have browsed live sources.",placeholder:"What topic do you want to research?"},
-code:{title:"Code Helper",desc:"Plan features, understand code and troubleshoot errors.",prompt:"You are a senior software developer and patient coding teacher. Explain simply, identify assumptions, and provide complete usable code when asked. Never claim code has been run unless it has.",placeholder:"Describe your website, feature, code or error..."},
-image:{title:"Image Studio",desc:"Prepare detailed visual prompts for your image generator.",prompt:"You are an expert visual prompt designer. Turn the user's idea into a specific image-generation prompt describing subject, composition, lighting, palette, style, details and aspect ratio. Clearly output a copy-ready prompt.",placeholder:"Describe the image you want to create..."}
-};
-const $=id=>document.getElementById(id);
-let currentPage="home";
-function toast(message){$("toast").textContent=message;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2600)}
-function navigate(page){
-currentPage=page;
-$("home").classList.toggle("hidden",page!=="home");
-$("workspace").classList.toggle("active",page!=="home");
-$("crumb").textContent=page==="home"?"Overview":page==="projects"?"My Projects":page==="settings"?"Settings":page==="about"?"About Amzo AI":(configs[page]?.title||page);
-document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
-$("sidebar").classList.remove("open");
-if(page==="home")return;
-if(page==="projects"||page==="settings"||page==="about"){showSpecial(page);return}
-const c=configs[page]||configs.chat;
-$("pageTitle").textContent=c.title;$("pageDesc").textContent=c.desc;
-$("panelTitle").textContent=page==="image"?"Create an image prompt":page==="chat"?"What is on your mind?":"What would you like to create?";
-$("panelDesc").textContent=page==="image"?"This tool prepares prompts; it does not generate images directly.":"Enter your request below and Amzo AI will help you work through it.";
-$("prompt").placeholder=c.placeholder;$("prompt").value="";$("result").textContent="";$("copyBtn").style.display="none";
-$("toolPanel").style.display="block";$("extraPanel").style.display="none";
+:root {
+  --bg: #070914;
+  --panel: rgba(17, 21, 40, .82);
+  --panel2: #151a30;
+  --border: rgba(157, 174, 225, .15);
+  --text: #f4f5ff;
+  --muted: #929bb9;
+  --cyan: #70f4ff;
+  --purple: #ad8cff;
+  --green: #75f5bd;
 }
-function showSpecial(page){
-$("pageTitle").textContent=page==="projects"?"My Projects":page==="settings"?"Settings":"About Amzo AI";
-$("pageDesc").textContent=page==="projects"?"Your saved work in this browser.":page==="settings"?"Workspace preferences.":"A workspace for learning, creating and building.";
-$("toolPanel").style.display=page==="about"?"block":"none";$("extraPanel").style.display=page==="projects"?"block":"none";
-if(page==="projects"){const projects=JSON.parse(localStorage.getItem("amzoProjects")||"[]");$("projectList").textContent=projects.length?projects.map((p,i)=>(i+1)+". "+p).join("\n\n"):"No saved projects yet. Use the tools to create something, then save a response."}
-if(page==="settings"||page==="about"){
-$("toolPanel").style.display="block";$("panelTitle").textContent=page==="settings"?"Workspace settings":"About Amzo AI";
-$("panelDesc").textContent=page==="settings"?"This version stores history locally in your browser. Your AI service uses the configured API endpoint.":"Amzo AI is an independent AI workspace interface. Tool availability depends on the connected backend.";
-$("prompt").value=page==="settings"?"Preferences are stored in this browser. Clear this browser's site data to reset local preferences and saved work.":"Amzo AI brings chat, writing, ideas, learning and creative planning into one workspace.";
-$("prompt").placeholder="";$("result").textContent="";$("sendBtn").style.display="none";$("clearBtn").textContent="Back to overview";
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  background:
+    radial-gradient(ellipse at 75% 0%, #5837a52b, transparent 36%),
+    radial-gradient(ellipse at 20% 55%, #147c9c12, transparent 36%),
+    #070914;
+  background-attachment: fixed;
 }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: linear-gradient(#a8b9ff08 1px, transparent 1px),
+                    linear-gradient(90deg, #a8b9ff08 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
 }
-document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.page==="settings"||b.dataset.page==="about"){$("sendBtn").style.display="none";$("clearBtn").textContent="Back to overview"}else{$("sendBtn").style.display="inline-block";$("clearBtn").textContent="Clear"}navigate(b.dataset.page)}));
-document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>navigate(b.dataset.go)));
-$("menuBtn").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
-$("search").addEventListener("input",e=>{const q=e.target.value.toLowerCase();document.querySelectorAll(".tool").forEach(t=>t.style.display=t.dataset.name.toLowerCase().includes(q)?"flex":"none")});
-$("clearBtn").addEventListener("click",()=>{if(currentPage==="settings"||currentPage==="about"){navigate("home");$("sendBtn").style.display="inline-block";$("clearBtn").textContent="Clear";return}$("prompt").value="";$("result").textContent="";$("copyBtn").style.display="none"});
-$("sendBtn").addEventListener("click",sendPrompt);
-async function sendPrompt(){
-const message=$("prompt").value.trim();if(!message){toast("Pehle apna prompt likho.");return}
-const cfg=configs[currentPage]||configs.chat;
-$("sendBtn").disabled=true;$("sendBtn").textContent="Working...";$("result").textContent="Amzo AI is thinking...";$("copyBtn").style.display="none";
-try{
-const response=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"application/json","X-Amzo-Client":CLIENT_ID},body:JSON.stringify({action:"chat",clientId:CLIENT_ID,message,prompt:cfg.prompt+"\n\nUser request: "+message})});
-const raw=await response.text();let data;try{data=JSON.parse(raw)}catch{throw new Error("API ne readable JSON response nahi diya.")}
-if(!response.ok)throw new Error(data.error||data.message||("HTTP "+response.status));
-const answer=typeof data==="string"?data:(data.reply??data.response??data.answer??data.output??data.message??data.result);
-if(typeof answer!=="string"&&answer==null)throw new Error("API connected hai, lekin response ka format expected format se different hai.");
-$("result").textContent=String(answer);$("copyBtn").style.display="inline-block";
-const history=JSON.parse(localStorage.getItem("amzoHistory")||"[]");history.unshift({tool:cfg.title,question:message,answer:String(answer),date:new Date().toISOString()});localStorage.setItem("amzoHistory",JSON.stringify(history.slice(0,30)));
-}catch(err){$("result").textContent="Request failed: "+err.message+"\n\nCheck your Worker URL, browser console and Worker response format. Your existing backend has not been changed."}
-finally{$("sendBtn").disabled=false;$("sendBtn").textContent="✦ Generate response"}
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+.layout { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  background: rgba(9, 11, 25, .88);
+  border-right: 1px solid var(--border);
+  padding: 27px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  backdrop-filter: blur(22px);
 }
-$("copyBtn").addEventListener("click",async()=>{try{await navigator.clipboard.writeText($("result").textContent);toast("Response copied!")}catch{toast("Text select karke copy karo.")}});
-$("year").textContent=new Date().getFullYear();
-</script>
-</body>
-</html>
+.brand { display: flex; align-items: center; gap: 12px; padding: 0 8px; }
+.logo {
+  width: 43px; height: 43px; display: grid; place-items: center;
+  border-radius: 14px; font-size: 22px; font-weight: 950;
+  color: #080b17;
+  background: linear-gradient(135deg, #8bffff, #9a77ff 85%);
+  box-shadow: 0 0 28px #8c7cff55, inset 0 1px #ffffffaa;
+}
+.brand-name { font-size: 20px; font-weight: 900; letter-spacing: -1px; }
+.brand-name span { color: var(--cyan); }
+.small {
+  font-size: 10px; letter-spacing: 2px; color: #687493;
+  text-transform: uppercase; padding: 0 12px; margin-bottom: 12px;
+  font-weight: 800;
+}
+.nav { display: grid; gap: 6px; }
+.nav button {
+  border: 1px solid transparent; color: #929bb8;
+  background: transparent; text-align: left; padding: 12px 13px;
+  border-radius: 12px; display: flex; gap: 12px; align-items: center;
+  font-size: 13px; transition: .22s ease;
+}
+.nav button:hover {
+  color: white; background: #ffffff08; border-color: var(--border);
+  transform: translateX(2px);
+}
+.nav button.active {
+  color: white; border-color: #8c8aff38;
+  background: linear-gradient(100deg, #7b79ff20, #65eaff0a);
+  box-shadow: inset 3px 0 #78efff, 0 4px 22px #6559ff0c;
+}
+.nav .ico { width: 20px; text-align: center; font-size: 17px; }
+.side-bottom { margin-top: auto; }
+.status {
+  border: 1px solid var(--border);
+  background: linear-gradient(140deg, #151c32, #0e1221);
+  padding: 15px; border-radius: 15px;
+}
+.status-line { display: flex; gap: 9px; align-items: center; font-size: 12px; }
+.dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 13px #75f5bd;
+}
+.status p { font-size: 11px; color: var(--muted); line-height: 1.7; margin: 10px 0 0; }
+
+.main {
+  min-width: 0; flex: 1; padding: 28px clamp(18px, 4vw, 55px) 55px;
+  max-width: 1750px; margin: auto;
+}
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 15px; margin-bottom: 30px;
+}
+.crumb { color: var(--muted); font-size: 13px; }
+.crumb strong { color: white; font-weight: 700; }
+.top-right { display: flex; align-items: center; gap: 12px; }
+.pill {
+  border: 1px solid #8b8bff35; border-radius: 999px; padding: 9px 13px;
+  font-size: 10px; letter-spacing: 1px; color: #c6c4ff;
+  background: #8b7cff0d;
+}
+.avatar {
+  width: 38px; height: 38px; display: grid; place-items: center;
+  border-radius: 13px; color: #090b17; font-weight: 900;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  box-shadow: 0 0 24px #8b7cff30;
+}
+.menu-btn { display: none; }
+
+.hero {
+  position: relative; isolation: isolate; overflow: hidden;
+  border: 1px solid #a5a7ff2b; border-radius: 27px;
+  padding: clamp(29px, 4.5vw, 57px);
+  background:
+    radial-gradient(ellipse at 90% 20%, #8c64ff30, transparent 35%),
+    radial-gradient(ellipse at 72% 105%, #37e9f222, transparent 43%),
+    linear-gradient(120deg, #171a34 0%, #111529 52%, #121326 100%);
+  box-shadow: 0 25px 80px #0003, inset 0 1px #ffffff09;
+  margin-bottom: 30px;
+}
+.hero::before {
+  content: ""; position: absolute; z-index: -1;
+  width: 290px; height: 290px; right: -65px; top: -100px;
+  border: 1px solid #b1a0ff35; border-radius: 50%;
+  box-shadow: 0 0 0 25px #b1a0ff0b, 0 0 0 55px #b1a0ff08,
+              0 0 0 90px #b1a0ff05, inset 0 0 65px #9d81ff0c;
+  pointer-events: none;
+}
+.hero::after {
+  content: "✳"; position: absolute; right: 12%; top: 25%;
+  font-size: clamp(65px, 10vw, 125px); color: #b3a2ff13;
+  text-shadow: 0 0 60px #8e7aff20; pointer-events: none;
+}
+.eyebrow {
+  display: inline-flex; gap: 9px; align-items: center;
+  border: 1px solid #78e9ff30; border-radius: 999px;
+  background: #68eaff0b; padding: 8px 13px;
+  font-size: 10px; color: #b6f7ff; letter-spacing: 1.3px;
+}
+.hero h1 {
+  position: relative; font-size: clamp(38px, 5.2vw, 67px);
+  line-height: 1.04; letter-spacing: -3px; margin: 25px 0 17px;
+  max-width: 720px; font-weight: 850;
+}
+.gradient {
+  background: linear-gradient(95deg, #77f3ff 0%, #a4b4ff 45%, #c39aff 85%);
+  color: transparent; background-clip: text; -webkit-background-clip: text;
+  filter: drop-shadow(0 0 23px #8c83ff22);
+}
+.hero p {
+  font-size: 14px; color: #aab4d1; line-height: 1.9;
+  max-width: 560px; margin: 0;
+}
+.hero-bottom { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn {
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 12px 17px; background: #ffffff08; color: white;
+  font-size: 12px; font-weight: 750; transition: .22s ease;
+}
+.btn:hover { transform: translateY(-2px); border-color: #8b9aff70; }
+.btn-primary {
+  background: linear-gradient(105deg, #75f3ff, #a99aff);
+  color: #080b19; border: 0;
+  box-shadow: 0 6px 25px #79caff20;
+}
+.btn-primary:hover { box-shadow: 0 8px 35px #7a9aff45; }
+
+.section-head {
+  display: flex; justify-content: space-between; align-items: end;
+  gap: 14px; margin: 35px 0 18px;
+}
+.section-head h2 { font-size: 21px; margin: 0; letter-spacing: -.7px; }
+.section-head p { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+.search {
+  width: min(290px, 100%); background: #111426;
+  border: 1px solid var(--border); border-radius: 12px;
+  color: white; padding: 12px 14px; outline: none; font-size: 12px;
+}
+.search:focus, input:focus, textarea:focus {
+  border-color: #77eaff; box-shadow: 0 0 0 3px #77eaff12;
+}
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 15px; margin: 26px 0 34px; }
+.stat {
+  border: 1px solid var(--border); border-radius: 17px; padding: 19px;
+  background: linear-gradient(140deg, #161a30, #0d1120);
+  box-shadow: inset 0 1px #ffffff06; transition: .2s;
+}
+.stat:hover { border-color: #8f8aff55; transform: translateY(-2px); }
+.stat .symbol { font-size: 21px; margin-bottom: 13px; color: var(--cyan); }
+.stat strong { display: block; font-size: 20px; letter-spacing: -.5px; }
+.stat span { font-size: 11px; color: var(--muted); display: block; margin-top: 6px; }
+
+.tools { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+.tool {
+  min-width: 0; position: relative; overflow: hidden;
+  border: 1px solid #a3b4ff19;
+  background: linear-gradient(145deg, #171b30 0%, #101423 70%, #0e1220 100%);
+  border-radius: 19px; padding: 21px; text-align: left;
+  color: var(--text); transition: transform .25s, border-color .25s, box-shadow .25s;
+  display: flex; flex-direction: column; min-height: 200px;
+  box-shadow: inset 0 1px #ffffff07, 0 8px 24px #00000012;
+}
+.tool::before {
+  content: ""; position: absolute; right: -45px; top: -55px;
+  width: 145px; height: 145px; border-radius: 50%;
+  background: var(--glow, #61e7f5); filter: blur(65px); opacity: .21;
+  transition: opacity .25s;
+}
+.tool:hover {
+  transform: translateY(-5px); border-color: #91dfff65;
+  box-shadow: 0 15px 38px #0003, 0 0 28px #8c7cff0a, inset 0 1px #ffffff10;
+}
+.tool:hover::before { opacity: .38; }
+.tool-icon {
+  position: relative; width: 47px; height: 47px;
+  display: grid; place-items: center; border-radius: 15px;
+  background: var(--tint, #1b303c); font-size: 21px;
+  margin-bottom: 21px; border: 1px solid #ffffff10;
+  box-shadow: inset 0 1px #ffffff0a, 0 6px 18px #0002;
+}
+.tool h3 { font-size: 15px; margin: 0 0 9px; letter-spacing: -.2px; }
+.tool p { font-size: 12px; line-height: 1.8; color: #9ba5c0; margin: 0 0 20px; }
+.tool-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: auto; font-size: 11px; color: #b3bdd7;
+}
+.arrow { color: var(--cyan); font-size: 18px; transition: transform .2s; }
+.tool:hover .arrow { transform: translate(3px, -2px); }
+
+.workspace { display: none; }
+.workspace.active { display: block; animation: appear .3s ease; }
+.home.hidden { display: none; }
+.panel {
+  background: linear-gradient(145deg, #15192d, #0e1220);
+  border: 1px solid var(--border); border-radius: 20px;
+  padding: clamp(18px, 3vw, 28px); margin-top: 20px;
+  box-shadow: 0 15px 45px #0002, inset 0 1px #ffffff07;
+}
+.panel h3 { margin: 0 0 9px; font-size: 16px; }
+.panel p { color: var(--muted); font-size: 12px; line-height: 1.8; }
+.field-label { display: block; font-size: 12px; color: #c6cde2; margin: 20px 0 9px; }
+textarea, .text-input {
+  width: 100%; background: #090c18; border: 1px solid #343954;
+  border-radius: 13px; padding: 15px; color: white;
+  outline: none; font-size: 13px; resize: vertical;
+}
+textarea { min-height: 135px; line-height: 1.7; }
+.result { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.9; font-size: 13px; color: #dce4fa; margin-top: 17px; }
+.result:empty { display: none; }
+.footer {
+  margin-top: 50px; border-top: 1px solid var(--border); padding-top: 22px;
+  display: flex; justify-content: space-between; gap: 12px;
+  flex-wrap: wrap; color: #737e9c; font-size: 11px;
+}
+.toast {
+  position: fixed; bottom: 22px; right: 22px; max-width: calc(100vw - 44px);
+  padding: 14px 18px; border-radius: 13px; background: #1a2037;
+  border: 1px solid #6575a5; color: white; font-size: 12px; display: none; z-index: 10;
+}
+.toast.show { display: block; animation: appear .2s; }
+@keyframes appear {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 1000px) {
+  .tools { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 650px) {
+  .sidebar {
+    position: fixed; z-index: 5; left: -270px; top: 0; bottom: 0;
+    transition: left .25s; box-shadow: 20px 0 50px #0009;
+  }
+  .sidebar.open { left: 0; }
+  .menu-btn { display: inline-block; }
+  .main { padding: 19px 15px 35px; }
+  .topbar { margin-bottom: 22px; }
+  .pill { display: none; }
+  .hero { padding: 27px 21px; border-radius: 20px; }
+  .hero h1 { letter-spacing: -1.7px; }
+  .hero::after { right: 2%; top: 18%; }
+  .tools { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+  .tool { padding: 15px; min-height: 185px; border-radius: 16px; }
+  .tool-icon { margin-bottom: 15px; width: 42px; height: 42px; }
+  .tool p { font-size: 11px; }
+  .section-head { align-items: stretch; flex-direction: column; }
+  .search { width: 100%; }
+  .stats { gap: 8px; }
+  .stat { padding: 13px; }
+  .stat strong { font-size: 17px; }
+  .stat span { font-size: 10px; }
+}
+@media (max-width: 390px) {
+  .tools { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .stats .stat:last-child { grid-column: span 2; }
+}
