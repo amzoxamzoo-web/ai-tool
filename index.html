@@ -1,832 +1,202 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090d16">
-<title>Amzo AI — Your Smart AI Assistant</title>
-<style>
-:root {
-  --bg:#090d16;
-  --panel:#101622;
-  --panel2:#141d2b;
-  --border:rgba(160,180,220,.12);
-  --text:#f3f6ff;
-  --muted:#929db2;
-  --cyan:#56e4dc;
-  --purple:#a88bff;
-  --radius:18px;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;background:
-  radial-gradient(ellipse at 70% -20%,rgba(87,90,220,.17),transparent 45%),
-  radial-gradient(ellipse at 10% 60%,rgba(34,197,174,.06),transparent 35%),
-  var(--bg);
-  color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;
-  min-height:100vh;
-}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-.app{display:flex;min-height:100vh}
-.sidebar{
-  width:248px;flex-shrink:0;position:fixed;inset:0 auto 0 0;
-  padding:24px 16px;background:rgba(10,15,25,.95);
-  border-right:1px solid var(--border);z-index:10;
-  display:flex;flex-direction:column;overflow-y:auto;
-}
-.brand{display:flex;align-items:center;gap:11px;padding:0 9px 28px}
-.logo{
-  width:39px;height:39px;border-radius:13px;display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--cyan),#8c7bff);
-  color:#071018;font-size:21px;font-weight:900;
-  box-shadow:0 0 25px #56e4dc26
-}
-.brand-name{font-size:19px;font-weight:800;letter-spacing:-.6px}
-.brand-name span{color:var(--cyan)}
-.brand-sub{font-size:10px;color:var(--muted);margin-top:3px;letter-spacing:1.5px}
-.nav-label{padding:12px 11px 8px;color:#68758b;font-size:10px;font-weight:800;letter-spacing:1.7px}
-.nav{display:grid;gap:5px}
-.nav button{
-  border:1px solid transparent;background:transparent;color:#aab4c8;
-  display:flex;align-items:center;gap:12px;text-align:left;
-  padding:11px 12px;border-radius:11px;font-size:13px;transition:.2s
-}
-.nav button:hover,.nav button.active{
-  background:linear-gradient(90deg,#56e4dc15,#a88bff0c);
-  color:#fff;border-color:#56e4dc20
-}
-.nav button.active .nav-icon{color:var(--cyan)}
-.nav-icon{width:20px;text-align:center;font-size:17px}
-.nav-bottom{margin-top:auto;padding-top:24px}
-.status{
-  padding:13px;border:1px solid var(--border);border-radius:13px;
-  background:#111a26;font-size:11px;color:var(--muted);line-height:1.7
-}
-.dot{display:inline-block;width:7px;height:7px;background:#55e5a4;border-radius:50%;margin-right:6px}
-.main{margin-left:248px;width:calc(100% - 248px);min-width:0}
-.topbar{
-  height:76px;padding:0 34px;display:flex;align-items:center;justify-content:space-between;
-  border-bottom:1px solid var(--border);background:#090d1688;gap:15px
-}
-.top-left{display:flex;align-items:center;gap:12px}
-.eyebrow{color:var(--muted);font-size:12px}
-.top-title{font-size:14px;font-weight:700;margin-top:4px}
-.top-right{display:flex;align-items:center;gap:12px}
-.search{
-  width:210px;padding:10px 13px;background:#121a27;border:1px solid var(--border);
-  border-radius:11px;color:var(--text);outline:none;font-size:12px
-}
-.avatar{
-  width:35px;height:35px;display:grid;place-items:center;border-radius:12px;
-  background:linear-gradient(135deg,#56e4dc,#a88bff);color:#09111b;font-weight:900
-}
-.mobile-menu{display:none}
-.content{max-width:1450px;margin:auto;padding:32px 34px 55px}
-.hero{
-  padding:45px 36px 34px;border:1px solid #a88bff25;border-radius:24px;
-  background:
-    radial-gradient(ellipse at 80% 10%,#8066ff21,transparent 42%),
-    radial-gradient(ellipse at 10% 100%,#56e4dc10,transparent 40%),
-    linear-gradient(135deg,#121a29,#0d1320);
-  position:relative;overflow:hidden
-}
-.hero:after{
-  content:"";position:absolute;right:-80px;top:-120px;width:330px;height:330px;
-  border:1px solid #a88bff18;border-radius:50%;
-  box-shadow:0 0 0 35px #a88bff06,0 0 0 75px #a88bff04;
-  pointer-events:none
-}
-.pill{
-  display:inline-flex;align-items:center;gap:8px;border:1px solid #56e4dc30;
-  border-radius:99px;padding:7px 11px;color:var(--cyan);font-size:10px;
-  letter-spacing:1.2px;background:#56e4dc09;font-weight:800
-}
-h1{font-size:clamp(37px,5vw,65px);line-height:1.05;letter-spacing:-2.7px;margin:23px 0 15px}
-.gradient{
-  background:linear-gradient(100deg,#61e9dc,#9c91ff 75%);
-  -webkit-background-clip:text;background-clip:text;color:transparent
-}
-.hero p{max-width:560px;color:#a5b0c4;font-size:14px;line-height:1.8}
-.prompt-box{
-  position:relative;z-index:1;margin-top:28px;padding:15px;
-  background:#0a101b;border:1px solid #a88bff38;border-radius:16px;
-  box-shadow:0 10px 50px #0003;max-width:850px
-}
-.prompt-box textarea{
-  width:100%;min-height:64px;resize:vertical;background:transparent;border:0;
-  outline:none;color:white;padding:7px;font-size:14px
-}
-.prompt-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.prompt-hint{font-size:11px;color:#7f8ba2;padding-left:7px}
-.primary{
-  border:0;border-radius:11px;padding:12px 17px;
-  color:#071018;font-size:12px;font-weight:800;
-  background:linear-gradient(110deg,#56e4dc,#a88bff);
-  box-shadow:0 4px 24px #56e4dc18;transition:.2s
-}
-.primary:hover{filter:brightness(1.1);transform:translateY(-1px)}
-.secondary{
-  border:1px solid var(--border);border-radius:10px;padding:10px 13px;
-  background:#151e2c;color:#dce4f5;font-size:12px
-}
-.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:35px 0 17px}
-.section-head h2{margin:0;font-size:20px;letter-spacing:-.5px}
-.section-head p{color:var(--muted);font-size:12px;margin:7px 0 0}
-.text-link{color:var(--cyan);font-size:12px;cursor:pointer;background:none;border:0}
-.tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.tool-card{
-  text-align:left;color:var(--text);border:1px solid var(--border);
-  background:linear-gradient(145deg,#131b29,#0e1420);
-  border-radius:17px;padding:19px;min-height:175px;transition:.22s
-}
-.tool-card:hover{transform:translateY(-3px);border-color:#56e4dc55;background:#151f2d}
-.tool-top{display:flex;align-items:center;justify-content:space-between}
-.tool-icon{
-  width:43px;height:43px;border-radius:13px;display:grid;place-items:center;
-  font-size:21px;background:#56e4dc13;border:1px solid #56e4dc18
-}
-.tag{font-size:9px;letter-spacing:.8px;color:var(--cyan);background:#56e4dc0d;padding:5px 7px;border-radius:6px}
-.tool-card h3{font-size:14px;margin:18px 0 7px}
-.tool-card p{font-size:11px;color:var(--muted);line-height:1.7;margin:0}
-.feature-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
-.feature{
-  padding:20px;border:1px solid var(--border);border-radius:16px;
-  background:#111824;display:flex;gap:14px;align-items:flex-start
-}
-.feature-icon{font-size:22px}
-.feature h3{margin:1px 0 7px;font-size:13px}
-.feature p{margin:0;color:var(--muted);font-size:11px;line-height:1.7}
-.workspace{display:none}
-.workspace.active{display:block}
-.home-view.hidden{display:none}
-.page-heading{margin:5px 0 25px}
-.page-heading h1{font-size:35px;letter-spacing:-1.3px;margin:0 0 10px}
-.page-heading p{font-size:13px;color:var(--muted);line-height:1.7}
-.panel{
-  padding:22px;border:1px solid var(--border);border-radius:17px;
-  background:linear-gradient(145deg,#121a27,#0d131e);margin-bottom:17px
-}
-.panel label{display:block;color:#b9c5d9;font-size:12px;margin-bottom:10px}
-.field, .big-field, .select-field{
-  width:100%;padding:13px;background:#0a101b;border:1px solid #283347;
-  border-radius:11px;color:white;outline:none
-}
-.field:focus,.big-field:focus{border-color:#56e4dc88}
-.big-field{min-height:145px;resize:vertical;line-height:1.6}
-.field-row{display:flex;gap:12px;align-items:center;margin-top:13px;flex-wrap:wrap}
-.result{
-  white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8;font-size:13px;
-  color:#d8e0f0;background:#0a101a;border:1px solid var(--border);
-  border-radius:12px;padding:17px;min-height:70px
-}
-.result:empty{display:none}
-.chat-panel{display:flex;flex-direction:column;min-height:400px}
-.chat-messages{display:flex;flex-direction:column;gap:13px;flex:1;margin-bottom:18px}
-.message{padding:13px 15px;border:1px solid var(--border);border-radius:13px;font-size:13px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}
-.message.user{background:#28214970;border-color:#a88bff27;align-self:flex-end;max-width:90%}
-.message.ai{background:#111b28;align-self:flex-start;max-width:95%}
-.chat-compose{display:flex;gap:10px;align-items:end}
-.chat-compose textarea{flex:1;min-height:52px;max-height:150px;resize:vertical}
-.empty{color:var(--muted);font-size:12px;line-height:1.8}
-.footer{border-top:1px solid var(--border);padding-top:20px;margin-top:42px;color:#68758a;font-size:11px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.toast{
-  position:fixed;bottom:22px;right:22px;background:#182638;border:1px solid #56e4dc40;
-  padding:13px 17px;border-radius:12px;color:white;font-size:12px;z-index:99;
-  box-shadow:0 12px 40px #0005;display:none;max-width:calc(100vw - 35px)
-}
-@media(max-width:1050px){
-  .sidebar{width:220px}.main{margin-left:220px;width:calc(100% - 220px)}
-  .tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .content{padding:25px 23px}
-}
-@media(max-width:720px){
-  .sidebar{transform:translateX(-100%);transition:transform .25s;width:255px;box-shadow:20px 0 60px #0006}
-  .sidebar.open{transform:translateX(0)}
-  .main{margin-left:0;width:100%}.topbar{height:65px;padding:0 15px}
-  .mobile-menu{display:inline-grid;place-items:center;width:35px;height:35px;background:#141d2b;color:white;border:1px solid var(--border);border-radius:9px}
-  .search{display:none}.content{padding:18px 14px 35px}
-  .hero{padding:29px 19px 22px}h1{font-size:43px;letter-spacing:-1.7px}
-  .tools-grid{grid-template-columns:1fr 1fr;gap:10px}
-  .tool-card{padding:14px;min-height:170px}.tool-card h3{font-size:13px}
-  .tool-card p{font-size:10px}.feature-row{grid-template-columns:1fr}
-  .prompt-bottom{align-items:flex-start;flex-direction:column}
-  .section-head h2{font-size:18px}.top-title{font-size:12px}
-  .page-heading h1{font-size:29px}
-}
-@media(max-width:390px){
-  .tools-grid{grid-template-columns:1fr}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Simple Website</title>
+    <style>
+        /* ==========================================
+           RESET & BASE STYLES
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        /* ==========================================
+           HEADER & NAVIGATION
+           ========================================== */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #00bcd4;
+        }
+
+        /* ==========================================
+           HERO SECTION
+           ========================================== */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://unsplash.com') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 8rem 1rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #00bcd4;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #008ba3;
+        }
+
+        /* ==========================================
+           CONTENT SECTIONS
+           ========================================== */
+        .content-section {
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .light-bg {
+            background-color: #eaeaea;
+        }
+
+        .content-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ==========================================
+           CARDS LAYOUT (FLEXBOX)
+           ========================================== */
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            text-align: left;
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        /* ==========================================
+           FOOTER
+           ========================================== */
+        footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            text-align: center;
+            padding: 1.5rem;
+        }
+    </style>
 </head>
 <body>
-<div class="app">
-  <aside class="sidebar" id="sidebar">
-    <div class="brand">
-      <div class="logo">A</div>
-      <div>
-        <div class="brand-name">Amzo <span>AI</span></div>
-        <div class="brand-sub">SMART AI WORKSPACE</div>
-      </div>
-    </div>
-    <div class="nav-label">WORKSPACE</div>
-    <nav class="nav">
-      <button class="active" data-page="home"><span class="nav-icon">⌂</span>Home</button>
-      <button data-page="chat"><span class="nav-icon">✳</span>AI Chat</button>
-      <button data-page="writer"><span class="nav-icon">✎</span>AI Writer</button>
-      <button data-page="ideas"><span class="nav-icon">✧</span>Idea Lab</button>
-      <button data-page="study"><span class="nav-icon">▤</span>Study Assistant</button>
-      <button data-page="business"><span class="nav-icon">↗</span>Business Helper</button>
-      <button data-page="creator"><span class="nav-icon">▶</span>YouTube Creator</button>
-      <button data-page="research"><span class="nav-icon">⌕</span>Research</button>
-      <button data-page="code"><span class="nav-icon">⌘</span>Code Helper</button>
-    </nav>
-    <div class="nav-label">PERSONAL</div>
-    <nav class="nav">
-      <button data-page="projects"><span class="nav-icon">▣</span>My Projects</button>
-      <button data-page="history"><span class="nav-icon">◷</span>History</button>
-      <button data-page="settings"><span class="nav-icon">⚙</span>Settings</button>
-      <button data-page="about"><span class="nav-icon">ⓘ</span>About Amzo AI</button>
-    </nav>
-    <div class="nav-bottom">
-      <div class="status"><span class="dot"></span>Workspace ready<br><span>AI responses require an internet connection.</span></div>
-    </div>
-  </aside>
 
-  <main class="main">
-    <header class="topbar">
-      <div class="top-left">
-        <button class="mobile-menu" id="menuBtn" aria-label="Open menu">☰</button>
-        <div>
-          <div class="eyebrow">YOUR PERSONAL WORKSPACE</div>
-          <div class="top-title" id="topTitle">Welcome to Amzo AI</div>
-        </div>
-      </div>
-      <div class="top-right">
-        <input class="search" id="toolSearch" placeholder="Search AI tools..." aria-label="Search tools">
-        <div class="avatar">A</div>
-      </div>
+    <!-- Navigation Bar -->
+    <header>
+        <div class="logo">MyBrand</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
     </header>
 
-    <div class="content">
-      <section class="home-view" id="homeView">
-        <div class="hero">
-          <div class="pill"><span class="dot"></span> YOUR SMART AI WORKSPACE</div>
-          <h1>Your Ideas.<br><span class="gradient">Solved by AI.</span></h1>
-          <p>Ask questions, explore ideas, learn new skills and create something useful. One workspace to help turn your thoughts into action.</p>
-          <div class="prompt-box">
-            <textarea id="homePrompt" placeholder="What can I help you solve today?"></textarea>
-            <div class="prompt-bottom">
-              <span class="prompt-hint">✦ Ask a question or describe your idea</span>
-              <button class="primary" id="solveBtn">Solve with AI ↗</button>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Welcome to Our Website</h1>
+        <p>Build fast, clean, and responsive web pages with HTML and CSS.</p>
+        <a href="#services" class="btn">Get Started</a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="content-section">
+        <h2>About Us</h2>
+        <p>We create clean modern web layouts. You can edit this text to describe your project, business, or personal portfolio.</p>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="content-section light-bg">
+        <h2>Our Services</h2>
+        <div class="cards-container">
+            <div class="card">
+                <h3>Design</h3>
+                <p>Responsive layouts that look great on phones, tablets, and desktops.</p>
             </div>
-          </div>
-        </div>
-
-        <div class="section-head">
-          <div><h2>Explore AI Tools</h2><p>Choose a tool for what you want to do.</p></div>
-          <button class="text-link" id="showAllBtn">Explore all →</button>
-        </div>
-        <div class="tools-grid" id="toolsGrid">
-          <button class="tool-card" data-open="chat">
-            <div class="tool-top"><div class="tool-icon">✳</div><span class="tag">POPULAR</span></div>
-            <h3>Smart Problem Solver</h3><p>Ask questions and get useful, step-by-step answers.</p>
-          </button>
-          <button class="tool-card" data-open="writer">
-            <div class="tool-top"><div class="tool-icon">✎</div><span class="tag">CREATE</span></div>
-            <h3>AI Writer</h3><p>Draft, rewrite and improve your text with AI.</p>
-          </button>
-          <button class="tool-card" data-open="ideas">
-            <div class="tool-top"><div class="tool-icon">✧</div><span class="tag">EXPLORE</span></div>
-            <h3>Idea Lab</h3><p>Find fresh ideas for projects, products and content.</p>
-          </button>
-          <button class="tool-card" data-open="study">
-            <div class="tool-top"><div class="tool-icon">▤</div><span class="tag">LEARN</span></div>
-            <h3>Study Assistant</h3><p>Understand difficult topics in simple language.</p>
-          </button>
-          <button class="tool-card" data-open="business">
-            <div class="tool-top"><div class="tool-icon">↗</div><span class="tag">BUILD</span></div>
-            <h3>Business Helper</h3><p>Explore business ideas, plans and practical next steps.</p>
-          </button>
-          <button class="tool-card" data-open="creator">
-            <div class="tool-top"><div class="tool-icon">▶</div><span class="tag">CREATE</span></div>
-            <h3>YouTube Creator</h3><p>Generate video concepts, hooks and script drafts.</p>
-          </button>
-        </div>
-
-        <div class="section-head"><div><h2>Built for your next idea</h2><p>Simple tools to help you get started.</p></div></div>
-        <div class="feature-row">
-          <div class="feature"><div class="feature-icon">⚡</div><div><h3>Start with a question</h3><p>Describe what you need and let the AI help you plan the next step.</p></div></div>
-          <div class="feature"><div class="feature-icon">◇</div><div><h3>One workspace</h3><p>Move between learning, writing, brainstorming and coding tools.</p></div></div>
-        </div>
-      </section>
-
-      <section class="workspace" id="workspace">
-        <div class="page-heading"><h1 id="pageTitle">AI Chat</h1><p id="pageDescription">Ask a question and explore a solution.</p></div>
-
-        <div class="panel" id="standardPanel">
-          <label for="toolInput" id="inputLabel">What would you like help with?</label>
-          <textarea class="big-field" id="toolInput" placeholder="Write your question or idea here..."></textarea>
-          <div class="field-row">
-            <button class="primary" id="generateBtn">Generate with AI ↗</button>
-            <button class="secondary" id="clearBtn">Clear</button>
-            <button class="secondary" id="copyBtn">Copy result</button>
-            <button class="secondary" id="saveBtn">Save project</button>
-          </div>
-        </div>
-
-        <div class="panel" id="chatPanel" style="display:none">
-          <div class="chat-panel">
-            <div class="chat-messages" id="chatMessages">
-              <div class="message ai">Hi! I'm Amzo AI. What would you like help with today?</div>
+            <div class="card">
+                <h3>Development</h3>
+                <p>Clean semantic HTML5 and modern CSS styling.</p>
             </div>
-            <div class="chat-compose">
-              <textarea class="big-field" id="chatInput" placeholder="Type your message..." aria-label="Chat message"></textarea>
-              <button class="primary" id="sendChatBtn">Send ↗</button>
+            <div class="card">
+                <h3>Support</h3>
+                <p>Fast loading times and accessible structure.</p>
             </div>
-          </div>
-          <div class="field-row"><button class="secondary" id="clearChatBtn">Clear conversation</button></div>
         </div>
+    </section>
 
-        <div class="panel" id="resultPanel" style="display:none">
-          <div class="section-head" style="margin:0 0 15px"><div><h2>AI Result</h2><p>Your generated response appears below.</p></div></div>
-          <div class="result" id="resultText"></div>
-        </div>
-        <div class="panel" id="listPanel" style="display:none">
-          <div class="section-head" style="margin:0 0 15px"><div><h2 id="listTitle">Saved items</h2><p id="listDescription">Stored in this browser.</p></div></div>
-          <div id="listContent" class="empty"></div>
-        </div>
-      </section>
+    <!-- Contact Section -->
+    <section id="contact" class="content-section">
+        <h2>Contact Us</h2>
+        <p>Reach out to us at <a href="mailto:info@example.com">info@example.com</a>.</p>
+    </section>
 
-      <footer class="footer"><span>© <span id="year"></span> Amzo AI · Your Smart AI Workspace</span><span>Built to help ideas move forward.</span></footer>
-    </div>
-  </main>
-</div>
-<div class="toast" id="toast"></div>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 MyBrand. All rights reserved.</p>
+    </footer>
 
-<script>
-(() => {
-  "use strict";
-
-  // Existing Amzo AI Cloudflare Worker backend
-  const API_BASE = "https://ai-tool-api.amzoxamzoo.workers.dev/";
-
-  const $ = id => document.getElementById(id);
-  const state = {
-    page: "home",
-    lastResult: "",
-    lastPrompt: "",
-    busy: false,
-    history: readStore("amzo_history", []),
-    projects: readStore("amzo_projects", []),
-    chat: []
-  };
-
-  function readStore(key, fallback) {
-    try {
-      const value = JSON.parse(localStorage.getItem(key));
-      return value ?? fallback;
-    } catch {
-      return fallback;
-    }
-  }
-
-  function writeStore(key, value) {
-    try { localStorage.setItem(key, JSON.stringify(value)); }
-    catch { showToast("Browser storage is unavailable."); }
-  }
-
-  function showToast(message) {
-    const toast = $("toast");
-    toast.textContent = message;
-    toast.style.display = "block";
-    clearTimeout(showToast.timer);
-    showToast.timer = setTimeout(() => toast.style.display = "none", 3000);
-  }
-
-  const pageInfo = {
-    home: ["Welcome to Amzo AI", "Your AI workspace"],
-    chat: ["AI Chat", "Ask questions and get helpful, step-by-step answers."],
-    writer: ["AI Writer", "Draft, rewrite, summarize or improve your text."],
-    ideas: ["Idea Lab", "Brainstorm useful, original ideas and project concepts."],
-    study: ["Study Assistant", "Learn topics with simple explanations and examples."],
-    business: ["Business Helper", "Explore business ideas, plans and practical next steps."],
-    creator: ["YouTube Creator", "Plan videos, hooks, titles and script drafts."],
-    research: ["Research Assistant", "Explore a topic and organize the information you need."],
-    code: ["Code Helper", "Understand code, fix errors and plan small projects."],
-    projects: ["My Projects", "Your projects saved in this browser."],
-    history: ["History", "Your recent prompts and AI responses saved in this browser."],
-    settings: ["Settings", "Basic preferences for your workspace."],
-    about: ["About Amzo AI", "A smart workspace for questions, ideas and learning."]
-  };
-
-  const prompts = {
-    chat: "Answer the user's question clearly and helpfully. Use simple language and numbered steps when useful.",
-    writer: "Act as a helpful writing assistant. Improve or create the requested text. Follow the requested language, tone and format.",
-    ideas: "Act as a creative idea generator. Give specific, practical, original ideas. Explain how to start each idea. Avoid generic suggestions.",
-    study: "Act as a patient tutor. Explain the topic in beginner-friendly language, define important words, and give an example and a short practice question.",
-    business: "Act as a practical small-business planning assistant. Give realistic steps, startup considerations, potential risks and ways to test demand. Never guarantee earnings.",
-    creator: "Act as a YouTube content strategist. Help with a strong hook, video concept, title options, outline and script when requested.",
-    research: "Help research and explain the requested topic. Separate established facts from uncertainty. Do not invent sources or pretend to browse the live web.",
-    code: "Act as a beginner-friendly coding assistant. Explain the solution, provide complete relevant code when asked, and show how to test it."
-  };
-
-  const descriptions = {
-    chat: "Ask anything and get a clear response.",
-    writer: "Tell the AI what you want to write or improve.",
-    ideas: "Describe your interest, problem or project.",
-    study: "Enter a subject or question you want to understand.",
-    business: "Describe your business idea or challenge.",
-    creator: "Describe your channel, topic or video idea.",
-    research: "Enter a topic you want to explore.",
-    code: "Describe your coding question or error."
-  };
-
-  function navigate(page) {
-    if (!pageInfo[page]) page = "home";
-    state.page = page;
-    $("homeView").classList.toggle("hidden", page !== "home");
-    $("workspace").classList.toggle("active", page !== "home");
-    $("topTitle").textContent = pageInfo[page][0];
-    document.querySelectorAll(".nav button").forEach(button => {
-      button.classList.toggle("active", button.dataset.page === page);
-    });
-    $("sidebar").classList.remove("open");
-
-    const isChat = page === "chat";
-    const isList = ["projects", "history", "settings", "about"].includes(page);
-    $("standardPanel").style.display = isChat || isList ? "none" : "block";
-    $("chatPanel").style.display = isChat ? "block" : "none";
-    $("resultPanel").style.display = "none";
-    $("listPanel").style.display = isList ? "block" : "none";
-
-    $("pageTitle").textContent = pageInfo[page][0];
-    $("pageDescription").textContent = pageInfo[page][1];
-    $("toolInput").value = "";
-    $("resultText").textContent = "";
-
-    if (isList) renderList(page);
-
-    if (!isChat && !isList) {
-      $("inputLabel").textContent = descriptions[page] || "What would you like help with?";
-      $("toolInput").placeholder = page === "writer"
-        ? "Example: Write a short professional introduction..."
-        : page === "ideas"
-        ? "Example: Give me original AI website ideas..."
-        : page === "study"
-        ? "Example: Explain multiplication step by step..."
-        : page === "business"
-        ? "Example: Help me plan a small online business..."
-        : page === "creator"
-        ? "Example: Create a 60-second video about space..."
-        : page === "research"
-        ? "Example: Explain how solar panels work..."
-        : page === "code"
-        ? "Example: Help me build a responsive navigation bar..."
-        : "Write your question here...";
-      $("generateBtn").textContent = "Generate with AI ↗";
-    }
-  }
-
-  async function callAI(action, data) {
-    const clientId = getClientId();
-    const response = await fetch(API_BASE, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Amzo-Client": clientId
-      },
-      body: JSON.stringify({ action, clientId, ...data })
-    });
-
-    const raw = await response.text();
-    let result;
-    try { result = JSON.parse(raw); }
-    catch { result = { answer: raw }; }
-
-    if (!response.ok) {
-      throw new Error(result.error || result.message || `Server error (${response.status})`);
-    }
-    if (result.error) throw new Error(result.error);
-    return result;
-  }
-
-  function getClientId() {
-    try {
-      let id = localStorage.getItem("amzo_client_id");
-      if (!id) {
-        id = "amzo-" + Math.random().toString(36).slice(2) + Date.now().toString(36);
-        localStorage.setItem("amzo_client_id", id);
-      }
-      return id;
-    } catch {
-      return "amzo-web-client";
-    }
-  }
-
-  function extractAnswer(result) {
-    if (typeof result === "string") return result;
-    const possible = [
-      result.answer, result.response, result.reply, result.text,
-      result.output, result.content, result.message
-    ];
-    for (const value of possible) {
-      if (typeof value === "string" && value.trim()) return value;
-    }
-    if (result.data && typeof result.data === "string") return result.data;
-    return JSON.stringify(result, null, 2);
-  }
-
-  function setBusy(busy, button) {
-    state.busy = busy;
-    if (button) {
-      button.disabled = busy;
-      button.style.opacity = busy ? ".6" : "1";
-      button.dataset.originalText ||= button.textContent;
-      button.textContent = busy ? "Please wait..." : button.dataset.originalText;
-    }
-  }
-
-  async function generate() {
-    if (state.busy) return;
-    const page = state.page;
-    const input = $("toolInput").value.trim();
-    if (!input) {
-      showToast("Pehle apna question ya idea likho.");
-      $("toolInput").focus();
-      return;
-    }
-
-    const button = $("generateBtn");
-    const originalText = button.textContent;
-    button.dataset.originalText = originalText;
-    setBusy(true, button);
-    $("resultPanel").style.display = "block";
-    $("resultText").textContent = "Amzo AI is preparing your response...";
-    state.lastPrompt = input;
-
-    const instruction = prompts[page] || prompts.chat;
-    const message = instruction + "\n\nUser request:\n" + input;
-
-    try {
-      // Uses the existing chat endpoint so the backend does not need
-      // separate writer, ideas, study, business or creator actions.
-      const result = await callAI("chat", {
-        message,
-        prompt: message,
-        question: message,
-        tool: page
-      });
-      const answer = extractAnswer(result);
-      state.lastResult = answer;
-      $("resultText").textContent = answer;
-      state.history.unshift({
-        page, prompt: input, answer,
-        date: new Date().toLocaleString()
-      });
-      state.history = state.history.slice(0, 50);
-      writeStore("amzo_history", state.history);
-    } catch (error) {
-      $("resultText").textContent =
-        "AI connection error: " + (error.message || "Unknown error") +
-        "\n\nCheck your internet connection. If the problem continues, your Cloudflare Worker may expect a different request format or the server may be unavailable.";
-      showToast("AI response could not be generated.");
-    } finally {
-      button.disabled = false;
-      button.style.opacity = "1";
-      button.textContent = originalText;
-      state.busy = false;
-    }
-  }
-
-  async function sendChat() {
-    if (state.busy) return;
-    const input = $("chatInput").value.trim();
-    if (!input) {
-      showToast("Pehle message likho.");
-      return;
-    }
-    $("chatInput").value = "";
-    appendMessage("user", input);
-    state.chat.push({ role: "user", content: input });
-
-    const button = $("sendChatBtn");
-    const originalText = button.textContent;
-    button.dataset.originalText = originalText;
-    setBusy(true, button);
-    const pending = appendMessage("ai", "Thinking...");
-    try {
-      const conversation = state.chat.slice(-12);
-      const message = "You are Amzo AI, a helpful assistant. Answer clearly and honestly.\n\nConversation:\n" +
-        conversation.map(m => (m.role === "user" ? "User: " : "Assistant: ") + m.content).join("\n\n");
-      const result = await callAI("chat", {
-        message, prompt: message, messages: conversation
-      });
-      const answer = extractAnswer(result);
-      pending.textContent = answer;
-      state.chat.push({ role: "assistant", content: answer });
-      state.history.unshift({
-        page: "chat", prompt: input, answer,
-        date: new Date().toLocaleString()
-      });
-      state.history = state.history.slice(0, 50);
-      writeStore("amzo_history", state.history);
-    } catch (error) {
-      pending.textContent = "Connection error: " + error.message +
-        "\nCheck your internet connection or the AI server.";
-    } finally {
-      button.disabled = false;
-      button.style.opacity = "1";
-      button.textContent = originalText;
-      state.busy = false;
-    }
-  }
-
-  function appendMessage(type, text) {
-    const item = document.createElement("div");
-    item.className = "message " + type;
-    item.textContent = text;
-    $("chatMessages").appendChild(item);
-    $("chatMessages").scrollTop = $("chatMessages").scrollHeight;
-    return item;
-  }
-
-  function renderList(page) {
-    const content = $("listContent");
-    content.replaceChildren();
-
-    if (page === "projects" || page === "history") {
-      const items = page === "projects" ? state.projects : state.history;
-      $("listTitle").textContent = page === "projects" ? "Saved projects" : "Recent activity";
-      $("listDescription").textContent = "These items are stored locally in this browser.";
-      if (!items.length) {
-        content.textContent = page === "projects"
-          ? "No saved projects yet. Generate a result and select Save project."
-          : "Your recent prompts will appear here after you use an AI tool.";
-        return;
-      }
-
-      items.forEach((item, index) => {
-        const card = document.createElement("div");
-        card.className = "panel";
-        card.style.marginBottom = "10px";
-        const title = document.createElement("strong");
-        title.textContent = item.prompt || "Saved item";
-        title.style.fontSize = "13px";
-        const meta = document.createElement("p");
-        meta.className = "empty";
-        meta.textContent = (item.page || "AI") + " · " + (item.date || "");
-        const preview = document.createElement("p");
-        preview.className = "empty";
-        preview.textContent = (item.answer || "").slice(0, 240);
-        const open = document.createElement("button");
-        open.className = "secondary";
-        open.textContent = "View result";
-        open.onclick = () => {
-          state.lastPrompt = item.prompt || "";
-          state.lastResult = item.answer || "";
-          navigate(item.page && pageInfo[item.page] ? item.page : "chat");
-          if (state.page !== "chat") $("toolInput").value = state.lastPrompt;
-          $("resultPanel").style.display = "block";
-          $("resultText").textContent = state.lastResult;
-        };
-        const remove = document.createElement("button");
-        remove.className = "secondary";
-        remove.textContent = "Delete";
-        remove.style.marginLeft = "8px";
-        remove.onclick = () => {
-          items.splice(index, 1);
-          writeStore(page === "projects" ? "amzo_projects" : "amzo_history", items);
-          renderList(page);
-        };
-        card.append(title, meta, preview, open, remove);
-        content.appendChild(card);
-      });
-      return;
-    }
-
-    if (page === "settings") {
-      const note = document.createElement("p");
-      note.className = "empty";
-      note.textContent = "Your projects and history are saved in this browser. Clearing browser site data may remove them. The AI tools send your prompts to the configured AI server to generate responses.";
-      const clear = document.createElement("button");
-      clear.className = "secondary";
-      clear.textContent = "Clear local history";
-      clear.onclick = () => {
-        if (confirm("Delete all locally saved history?")) {
-          state.history = [];
-          writeStore("amzo_history", []);
-          showToast("History cleared.");
-        }
-      };
-      content.append(note, clear);
-      return;
-    }
-
-    if (page === "about") {
-      const about = document.createElement("p");
-      about.className = "empty";
-      about.textContent = "Amzo AI is a smart AI workspace designed to bring question answering, writing, idea generation, learning, business planning, content planning and coding help into one place. AI availability depends on the connected backend.";
-      content.appendChild(about);
-    }
-  }
-
-  function saveProject() {
-    if (!state.lastResult) {
-      showToast("Pehle AI se result generate karo.");
-      return;
-    }
-    state.projects.unshift({
-      page: state.page,
-      prompt: state.lastPrompt,
-      answer: state.lastResult,
-      date: new Date().toLocaleString()
-    });
-    state.projects = state.projects.slice(0, 100);
-    writeStore("amzo_projects", state.projects);
-    showToast("Project saved in this browser.");
-  }
-
-  document.querySelectorAll("[data-page]").forEach(button => {
-    button.addEventListener("click", () => navigate(button.dataset.page));
-  });
-
-  document.querySelectorAll("[data-open]").forEach(button => {
-    button.addEventListener("click", () => navigate(button.dataset.open));
-  });
-
-  $("solveBtn").addEventListener("click", () => {
-    const value = $("homePrompt").value.trim();
-    if (!value) {
-      showToast("Pehle apna question likho.");
-      $("homePrompt").focus();
-      return;
-    }
-    navigate("chat");
-    $("chatInput").value = value;
-    sendChat();
-  });
-
-  $("generateBtn").addEventListener("click", generate);
-  $("sendChatBtn").addEventListener("click", sendChat);
-  $("chatInput").addEventListener("keydown", event => {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      sendChat();
-    }
-  });
-
-  $("clearBtn").addEventListener("click", () => {
-    $("toolInput").value = "";
-    $("resultText").textContent = "";
-    $("resultPanel").style.display = "none";
-    state.lastResult = "";
-    state.lastPrompt = "";
-  });
-
-  $("copyBtn").addEventListener("click", async () => {
-    if (!state.lastResult) {
-      showToast("Copy karne ke liye pehle result generate karo.");
-      return;
-    }
-    try {
-      await navigator.clipboard.writeText(state.lastResult);
-      showToast("Result copied.");
-    } catch {
-      showToast("Copy unavailable. Select the result and copy it manually.");
-    }
-  });
-
-  $("saveBtn").addEventListener("click", saveProject);
-
-  $("clearChatBtn").addEventListener("click", () => {
-    state.chat = [];
-    $("chatMessages").replaceChildren();
-    appendMessage("ai", "Hi! I'm Amzo AI. What would you like help with today?");
-    showToast("Conversation cleared.");
-  });
-
-  $("menuBtn").addEventListener("click", () => {
-    $("sidebar").classList.toggle("open");
-  });
-
-  $("showAllBtn").addEventListener("click", () => navigate("chat"));
-
-  $("toolSearch").addEventListener("keydown", event => {
-    if (event.key === "Enter") {
-      const term = $("toolSearch").value.toLowerCase().trim();
-      const match = Object.keys(pageInfo).find(key =>
-        pageInfo[key][0].toLowerCase().includes(term)
-      );
-      if (match) navigate(match);
-      else showToast("No matching tool found.");
-    }
-  });
-
-  $("year").textContent = new Date().getFullYear();
-  navigate("home");
-})();
-</script>
 </body>
 </html>
