@@ -1,0 +1,381 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FreePlay Hub — Instant Browser Arcade</title>
+<style>
+:root {
+  --bg:#080b12;--panel:#111725;--panel2:#171f30;
+  --line:#29344a;--text:#f5f7ff;--muted:#9ba8bd;
+  --blue:#7885ff;--cyan:#42f5d1;--pink:#ff73b7;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:radial-gradient(ellipse at 80% 0%,#26264e 0,transparent 35%),var(--bg);
+  color:var(--text);font:15px/1.55 system-ui,Segoe UI,Arial,sans-serif
+}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+button{cursor:pointer}
+.wrap{width:min(1160px,calc(100% - 36px));margin:auto}
+header{position:sticky;top:0;z-index:10;background:#080b12e8;backdrop-filter:blur(16px);border-bottom:1px solid #ffffff12}
+.nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-size:20px;font-weight:950;letter-spacing:-.8px}
+.logo{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#071018;margin-right:8px}
+.brand span:last-child{color:var(--cyan)}
+.navlinks{display:flex;gap:23px;color:var(--muted);font-size:13px}
+.navlinks a:hover{color:white}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:12px 16px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);color:white;font-weight:800}
+.btn.primary{background:linear-gradient(135deg,#6979ff,#9a60ff);border:0}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:40px;padding:68px 0 40px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border-radius:99px;border:1px solid #42f5d144;color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:1px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--cyan)}
+h1{font-size:clamp(43px,6vw,72px);line-height:1;letter-spacing:-3.4px;margin:20px 0}
+.gradient{background:linear-gradient(100deg,var(--cyan),#9b9cff,var(--pink));color:transparent;background-clip:text}
+.lead{max-width:560px;color:var(--muted);font-size:16px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.muted{color:var(--muted)}
+.preview{position:relative;overflow:hidden;padding:22px;border-radius:26px;border:1px solid #ffffff20;background:linear-gradient(145deg,#202b4c,#101522 70%);min-height:310px}
+.preview-top{display:flex;justify-content:space-between;font-size:11px;color:#bdc9e2}
+.preview-art{margin-top:25px;min-height:205px;border-radius:18px;background:radial-gradient(circle at 50% 45%,#4856ad66,transparent 45%),#0a101c;display:grid;place-items:center;position:relative;overflow:hidden;border:1px solid #ffffff14}
+.orbit{position:absolute;width:190px;height:190px;border:1px solid #7485ff88;border-radius:50%;transform:rotateX(65deg)}
+.orbit.two{width:140px;height:140px;border-color:#42f5d177;transform:rotateX(65deg) rotateZ(55deg)}
+.playicon{display:grid;place-items:center;width:76px;height:76px;border-radius:25px;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#08101a;font-size:27px;z-index:1;box-shadow:0 0 45px #7885ff66}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:5px 0 45px}
+.stat{background:#111725b8;border:1px solid var(--line);border-radius:15px;padding:16px}
+.stat b{display:block;font-size:21px}
+.stat span{font-size:12px;color:var(--muted)}
+section{padding:18px 0 44px}
+.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}
+.kicker{font-size:11px;font-weight:900;letter-spacing:1.5px;color:var(--cyan);text-transform:uppercase}
+h2{font-size:30px;letter-spacing:-1px;margin:5px 0}
+.searchrow{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+#search{flex:1;min-width:200px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:white;outline:none}
+#search:focus{border-color:var(--blue)}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filter{padding:10px 12px;border-radius:10px;background:var(--panel);border:1px solid var(--line);color:var(--muted)}
+.filter.active{color:white;border-color:var(--blue);background:#7885ff20}
+.games{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{overflow:hidden;border-radius:18px;border:1px solid var(--line);background:linear-gradient(155deg,#161e2e,#10141f);transition:.2s}
+.card:hover{transform:translateY(-4px);border-color:#6979ff}
+.art{height:150px;display:grid;place-items:center;position:relative;background:linear-gradient(135deg,#123e42,#1c2346)}
+.art .emoji{font-size:56px;filter:drop-shadow(0 8px 15px #0008)}
+.art .tag{position:absolute;top:12px;left:12px;padding:4px 7px;background:#080b12bd;border-radius:7px;font-size:10px;font-weight:900}
+.cardbody{padding:16px}
+.cardbody h3{margin:0;font-size:18px}
+.cardbody p{font-size:13px;color:var(--muted);min-height:40px}
+.cardbuttons{display:flex;gap:8px}
+.smallbtn{flex:1;padding:10px 7px;border-radius:10px;background:#202a40;color:white;border:1px solid #33405c;font-size:12px;font-weight:800}
+.smallbtn.main{background:var(--blue);border-color:transparent}
+.empty{display:none;color:var(--muted);padding:20px}
+.gamepanel{display:none;margin-top:20px;border:1px solid #4a5781;background:#0d121e;border-radius:18px;padding:18px}
+.gamepanel.open{display:block}
+.paneltop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.paneltop h3{margin:0}
+.close{background:#252e43;color:white;border:1px solid var(--line);padding:8px 12px;border-radius:9px}
+.screen{display:grid;place-items:center;min-height:260px;background:#080c14;border:1px solid var(--line);border-radius:12px;padding:12px;overflow:hidden}
+canvas{max-width:100%;height:auto}
+.score{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px;font-size:13px;color:#dce4f7}
+.score b{color:var(--cyan)}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.control{padding:9px 12px;border:1px solid #35415c;border-radius:9px;background:#202a40;color:white;font-weight:800}
+.help{font-size:12px;color:var(--muted)}
+.gta{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;padding:23px;border:1px solid #ffffff1c;border-radius:23px;background:linear-gradient(125deg,#1b2834,#111522)}
+.gtaart{height:260px;position:relative;overflow:hidden;border-radius:16px;display:grid;place-items:center;background:linear-gradient(165deg,#b4d2b4,#578b7d 48%,#253a42 49%,#101722)}
+.city{position:absolute;bottom:0;width:100%;height:43%;background:repeating-linear-gradient(90deg,#131c27 0 24px,#26333e 24px 43px,#101722 43px 60px);clip-path:polygon(0 35%,10% 35%,10% 0,19% 0,19% 45%,30% 45%,30% 15%,42% 15%,42% 55%,55% 55%,55% 5%,68% 5%,68% 42%,80% 42%,80% 0,90% 0,90% 33%,100% 33%,100% 100%,0 100%)}
+.gtaword{z-index:1;text-align:center;font-size:43px;line-height:.95;font-weight:1000;text-shadow:0 4px 0 #111827;transform:rotate(-5deg)}
+.gtaword span{display:block;font-size:16px;letter-spacing:6px;color:#d8ffba;margin-top:10px}
+.gta h3{font-size:28px;line-height:1.1;margin:12px 0}
+.notice{border-left:3px solid #eecb79;background:#eecb790d;padding:12px;border-radius:0 10px 10px 0;font-size:13px;color:#d8d2c3;margin:15px 0}
+.storelinks{display:flex;flex-wrap:wrap;gap:9px}
+.storelinks a{padding:11px 12px;border-radius:10px;background:#edf0ff;color:#131827;font-size:12px;font-weight:900}
+.storelinks a.alt{background:#252e43;color:white;border:1px solid #3c4863}
+footer{border-top:1px solid #ffffff14;padding:25px 0 35px;color:#8490a8;font-size:12px}
+.foot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:42px}.games{grid-template-columns:repeat(2,minmax(0,1fr))}.gta{grid-template-columns:1fr}.navlinks{display:none}}
+@media(max-width:540px){.wrap{width:calc(100% - 26px)}.games{grid-template-columns:1fr}.stats{gap:7px}.stat{padding:11px}.stat b{font-size:18px}h1{letter-spacing:-2px}.sectionhead{align-items:start;flex-direction:column}.gta{padding:13px}.gtaword{font-size:35px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap nav">
+  <a class="brand" href="#home"><span class="logo">F</span>FreePlay<span>Hub</span></a>
+  <nav class="navlinks"><a href="#games">Browser Games</a><a href="#gta">GTA V</a><a href="#about">About</a></nav>
+  <a class="btn primary" href="#games">Play Free ↗</a>
+ </div>
+</header>
+
+<main class="wrap" id="home">
+ <div class="hero">
+  <div>
+   <div class="eyebrow"><span class="dot"></span> INSTANT BROWSER ARCADE</div>
+   <h1>Less loading.<br><span class="gradient">More gaming.</span></h1>
+   <p class="lead">Discover quick games you can play right here. No downloads, sign-ups, or payments needed for our built-in mini-games.</p>
+   <div class="actions"><a class="btn primary" href="#games">▶ Explore games</a><a class="btn" href="#gta">Explore GTA V ↗</a></div>
+   <p class="help">Built-in games work locally in your browser.</p>
+  </div>
+  <div class="preview">
+   <div class="preview-top"><b>FREEPLAY / ARCADE</b><span style="color:var(--cyan)">● READY</span></div>
+   <div class="preview-art"><div class="orbit"></div><div class="orbit two"></div><div class="playicon">▶</div></div>
+   <p><b>Instant Play Arcade</b><br><span class="muted">Three mini-games. One page.</span></p>
+  </div>
+ </div>
+
+ <div class="stats">
+  <div class="stat"><b>03</b><span>Playable mini-games</span></div>
+  <div class="stat"><b>Rs 0</b><span>To play mini-games</span></div>
+  <div class="stat"><b>No account</b><span>Required to play</span></div>
+ </div>
+
+ <section id="games">
+  <div class="sectionhead"><div><div class="kicker">The arcade</div><h2>Pick your next game.</h2><p class="muted">Choose a game and start playing instantly.</p></div></div>
+  <div class="searchrow">
+   <input id="search" type="search" placeholder="Search games..." aria-label="Search games">
+   <div class="filters">
+    <button class="filter active" data-filter="all">All games</button>
+    <button class="filter" data-filter="arcade">Arcade</button>
+    <button class="filter" data-filter="casual">Casual</button>
+    <button class="filter" data-filter="puzzle">Puzzle</button>
+   </div>
+  </div>
+
+  <div class="games" id="gameGrid">
+   <article class="card" data-name="neon snake classic arcade" data-category="arcade">
+    <div class="art"><span class="tag">ARCADE</span><span class="emoji">🐍</span></div>
+    <div class="cardbody"><h3>Neon Snake</h3><p>Collect glowing dots, grow longer, and avoid crashing.</p><div class="cardbuttons"><button class="smallbtn main" onclick="launch('snake')">Play now ↗</button><button class="smallbtn" onclick="helpGame('snake')">How to play</button></div></div>
+   </article>
+   <article class="card" data-name="tap rush speed click casual" data-category="casual">
+    <div class="art" style="background:linear-gradient(135deg,#42204d,#24204b)"><span class="tag">CASUAL</span><span class="emoji">⚡</span></div>
+    <div class="cardbody"><h3>Tap Rush</h3><p>Tap as fast as possible before the ten-second timer ends.</p><div class="cardbuttons"><button class="smallbtn main" onclick="launch('tap')">Play now ↗</button><button class="smallbtn" onclick="helpGame('tap')">How to play</button></div></div>
+   </article>
+   <article class="card" data-name="memory match cards brain puzzle" data-category="puzzle">
+    <div class="art" style="background:linear-gradient(135deg,#51401e,#24213f)"><span class="tag">PUZZLE</span><span class="emoji">🧠</span></div>
+    <div class="cardbody"><h3>Memory Match</h3><p>Flip the cards and find every matching symbol pair.</p><div class="cardbuttons"><button class="smallbtn main" onclick="launch('memory')">Play now ↗</button><button class="smallbtn" onclick="helpGame('memory')">How to play</button></div></div>
+   </article>
+  </div>
+  <p class="empty" id="empty">No games match your search. Try another name.</p>
+
+  <div class="gamepanel" id="gamePanel">
+   <div class="paneltop"><h3 id="gameTitle">Game</h3><button class="close" onclick="closeGame()">✕ Close</button></div>
+   <div id="gameContent"></div>
+  </div>
+ </section>
+
+ <section id="gta">
+  <div class="sectionhead"><div><div class="kicker">Featured game</div><h2>Grand Theft Auto V</h2><p class="muted">Real information. Official store links. No fake launch button.</p></div></div>
+  <div class="gta">
+   <div class="gtaart"><div class="city"></div><div class="gtaword">GRAND<br>THEFT AUTO<span>V · LOS SANTOS</span></div></div>
+   <div>
+    <div class="eyebrow">PC / CONSOLE TITLE</div>
+    <h3>Looking for GTA V?</h3>
+    <p class="muted">The full GTA V game is a commercial title. This website does not pretend that the real game runs inside your browser.</p>
+    <div class="notice"><b>Stay safe:</b> Avoid unknown “free GTA V” downloads that ask you to install suspicious files, disable antivirus, or provide your account password.</div>
+    <div class="storelinks">
+     <a href="https://store.rockstargames.com/game/buy-gta-v" target="_blank" rel="noopener noreferrer">Rockstar Store ↗</a>
+     <a class="alt" href="https://store.steampowered.com/" target="_blank" rel="noopener noreferrer">Steam ↗</a>
+     <a class="alt" href="https://store.epicgames.com/p/grand-theft-auto-v" target="_blank" rel="noopener noreferrer">Epic Games ↗</a>
+    </div>
+    <p class="help">Prices, offers, and regional availability may change. Check the official store for current details.</p>
+   </div>
+  </div>
+ </section>
+
+ <section id="about"><div class="kicker">About FreePlay Hub</div><h2>Simple. Fast. Playable.</h2><p class="muted">An independent browser arcade project. Our mini-games run in this page; external game links open their respective official websites.</p></section>
+</main>
+
+<footer><div class="wrap foot"><span>© 2026 FreePlay Hub</span><span>Not affiliated with Rockstar Games, Steam, or Epic Games.</span></div></footer>
+
+<script>
+const panel=document.getElementById('gamePanel');
+const content=document.getElementById('gameContent');
+const title=document.getElementById('gameTitle');
+let snakeTimer=null,tapTimer=null,paused=false;
+function helpGame(g){
+ const tips={
+  snake:'Use arrow keys or WASD to move. Collect the mint dots. Avoid the walls and your own tail.',
+  tap:'Press Start, then tap the big button as many times as you can in 10 seconds.',
+  memory:'Flip two cards at a time. Matching symbols stay open. Find all six pairs.'
+ };
+ alert(tips[g]);
+}
+function closeGame(){
+ if(snakeTimer)clearInterval(snakeTimer);
+ if(tapTimer)clearInterval(tapTimer);
+ snakeTimer=null;tapTimer=null;
+ panel.classList.remove('open');content.innerHTML='';
+}
+function launch(g){
+ closeGame();panel.classList.add('open');
+ title.textContent={snake:'Neon Snake',tap:'Tap Rush',memory:'Memory Match'}[g];
+ if(g==='snake')snakeGame();
+ if(g==='tap')tapGame();
+ if(g==='memory')memoryGame();
+ panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* NEON SNAKE */
+let snake,dir,food,score;
+function snakeGame(){
+ content.innerHTML=`
+ <div class="score">Score: <b id="snakeScore">0</b><span>Move with arrow keys / WASD</span></div>
+ <div class="screen"><canvas id="snakeCanvas" width="420" height="300"></canvas></div>
+ <div class="controls">
+ <button class="control" onclick="snakeStart()">↻ Restart</button>
+ <button class="control" onclick="snakePause()">Ⅱ Pause / Resume</button>
+ </div>
+ <div class="controls">
+ <button class="control" onclick="setDir(0,-1)">↑</button>
+ <button class="control" onclick="setDir(-1,0)">←</button>
+ <button class="control" onclick="setDir(0,1)">↓</button>
+ <button class="control" onclick="setDir(1,0)">→</button>
+ </div><p class="help">Eat the mint dots and avoid crashing.</p>`;
+ snakeStart();
+}
+function snakeStart(){
+ if(snakeTimer)clearInterval(snakeTimer);
+ snake=[{x:7,y:7},{x:6,y:7},{x:5,y:7}];
+ dir={x:1,y:0};food={x:14,y:7};score=0;paused=false;
+ drawSnake();snakeTimer=setInterval(tickSnake,120);
+}
+function snakePause(){paused=!paused}
+function setDir(x,y){
+ if(dir&&dir.x===-x&&dir.y===-y)return;
+ dir={x,y};
+}
+document.addEventListener('keydown',e=>{
+ if(!panel.classList.contains('open'))return;
+ const k=e.key.toLowerCase();
+ const dirs={arrowup:[0,-1],w:[0,-1],arrowdown:[0,1],s:[0,1],arrowleft:[-1,0],a:[-1,0],arrowright:[1,0],d:[1,0]};
+ if(dirs[k]){e.preventDefault();setDir(...dirs[k])}
+});
+function tickSnake(){
+ if(paused)return;
+ const c=document.getElementById('snakeCanvas');
+ if(!c){clearInterval(snakeTimer);return}
+ const next={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
+ if(next.x<0||next.y<0||next.x>=21||next.y>=15||snake.some(p=>p.x===next.x&&p.y===next.y)){
+  clearInterval(snakeTimer);snakeTimer=null;
+  alert('Game over! Your score: '+score+'. Press Restart to try again.');return;
+ }
+ snake.unshift(next);
+ if(next.x===food.x&&next.y===food.y){
+  score++;document.getElementById('snakeScore').textContent=score;
+  do{food={x:Math.floor(Math.random()*21),y:Math.floor(Math.random()*15)}}
+  while(snake.some(p=>p.x===food.x&&p.y===food.y));
+ }else snake.pop();
+ drawSnake();
+}
+function drawSnake(){
+ const c=document.getElementById('snakeCanvas');if(!c)return;
+ const x=c.getContext('2d'),s=20;
+ x.fillStyle='#0b1220';x.fillRect(0,0,c.width,c.height);
+ x.strokeStyle='#1a263b';
+ for(let i=0;i<=21;i++){x.beginPath();x.moveTo(i*s,0);x.lineTo(i*s,300);x.stroke()}
+ for(let i=0;i<=15;i++){x.beginPath();x.moveTo(0,i*s);x.lineTo(420,i*s);x.stroke()}
+ x.fillStyle='#42f5d1';x.beginPath();x.arc(food.x*s+10,food.y*s+10,7,0,Math.PI*2);x.fill();
+ snake.forEach((p,i)=>{x.fillStyle=i?'#687dff':'#b0b9ff';x.fillRect(p.x*s+2,p.y*s+2,16,16)});
+}
+
+/* TAP RUSH */
+function tapGame(){
+ content.innerHTML=`
+ <div class="score">Time: <b id="tapTime">10.0s</b> Score: <b id="tapScore">0</b></div>
+ <div class="screen" style="min-height:270px"><div style="text-align:center">
+ <p id="tapMessage" class="muted">Ready? Start the round.</p>
+ <button id="tapTarget" disabled style="width:165px;height:165px;border-radius:50%;border:0;background:linear-gradient(135deg,#42f5d1,#7885ff);font-size:24px;font-weight:1000;color:#08101a">READY</button>
+ <p><button class="control" id="tapStart">▶ Start round</button></p>
+ </div></div><p class="help">Tap the large button as many times as you can in 10 seconds.</p>`;
+ let score=0,left=10,started=false;
+ const target=document.getElementById('tapTarget');
+ const start=document.getElementById('tapStart');
+ target.onclick=()=>{
+  if(!started)return;
+  score++;document.getElementById('tapScore').textContent=score;
+  target.style.transform='scale(.96)';
+  setTimeout(()=>target.style.transform='',60);
+ };
+ start.onclick=()=>{
+  if(started)return;
+  started=true;score=0;left=10;
+  target.disabled=false;target.textContent='TAP!';
+  start.disabled=true;document.getElementById('tapMessage').textContent='Go! Go! Go!';
+  document.getElementById('tapScore').textContent='0';
+  tapTimer=setInterval(()=>{
+   left=Math.max(0,left-.1);
+   document.getElementById('tapTime').textContent=left.toFixed(1)+'s';
+   if(left<=0){
+    clearInterval(tapTimer);tapTimer=null;started=false;
+    target.disabled=true;target.textContent='DONE';
+    start.disabled=false;start.textContent='↻ Play again';
+    document.getElementById('tapMessage').textContent='Time up! You scored '+score+' taps.';
+   }
+  },100);
+ };
+}
+
+/* MEMORY MATCH */
+function memoryGame(){
+ const symbols=['🚀','🎮','🌟','🍉','🐸','🎧','🚀','🎮','🌟','🍉','🐸','🎧'];
+ symbols.sort(()=>Math.random()-.5);
+ let open=[],matched=new Set(),moves=0;
+ content.innerHTML=`
+ <div class="score">Moves: <b id="memMoves">0</b> Pairs: <b id="memPairs">0 / 6</b></div>
+ <div id="memGrid" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;max-width:530px;margin:auto"></div>
+ <div class="controls"><button class="control" onclick="launch('memory')">↻ New game</button></div>
+ <p class="help">Find all six pairs. Try to remember each symbol's position.</p>`;
+ const grid=document.getElementById('memGrid');
+ symbols.forEach((sym,i)=>{
+  const b=document.createElement('button');
+  b.className='control';b.textContent='?';
+  b.style.cssText='height:72px;font-size:25px;background:#192139;border-radius:13px';
+  b.setAttribute('aria-label','Hidden card');
+  b.onclick=()=>{
+   if(matched.has(i)||open.includes(i)||open.length===2)return;
+   b.textContent=sym;b.setAttribute('aria-label',sym);open.push(i);
+   if(open.length===2){
+    moves++;document.getElementById('memMoves').textContent=moves;
+    if(symbols[open[0]]===symbols[open[1]]){
+     open.forEach(j=>{matched.add(j);grid.children[j].style.background='#12463f'});
+     open=[];document.getElementById('memPairs').textContent=(matched.size/2)+' / 6';
+     if(matched.size===12)setTimeout(()=>alert('You won in '+moves+' moves!'),100);
+    }else{
+     const pair=[...open];
+     setTimeout(()=>{
+      pair.forEach(j=>{
+       if(!matched.has(j)){grid.children[j].textContent='?';grid.children[j].setAttribute('aria-label','Hidden card')}
+      });
+      open=[];
+     },650);
+    }
+   }
+  };
+  grid.appendChild(b);
+ });
+}
+
+/* SEARCH + FILTERS */
+const search=document.getElementById('search');
+let activeFilter='all';
+document.querySelectorAll('.filter').forEach(btn=>{
+ btn.addEventListener('click',()=>{
+  document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');activeFilter=btn.dataset.filter;filterGames();
+ });
+});
+search.addEventListener('input',filterGames);
+function filterGames(){
+ const q=search.value.toLowerCase().trim();let shown=0;
+ document.querySelectorAll('.card').forEach(card=>{
+  const match=card.dataset.name.includes(q);
+  const category=activeFilter==='all'||card.dataset.category===activeFilter;
+  card.style.display=match&&category?'':'none';
+  if(match&&category)shown++;
+ });
+ document.getElementById('empty').style.display=shown?'none':'block';
+}
+</script>
+</body>
+</html>
