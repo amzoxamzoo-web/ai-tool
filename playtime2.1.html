@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AMZO ARCADE — Game Universe</title>
+<style>
+:root{--bg:#080b14;--panel:#111827;--panel2:#182236;--blue:#4385ff;--cyan:#40d9ff;--text:#f5f7ff;--muted:#9aa8c2;--line:#27344b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px Arial,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+header{height:72px;display:flex;align-items:center;gap:24px;padding:0 5%;border-bottom:1px solid var(--line);background:#0a0e19;position:sticky;top:0;z-index:5}
+.logo{font-size:22px;font-weight:900;letter-spacing:1px;white-space:nowrap}
+.logo span{color:var(--cyan)}
+nav{display:flex;gap:18px;align-items:center}
+nav a{color:#c3cde0;font-size:14px}
+nav a:hover{color:var(--cyan)}
+.search{margin-left:auto;width:min(300px,35vw);padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;color:white;outline:none}
+.search:focus{border-color:var(--blue)}
+.wrap{max-width:1440px;margin:auto;padding:28px 5% 60px}
+.hero{min-height:330px;border-radius:22px;overflow:hidden;position:relative;display:flex;align-items:center;padding:36px;background:linear-gradient(90deg,#08101e 0%,#08101eea 40%,#08101e20 100%),url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=85') center/cover}
+.hero-content{max-width:550px}
+.eyebrow{color:var(--cyan);font-size:12px;font-weight:bold;letter-spacing:2px}
+h1{font-size:clamp(34px,5vw,58px);line-height:1.04;margin:15px 0}
+.hero p{color:#d1d9e9;line-height:1.7;max-width:470px}
+.btn{border:0;border-radius:9px;padding:12px 18px;background:var(--blue);color:white;font-weight:bold;display:inline-block}
+.btn.secondary{background:#202d43;border:1px solid #384a67}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.section{margin-top:36px;scroll-margin-top:90px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+h2{font-size:23px;margin:0}
+.sub{font-size:13px;color:var(--muted);margin-top:7px}
+.stores{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.store{padding:22px;background:linear-gradient(140deg,#17243b,#101624);border:1px solid var(--line);border-radius:15px;transition:.2s}
+.store:hover,.game:hover{transform:translateY(-3px);border-color:#527ec5}
+.store-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:#253652;font-size:22px;margin-bottom:14px}
+.store h3{margin:0 0 8px}
+.store p{font-size:13px;color:var(--muted);min-height:34px;line-height:1.5}
+.store a{font-size:13px;color:var(--cyan);font-weight:bold}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.toolbar select,.toolbar button{background:var(--panel);color:white;border:1px solid var(--line);border-radius:9px;padding:10px 13px}
+.toolbar button.active{background:var(--blue)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.game{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:.2s}
+.cover{height:155px;position:relative;background:#17243b}
+.cover img{width:100%;height:100%;object-fit:cover;display:block}
+.fav{position:absolute;top:10px;right:10px;border:0;background:#080b14dc;color:white;border-radius:50%;width:35px;height:35px;font-size:20px}
+.fav.on{color:#ff648c}
+.game-info{padding:14px}
+.game-title{font-size:16px;font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.tag{background:#22304a;color:#b8c9e8;border-radius:5px;padding:5px 7px;font-size:10px}
+.price{font-size:13px;color:#b5c5df;margin:10px 0}
+.game-buttons{display:flex;gap:7px}
+.game-buttons a,.game-buttons button{flex:1;text-align:center;border:0;border-radius:7px;padding:10px 5px;font-size:12px;font-weight:bold}
+.primary{background:var(--blue);color:white}
+.secondary{background:#253249;color:white}
+.empty{grid-column:1/-1;color:var(--muted);padding:30px;text-align:center}
+.games{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.mini{background:var(--panel);border:1px solid var(--line);padding:18px;border-radius:14px}
+.mini h3{margin:0 0 8px}
+.mini p{color:var(--muted);font-size:13px;line-height:1.5}
+.mini button{border:0;border-radius:8px;padding:10px 12px;background:var(--blue);color:white}
+#playArea{margin-top:16px;background:#101827;border:1px solid var(--line);border-radius:14px;padding:20px;display:none}
+#playArea canvas{display:block;max-width:100%;margin:12px auto;background:#050b18;border-radius:10px}
+#playArea button{padding:10px 14px;border:0;border-radius:8px;background:var(--blue);color:white}
+#playArea input{padding:10px;border-radius:8px;border:1px solid var(--line);background:#080b14;color:white}
+#playArea .board{display:grid;grid-template-columns:repeat(3,70px);gap:6px;margin:15px 0}
+#playArea .cell{height:70px;font-size:24px}
+footer{border-top:1px solid var(--line);padding:28px 5%;color:var(--muted);font-size:13px;text-align:center;line-height:1.8}
+@media(max-width:1000px){.grid,.games{grid-template-columns:repeat(2,minmax(0,1fr))}.stores{grid-template-columns:repeat(2,minmax(0,1fr))}nav{gap:10px}}
+@media(max-width:620px){header{height:auto;min-height:65px;flex-wrap:wrap;padding:14px 4%;gap:12px}.logo{font-size:19px}nav{order:3;width:100%;overflow-x:auto;padding:5px 0}.search{width:100%;margin-left:0;order:2}.wrap{padding:18px 4% 45px}.hero{padding:25px 20px;min-height:330px}.grid,.games,.stores{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.cover{height:115px}.game-info{padding:10px}.game-title{font-size:14px}.game-buttons{flex-direction:column}h2{font-size:20px}}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="#">AMZO <span>ARCADE</span></a>
+  <nav>
+    <a href="#games">Games</a><a href="#stores">Stores</a><a href="#mini">Mini Games</a><a href="#library">My Library</a>
+  </nav>
+  <input id="search" class="search" placeholder="⌕ Search games..." aria-label="Search games">
+</header>
+
+<main class="wrap">
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">YOUR NEXT ADVENTURE STARTS HERE</div>
+    <h1>Enter the<br>Game Universe.</h1>
+    <p>Discover PC games, explore official game stores, save your favourites and play browser mini-games — all in one place.</p>
+    <div class="actions">
+      <a href="#games" class="btn">Explore Games ↗</a>
+      <a href="#mini" class="btn secondary">Play Mini Games</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="stores">
+  <div class="section-head"><div><h2>Gaming Stores</h2><div class="sub">Visit official stores to buy or install games.</div></div></div>
+  <div class="stores">
+    <article class="store"><div class="store-icon">🎮</div><h3>Steam</h3><p>PC games, multiplayer, community and more.</p><a href="https://store.steampowered.com/" target="_blank" rel="noopener">Open Steam ↗</a></article>
+    <article class="store"><div class="store-icon">⚡</div><h3>Epic Games</h3><p>Fortnite, Rocket League and free-game offers.</p><a href="https://store.epicgames.com/" target="_blank" rel="noopener">Open Epic ↗</a></article>
+    <article class="store"><div class="store-icon">⭐</div><h3>Rockstar Games</h3><p>Grand Theft Auto, Red Dead Redemption and more.</p><a href="https://store.rockstargames.com/" target="_blank" rel="noopener">Open Rockstar ↗</a></article>
+    <article class="store"><div class="store-icon">🕹️</div><h3>GOG</h3><p>PC classics and DRM-free games.</p><a href="https://www.gog.com/" target="_blank" rel="noopener">Open GOG ↗</a></article>
+    <article class="store"><div class="store-icon">🟩</div><h3>Xbox</h3><p>Explore PC games from Xbox.</p><a href="https://www.xbox.com/games" target="_blank" rel="noopener">Open Xbox ↗</a></article>
+    <article class="store"><div class="store-icon">🟦</div><h3>EA</h3><p>Discover EA games and official downloads.</p><a href="https://www.ea.com/games" target="_blank" rel="noopener">Open EA ↗</a></article>
+    <article class="store"><div class="store-icon">🔴</div><h3>Ubisoft</h3><p>Assassin's Creed, Far Cry and more.</p><a href="https://store.ubisoft.com/" target="_blank" rel="noopener">Open Ubisoft ↗</a></article>
+    <article class="store"><div class="store-icon">🎯</div><h3>Battle.net</h3><p>Discover Blizzard and Activision titles.</p><a href="https://shop.battle.net/" target="_blank" rel="noopener">Open Battle.net ↗</a></article>
+  </div>
+</section>
+
+<section class="section" id="games">
+  <div class="section-head"><div><h2>Game Explorer</h2><div class="sub">Search, filter and save games to your library.</div></div></div>
+  <div class="toolbar">
+    <button class="active" data-filter="All">All Games</button>
+    <button data-filter="Free">Free</button>
+    <button data-filter="Paid">Paid</button>
+    <button data-filter="Favourites">♥ Favourites</button>
+    <button data-filter="Library">My Library</button>
+    <select id="genre"><option value="All">All genres</option><option>Action</option><option>Shooter</option><option>RPG</option><option>Strategy</option><option>Sports</option><option>Adventure</option><option>Racing</option><option>Indie</option></select>
+    <select id="sort"><option value="default">Featured</option><option value="az">Name A–Z</option></select>
+  </div>
+  <div class="grid" id="gameGrid"></div>
+</section>
+
+<section class="section" id="library">
+  <div class="section-head"><div><h2>My Library</h2><div class="sub">Saved locally in this browser. This does not install games.</div></div></div>
+  <p class="sub">Use the “+ Library” button on any game card, or choose My Library in the filters above.</p>
+</section>
+
+<section class="section" id="mini">
+  <div class="section-head"><div><h2>Playable Mini Games</h2><div class="sub">These mini-games run directly in your browser.</div></div></div>
+  <div class="games">
+    <article class="mini"><h3>🐍 Snake</h3><p>Collect food and grow. Use your keyboard arrow keys.</p><button onclick="startMini('snake')">Play Snake</button></article>
+    <article class="mini"><h3>🧠 Memory Match</h3><p>Flip the cards and find all matching pairs.</p><button onclick="startMini('memory')">Play Memory</button></article>
+    <article class="mini"><h3>⭕ Tic-Tac-Toe</h3><p>Play X against a simple computer opponent.</p><button onclick="startMini('ttt')">Play Tic-Tac-Toe</button></article>
+    <article class="mini"><h3>🏎️ Dodge Racer</h3><p>Move left and right to avoid incoming blocks.</p><button onclick="startMini('racer')">Play Racer</button></article>
+  </div>
+  <div id="playArea"></div>
+</section>
+</main>
+
+<footer>AMZO ARCADE · An independent game discovery project.<br>Game names and trademarks belong to their respective owners. Prices and availability may change. Store buttons open official third-party websites.</footer>
+
+<script>
+const games=[
+{name:"Grand Theft Auto V",genre:"Action",price:"Paid",store:"Rockstar / Steam",url:"https://store.steampowered.com/search/?term=Grand+Theft+Auto+V",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/271590/header.jpg"},
+{name:"Counter-Strike 2",genre:"Shooter",price:"Free",store:"Steam",url:"https://store.steampowered.com/app/730/CounterStrike_2/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg"},
+{name:"Dota 2",genre:"Strategy",price:"Free",store:"Steam",url:"https://store.steampowered.com/app/570/Dota_2/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/570/header.jpg"},
+{name:"Cyberpunk 2077",genre:"RPG",price:"Paid",store:"Steam / GOG",url:"https://store.steampowered.com/app/1091500/Cyberpunk_2077/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/header.jpg"},
+{name:"Red Dead Redemption 2",genre:"Adventure",price:"Paid",store:"Rockstar / Steam",url:"https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg"},
+{name:"Fortnite",genre:"Shooter",price:"Free",store:"Epic Games",url:"https://store.epicgames.com/en-US/p/fortnite",img:"https://cdn2.unrealengine.com/fortnite-og-social-1920x1080-1920x1080-74b4bdf1a3b0.jpg"},
+{name:"Rocket League",genre:"Sports",price:"Free",store:"Epic Games",url:"https://store.epicgames.com/en-US/p/rocket-league",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/252950/header.jpg"},
+{name:"Apex Legends",genre:"Shooter",price:"Free",store:"Steam / EA",url:"https://store.steampowered.com/app/1172470/Apex_Legends/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/header.jpg"},
+{name:"Warframe",genre:"Action",price:"Free",store:"Steam",url:"https://store.steampowered.com/app/230410/Warframe/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/230410/header.jpg"},
+{name:"PUBG: BATTLEGROUNDS",genre:"Shooter",price:"Free",store:"Steam",url:"https://store.steampowered.com/app/578080/PUBG_BATTLEGROUNDS/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/578080/header.jpg"},
+{name:"The Witcher 3",genre:"RPG",price:"Paid",store:"Steam / GOG",url:"https://store.steampowered.com/app/292030/The_Witcher_3_Wild_Hunt/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg"},
+{name:"Elden Ring",genre:"RPG",price:"Paid",store:"Steam",url:"https://store.steampowered.com/app/1245620/ELDEN_RING/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg"},
+{name:"Stardew Valley",genre:"Indie",price:"Paid",store:"Steam / GOG",url:"https://store.steampowered.com/app/413150/Stardew_Valley/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/413150/header.jpg"},
+{name:"Terraria",genre:"Adventure",price:"Paid",store:"Steam / GOG",url:"https://store.steampowered.com/app/105600/Terraria/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/105600/header.jpg"},
+{name:"Forza Horizon 5",genre:"Racing",price:"Paid",store:"Steam / Xbox",url:"https://store.steampowered.com/app/1551360/Forza_Horizon_5/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/1551360/header.jpg"},
+{name:"Team Fortress 2",genre:"Shooter",price:"Free",store:"Steam",url:"https://store.steampowered.com/app/440/Team_Fortress_2/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/440/header.jpg"},
+{name:"The Sims 4",genre:"Simulation",price:"Free",store:"EA",url:"https://store.steampowered.com/app/1222670/The_Sims_4/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/1222670/header.jpg"},
+{name:"Fall Guys",genre:"Sports",price:"Free",store:"Epic Games",url:"https://store.epicgames.com/en-US/p/fall-guys",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/1097150/header.jpg"},
+{name:"Among Us",genre:"Indie",price:"Paid",store:"Steam",url:"https://store.steampowered.com/app/945360/Among_Us/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/945360/header.jpg"},
+{name:"Hogwarts Legacy",genre:"Adventure",price:"Paid",store:"Steam",url:"https://store.steampowered.com/app/990080/Hogwarts_Legacy/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/990080/header.jpg"},
+{name:"Left 4 Dead 2",genre:"Shooter",price:"Paid",store:"Steam",url:"https://store.steampowered.com/app/550/Left_4_Dead_2/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/550/header.jpg"},
+{name:"Brawlhalla",genre:"Action",price:"Free",store:"Steam / Ubisoft",url:"https://store.steampowered.com/app/291550/Brawlhalla/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/291550/header.jpg"},
+{name:"Path of Exile",genre:"RPG",price:"Free",store:"Steam",url:"https://store.steampowered.com/app/238960/Path_of_Exile/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/238960/header.jpg"},
+{name:"Euro Truck Simulator 2",genre:"Racing",price:"Paid",store:"Steam",url:"https://store.steampowered.com/app/227300/Euro_Truck_Simulator_2/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/227300/header.jpg"},
+{name:"Portal 2",genre:"Adventure",price:"Paid",store:"Steam",url:"https://store.steampowered.com/app/620/Portal_2/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/620/header.jpg"},
+{name:"Fallout 4",genre:"RPG",price:"Paid",store:"Steam / GOG",url:"https://store.steampowered.com/app/377160/Fallout_4/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/377160/header.jpg"},
+{name:"The Elder Scrolls V: Skyrim",genre:"RPG",price:"Paid",store:"Steam / GOG",url:"https://store.steampowered.com/app/489830/Skyrim_Special_Edition/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/489830/header.jpg"},
+{name:"Palworld",genre:"Adventure",price:"Paid",store:"Steam",url:"https://store.steampowered.com/app/1623730/Palworld/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/1623730/header.jpg"},
+{name:"Hades",genre:"Action",price:"Paid",store:"Steam / Epic",url:"https://store.steampowered.com/app/1145360/Hades/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/1145360/header.jpg"},
+{name:"Hollow Knight",genre:"Indie",price:"Paid",store:"Steam / GOG",url:"https://store.steampowered.com/app/367520/Hollow_Knight/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/367520/header.jpg"},
+{name:"Unturned",genre:"Adventure",price:"Free",store:"Steam",url:"https://store.steampowered.com/app/304930/Unturned/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/304930/header.jpg"},
+{name:"Trackmania",genre:"Racing",price:"Free",store:"Ubisoft",url:"https://store.ubisoft.com/",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/2225070/header.jpg"}
+];
+const read=(key)=>{try{return JSON.parse(localStorage.getItem(key)||"[]")}catch(e){return[]}};
+let favs=read("amzo_favs"),library=read("amzo_library"),filter="All";
+const grid=document.getElementById("gameGrid");
+function save(){localStorage.setItem("amzo_favs",JSON.stringify(favs));localStorage.setItem("amzo_library",JSON.stringify(library))}
+function render(){
+ const q=document.getElementById("search").value.toLowerCase().trim(),genre=document.getElementById("genre").value,sort=document.getElementById("sort").value;
+ let list=games.filter(g=>(g.name+" "+g.genre+" "+g.store).toLowerCase().includes(q)&&(genre==="All"||g.genre===genre)&&(filter==="All"||filter==="Free"&&g.price==="Free"||filter==="Paid"&&g.price==="Paid"||filter==="Favourites"&&favs.includes(g.name)||filter==="Library"&&library.includes(g.name)));
+ if(sort==="az")list.sort((a,b)=>a.name.localeCompare(b.name));
+ grid.innerHTML=list.length?"":"<div class='empty'>No games found. Try another search or filter.</div>";
+ list.forEach(g=>{
+ const card=document.createElement("article");card.className="game";
+ card.innerHTML=`<div class="cover"><img loading="lazy" alt="" src="${g.img}"><button class="fav ${favs.includes(g.name)?"on":""}" title="Favourite">${favs.includes(g.name)?"♥":"♡"}</button></div><div class="game-info"><div class="game-title" title="${g.name}">${g.name}</div><div class="tags"><span class="tag">${g.genre}</span><span class="tag">${g.price}</span></div><div class="price">${g.price==="Free"?"Free to play":"Paid game · check store price"}</div><div class="game-buttons"><a class="primary" href="${g.url}" target="_blank" rel="noopener">Official Store ↗</a><button class="secondary">${library.includes(g.name)?"✓ Saved":"+ Library"}</button></div></div>`;
+ card.querySelector(".fav").onclick=()=>{favs=favs.includes(g.name)?favs.filter(x=>x!==g.name):[...favs,g.name];save();render()};
+ card.querySelector(".secondary").onclick=()=>{library=library.includes(g.name)?library.filter(x=>x!==g.name):[...library,g.name];save();render()};
+ const img=card.querySelector("img");img.onerror=()=>{img.onerror=null;img.src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80"};
+ grid.appendChild(card);
+ });
+}
+document.getElementById("search").addEventListener("input",render);
+document.getElementById("genre").addEventListener("change",render);
+document.getElementById("sort").addEventListener("change",render);
+document.querySelectorAll("[data-filter]").forEach(b=>b.onclick=()=>{filter=b.dataset.filter;document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("active",x===b));render()});
+render();
+
+const area=document.getElementById("playArea");
+function startMini(type){
+ area.style.display="block";area.innerHTML="";
+ const title=document.createElement("h3");title.textContent=({snake:"🐍 Snake",memory:"🧠 Memory Match",ttt:"⭕ Tic-Tac-Toe",racer:"🏎️ Dodge Racer"})[type];area.appendChild(title);
+ const close=document.createElement("button");close.textContent="Close game";close.onclick=()=>{stopGame();area.style.display="none"};area.appendChild(close);
+ const content=document.createElement("div");area.appendChild(content);area.scrollIntoView({behavior:"smooth",block:"start"});stopGame();
+ if(type==="snake")snake(content);
+ if(type==="memory")memory(content);
+ if(type==="ttt")ttt(content);
+ if(type==="racer")racer(content);
+}
+let cleanup=()=>{};function stopGame(){cleanup();cleanup=()=>{}}
+function snake(el){
+ const c=document.createElement("canvas");c.width=400;c.height=400;el.appendChild(c);const ctx=c.getContext("2d");
+ let body=[{x:8,y:8},{x:7,y:8},{x:6,y:8}],dir={x:1,y:0},food={x:12,y:10},score=0,alive=true;
+ const scoreEl=document.createElement("p");el.appendChild(scoreEl);
+ function key(e){const k=e.key;if(k==="ArrowUp"&&dir.y!==1)dir={x:0,y:-1};if(k==="ArrowDown"&&dir.y!==-1)dir={x:0,y:1};if(k==="ArrowLeft"&&dir.x!==1)dir={x:-1,y:0};if(k==="ArrowRight"&&dir.x!==-1)dir={x:1,y:0};if(k.startsWith("Arrow"))e.preventDefault()}
+ window.addEventListener("keydown",key);
+ const timer=setInterval(()=>{if(!alive)return;let h={x:body[0].x+dir.x,y:body[0].y+dir.y};if(h.x<0||h.y<0||h.x>=20||h.y>=20||body.some(p=>p.x===h.x&&p.y===h.y)){alive=false;scoreEl.textContent="Game over! Score: "+score+" — press Play Snake to restart.";return}body.unshift(h);if(h.x===food.x&&h.y===food.y){score++;food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)}}else body.pop();ctx.fillStyle="#07101c";ctx.fillRect(0,0,400,400);ctx.fillStyle="#ff537a";ctx.fillRect(food.x*20,food.y*20,18,18);ctx.fillStyle="#45e2a0";body.forEach(p=>ctx.fillRect(p.x*20,p.y*20,18,18));scoreEl.textContent="Score: "+score+" · Use arrow keys"},120);
+ cleanup=()=>{clearInterval(timer);window.removeEventListener("keydown",key)};
+}
+function memory(el){
+ const symbols=["🎮","🚀","👾","🏆","🎧","⚡","🎮","🚀","👾","🏆","🎧","⚡"].sort(()=>Math.random()-.5);
+ let opened=[],matched=0,locked=false;const msg=document.createElement("p");msg.textContent="Find matching pairs.";el.appendChild(msg);
+ const board=document.createElement("div");board.style.cssText="display:grid;grid-template-columns:repeat(4,minmax(45px,70px));gap:8px;margin-top:14px";el.appendChild(board);
+ symbols.forEach((s,i)=>{const b=document.createElement("button");b.style.cssText="height:65px;font-size:24px;background:#253249";b.textContent="?";b.onclick=()=>{if(locked||opened.some(o=>o.i===i)||b.textContent!=="?")return;b.textContent=s;opened.push({i,b,s});if(opened.length===2){locked=true;if(opened[0].s===opened[1].s){matched+=2;opened=[];locked=false;msg.textContent=matched===symbols.length?"You won! 🎉":"Matched: "+matched/2+" / 6"}else setTimeout(()=>{opened.forEach(o=>o.b.textContent="?");opened=[];locked=false},700)}};board.appendChild(b)});
+}
+function ttt(el){
+ let cells=Array(9).fill(""),done=false;const msg=document.createElement("p");msg.textContent="You are X. Computer is O.";el.appendChild(msg);
+ const board=document.createElement("div");board.className="board";el.appendChild(board);
+ const wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+ function status(){let w=wins.find(a=>cells[a[0]]&&cells[a[0]]===cells[a[1]]&&cells[a[1]]===cells[a[2]]);if(w){done=true;msg.textContent=cells[w[0]]+" wins!";return true}if(cells.every(Boolean)){done=true;msg.textContent="Draw!";return true}return false}
+ function draw(){board.innerHTML="";cells.forEach((v,i)=>{const b=document.createElement("button");b.className="cell";b.textContent=v;b.onclick=()=>{if(done||v)return;cells[i]="X";if(!status()){let empty=cells.map((x,j)=>x?null:j).filter(x=>x!==null);if(empty.length)cells[empty[Math.floor(Math.random()*empty.length)]]="O";status()}draw()};board.appendChild(b)})}
+ const reset=document.createElement("button");reset.textContent="Restart";reset.onclick=()=>{cells=Array(9).fill("");done=false;msg.textContent="You are X. Computer is O.";draw()};el.appendChild(reset);draw();
+}
+function racer(el){
+ const c=document.createElement("canvas");c.width=320;c.height=420;el.appendChild(c);const ctx=c.getContext("2d");
+ let player=1,obstacles=[],score=0,alive=true,keys={};function keydown(e){keys[e.key]=true;if(["ArrowLeft","ArrowRight"].includes(e.key))e.preventDefault()}function keyup(e){keys[e.key]=false}
+ window.addEventListener("keydown",keydown);window.addEventListener("keyup",keyup);
+ const timer=setInterval(()=>{if(!alive)return;if(keys.ArrowLeft)player=Math.max(0,player-.08);if(keys.ArrowRight)player=Math.min(2,player+.08);if(Math.random()<.035)obstacles.push({lane:Math.floor(Math.random()*3),y:-40});obstacles.forEach(o=>o.y+=4);obstacles=obstacles.filter(o=>o.y<440);if(obstacles.some(o=>o.lane===Math.round(player)&&o.y>340&&o.y<395)){alive=false;msg.textContent="Crash! Score: "+score+" — replay to try again."}else score++;ctx.fillStyle="#0b1423";ctx.fillRect(0,0,320,420);ctx.fillStyle="#34445c";ctx.fillRect(35,0,250,420);ctx.strokeStyle="#dce7ff";ctx.setLineDash([18,15]);ctx.beginPath();ctx.moveTo(118,0);ctx.lineTo(118,420);ctx.moveTo(202,0);ctx.lineTo(202,420);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle="#ff536f";obstacles.forEach(o=>ctx.fillRect(48+o.lane*84,o.y,55,35));ctx.fillStyle="#45e2a0";ctx.fillRect(48+player*84,350,55,48);msg.textContent="Score: "+Math.floor(score/3)+" · Use ← → keys"},35);
+ const msg=document.createElement("p");el.appendChild(msg);cleanup=()=>{clearInterval(timer);window.removeEventListener("keydown",keydown);window.removeEventListener("keyup",keyup)};
+}
+</script>
+</body>
+</html>
