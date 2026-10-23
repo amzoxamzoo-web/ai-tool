@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AMZO GAME HUB</title>
+<style>
+:root{--bg:#080b12;--panel:#111724;--line:#263044;--muted:#9aa9bf;--blue:#69a8ff;--green:#6ef0b0;--white:#f4f7ff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--bg);color:var(--white);font:15px/1.5 Arial,sans-serif}
+header{position:sticky;top:0;z-index:10;background:#090d14ed;backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+nav{max-width:1400px;margin:auto;padding:15px 4%;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-size:21px;font-weight:900;white-space:nowrap}.logo span{color:var(--blue)}
+.links{display:flex;gap:17px;flex-wrap:wrap}.links a{color:#c3cde0;text-decoration:none;font-size:13px}.links a:hover{color:var(--blue)}
+main{max-width:1400px;margin:auto;padding:26px 4% 65px}
+.hero{padding:clamp(25px,5vw,55px);border:1px solid #2a3b56;border-radius:23px;background:radial-gradient(ellipse at 85% 15%,#204c80 0,transparent 42%),linear-gradient(120deg,#151e2e,#0b1019);overflow:hidden}
+.eyebrow{font-size:11px;letter-spacing:2px;color:var(--blue);font-weight:800}
+h1{font-size:clamp(38px,7vw,72px);line-height:1.02;letter-spacing:-2px;margin:17px 0}
+.hero p{color:#b5c2d7;max-width:580px}
+.stats{display:flex;gap:20px;flex-wrap:wrap;margin-top:24px;color:#d5e0f0;font-size:13px}
+.section{margin-top:38px;scroll-margin-top:90px}
+.heading{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:17px}
+h2{font-size:clamp(22px,3vw,30px);margin:0;letter-spacing:-.7px}
+.sub{font-size:13px;color:var(--muted);margin:5px 0 0}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}
+input,select{background:#111724;color:white;border:1px solid var(--line);border-radius:11px;padding:12px;font:inherit;min-width:0}
+input{flex:1;min-width:180px}
+button{font:inherit;cursor:pointer}
+.chip{border:1px solid var(--line);border-radius:30px;background:#111724;color:#c8d3e5;padding:9px 14px}
+.chip.active,.chip:hover{background:#1b3657;border-color:#5595e7;color:white}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden;min-width:0;transition:.2s}
+.card:hover{transform:translateY(-3px);border-color:#5279ad}
+.cover{height:145px;background:linear-gradient(135deg,#172640,#263b58);position:relative;overflow:hidden}
+.cover img{width:100%;height:100%;object-fit:cover;display:block}
+.cover-fallback{display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:43px}
+.tag{position:absolute;top:9px;left:9px;background:#14251f;color:var(--green);font-size:10px;font-weight:bold;padding:5px 8px;border-radius:6px}
+.body{padding:13px}
+.body h3{font-size:15px;margin:0 0 7px}
+.muted{color:var(--muted);font-size:12px}
+.price{font-size:12px;font-weight:bold;margin-top:10px}
+.actions{display:flex;gap:7px;margin-top:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid #34445d;border-radius:9px;background:#202c3e;color:white;text-decoration:none;padding:9px 11px;font-size:12px;font-weight:bold}
+.btn.primary{background:#286bc1;border-color:#286bc1}
+.btn:hover{filter:brightness(1.15)}
+.actions .btn{flex:1}
+.empty{display:none;border:1px dashed var(--line);padding:25px;border-radius:12px;text-align:center;color:var(--muted);grid-column:1/-1}
+.notice{padding:17px;background:#111724;border:1px solid var(--line);border-radius:13px;color:var(--muted);font-size:12px}
+footer{border-top:1px solid var(--line);padding:25px 4%;text-align:center;color:var(--muted);font-size:12px}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:680px){nav{align-items:flex-start;flex-direction:column;gap:12px}.links{gap:12px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.cover{height:120px}.body{padding:10px}.actions{flex-direction:column}.hero{padding:25px 20px}.heading{align-items:flex-start;flex-direction:column}}
+@media(max-width:370px){.grid{grid-template-columns:1fr}.cover{height:170px}}
+</style>
+</head>
+<body>
+<header>
+<nav>
+  <div class="logo">AMZO <span>GAME HUB</span></div>
+  <div class="links">
+    <a href="#games">🎮 Games</a>
+    <a href="#pc">🖥️ Gaming PC</a>
+    <a href="#gear">🖱️ Accessories</a>
+    <a href="#library">📚 My Library</a>
+  </div>
+</nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="eyebrow">YOUR GAMING WORLD · ALL IN ONE PLACE</div>
+  <h1>PLAY MORE.<br><span style="color:#72adff">DISCOVER MORE.</span></h1>
+  <p>Discover PC games, free-to-play favourites, gaming setups and accessories. Save games to your personal library.</p>
+  <div class="stats"><span>🎮 Steam + Epic</span><span>🆓 Free & Paid</span><span>💾 Saved Library</span><span>📱 Responsive</span></div>
+</section>
+
+<section class="section" id="games">
+  <div class="heading"><div><h2>🎮 Games Store</h2><p class="sub">Browse games and open their official store pages.</p></div><span id="count" class="muted"></span></div>
+  <div class="controls">
+    <input id="search" type="search" placeholder="🔍 Search games..." aria-label="Search games">
+    <select id="store"><option value="all">All stores</option><option value="Steam">Steam</option><option value="Epic Games">Epic Games</option></select>
+    <select id="sort"><option value="featured">Featured</option><option value="az">Name A–Z</option><option value="za">Name Z–A</option></select>
+  </div>
+  <div class="controls" id="filters">
+    <button class="chip active" data-filter="All">All Games</button>
+    <button class="chip" data-filter="Free">🆓 Free Games</button>
+    <button class="chip" data-filter="Paid">💎 Paid Games</button>
+    <button class="chip" data-filter="PC">🖥️ PC</button>
+    <button class="chip" data-filter="Mobile">📱 Mobile</button>
+  </div>
+  <div class="grid" id="gameGrid"></div>
+  <div class="empty" id="gameEmpty">No games match your search. Try another filter.</div>
+</section>
+
+<section class="section" id="pc">
+  <div class="heading"><div><h2>🖥️ Gaming PC</h2><p class="sub">Example PC configurations. Prices are estimates, not live quotes.</p></div></div>
+  <div class="grid" id="pcGrid"></div>
+</section>
+
+<section class="section" id="gear">
+  <div class="heading"><div><h2>🖱️ Mouse & Keyboard</h2><p class="sub">Gaming gear with product search links.</p></div></div>
+  <div class="grid" id="gearGrid"></div>
+</section>
+
+<section class="section" id="library">
+  <div class="heading"><div><h2>📚 My Library</h2><p class="sub">Games you save stay in this browser on this device.</p></div><span id="libraryCount" class="muted"></span></div>
+  <div class="controls"><button class="chip" id="clearLibrary">Remove All Saved Games</button></div>
+  <div class="grid" id="libraryGrid"></div>
+  <div class="empty" id="libraryEmpty">Your library is empty. Add games from the Games Store.</div>
+</section>
+
+<div class="section notice">
+  <b>About AMZO GAME HUB:</b> This is a game discovery catalogue, not a game download or streaming service. Steam games open on Steam; Epic games open on Epic Games Store. The catalogue is curated rather than a live feed of every store listing. Verify current price, regional availability and PC requirements on the official store before buying. Some mobile games have separate mobile editions and do not run as mobile apps through Steam.
+</div>
+</main>
+<footer>AMZO GAME HUB · Game names, logos and artwork belong to their respective owners.</footer>
+
+<script>
+const games = [
+ {name:"Grand Theft Auto V Enhanced",store:"Steam",id:3240220,type:"Paid",platform:"PC",genre:"Open world",mobile:false},
+ {name:"Marvel's Spider-Man Remastered",store:"Steam",id:1817070,type:"Paid",platform:"PC",genre:"Action",mobile:false},
+ {name:"Granny",store:"Steam",id:962400,type:"Paid",platform:"PC + Mobile",genre:"Horror",mobile:true},
+ {name:"Counter-Strike 2",store:"Steam",id:730,type:"Free",platform:"PC",genre:"Shooter",mobile:false},
+ {name:"Dota 2",store:"Steam",id:570,type:"Free",platform:"PC",genre:"Strategy",mobile:false},
+ {name:"PUBG: BATTLEGROUNDS",store:"Steam",id:578080,type:"Free",platform:"PC",genre:"Battle Royale",mobile:true},
+ {name:"Apex Legends",store:"Steam",id:1172470,type:"Free",platform:"PC",genre:"Shooter",mobile:true},
+ {name:"Warframe",store:"Steam",id:230410,type:"Free",platform:"PC",genre:"Action",mobile:false},
+ {name:"Team Fortress 2",store:"Steam",id:440,type:"Free",platform:"PC",genre:"Shooter",mobile:false},
+ {name:"The Sims 4",store:"Steam",id:1222670,type:"Free",platform:"PC",genre:"Simulation",mobile:true},
+ {name:"Brawlhalla",store:"Steam",id:291550,type:"Free",platform:"PC + Mobile",genre:"Fighting",mobile:true},
+ {name:"Unturned",store:"Steam",id:304930,type:"Free",platform:"PC",genre:"Survival",mobile:false},
+ {name:"Fall Guys",store:"Epic Games",type:"Free",platform:"PC",genre:"Party",mobile:false,url:"https://store.epicgames.com/en-US/p/fall-guys"},
+ {name:"Fortnite",store:"Epic Games",type:"Free",platform:"PC + Mobile",genre:"Battle Royale",mobile:true,url:"https://store.epicgames.com/en-US/p/fortnite"},
+ {name:"Rocket League",store:"Epic Games",type:"Free",platform:"PC",genre:"Sports",mobile:false,url:"https://store.epicgames.com/en-US/p/rocket-league"},
+ {name:"Genshin Impact",store:"Epic Games",type:"Free",platform:"PC + Mobile",genre:"Adventure",mobile:true,url:"https://store.epicgames.com/en-US/p/genshin-impact"},
+ {name:"Honkai: Star Rail",store:"Epic Games",type:"Free",platform:"PC + Mobile",genre:"RPG",mobile:true,url:"https://store.epicgames.com/en-US/p/honkai-star-rail"},
+ {name:"Dead by Daylight",store:"Steam",id:381210,type:"Paid",platform:"PC",genre:"Horror",mobile:true},
+ {name:"Red Dead Redemption 2",store:"Steam",id:1174180,type:"Paid",platform:"PC",genre:"Open world",mobile:false},
+ {name:"Cyberpunk 2077",store:"Steam",id:1091500,type:"Paid",platform:"PC",genre:"RPG",mobile:false},
+ {name:"ELDEN RING",store:"Steam",id:1245620,type:"Paid",platform:"PC",genre:"Action RPG",mobile:false},
+ {name:"Hogwarts Legacy",store:"Steam",id:990080,type:"Paid",platform:"PC",genre:"Adventure",mobile:false},
+ {name:"Forza Horizon 5",store:"Steam",id:1551360,type:"Paid",platform:"PC",genre:"Racing",mobile:false},
+ {name:"The Witcher 3: Wild Hunt",store:"Steam",id:292030,type:"Paid",platform:"PC",genre:"RPG",mobile:false},
+ {name:"Terraria",store:"Steam",id:105600,type:"Paid",platform:"PC + Mobile",genre:"Sandbox",mobile:true},
+ {name:"Stardew Valley",store:"Steam",id:413150,type:"Paid",platform:"PC + Mobile",genre:"Farming",mobile:true},
+ {name:"Among Us",store:"Steam",id:945360,type:"Paid",platform:"PC + Mobile",genre:"Party",mobile:true},
+ {name:"Geometry Dash",store:"Steam",id:322170,type:"Paid",platform:"PC + Mobile",genre:"Rhythm",mobile:true},
+ {name:"Phasmophobia",store:"Steam",id:739630,type:"Paid",platform:"PC",genre:"Horror",mobile:false},
+ {name:"Hollow Knight",store:"Steam",id:367520,type:"Paid",platform:"PC",genre:"Metroidvania",mobile:false},
+ {name:"Euro Truck Simulator 2",store:"Steam",id:227300,type:"Paid",platform:"PC",genre:"Simulation",mobile:false},
+ {name:"The Forest",store:"Steam",id:242760,type:"Paid",platform:"PC",genre:"Survival",mobile:false}
+];
+
+const pcItems=[
+ {name:"Entry Gaming PC",icon:"🖥️",spec:"Example: Ryzen 5 / Core i5 · 16GB RAM · 512GB SSD",price:"Check current price",query:"gaming PC Ryzen 5 16GB RAM 512GB SSD Pakistan"},
+ {name:"1080p Gaming PC",icon:"🎮",spec:"Example: modern 6-core CPU · dedicated GPU · 16GB RAM",price:"Check current price",query:"1080p gaming PC dedicated graphics card Pakistan"},
+ {name:"High-End Gaming PC",icon:"⚡",spec:"Example: high-performance CPU · powerful GPU · 32GB RAM",price:"Check current price",query:"high end gaming PC 32GB RAM Pakistan"},
+ {name:"Gaming PC Upgrade",icon:"🔧",spec:"Compare RAM, SSD and graphics-card upgrades for your PC.",price:"Parts priced separately",query:"PC gaming graphics card RAM SSD Pakistan"}
+];
+const gearItems=[
+ {name:"Gaming Mouse",icon:"🖱️",spec:"Compare sensor, DPI, weight and wired/wireless options.",query:"gaming mouse Pakistan"},
+ {name:"Mechanical Keyboard",icon:"⌨️",spec:"Compare switches, layout, RGB and wired/wireless options.",query:"mechanical gaming keyboard Pakistan"},
+ {name:"Gaming Headset",icon:"🎧",spec:"Compare microphone, comfort and connection type.",query:"gaming headset Pakistan"},
+ {name:"Mouse Pad",icon:"🟪",spec:"Compare desk mats, sizes and surface types.",query:"extended gaming mouse pad Pakistan"}
+];
+
+let filter="All";
+const $=id=>document.getElementById(id);
+function storeURL(g){
+ if(g.url)return g.url;
+ if(g.store==="Epic Games")return "https://store.epicgames.com/en-US/browse?q="+encodeURIComponent(g.name);
+ return "https://store.steampowered.com/app/"+g.id+"/";
+}
+function coverURL(g){
+ return g.id ? "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/"+g.id+"/header.jpg" : "";
+}
+function loadLibrary(){try{return JSON.parse(localStorage.getItem("amzo_game_hub_library")||"[]")}catch{return []}}
+function saveLibrary(lib){localStorage.setItem("amzo_game_hub_library",JSON.stringify(lib))}
+function isSaved(g){return loadLibrary().some(x=>x.key===keyOf(g))}
+function keyOf(g){return g.store+":"+(g.id||g.name)}
+function safeText(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+
+function gameCard(g,libraryMode=false){
+ const saved=isSaved(g),key=keyOf(g);
+ const image=coverURL(g);
+ return `<article class="card">
+ <div class="cover">${image?`<img loading="lazy" src="${image}" alt="${safeText(g.name)} Steam artwork" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`:""}
+ <div class="cover-fallback" style="${image?"":"display:flex"}">${g.store==="Epic Games"?"🕹️":"🎮"}</div>
+ <span class="tag">${g.type==="Free"?"FREE":"PAID"}</span></div>
+ <div class="body"><h3>${safeText(g.name)}</h3>
+ <div class="muted">${safeText(g.genre)} · ${safeText(g.platform)} · ${safeText(g.store)}</div>
+ <div class="price">${g.type==="Free"?"Free to play":"Paid title — check store"}</div>
+ <div class="actions"><a class="btn primary" href="${storeURL(g)}" target="_blank" rel="noopener noreferrer">Open Store ↗</a>
+ ${libraryMode?`<button class="btn" onclick="removeSaved('${encodeURIComponent(key)}')">Remove</button>`:`<button class="btn" onclick="toggleSaved('${encodeURIComponent(key)}')">${saved?"✓ Saved":"＋ Save"}</button>`}</div>
+ </div></article>`;
+}
+function renderGames(){
+ const q=$("search").value.trim().toLowerCase(),store=$("store").value;
+ let list=games.filter(g=>(filter==="All"||g.type===filter||(filter==="PC"&&g.platform.includes("PC"))||(filter==="Mobile"&&g.mobile))&&(store==="all"||g.store===store)&&(g.name+" "+g.genre+" "+g.platform+" "+g.store).toLowerCase().includes(q));
+ if($("sort").value==="az")list.sort((a,b)=>a.name.localeCompare(b.name));
+ if($("sort").value==="za")list.sort((a,b)=>b.name.localeCompare(a.name));
+ $("count").textContent=list.length+" games";
+ $("gameGrid").innerHTML=list.map(g=>gameCard(g)).join("");
+ $("gameEmpty").style.display=list.length?"none":"block";
+ document.querySelectorAll("[data-filter]").forEach(b=>b.classList.toggle("active",b.dataset.filter===filter));
+}
+function renderLibrary(){
+ const lib=loadLibrary();
+ $("libraryCount").textContent=lib.length+" saved";
+ $("libraryGrid").innerHTML=lib.map(g=>gameCard(g,true)).join("");
+ $("libraryEmpty").style.display=lib.length?"none":"block";
+}
+window.toggleSaved=function(encoded){
+ const key=decodeURIComponent(encoded),g=games.find(x=>keyOf(x)===key);
+ if(!g)return;
+ let lib=loadLibrary();
+ if(lib.some(x=>x.key===key))lib=lib.filter(x=>x.key!==key);
+ else lib.push({...g,key});
+ saveLibrary(lib);renderGames();renderLibrary();
+};
+window.removeSaved=function(encoded){
+ const key=decodeURIComponent(encoded);
+ saveLibrary(loadLibrary().filter(x=>x.key!==key));
+ renderGames();renderLibrary();
+};
+$("clearLibrary").onclick=()=>{
+ if(!loadLibrary().length)return;
+ if(confirm("Remove every saved game from My Library?")){saveLibrary([]);renderGames();renderLibrary()}
+};
+$("filters").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(b){filter=b.dataset.filter;renderGames()}});
+$("search").addEventListener("input",renderGames);
+$("store").addEventListener("change",renderGames);
+$("sort").addEventListener("change",renderGames);
+
+function productCard(p){
+ const link="https://www.google.com/search?tbm=shop&q="+encodeURIComponent(p.query);
+ return `<article class="card"><div class="cover" style="display:flex;align-items:center;justify-content:center;font-size:53px">${p.icon}</div>
+ <div class="body"><h3>${safeText(p.name)}</h3><p class="muted">${safeText(p.spec)}</p><div class="price">${safeText(p.price||"Compare listings")}</div>
+ <div class="actions"><a class="btn primary" href="${link}" target="_blank" rel="noopener noreferrer">Find Products ↗</a></div></div></article>`;
+}
+$("pcGrid").innerHTML=pcItems.map(productCard).join("");
+$("gearGrid").innerHTML=gearItems.map(productCard).join("");
+renderGames();renderLibrary();
+</script>
+</body>
+</html>
