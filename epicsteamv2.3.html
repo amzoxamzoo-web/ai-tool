@@ -1,0 +1,498 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPICSTEAM — Gaming Store</title>
+<style>
+:root{--bg:#080b12;--panel:#111724;--line:#263146;--text:#f5f7ff;--muted:#9ba8bd;--blue:#62a8ff;--purple:#9d7bff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{padding:22px 5%;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;border-bottom:1px solid var(--line);background:#0c111c;position:sticky;top:0;z-index:5}
+.logo{font-size:25px;font-weight:900;letter-spacing:1px}.logo span{color:var(--blue)}
+nav{display:flex;gap:18px;flex-wrap:wrap}a{color:inherit;text-decoration:none}nav a{color:var(--muted)}
+nav a:hover{color:white}
+.hero{margin:28px auto;padding:38px 28px;max-width:1400px;border:1px solid #293750;border-radius:22px;background:radial-gradient(ellipse at 80% 0%,#253e70,transparent 55%),linear-gradient(120deg,#151c2b,#11101e)}
+.hero h1{font-size:clamp(32px,5vw,58px);margin:0 0 14px}.hero p{color:#c3cde0;line-height:1.7;max-width:620px}
+button,.btn{border:0;border-radius:10px;padding:12px 16px;background:var(--blue);color:#07111e;font-weight:800;cursor:pointer;display:inline-block}
+.btn.secondary,button.secondary{background:#222e42;color:white}
+main{max-width:1400px;margin:auto;padding:0 22px 40px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
+input,select{background:#121a29;border:1px solid var(--line);color:white;border-radius:10px;padding:13px;min-width:150px}
+input{flex:1;min-width:200px}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.sectionhead p{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden;transition:.2s}
+.card:hover{transform:translateY(-4px);border-color:#587fb5}
+.cover{height:145px;background:#182337;position:relative;overflow:hidden}
+.cover img{width:100%;height:100%;object-fit:cover;display:block}
+.cover .missing{display:none;position:absolute;inset:0;align-items:center;justify-content:center;text-align:center;padding:16px;color:#b9c9e4;background:linear-gradient(135deg,#202c43,#151020)}
+.cover.failed .missing{display:flex}
+.info{padding:14px}
+.info h3{margin:0 0 9px;font-size:17px}
+.meta{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:12px;margin-bottom:13px}
+.price{color:#91e8b1;font-weight:bold}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.actions a,.actions button{flex:1;text-align:center;padding:10px 8px;font-size:12px}
+.tag{background:#202d42;color:#bcd7ff;border-radius:6px;padding:4px 7px}
+.empty{padding:40px;text-align:center;color:var(--muted);display:none}
+footer{text-align:center;padding:30px;color:var(--muted);border-top:1px solid var(--line)}
+.note{color:var(--muted);font-size:13px;line-height:1.6}
+@media(max-width:600px){header{position:static}.hero{margin:15px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.cover{height:115px}.info{padding:10px}.info h3{font-size:14px}.actions{flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="#">EPIC<span>STEAM</span></a>
+  <nav>
+    <a href="#games">Discover</a>
+    <a href="#games" onclick="setFilter('Free')">Free Games</a>
+    <a href="#library">My Library</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>YOUR NEXT GAME<br>STARTS HERE.</h1>
+  <p>Discover PC gaming favourites, browse free-to-play titles, save games to your library and open official store pages.</p>
+  <a class="btn" href="#games">Explore Games →</a>
+  <a class="btn secondary" href="#library">My Library</a>
+</section>
+
+<main>
+  <div class="sectionhead" id="games">
+    <div><h2>Explore Games</h2><p>Real artwork loads from Steam when available.</p></div>
+    <span class="tag" id="count">Loading games...</span>
+  </div>
+  <div class="toolbar">
+    <input id="search" placeholder="Search games..." aria-label="Search games">
+    <select id="filter">
+      <option>All Games</option><option>Free</option><option>Paid</option>
+    </select>
+    <select id="genre">
+      <option>All Genres</option><option>Action</option><option>Adventure</option>
+      <option>Racing</option><option>Strategy</option><option>RPG</option>
+      <option>Simulation</option><option>Sports</option><option>Horror</option>
+    </select>
+    <select id="sort">
+      <option value="popular">Featured</option><option value="az">Name A–Z</option>
+    </select>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">No games found. Try another search.</div>
+
+  <div class="sectionhead" id="library" style="margin-top:48px">
+    <div><h2>My Library ♥</h2><p>Your saved games stay in this browser.</p></div>
+    <button class="secondary" onclick="showLibrary()">View Library</button>
+  </div>
+  <div class="grid" id="libraryGrid"></div>
+</main>
+<footer>
+  <b>EPICSTEAM</b>
+  <p>Fan-made game discovery page. Not affiliated with Steam or Epic Games.</p>
+  <p class="note">Game artwork belongs to its respective owners. Images need an internet connection. If an image is unavailable, the card shows an artwork-unavailable message instead.</p>
+</footer>
+
+<script>
+const games = [
+{name:"Counter-Strike 2",id:730,genre:"Action",free:true,store:"steam"},
+{name:"Dota 2",id:570,genre:"Strategy",free:true,store:"steam"},
+{name:"Team Fortress 2",id:440,genre:"Action",free:true,store:"steam"},
+{name:"Warframe",id:230410,genre:"Action",free:true,store:"steam"},
+{name:"Apex Legends",id:1172470,genre:"Action",free:true,store:"steam"},
+{name:"PUBG: BATTLEGROUNDS",id:578080,genre:"Action",free:true,store:"steam"},
+{name:"The Sims 4",id:1222670,genre:"Simulation",free:true,store:"steam"},
+{name:"Destiny 2",id:1085660,genre:"Action",free:true,store:"steam"},
+{name:"Brawlhalla",id:291550,genre:"Action",free:true,store:"steam"},
+{name:"Unturned",id:304930,genre:"Adventure",free:true,store:"steam"},
+{name:"Teamfight Manager",id:1372810,genre:"Strategy",free:false,store:"steam"},
+{name:"War Thunder",id:236390,genre:"Action",free:true,store:"steam"},
+{name:"Path of Exile",id:238960,genre:"RPG",free:true,store:"steam"},
+{name:"Lost Ark",id:1599340,genre:"RPG",free:true,store:"steam"},
+{name:"Once Human",id:2139460,genre:"Adventure",free:true,store:"steam"},
+{name:"The Finals",id:2073850,genre:"Action",free:true,store:"steam"},
+{name:"Marvel Rivals",id:2767030,genre:"Action",free:true,store:"steam"},
+{name:"Team Sonic Racing",id:785260,genre:"Racing",free:false,store:"steam"},
+{name:"Trackmania",id:2225070,genre:"Racing",free:true,store:"steam"},
+{name:"Fall Guys",id:1091500,genre:"Action",free:false,store:"steam"},
+{name:"Stardew Valley",id:413150,genre:"Simulation",free:false,store:"steam"},
+{name:"Terraria",id:105600,genre:"Adventure",free:false,store:"steam"},
+{name:"Hollow Knight",id:367520,genre:"Adventure",free:false,store:"steam"},
+{name:"Hades",id:1145360,genre:"Action",free:false,store:"steam"},
+{name:"Celeste",id:504230,genre:"Adventure",free:false,store:"steam"},
+{name:"Cuphead",id:268910,genre:"Action",free:false,store:"steam"},
+{name:"Undertale",id:391540,genre:"RPG",free:false,store:"steam"},
+{name:"The Witcher 3: Wild Hunt",id:292030,genre:"RPG",free:false,store:"steam"},
+{name:"Cyberpunk 2077",id:1091500,genre:"RPG",free:false,store:"steam"},
+{name:"Elden Ring",id:1245620,genre:"RPG",free:false,store:"steam"},
+{name:"Baldur's Gate 3",id:1086940,genre:"RPG",free:false,store:"steam"},
+{name:"Red Dead Redemption 2",id:1174180,genre:"Adventure",free:false,store:"steam"},
+{name:"Grand Theft Auto V Enhanced",id:3240220,genre:"Action",free:false,store:"steam"},
+{name:"Grand Theft Auto IV",id:12210,genre:"Action",free:false,store:"steam"},
+{name:"Portal 2",id:620,genre:"Adventure",free:false,store:"steam"},
+{name:"Half-Life 2",id:220,genre:"Action",free:false,store:"steam"},
+{name:"Left 4 Dead 2",id:550,genre:"Action",free:false,store:"steam"},
+{name:"Euro Truck Simulator 2",id:227300,genre:"Simulation",free:false,store:"steam"},
+{name:"American Truck Simulator",id:270880,genre:"Simulation",free:false,store:"steam"},
+{name:"Forza Horizon 5",id:1551360,genre:"Racing",free:false,store:"steam"},
+{name:"Assetto Corsa",id:244210,genre:"Racing",free:false,store:"steam"},
+{name:"Need for Speed Heat",id:1222680,genre:"Racing",free:false,store:"steam"},
+{name:"F1 24",id:2488620,genre:"Racing",free:false,store:"steam"},
+{name:"BeamNG.drive",id:284160,genre:"Racing",free:false,store:"steam"},
+{name:"The Forest",id:242760,genre:"Horror",free:false,store:"steam"},
+{name:"Sons Of The Forest",id:1326470,genre:"Horror",free:false,store:"steam"},
+{name:"Phasmophobia",id:739630,genre:"Horror",free:false,store:"steam"},
+{name:"Amnesia: The Dark Descent",id:57300,genre:"Horror",free:false,store:"steam"},
+{name:"Outlast",id:238320,genre:"Horror",free:false,store:"steam"},
+{name:"Resident Evil 2",id:883710,genre:"Horror",free:false,store:"steam"},
+{name:"Resident Evil 4",id:2050650,genre:"Horror",free:false,store:"steam"},
+{name:"Dead by Daylight",id:381210,genre:"Horror",free:false,store:"steam"},
+{name:"Minecraft",id:0,genre:"Adventure",free:false,url:"https://www.minecraft.net/",store:"official"},
+{name:"Fortnite",id:0,genre:"Action",free:true,url:"https://store.epicgames.com/en-US/p/fortnite",store:"official"},
+{name:"Rocket League",id:252950,genre:"Sports",free:true,store:"steam"},
+{name:"EA SPORTS FC 25",id:2669320,genre:"Sports",free:false,store:"steam"},
+{name:"Football Manager 2024",id:2252570,genre:"Sports",free:false,store:"steam"},
+{name:"Civilization VI",id:289070,genre:"Strategy",free:false,store:"steam"},
+{name:"Age of Empires II: Definitive Edition",id:813780,genre:"Strategy",free:false,store:"steam"},
+{name:"Age of Empires IV",id:1466860,genre:"Strategy",free:false,store:"steam"},
+{name:"Total War: WARHAMMER III",id:1142710,genre:"Strategy",free:false,store:"steam"},
+{name:"Cities: Skylines",id:255710,genre:"Simulation",free:false,store:"steam"},
+{name:"Planet Zoo",id:703080,genre:"Simulation",free:false,store:"steam"},
+{name:"PowerWash Simulator",id:1290000,genre:"Simulation",free:false,store:"steam"},
+{name:"House Flipper",id:613100,genre:"Simulation",free:false,store:"steam"},
+{name:"No Man's Sky",id:275850,genre:"Adventure",free:false,store:"steam"},
+{name:"Subnautica",id:264710,genre:"Adventure",free:false,store:"steam"},
+{name:"Valheim",id:892970,genre:"Adventure",free:false,store:"steam"},
+{name:"Rust",id:252490,genre:"Adventure",free:false,store:"steam"},
+{name:"ARK: Survival Evolved",id:346110,genre:"Adventure",free:false,store:"steam"},
+{name:"Don't Starve Together",id:322330,genre:"Adventure",free:false,store:"steam"},
+{name:"Among Us",id:945360,genre:"Action",free:false,store:"steam"},
+{name:"Geometry Dash",id:322170,genre:"Action",free:false,store:"steam"},
+{name:"Balatro",id:2379780,genre:"Strategy",free:false,store:"steam"},
+{name:"Slay the Spire",id:646570,genre:"Strategy",free:false,store:"steam"},
+{name:"Vampire Survivors",id:1794680,genre:"Action",free:false,store:"steam"},
+{name:"Risk of Rain 2",id:632360,genre:"Action",free:false,store:"steam"},
+{name:"Deep Rock Galactic",id:548430,genre:"Action",free:false,store:"steam"},
+{name:"Sea of Thieves",id:1172620,genre:"Adventure",free:false,store:"steam"},
+{name:"Grounded",id:962130,genre:"Adventure",free:false,store:"steam"},
+{name:"It Takes Two",id:1426210,genre:"Adventure",free:false,store:"steam"},
+{name:"A Way Out",id:1222700,genre:"Adventure",free:false,store:"steam"},
+{name:"Overcooked! 2",id:728880,genre:"Simulation",free:false,store:"steam"},
+{name:"Human: Fall Flat",id:477160,genre:"Adventure",free:false,store:"steam"},
+{name:"Gang Beasts",id:285900,genre:"Action",free:false,store:"steam"},
+{name:"The Long Dark",id:305620,genre:"Adventure",free:false,store:"steam"},
+{name:"Project Zomboid",id:108600,genre:"Horror",free:false,store:"steam"},
+{name:"Dying Light",id:239140,genre:"Action",free:false,store:"steam"},
+{name:"Days Gone",id:1259420,genre:"Action",free:false,store:"steam"},
+{name:"Hogwarts Legacy",id:990080,genre:"RPG",free:false,store:"steam"},
+{name:"Horizon Zero Dawn Remastered",id:1151640,genre:"Adventure",free:false,store:"steam"},
+{name:"God of War",id:1593500,genre:"Action",free:false,store:"steam"},
+{name:"Marvel's Spider-Man Remastered",id:1817070,genre:"Action",free:false,store:"steam"},
+{name:"UNCHARTED: Legacy of Thieves Collection",id:1659420,genre:"Adventure",free:false,store:"steam"},
+{name:"Detroit: Become Human",id:1222140,genre:"Adventure",free:false,store:"steam"},
+{name:"Stray",id:1332010,genre:"Adventure",free:false,store:"steam"},
+{name:"Little Nightmares",id:424840,genre:"Horror",free:false,store:"steam"},
+{name:"Limbo",id:48000,genre:"Adventure",free:false,store:"steam"},
+{name:"Inside",id:304430,genre:"Adventure",free:false,store:"steam"},
+{name:"Ori and the Blind Forest",id:261570,genre:"Adventure",free:false,store:"steam"},
+{name:"Ori and the Will of the Wisps",id:1057090,genre:"Adventure",free:false,store:"steam"},
+{name:"The Binding of Isaac: Rebirth",id:250900,genre:"Action",free:false,store:"steam"},
+{name:"Enter the Gungeon",id:311690,genre:"Action",free:false,store:"steam"},
+{name:"Dead Cells",id:588650,genre:"Action",free:false,store:"steam"},
+{name:"The Elder Scrolls V: Skyrim Special Edition",id:489830,genre:"RPG",free:false,store:"steam"},
+{name:"Fallout 4",id:377160,genre:"RPG",free:false,store:"steam"},
+{name:"Fallout: New Vegas",id:22380,genre:"RPG",free:false,store:"steam"},
+{name:"Mass Effect Legendary Edition",id:1328670,genre:"RPG",free:false,store:"steam"},
+{name:"Monster Hunter: World",id:582010,genre:"RPG",free:false,store:"steam"},
+{name:"Monster Hunter Rise",id:1446780,genre:"RPG",free:false,store:"steam"},
+{name:"Sekiro: Shadows Die Twice",id:814380,genre:"Action",free:false,store:"steam"},
+{name:"Dark Souls III",id:374320,genre:"RPG",free:false,store:"steam"},
+{name:"Dark Souls Remastered",id:570940,genre:"RPG",free:false,store:"steam"},
+{name:"Lies of P",id:1627720,genre:"RPG",free:false,store:"steam"},
+{name:"Hollow Knight: Silksong",id:1030300,genre:"Adventure",free:false,store:"steam"},
+{name:"The Talos Principle",id:257510,genre:"Adventure",free:false,store:"steam"},
+{name:"The Witness",id:210970,genre:"Adventure",free:false,store:"steam"},
+{name:"Papers, Please",id:239030,genre:"Simulation",free:false,store:"steam"},
+{name:"This War of Mine",id:282070,genre:"Simulation",free:false,store:"steam"},
+{name:"Frostpunk",id:323190,genre:"Strategy",free:false,store:"steam"},
+{name:"RimWorld",id:294100,genre:"Simulation",free:false,store:"steam"},
+{name:"Factorio",id:427520,genre:"Simulation",free:false,store:"steam"},
+{name:"Satisfactory",id:526870,genre:"Simulation",free:false,store:"steam"},
+{name:"Dyson Sphere Program",id:1366540,genre:"Simulation",free:false,store:"steam"},
+{name:"Kerbal Space Program",id:220200,genre:"Simulation",free:false,store:"steam"},
+{name:"Microsoft Flight Simulator",id:1250410,genre:"Simulation",free:false,store:"steam"},
+{name:"Train Sim World 4",id:2362300,genre:"Simulation",free:false,store:"steam"},
+{name:"SnowRunner",id:1465360,genre:"Racing",free:false,store:"steam"},
+{name:"Wreckfest",id:228380,genre:"Racing",free:false,store:"steam"},
+{name:"Dirt Rally 2.0",id:690790,genre:"Racing",free:false,store:"steam"},
+{name:"The Crew Motorfest",id:2698940,genre:"Racing",free:false,store:"steam"},
+{name:"Farming Simulator 22",id:1248130,genre:"Simulation",free:false,store:"steam"},
+{name:"Gas Station Simulator",id:1149620,genre:"Simulation",free:false,store:"steam"},
+{name:"Internet Cafe Simulator 2",id:1563180,genre:"Simulation",free:false,store:"steam"},
+{name:"Thief Simulator",id:704850,genre:"Simulation",free:false,store:"steam"},
+{name:"The Walking Dead",id:207610,genre:"Adventure",free:false,store:"steam"},
+{name:"The Wolf Among Us",id:250320,genre:"Adventure",free:false,store:"steam"},
+{name:"Life is Strange",id:319630,genre:"Adventure",free:false,store:"steam"},
+{name:"Firewatch",id:383870,genre:"Adventure",free:false,store:"steam"},
+{name:"What Remains of Edith Finch",id:501300,genre:"Adventure",free:false,store:"steam"},
+{name:"A Short Hike",id:1055540,genre:"Adventure",free:false,store:"steam"},
+{name:"Journey",id:638230,genre:"Adventure",free:false,store:"steam"},
+{name:"ABZU",id:384190,genre:"Adventure",free:false,store:"steam"},
+{name:"Tomb Raider",id:203160,genre:"Adventure",free:false,store:"steam"},
+{name:"Rise of the Tomb Raider",id:391220,genre:"Adventure",free:false,store:"steam"},
+{name:"Shadow of the Tomb Raider",id:750920,genre:"Adventure",free:false,store:"steam"},
+{name:"Batman: Arkham City",id:200260,genre:"Action",free:false,store:"steam"},
+{name:"Batman: Arkham Knight",id:208650,genre:"Action",free:false,store:"steam"},
+{name:"Middle-earth: Shadow of Mordor",id:241930,genre:"Action",free:false,store:"steam"},
+{name:"Mad Max",id:234140,genre:"Action",free:false,store:"steam"},
+{name:"Sleeping Dogs: Definitive Edition",id:307690,genre:"Action",free:false,store:"steam"},
+{name:"Mafia: Definitive Edition",id:1030840,genre:"Action",free:false,store:"steam"},
+{name:"Watch Dogs 2",id:447040,genre:"Action",free:false,store:"steam"},
+{name:"Far Cry 5",id:552520,genre:"Action",free:false,store:"steam"},
+{name:"Assassin's Creed Odyssey",id:812140,genre:"Action",free:false,store:"steam"},
+{name:"Tom Clancy's Rainbow Six Siege",id:359550,genre:"Action",free:false,store:"steam"},
+{name:"Tom Clancy's The Division 2",id:2221490,genre:"Action",free:false,store:"steam"},
+{name:"Battlefield 1",id:1238840,genre:"Action",free:false,store:"steam"},
+{name:"Battlefield V",id:1238810,genre:"Action",free:false,store:"steam"},
+{name:"Call of Duty: Modern Warfare III",id:2519060,genre:"Action",free:false,store:"steam"},
+{name:"Halo: The Master Chief Collection",id:976730,genre:"Action",free:false,store:"steam"},
+{name:"DOOM Eternal",id:782330,genre:"Action",free:false,store:"steam"},
+{name:"ULTRAKILL",id:1229490,genre:"Action",free:false,store:"steam"},
+{name:"Titanfall 2",id:1237970,genre:"Action",free:false,store:"steam"},
+{name:"Borderlands 2",id:49520,genre:"Action",free:false,store:"steam"},
+{name:"Tiny Tina's Wonderlands",id:1286680,genre:"RPG",free:false,store:"steam"},
+{name:"Divinity: Original Sin 2",id:435150,genre:"RPG",free:false,store:"steam"},
+{name:"Disco Elysium",id:632470,genre:"RPG",free:false,store:"steam"},
+{name:"Persona 5 Royal",id:1687950,genre:"RPG",free:false,store:"steam"},
+{name:"Yakuza: Like a Dragon",id:1235140,genre:"RPG",free:false,store:"steam"},
+{name:"Final Fantasy VII Remake Intergrade",id:1462040,genre:"RPG",free:false,store:"steam"},
+{name:"Octopath Traveler II",id:1971650,genre:"RPG",free:false,store:"steam"},
+{name:"Dragon's Dogma 2",id:2054970,genre:"RPG",free:false,store:"steam"},
+{name:"Dragon Age: Inquisition",id:1222690,genre:"RPG",free:false,store:"steam"},
+{name:"Kingdom Come: Deliverance",id:379430,genre:"RPG",free:false,store:"steam"},
+{name:"Mount & Blade II: Bannerlord",id:261550,genre:"Strategy",free:false,store:"steam"},
+{name:"XCOM 2",id:268500,genre:"Strategy",free:false,store:"steam"},
+{name:"Stellaris",id:281990,genre:"Strategy",free:false,store:"steam"},
+{name:"Hearts of Iron IV",id:394360,genre:"Strategy",free:false,store:"steam"},
+{name:"Europa Universalis IV",id:236850,genre:"Strategy",free:false,store:"steam"},
+{name:"Cities: Skylines II",id:949230,genre:"Simulation",free:false,store:"steam"},
+{name:"Two Point Hospital",id:535930,genre:"Simulation",free:false,store:"steam"},
+{name:"Two Point Campus",id:1649080,genre:"Simulation",free:false,store:"steam"},
+{name:"Planet Coaster",id:493340,genre:"Simulation",free:false,store:"steam"},
+{name:"Zoo Tycoon: Ultimate Animal Collection",id:613880,genre:"Simulation",free:false,store:"steam"},
+{name:"Tropico 6",id:492720,genre:"Strategy",free:false,store:"steam"},
+{name:"The Sims 3",id:47890,genre:"Simulation",free:false,store:"steam"},
+{name:"House Flipper 2",id:1190970,genre:"Simulation",free:false,store:"steam"},
+{name:"Car Mechanic Simulator 2021",id:1190000,genre:"Simulation",free:false,store:"steam"},
+{name:"Cooking Simulator",id:641320,genre:"Simulation",free:false,store:"steam"},
+{name:"Golf With Your Friends",id:431240,genre:"Sports",free:false,store:"steam"},
+{name:"NBA 2K25",id:2878980,genre:"Sports",free:false,store:"steam"},
+{name:"WWE 2K24",id:2315690,genre:"Sports",free:false,store:"steam"},
+{name:"Tabletop Simulator",id:286160,genre:"Simulation",free:false,store:"steam"},
+{name:"Pummel Party",id:880940,genre:"Action",free:false,store:"steam"},
+{name:"Jackbox Party Pack 3",id:434170,genre:"Sports",free:false,store:"steam"},
+{name:"The Escapists 2",id:641990,genre:"Strategy",free:false,store:"steam"},
+{name:"A Hat in Time",id:253230,genre:"Adventure",free:false,store:"steam"},
+{name:"Psychonauts 2",id:607080,genre:"Adventure",free:false,store:"steam"},
+{name:"Sifu",id:2138710,genre:"Action",free:false,store:"steam"},
+{name:"Hi-Fi RUSH",id:1817230,genre:"Action",free:false,store:"steam"},
+{name:"Lethal Company",id:1966720,genre:"Horror",free:false,store:"steam"},
+{name:"Content Warning",id:2881650,genre:"Horror",free:false,store:"steam"},
+{name:"Darkwood",id:274520,genre:"Horror",free:false,store:"steam"},
+{name:"The Mortuary Assistant",id:1295920,genre:"Horror",free:false,store:"steam"},
+{name:"Slime Rancher",id:433340,genre:"Simulation",free:false,store:"steam"},
+{name:"Slime Rancher 2",id:1657630,genre:"Simulation",free:false,store:"steam"},
+{name:"Terraria: Journey's End",id:105600,genre:"Adventure",free:false,store:"steam"},
+{name:"Portal",id:400,genre:"Adventure",free:false,store:"steam"},
+{name:"Left 4 Dead",id:500,genre:"Action",free:false,store:"steam"},
+{name:"PAYDAY 2",id:218620,genre:"Action",free:false,store:"steam"},
+{name:"Killing Floor 2",id:232090,genre:"Action",free:false,store:"steam"},
+{name:"The Elder Scrolls Online",id:306130,genre:"RPG",free:false,store:"steam"},
+{name:"Guild Wars 2",id:0,genre:"RPG",free:true,url:"https://www.guildwars2.com/",store:"official"},
+{name:"Genshin Impact",id:0,genre:"RPG",free:true,url:"https://genshin.hoyoverse.com/",store:"official"},
+{name:"Honkai: Star Rail",id:0,genre:"RPG",free:true,url:"https://hsr.hoyoverse.com/",store:"official"},
+{name:"Zenless Zone Zero",id:0,genre:"Action",free:true,url:"https://zenless.hoyoverse.com/",store:"official"},
+{name:"Roblox",id:0,genre:"Adventure",free:true,url:"https://www.roblox.com/",store:"official"},
+{name:"League of Legends",id:0,genre:"Strategy",free:true,url:"https://www.leagueoflegends.com/",store:"official"},
+{name:"Valorant",id:0,genre:"Action",free:true,url:"https://playvalorant.com/",store:"official"},
+{name:"Overwatch 2",id:2357570,genre:"Action",free:true,store:"steam"},
+{name:"The Elder Scrolls: Legends",id:0,genre:"Strategy",free:true,url:"https://store.steampowered.com/",store:"official"},
+{name:"Albion Online",id:761890,genre:"RPG",free:true,store:"steam"},
+{name:"World of Tanks Blitz",id:444200,genre:"Action",free:true,store:"steam"},
+{name:"World of Warships",id:552990,genre:"Action",free:true,store:"steam"},
+{name:"Clicker Heroes",id:363970,genre:"Simulation",free:true,store:"steam"},
+{name:"AdVenture Capitalist",id:346900,genre:"Simulation",free:true,store:"steam"},
+{name:"Cookie Clicker",id:1454400,genre:"Simulation",free:false,store:"steam"},
+{name:"OpenTTD",id:1536610,genre:"Strategy",free:true,store:"steam"},
+{name:"Super Auto Pets",id:1714040,genre:"Strategy",free:true,store:"steam"},
+{name:"Goose Goose Duck",id:1568590,genre:"Action",free:true,store:"steam"},
+{name:"Crab Game",id:1782210,genre:"Action",free:true,store:"steam"},
+{name:"SCP: Secret Laboratory",id:700330,genre:"Horror",free:true,store:"steam"},
+{name:"Cry of Fear",id:223710,genre:"Horror",free:true,store:"steam"},
+{name:"Doki Doki Literature Club!",id:698780,genre:"Adventure",free:true,store:"steam"},
+{name:"The Sims 4: Base Game",id:1222670,genre:"Simulation",free:true,store:"steam"},
+{name:"TrackMania Nations Forever",id:11020,genre:"Racing",free:true,store:"steam"},
+{name:"Fistful of Frags",id:265630,genre:"Action",free:true,store:"steam"},
+{name:"No More Room in Hell",id:224260,genre:"Horror",free:true,store:"steam"},
+{name:"Realm of the Mad God Exalt",id:200210,genre:"Action",free:true,store:"steam"},
+{name:"Super Animal Royale",id:843380,genre:"Action",free:true,store:"steam"},
+{name:"Paladins",id:444090,genre:"Action",free:true,store:"steam"},
+{name:"SMITE 2",id:2437170,genre:"Action",free:true,store:"steam"},
+{name:"Fishing Planet",id:380600,genre:"Simulation",free:true,store:"steam"},
+{name:"TheHunter: Call of the Wild",id:518790,genre:"Simulation",free:false,store:"steam"},
+{name:"Bloons TD 6",id:960090,genre:"Strategy",free:false,store:"steam"},
+{name:"Plants vs. Zombies GOTY Edition",id:3590,genre:"Strategy",free:false,store:"steam"},
+{name:"Peggle Deluxe",id:3480,genre:"Strategy",free:false,store:"steam"},
+{name:"Mini Metro",id:287980,genre:"Strategy",free:false,store:"steam"},
+{name:"Mini Motorways",id:1127500,genre:"Strategy",free:false,store:"steam"},
+{name:"Dorfromantik",id:1455840,genre:"Strategy",free:false,store:"steam"},
+{name:"A Little to the Left",id:1629520,genre:"Simulation",free:false,store:"steam"},
+{name:"Unpacking",id:1135690,genre:"Simulation",free:false,store:"steam"},
+{name:"The Room",id:288160,genre:"Adventure",free:false,store:"steam"},
+{name:"The Room Two",id:425580,genre:"Adventure",free:false,store:"steam"},
+{name:"Escape Simulator",id:1435790,genre:"Adventure",free:false,store:"steam"},
+{name:"We Were Here",id:582500,genre:"Adventure",free:true,store:"steam"},
+{name:"We Were Here Together",id:865360,genre:"Adventure",free:false,store:"steam"},
+{name:"Keep Talking and Nobody Explodes",id:341800,genre:"Simulation",free:false,store:"steam"},
+{name:"Humanity",id:1382330,genre:"Strategy",free:false,store:"steam"},
+{name:"Superliminal",id:1049410,genre:"Adventure",free:false,store:"steam"},
+{name:"Viewfinder",id:1382070,genre:"Adventure",free:false,store:"steam"},
+{name:"The Stanley Parable: Ultra Deluxe",id:1703340,genre:"Adventure",free:false,store:"steam"},
+{name:"The Beginner's Guide",id:303210,genre:"Adventure",free:false,store:"steam"},
+{name:"Baba Is You",id:736260,genre:"Strategy",free:false,store:"steam"},
+{name:"WorldBox",id:1206560,genre:"Simulation",free:false,store:"steam"},
+{name:"People Playground",id:1118200,genre:"Simulation",free:false,store:"steam"},
+{name:"Totally Accurate Battle Simulator",id:508440,genre:"Strategy",free:false,store:"steam"},
+{name:"Besiege",id:346010,genre:"Simulation",free:false,store:"steam"},
+{name:"Teardown",id:1167630,genre:"Simulation",free:false,store:"steam"},
+{name:"Trailmakers",id:585420,genre:"Simulation",free:false,store:"steam"},
+{name:"Scrap Mechanic",id:387990,genre:"Simulation",free:false,store:"steam"},
+{name:"Raft",id:648800,genre:"Adventure",free:false,store:"steam"},
+{name:"The Planet Crafter",id:1284190,genre:"Adventure",free:false,store:"steam"},
+{name:"Astroneer",id:361420,genre:"Adventure",free:false,store:"steam"},
+{name:"Brotato",id:1942280,genre:"Action",free:false,store:"steam"},
+{name:"Peglin",id:1296610,genre:"Strategy",free:false,store:"steam"},
+{name:"Dave the Diver",id:1868140,genre:"Adventure",free:false,store:"steam"},
+{name:"Dredge",id:1562430,genre:"Adventure",free:false,store:"steam"},
+{name:"Cult of the Lamb",id:1313140,genre:"Adventure",free:false,store:"steam"},
+{name:"Inscryption",id:1091500,genre:"Strategy",free:false,store:"steam"},
+{name:"The Binding of Isaac",id:113200,genre:"Action",free:false,store:"steam"},
+{name:"Hotline Miami",id:219150,genre:"Action",free:false,store:"steam"},
+{name:"Katana ZERO",id:460950,genre:"Action",free:false,store:"steam"},
+{name:"Mark of the Ninja: Remastered",id:860950,genre:"Action",free:false,store:"steam"},
+{name:"Broforce",id:274190,genre:"Action",free:false,store:"steam"},
+{name:"Castle Crashers",id:204360,genre:"Action",free:false,store:"steam"},
+{name:"BattleBlock Theater",id:238460,genre:"Action",free:false,store:"steam"},
+{name:"Trine 4: The Nightmare Prince",id:690640,genre:"Adventure",free:false,store:"steam"},
+{name:"Rayman Legends",id:242550,genre:"Adventure",free:false,store:"steam"},
+{name:"Sonic Mania",id:584400,genre:"Adventure",free:false,store:"steam"},
+{name:"Crash Bandicoot N. Sane Trilogy",id:731490,genre:"Adventure",free:false,store:"steam"},
+{name:"Spyro Reignited Trilogy",id:996580,genre:"Adventure",free:false,store:"steam"},
+{name:"LEGO Star Wars: The Skywalker Saga",id:920210,genre:"Adventure",free:false,store:"steam"},
+{name:"LEGO Marvel Super Heroes",id:249130,genre:"Adventure",free:false,store:"steam"},
+{name:"LEGO Batman 3: Beyond Gotham",id:313690,genre:"Adventure",free:false,store:"steam"},
+{name:"Hot Wheels Unleashed",id:1271700,genre:"Racing",free:false,store:"steam"},
+{name:"Disney Speedstorm",id:1537830,genre:"Racing",free:true,store:"steam"},
+{name:"Asphalt Legends Unite",id:1815780,genre:"Racing",free:true,store:"steam"},
+{name:"Super Mega Baseball 4",id:1487210,genre:"Sports",free:false,store:"steam"},
+{name:"PGA TOUR 2K23",id:1588010,genre:"Sports",free:false,store:"steam"},
+{name:"Tennis Manager 2024",id:2477010,genre:"Sports",free:false,store:"steam"},
+{name:"Motorsport Manager",id:415200,genre:"Racing",free:false,store:"steam"},
+{name:"F1 Manager 2024",id:2591280,genre:"Simulation",free:false,store:"steam"},
+{name:"Farming Simulator 19",id:787860,genre:"Simulation",free:false,store:"steam"},
+{name:"Thief Simulator 2",id:1332720,genre:"Simulation",free:false,store:"steam"},
+{name:"Lawn Mowing Simulator",id:1480560,genre:"Simulation",free:false,store:"steam"},
+{name:"Train Sim World 3",id:1944790,genre:"Simulation",free:false,store:"steam"},
+{name:"House Builder",id:1244630,genre:"Simulation",free:false,store:"steam"},
+{name:"Airport CEO",id:673610,genre:"Simulation",free:false,store:"steam"},
+{name:"Prison Architect",id:233450,genre:"Simulation",free:false,store:"steam"},
+{name:"Oxygen Not Included",id:457140,genre:"Simulation",free:false,store:"steam"},
+{name:"Surviving Mars",id:464920,genre:"Strategy",free:false,store:"steam"},
+{name:"Against the Storm",id:1336490,genre:"Strategy",free:false,store:"steam"},
+{name:"Northgard",id:466560,genre:"Strategy",free:false,store:"steam"},
+{name:"They Are Billions",id:644930,genre:"Strategy",free:false,store:"steam"},
+{name:"Age of Darkness: Final Stand",id:1426450,genre:"Strategy",free:false,store:"steam"},
+{name:"Stronghold: Definitive Edition",id:2140020,genre:"Strategy",free:false,store:"steam"},
+{name:"Command & Conquer Remastered Collection",id:1213210,genre:"Strategy",free:false,store:"steam"},
+{name:"StarCraft II",id:0,genre:"Strategy",free:true,url:"https://starcraft2.blizzard.com/",store:"official"},
+{name:"Diablo IV",id:0,genre:"RPG",free:false,url:"https://diablo4.blizzard.com/",store:"official"},
+{name:"World of Warcraft",id:0,genre:"RPG",free:false,url:"https://worldofwarcraft.blizzard.com/",store:"official"},
+{name:"Hearthstone",id:0,genre:"Strategy",free:true,url:"https://hearthstone.blizzard.com/",store:"official"},
+{name:"Minecraft Dungeons",id:0,genre:"Adventure",free:false,url:"https://www.minecraft.net/",store:"official"},
+{name:"Fall Guys",id:1091500,genre:"Action",free:true,store:"steam"}
+];
+
+const grid=document.getElementById("grid");
+const search=document.getElementById("search");
+const filter=document.getElementById("filter");
+const genre=document.getElementById("genre");
+const sort=document.getElementById("sort");
+let library=JSON.parse(localStorage.getItem("epicsteam-library")||"[]");
+let libraryMode=false;
+
+function imageURL(g){
+  if(!g.id || g.store==="official") return "";
+  return `https://shared.steamstatic.com/store_item_assets/steam/apps/${g.id}/header.jpg`;
+}
+function storeURL(g){
+  if(g.url)return g.url;
+  return `https://store.steampowered.com/app/${g.id}/`;
+}
+function card(g){
+  const img=imageURL(g);
+  const saved=library.includes(g.name);
+  return `<article class="card">
+    <div class="cover ${img?"":"failed"}">
+      ${img?`<img src="${img}" alt="${g.name} official game artwork" loading="lazy"
+       onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/${g.id}/header.jpg'}else{this.style.display='none';this.parentElement.classList.add('failed')}">`:""}
+      <div class="missing">${g.name}<br><small>Artwork unavailable</small></div>
+    </div>
+    <div class="info">
+      <h3>${g.name}</h3>
+      <div class="meta"><span>${g.genre}</span><span class="price">${g.free?"FREE":"PAID"}</span></div>
+      <div class="actions">
+        <a class="btn" href="${storeURL(g)}" target="_blank" rel="noopener noreferrer">Store Page ↗</a>
+        <button class="secondary" onclick="toggleSave('${g.name.replace(/'/g,"\\'")}')">${saved?"♥ Saved":"+ Library"}</button>
+      </div>
+    </div>
+  </article>`;
+}
+function render(){
+  libraryMode=false;
+  let list=games.filter(g=>{
+    const q=search.value.toLowerCase();
+    return g.name.toLowerCase().includes(q)
+      && (filter.value==="All Games"||(filter.value==="Free"&&g.free)||(filter.value==="Paid"&&!g.free))
+      && (genre.value==="All Genres"||g.genre===genre.value);
+  });
+  if(sort.value==="az")list.sort((a,b)=>a.name.localeCompare(b.name));
+  grid.innerHTML=list.map(card).join("");
+  document.getElementById("count").textContent=list.length+" games";
+  document.getElementById("empty").style.display=list.length?"none":"block";
+  document.getElementById("libraryGrid").innerHTML="";
+}
+function toggleSave(name){
+  library=library.includes(name)?library.filter(x=>x!==name):[...library,name];
+  localStorage.setItem("epicsteam-library",JSON.stringify(library));
+  if(libraryMode)showLibrary();else render();
+}
+function showLibrary(){
+  libraryMode=true;
+  grid.innerHTML="";
+  document.getElementById("count").textContent=library.length+" saved";
+  const saved=games.filter(g=>library.includes(g.name));
+  document.getElementById("libraryGrid").innerHTML=saved.map(card).join("")||'<p class="note">No saved games yet. Click + Library on any game.</p>';
+  document.getElementById("empty").style.display="none";
+}
+function setFilter(value){
+  filter.value=value;render();
+}
+search.addEventListener("input",render);
+filter.addEventListener("change",render);
+genre.addEventListener("change",render);
+sort.addEventListener("change",render);
+render();
+</script>
+</body>
+</html>
