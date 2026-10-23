@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AMZO GAME STORE</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1018;color:#eaf2fb;font:15px Arial,sans-serif}
+header{height:auto;min-height:76px;background:#111c2a;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 5%;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:900;color:#fff;text-decoration:none}
+.logo span{color:#39a9ff}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+a{color:inherit;text-decoration:none}
+nav a:hover{color:#46b4ff}
+.hero{padding:55px 5%;background:linear-gradient(110deg,#122e48,#102033 60%,#17243b)}
+.hero small{color:#64bdff;letter-spacing:3px}
+.hero h1{font-size:clamp(35px,6vw,65px);margin:16px 0}
+.hero p{color:#bacbdd;line-height:1.8;max-width:550px}
+.btn{display:inline-block;border:0;border-radius:4px;padding:12px 16px;background:#1688ed;color:white;font-weight:bold;cursor:pointer}
+.btn:hover{background:#36a5ff}
+main{max-width:1500px;margin:auto;padding:30px 5%}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 25px}
+input,select{padding:13px;background:#172433;color:white;border:1px solid #34485d;border-radius:5px}
+input{flex:1;min-width:180px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.card{background:#162231;border:1px solid #26394c;border-radius:7px;overflow:hidden;transition:.2s}
+.card:hover{transform:translateY(-4px);border-color:#288fda}
+.cover{height:130px;width:100%;object-fit:cover;background:#20354a;display:block}
+.info{padding:15px}
+.info h3{font-size:17px;margin:0 0 10px}
+.meta{font-size:12px;color:#9eb2c7;margin-bottom:14px}
+.bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.price{font-size:13px;color:#8de4aa}
+.price.paid{color:#ffce83}
+.bottom .btn{font-size:12px;padding:10px}
+.section-title{margin:30px 0 5px;font-size:25px}
+.muted{color:#9eb2c7;line-height:1.7}
+.empty{padding:30px;text-align:center;color:#b5c7d9;display:none}
+.links{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+footer{padding:30px 5%;background:#080d13;color:#93a8bd;line-height:1.8}
+@media(max-width:520px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.cover{height:95px}.info{padding:10px}.info h3{font-size:14px}.bottom .btn{padding:8px}.hero{padding-top:38px}}
+</style>
+</head>
+<body>
+<header>
+<a class="logo" href="#">AMZO<span> STORE</span></a>
+<nav>
+<a href="#store">Discover</a>
+<a href="#store" onclick="filterFree()">Free Games</a>
+<a href="#giveaways">Giveaways</a>
+<a href="https://store.steampowered.com/" target="_blank" rel="noopener">Steam ↗</a>
+</nav>
+</header>
+
+<section class="hero">
+<small>WELCOME TO AMZO GAMING</small>
+<h1>PLAY YOUR<br>NEXT ADVENTURE.</h1>
+<p>Discover real PC games, explore free-to-play titles and browse popular paid games. Find game details and continue to their official store pages.</p>
+<a class="btn" href="#store">EXPLORE GAMES ↓</a>
+</section>
+
+<main>
+<section id="store">
+<h2 class="section-title">Discover Games</h2>
+<p class="muted">Real game listings · Game artwork · Official store pages</p>
+<div class="toolbar">
+<input id="search" placeholder="Search games..." oninput="render()">
+<select id="kind" onchange="render()">
+<option value="All">All prices</option>
+<option value="Free">Free to play</option>
+<option value="Paid">Paid games</option>
+</select>
+<select id="genre" onchange="render()">
+<option value="All">All genres</option>
+<option>Action</option><option>Shooter</option>
+<option>Adventure</option><option>RPG</option>
+<option>Racing</option><option>Sports</option>
+</select>
+<select id="sort" onchange="render()">
+<option value="featured">Featured</option>
+<option value="az">Name A–Z</option>
+</select>
+</div>
+<div class="grid" id="games"></div>
+<div class="empty" id="empty">No matching games. Try another search.</div>
+</section>
+
+<section id="giveaways" style="margin-top:48px">
+<h2 class="section-title">Free Games & Offers</h2>
+<p class="muted">Check official stores for current free games, giveaways and discounts.</p>
+<div class="links">
+<a class="btn" href="https://store.epicgames.com/en-US/free-games" target="_blank" rel="noopener">Epic Free Games ↗</a>
+<a class="btn" href="https://store.steampowered.com/genre/Free%20to%20Play/" target="_blank" rel="noopener">Steam Free Games ↗</a>
+<a class="btn" href="https://store.steampowered.com/specials/" target="_blank" rel="noopener">Steam Discounts ↗</a>
+</div>
+</section>
+</main>
+
+<footer>
+<strong>AMZO GAME STORE</strong><br>
+Independent game discovery website. Not affiliated with Steam, Valve or Epic Games.<br>
+Games remain the property of their respective publishers. Prices and availability can change by region and date.
+</footer>
+
+<script>
+const data=[
+["Counter-Strike 2",730,"Shooter","Free"],
+["Dota 2",570,"Action","Free"],
+["Warframe",230410,"Action","Free"],
+["Apex Legends",1172470,"Shooter","Free"],
+["PUBG: BATTLEGROUNDS",578080,"Shooter","Free"],
+["Team Fortress 2",440,"Shooter","Free"],
+["Destiny 2",1085660,"Shooter","Free"],
+["War Thunder",236390,"Action","Free"],
+["Brawlhalla",291550,"Action","Free"],
+["Path of Exile",238960,"RPG","Free"],
+["Unturned",304930,"Adventure","Free"],
+["The Sims 4",1222670,"Adventure","Free"],
+["Grand Theft Auto V Enhanced",3240220,"Action","Paid"],
+["Cyberpunk 2077",1091500,"RPG","Paid"],
+["Red Dead Redemption 2",1174180,"Adventure","Paid"],
+["Elden Ring",1245620,"RPG","Paid"],
+["Forza Horizon 5",1551360,"Racing","Paid"],
+["Hogwarts Legacy",990080,"Adventure","Paid"],
+["The Witcher 3: Wild Hunt",292030,"RPG","Paid"],
+["Euro Truck Simulator 2",227300,"Racing","Paid"],
+["Terraria",105600,"Adventure","Paid"],
+["Stardew Valley",413150,"Adventure","Paid"],
+["Left 4 Dead 2",550,"Shooter","Paid"],
+["Hades",1145360,"Action","Paid"],
+["Mortal Kombat 11",976310,"Action","Paid"],
+["Sekiro: Shadows Die Twice",814380,"Action","Paid"],
+["Forza Horizon 4",1293830,"Racing","Paid"],
+["F1 25",3059520,"Racing","Paid"],
+["Street Fighter 6",1364780,"Action","Paid"],
+["NBA 2K25",2878980,"Sports","Paid"],
+["Portal 2",620,"Adventure","Paid"],
+["Hollow Knight",367520,"Adventure","Paid"]
+];
+
+function render(){
+ let q=document.getElementById("search").value.toLowerCase().trim();
+ let k=document.getElementById("kind").value;
+ let g=document.getElementById("genre").value;
+ let list=data.filter(x=>
+ x[0].toLowerCase().includes(q)&&
+ (k==="All"||x[3]===k)&&
+ (g==="All"||x[2]===g)
+ );
+ if(document.getElementById("sort").value==="az")
+ list.sort((a,b)=>a[0].localeCompare(b[0]));
+
+ document.getElementById("games").innerHTML=list.map(x=>{
+ let url="https://store.steampowered.com/app/"+x[1]+"/";
+ let img="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/"+x[1]+"/header.jpg";
+ return `<article class="card">
+ <img class="cover" src="${img}" alt="${x[0]} cover" loading="lazy"
+ onerror="this.onerror=null;this.src='https://cdn.akamai.steamstatic.com/steam/apps/${x[1]}/header.jpg';this.onerror=function(){this.style.visibility='hidden'}">
+ <div class="info">
+ <h3>${x[0]}</h3>
+ <div class="meta">${x[2]} · PC</div>
+ <div class="bottom">
+ <span class="price ${x[3]==='Paid'?'paid':''}">${x[3]==='Free'?'Free to Play':'Paid · Check price'}</span>
+ <a class="btn" href="${url}" target="_blank" rel="noopener">View Game ↗</a>
+ </div></div></article>`;
+ }).join("");
+ document.getElementById("empty").style.display=list.length?"none":"block";
+}
+function filterFree(){
+ document.getElementById("kind").value="Free";
+ render();
+}
+render();
+</script>
+</body>
+</html>
