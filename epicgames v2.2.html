@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AMZO HUB — Game Universe</title>
+<style>
+:root{--bg:#080b12;--panel:#121927;--line:#283348;--blue:#78aaff;--text:#f5f7ff;--muted:#9aa8bd}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Segoe UI,sans-serif}
+header{position:sticky;top:0;z-index:5;background:#090d15ed;backdrop-filter:blur(15px);border-bottom:1px solid var(--line);padding:18px 5%;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:900;letter-spacing:1px}.logo span{color:var(--blue)}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+a{color:inherit;text-decoration:none}nav a{color:#c0cce0;font-size:14px}
+.wrap{width:min(1300px,92%);margin:auto}
+.hero{margin:26px 0 40px;border:1px solid #34435c;border-radius:22px;min-height:320px;display:flex;align-items:end;position:relative;overflow:hidden;background:linear-gradient(90deg,#101827 10%,#101827df 50%,#10182733),linear-gradient(135deg,#203e66,#58366e,#111827)}
+.hero img{position:absolute;width:100%;height:100%;object-fit:cover;opacity:.45}
+.hero-content{position:relative;padding:35px;max-width:680px}
+.tag{font-size:12px;letter-spacing:2px;color:#9bc4ff;font-weight:bold;text-transform:uppercase}
+h1{font-size:clamp(35px,5vw,58px);margin:13px 0}
+p{color:var(--muted);line-height:1.65}
+.btn,button{background:var(--blue);color:#07101e;border:0;border-radius:9px;padding:12px 15px;font-weight:bold;cursor:pointer;display:inline-block}
+button:hover,.btn:hover{filter:brightness(1.13)}
+.secondary{background:#273248;color:#fff}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:25px 0 17px}
+h2{margin:0;font-size:24px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+input,select{background:#121927;border:1px solid #344057;border-radius:10px;padding:13px;color:white}
+input{flex:1;min-width:190px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
+.game{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel);transition:.2s}
+.game:hover{transform:translateY(-4px);border-color:#6d9ce9}
+.cover{height:165px;position:relative;overflow:hidden;background:linear-gradient(135deg,#1b3457,#52386b,#111827)}
+.cover img{width:100%;height:100%;object-fit:cover;display:block}
+.free{position:absolute;top:9px;left:9px;background:#a8f3cb;color:#082318;border-radius:5px;padding:5px 7px;font-size:10px;font-weight:900}
+.info{padding:14px}.info h3{font-size:16px;margin:0 0 8px}
+.meta{color:var(--muted);font-size:12px;margin-bottom:14px}
+.actions{display:flex;gap:7px}.actions button{flex:1;padding:10px 7px;font-size:12px}
+.empty{grid-column:1/-1;text-align:center;padding:35px;border:1px dashed #39445a;border-radius:12px;color:var(--muted)}
+.small{color:var(--muted);font-size:12px}
+footer{text-align:center;border-top:1px solid var(--line);margin-top:55px;padding:28px;color:var(--muted);font-size:13px}
+dialog{width:min(550px,92%);border:1px solid #39455b;border-radius:17px;background:#121927;color:white;padding:0}
+dialog::backdrop{background:#000c;backdrop-filter:blur(5px)}
+.modal-img{width:100%;max-height:250px;object-fit:cover;background:#26334b}
+.modal-body{padding:22px}
+.modal-actions{display:flex;gap:9px;flex-wrap:wrap}
+@media(max-width:950px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cover{height:125px}.hero-content{padding:23px}header{padding:15px 4%}}
+@media(max-width:400px){.grid{grid-template-columns:1fr}.cover{height:190px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">AMZO <span>HUB</span></div>
+  <nav><a href="#home">Home</a><a href="#games">Games</a><a href="#library">My Library</a></nav>
+  <a class="btn" href="#games">Explore Games ↗</a>
+</header>
+
+<main class="wrap" id="home">
+  <section class="hero">
+    <img src="https://shared.steamstatic.com/store_item_assets/steam/apps/1172470/header.jpg" alt="Featured game" onerror="this.style.display='none'">
+    <div class="hero-content">
+      <div class="tag">Your gaming destination</div>
+      <h1>Find your next<br>gaming adventure.</h1>
+      <p>Discover free-to-play games, view their artwork, save favourites and open official game stores.</p>
+      <a class="btn" href="#games">Explore Games</a>
+    </div>
+  </section>
+
+  <section id="games">
+    <div class="section-head"><h2>All Free Games</h2><span id="count" class="small"></span></div>
+    <div class="controls">
+      <input id="search" placeholder="🔎 Search any game..." aria-label="Search games">
+      <select id="genre">
+        <option value="All">All genres</option><option>Shooter</option><option>Action</option>
+        <option>RPG</option><option>MOBA</option><option>Casual</option>
+        <option>Battle Royale</option><option>Racing</option><option>Sports</option>
+        <option>Survival</option><option>Strategy</option>
+      </select>
+      <select id="sort"><option value="az">Name A–Z</option><option value="za">Name Z–A</option></select>
+    </div>
+    <div class="grid" id="gameGrid"></div>
+  </section>
+
+  <section id="library">
+    <div class="section-head"><h2>♡ My Library</h2><span class="small">Saved in this browser</span></div>
+    <div class="grid" id="libraryGrid"></div>
+  </section>
+</main>
+
+<footer><b>AMZO HUB</b> · Game discovery for everyone.<br>Game artwork and trademarks belong to their respective owners. Store links open third-party websites.</footer>
+
+<dialog id="details">
+  <img id="modalImage" class="modal-img" alt="Game cover">
+  <div class="modal-body">
+    <div class="tag" id="modalGenre"></div>
+    <h2 id="modalTitle" style="margin-top:10px"></h2>
+    <p id="modalDesc"></p>
+    <div class="modal-actions">
+      <a id="officialLink" class="btn" target="_blank" rel="noopener noreferrer">Official Store ↗</a>
+      <button id="modalSave" class="secondary">♡ Save</button>
+      <button id="closeModal" class="secondary">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+const games=[
+{id:"fortnite",name:"Fortnite",genre:"Battle Royale",platform:"Epic Games",desc:"Battle royale and other online experiences.",url:"https://www.fortnite.com/",img:"https://cdn2.unrealengine.com/fortnite-homepage-og-1920x1080-1920x1080-4d9e1c1f0d75.jpg"},
+{id:"genshin",name:"Genshin Impact",genre:"RPG",platform:"Official Site",desc:"Explore a huge fantasy world in this action RPG.",url:"https://genshin.hoyoverse.com/",img:"https://fastcdn.hoyoverse.com/content-v2/hk4e/123456/"},
+{id:"apex",name:"Apex Legends",genre:"Shooter",app:1172470,platform:"Steam",desc:"Squad-based hero battle royale shooter.",url:"https://store.steampowered.com/app/1172470/"},
+{id:"warframe",name:"Warframe",genre:"Action",app:230410,platform:"Steam",desc:"Sci-fi action with missions and co-op gameplay.",url:"https://store.steampowered.com/app/230410/"},
+{id:"dota",name:"Dota 2",genre:"MOBA",app:570,platform:"Steam",desc:"Competitive five-versus-five strategy.",url:"https://store.steampowered.com/app/570/"},
+{id:"cs2",name:"Counter-Strike 2",genre:"Shooter",app:730,platform:"Steam",desc:"Tactical competitive first-person shooter.",url:"https://store.steampowered.com/app/730/"},
+{id:"fallguys",name:"Fall Guys",genre:"Casual",app:1097150,platform:"Epic Games",desc:"Multiplayer obstacle courses and party rounds.",url:"https://store.epicgames.com/en-US/p/fall-guys"},
+{id:"destiny",name:"Destiny 2",genre:"Shooter",app:1085660,platform:"Steam",desc:"Sci-fi action MMO with co-op activities.",url:"https://store.steampowered.com/app/1085660/"},
+{id:"rocket",name:"Rocket League",genre:"Sports",app:252950,platform:"Epic Games",desc:"Football with rocket-powered cars.",url:"https://store.epicgames.com/en-US/p/rocket-league"},
+{id:"finals",name:"THE FINALS",genre:"Shooter",app:2073850,platform:"Steam",desc:"Fast-paced team shooter with destructible arenas.",url:"https://store.steampowered.com/app/2073850/"},
+{id:"pubg",name:"PUBG: BATTLEGROUNDS",genre:"Battle Royale",app:578080,platform:"Steam",desc:"Battle royale survival combat.",url:"https://store.steampowered.com/app/578080/"},
+{id:"marvel",name:"Marvel Rivals",genre:"Shooter",app:2767030,platform:"Steam",desc:"Team-based superhero action shooter.",url:"https://store.steampowered.com/app/2767030/"},
+{id:"oncehuman",name:"Once Human",genre:"Survival",app:2139460,platform:"Steam",desc:"Open-world survival in a strange sci-fi setting.",url:"https://store.steampowered.com/app/2139460/"},
+{id:"sims",name:"The Sims 4",genre:"Casual",app:1222670,platform:"Steam",desc:"Build homes and create your own stories.",url:"https://store.steampowered.com/app/1222670/"},
+{id:"overwatch",name:"Overwatch 2",genre:"Shooter",app:2357570,platform:"Steam",desc:"Team-based hero shooter.",url:"https://store.steampowered.com/app/2357570/"},
+{id:"brawlhalla",name:"Brawlhalla",genre:"Action",app:291550,platform:"Steam",desc:"Free-to-play platform fighting game.",url:"https://store.steampowered.com/app/291550/"},
+{id:"paladins",name:"Paladins",genre:"Shooter",app:444090,platform:"Steam",desc:"Fantasy team-based hero shooter.",url:"https://store.steampowered.com/app/444090/"},
+{id:"teamfortress",name:"Team Fortress 2",genre:"Shooter",app:440,platform:"Steam",desc:"Class-based team multiplayer shooter.",url:"https://store.steampowered.com/app/440/"},
+{id:"unturned",name:"Unturned",genre:"Survival",app:304930,platform:"Steam",desc:"Block-style zombie survival adventure.",url:"https://store.steampowered.com/app/304930/"},
+{id:"trove",name:"Trove",genre:"RPG",app:304050,platform:"Steam",desc:"Voxel-based online action adventure.",url:"https://store.steampowered.com/app/304050/"},
+{id:"smite2",name:"SMITE 2",genre:"MOBA",app:2437170,platform:"Steam",desc:"Third-person mythological action MOBA.",url:"https://store.steampowered.com/app/2437170/"},
+{id:"trackmania",name:"Trackmania",genre:"Racing",app:2225070,platform:"Steam",desc:"Time-trial racing with creative tracks.",url:"https://store.steampowered.com/app/2225070/"},
+{id:"worldoftanks",name:"World of Tanks",genre:"Action",app:1407200,platform:"Steam",desc:"Team-based armoured vehicle battles.",url:"https://store.steampowered.com/app/1407200/"},
+{id:"eve",name:"EVE Online",genre:"RPG",app:8500,platform:"Steam",desc:"A huge online space exploration and strategy universe.",url:"https://store.steampowered.com/app/8500/"},
+{id:"albion",name:"Albion Online",genre:"RPG",app:761890,platform:"Steam",desc:"Sandbox MMORPG with crafting and exploration.",url:"https://store.steampowered.com/app/761890/"},
+{id:"palia",name:"Palia",genre:"Casual",app:2707930,platform:"Steam",desc:"Cozy multiplayer world with gathering and building.",url:"https://store.steampowered.com/app/2707930/"},
+{id:"squad",name:"War Thunder",genre:"Action",app:236390,platform:"Steam",desc:"Online combat featuring military vehicles.",url:"https://store.steampowered.com/app/236390/"},
+{id:"lostark",name:"Lost Ark",genre:"RPG",app:1599340,platform:"Steam",desc:"Action RPG with large-scale fantasy adventures.",url:"https://store.steampowered.com/app/1599340/"},
+{id:"pathofexile",name:"Path of Exile",genre:"RPG",app:238960,platform:"Steam",desc:"Dark fantasy action RPG with deep character builds.",url:"https://store.steampowered.com/app/238960/"},
+{id:"throne",name:"Throne and Liberty",genre:"RPG",app:2429640,platform:"Steam",desc:"Fantasy MMORPG with large-scale battles.",url:"https://store.steampowered.com/app/2429640/"},
+{id:"goose",name:"Goose Goose Duck",genre:"Casual",app:1568590,platform:"Steam",desc:"Social deduction and teamwork party game.",url:"https://store.steampowered.com/app/1568590/"},
+{id:"worldofwarships",name:"World of Warships",genre:"Action",app:552990,platform:"Steam",desc:"Naval battles with warships from different eras.",url:"https://store.steampowered.com/app/552990/"},
+{id:"fishingplanet",name:"Fishing Planet",genre:"Casual",app:380600,platform:"Steam",desc:"Free fishing simulation with online locations.",url:"https://store.steampowered.com/app/380600/"},
+{id:"superanimal",name:"Super Animal Royale",genre:"Battle Royale",app:843380,platform:"Steam",desc:"Top-down battle royale with animal characters.",url:"https://store.steampowered.com/app/843380/"},
+{id:"minion",name:"Minion Masters",genre:"Strategy",app:489520,platform:"Steam",desc:"Fast competitive strategy card battles.",url:"https://store.steampowered.com/app/489520/"},
+{id:"crab",name:"Crab Game",genre:"Casual",app:1782210,platform:"Steam",desc:"Multiplayer minigames inspired by survival competitions.",url:"https://store.steampowered.com/app/1782210/"},
+{id:"hell",name:"Helltaker",genre:"Casual",app:1289310,platform:"Steam",desc:"Short puzzle adventure with distinctive characters.",url:"https://store.steampowered.com/app/1289310/"},
+{id:"supermeat",name:"Super Meat Boy",genre:"Action",app:40800,platform:"Steam",desc:"Precision platforming challenge. Check store for current price.",url:"https://store.steampowered.com/app/40800/"}
+];
+
+const grid=document.getElementById("gameGrid");
+const library=document.getElementById("libraryGrid");
+const search=document.getElementById("search");
+const genre=document.getElementById("genre");
+const sort=document.getElementById("sort");
+const dialog=document.getElementById("details");
+let selected=null;
+
+function cover(g){return g.img||`https://shared.steamstatic.com/store_item_assets/steam/apps/${g.app}/header.jpg`}
+function fallback(img,id){
+  const g=games.find(x=>x.id===id);
+  if(g&&g.app&&!img.dataset.backup){
+    img.dataset.backup="1";
+    img.src=`https://cdn.cloudflare.steamstatic.com/steam/apps/${g.app}/header.jpg`;
+  }else{
+    img.onerror=null;
+    img.style.display="none";
+  }
+}
+function saved(){try{return JSON.parse(localStorage.getItem("amzoHubSaved")||"[]")}catch(e){return []}}
+function has(id){return saved().includes(id)}
+function toggle(id){
+  let s=saved();
+  s=s.includes(id)?s.filter(x=>x!==id):[...s,id];
+  localStorage.setItem("amzoHubSaved",JSON.stringify(s));
+  render();
+  if(selected&&selected.id===id)document.getElementById("modalSave").textContent=has(id)?"♥ Saved":"♡ Save Game";
+}
+function card(g){return `<article class="game">
+<div class="cover"><img loading="lazy" src="${cover(g)}" alt="${g.name} cover" onerror="fallback(this,'${g.id}')"><span class="free">FREE LISTING</span></div>
+<div class="info"><h3>${g.name}</h3><div class="meta">${g.genre} · ${g.platform}</div>
+<div class="actions"><button onclick="openGame('${g.id}')">Details</button><button class="secondary" onclick="toggle('${g.id}')">${has(g.id)?"♥ Saved":"♡ Save"}</button></div></div></article>`}
+function render(){
+ let q=search.value.toLowerCase().trim();
+ let list=games.filter(g=>g.name.toLowerCase().includes(q)&&(genre.value==="All"||g.genre===genre.value));
+ list.sort((a,b)=>sort.value==="az"?a.name.localeCompare(b.name):b.name.localeCompare(a.name));
+ grid.innerHTML=list.length?list.map(card).join(""):`<div class="empty">No games found. Try another search.</div>`;
+ document.getElementById("count").textContent=`${list.length} games`;
+ let s=games.filter(g=>has(g.id));
+ library.innerHTML=s.length?s.map(card).join(""):`<div class="empty">No saved games yet. Press ♡ Save on any game to add it here.</div>`;
+}
+function openGame(id){
+ selected=games.find(g=>g.id===id);
+ const img=document.getElementById("modalImage");
+ img.style.display="block";img.dataset.backup="";img.src=cover(selected);
+ img.onerror=()=>fallback(img,selected.id);
+ document.getElementById("modalTitle").textContent=selected.name;
+ document.getElementById("modalGenre").textContent=selected.genre+" · "+selected.platform;
+ document.getElementById("modalDesc").textContent=selected.desc;
+ document.getElementById("officialLink").href=selected.url;
+ document.getElementById("modalSave").textContent=has(id)?"♥ Saved":"♡ Save Game";
+ dialog.showModal();
+}
+document.getElementById("modalSave").onclick=()=>selected&&toggle(selected.id);
+document.getElementById("closeModal").onclick=()=>dialog.close();
+dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()});
+search.addEventListener("input",render);
+genre.addEventListener("change",render);
+sort.addEventListener("change",render);
+render();
+</script>
+</body>
+</html>
