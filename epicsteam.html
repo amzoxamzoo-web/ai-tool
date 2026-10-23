@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EPICSTEAM — Gaming Universe</title>
+<style>
+:root{--bg:#090c14;--panel:#111827;--line:#263247;--text:#f4f7ff;--muted:#a1aec4;--blue:#72a8ff;--green:#66f5d0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
+button,input,select{font:inherit}
+header{background:#0d1320;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+.nav{max-width:1500px;margin:auto;padding:18px 4%;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.logo{font-size:26px;font-weight:950;letter-spacing:1px}
+.logo span{color:var(--blue)}
+.navright{display:flex;gap:10px;flex-wrap:wrap}
+button,.btn{border:1px solid var(--line);border-radius:9px;padding:10px 14px;background:#172135;color:white;cursor:pointer;text-decoration:none}
+button:hover,.btn:hover{border-color:var(--blue)}
+.active{background:#203e62;border-color:var(--blue)}
+main{max-width:1500px;margin:auto;padding:25px 4% 55px}
+.hero{padding:clamp(24px,5vw,55px);border-radius:22px;background:radial-gradient(ellipse at 90% 10%,#344f83 0,transparent 38%),linear-gradient(120deg,#172b46,#211b3d 70%,#111827);border:1px solid #334663;margin-bottom:25px}
+.eyebrow{color:var(--green);font-size:12px;font-weight:800;letter-spacing:3px}
+.hero h1{font-size:clamp(34px,5.5vw,64px);margin:12px 0;letter-spacing:-2px}
+.hero p{color:#c2cce0;max-width:650px;line-height:1.7}
+.stats{display:flex;gap:22px;flex-wrap:wrap;margin-top:22px;color:#c7d2e7;font-size:13px}
+.stats strong{color:white}
+.searchrow{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
+input,select{min-width:0;background:#111827;color:white;border:1px solid var(--line);border-radius:10px;padding:13px}
+#search{flex:1;min-width:200px}
+.tabs,.genres{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
+.genres button{font-size:12px;padding:8px 12px}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:30px 0 16px}
+.sectionhead h2{margin:0;font-size:23px}
+#status{font-size:12px;color:var(--muted);margin:10px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:17px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:transform .2s,border-color .2s;min-width:0}
+.card:hover{transform:translateY(-4px);border-color:#6589c5}
+.cover{height:135px;background:linear-gradient(130deg,#192944,#29203c);overflow:hidden;position:relative}
+.cover img{height:100%;width:100%;object-fit:cover;display:block}
+.cover .fallback{display:none;align-items:center;justify-content:center;height:100%;padding:15px;text-align:center;font-size:20px;font-weight:800;color:#d5e3ff}
+.cover.noimage img{display:none}
+.cover.noimage .fallback{display:flex}
+.info{padding:14px}
+.info h3{font-size:15px;margin:0 0 9px;min-height:36px;line-height:1.3}
+.meta{display:flex;align-items:center;justify-content:space-between;gap:7px;flex-wrap:wrap;color:var(--muted);font-size:11px;margin-bottom:13px}
+.pill{background:#203b35;color:#9cf3d9;padding:5px 7px;border-radius:5px}
+.actions{display:flex;gap:7px}
+.actions a{flex:1;text-align:center;font-size:12px;font-weight:700;padding:10px 7px;border-radius:8px;background:#72a8ff;color:#07101f;text-decoration:none}
+.actions button{padding:8px 10px}
+.empty{padding:35px;text-align:center;color:var(--muted);display:none}
+.mobilebox{margin-top:45px;padding:25px;border:1px solid var(--line);border-radius:17px;background:#101725}
+.mobilebox p{color:var(--muted);line-height:1.6}
+.mobilelinks{display:flex;flex-wrap:wrap;gap:9px}
+.mobilelinks a{background:#1a2538;color:white;text-decoration:none;border:1px solid var(--line);padding:10px 13px;border-radius:9px;font-size:13px}
+footer{text-align:center;padding:25px;color:#8795ae;border-top:1px solid var(--line);font-size:12px}
+#loadmore{display:block;margin:25px auto;padding:13px 25px;background:#72a8ff;color:#08101d;font-weight:800}
+@media(max-width:600px){.nav{padding:14px 4%}.logo{font-size:22px}.cover{height:125px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.info{padding:10px}.info h3{font-size:13px}.actions{flex-wrap:wrap}.actions a{font-size:11px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="nav">
+  <div class="logo">EPIC<span>STEAM</span></div>
+  <div class="navright">
+   <button onclick="showAll()">Discover</button>
+   <button onclick="showFavorites()">♥ My Library <span id="favcount">0</span></button>
+   <button onclick="window.open('https://store.steampowered.com/','_blank')">Steam ↗</button>
+   <button onclick="window.open('https://store.epicgames.com/','_blank')">Epic ↗</button>
+  </div>
+ </div>
+</header>
+
+<main>
+ <section class="hero">
+  <div class="eyebrow">YOUR GAMING UNIVERSE</div>
+  <h1>Find Your Next<br>Adventure.</h1>
+  <p>Explore hundreds of games, discover real game cover artwork, search by genre and save your favourites in one place.</p>
+  <div class="stats">
+   <span>🎮 <strong id="total">0</strong> games loaded</span>
+   <span>🖼️ Real store artwork</span>
+   <span>♥ Personal library</span>
+  </div>
+ </section>
+
+ <div class="searchrow">
+  <input id="search" type="search" placeholder="Search games by name...">
+  <select id="sort">
+   <option value="popular">Default order</option>
+   <option value="az">Name A–Z</option>
+   <option value="za">Name Z–A</option>
+  </select>
+  <select id="platform">
+   <option value="all">All platforms</option>
+   <option value="pc">PC games</option>
+  </select>
+ </div>
+
+ <div class="tabs">
+  <button id="alltab" class="active" onclick="showAll()">All Games</button>
+  <button onclick="quickGenre('Free to Play')">Free to Play</button>
+  <button onclick="quickGenre('Action')">Action</button>
+  <button onclick="quickGenre('Adventure')">Adventure</button>
+  <button onclick="quickGenre('Racing')">Racing</button>
+  <button onclick="quickGenre('Strategy')">Strategy</button>
+  <button onclick="quickGenre('Horror')">Horror</button>
+  <button onclick="quickGenre('RPG')">RPG</button>
+ </div>
+
+ <div class="genres" id="genres">
+  <button class="active" onclick="quickGenre('All')">All genres</button>
+  <button onclick="quickGenre('Shooter')">Shooter</button>
+  <button onclick="quickGenre('Simulation')">Simulation</button>
+  <button onclick="quickGenre('Sports')">Sports</button>
+  <button onclick="quickGenre('Multiplayer')">Multiplayer</button>
+  <button onclick="quickGenre('Puzzle')">Puzzle</button>
+  <button onclick="quickGenre('Casual')">Casual</button>
+  <button onclick="quickGenre('Indie')">Indie</button>
+ </div>
+
+ <div class="sectionhead">
+  <h2 id="heading">Explore Games</h2>
+  <span id="count" style="color:#a1aec4;font-size:13px">Loading games...</span>
+ </div>
+ <div id="status">Connecting to the Steam game catalogue...</div>
+ <div class="grid" id="grid"></div>
+ <div class="empty" id="empty">No games found. Try another search.</div>
+ <button id="loadmore" onclick="loadMore()" hidden>Load More Games</button>
+
+ <section class="mobilebox">
+  <h2>📱 Mobile Games</h2>
+  <p>Find Android games through Google Play. These links open official store search results; availability varies by device and country.</p>
+  <div class="mobilelinks" id="mobilelinks"></div>
+ </section>
+</main>
+
+<footer>EPICSTEAM © 2026 · Independent game discovery website. All game names and artwork belong to their respective owners.</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+let catalogue=[],visible=[],favorites=JSON.parse(localStorage.getItem("epicsteam-favorites")||"[]");
+let genreFilter="All",favoriteMode=false,page=0;
+const PAGE_SIZE=40;
+
+const searches=[
+"free to play","action","adventure","shooter","RPG","strategy","simulation",
+"racing","horror","indie","multiplayer","survival","open world","platformer",
+"puzzle","sports","casual","zombie","battle royale","FPS","fighting",
+"building","farming","space","anime","story rich","co-op","sandbox",
+"roguelike","management","war","fantasy","rts","racing games","football",
+"parkour","dungeon crawler","city builder","mystery","turn based",
+"stealth","hunting","cooking","relaxing","tower defense","MMORPG",
+"metroidvania","card game","rhythm","racing simulator","free games"
+];
+
+const mobile=[
+["PUBG Mobile","PUBG MOBILE"],["Free Fire","Garena Free Fire"],
+["Call of Duty Mobile","Call of Duty Mobile"],["Genshin Impact","Genshin Impact"],
+["Honkai Star Rail","Honkai Star Rail"],["Mobile Legends","Mobile Legends Bang Bang"],
+["Clash of Clans","Clash of Clans"],["Clash Royale","Clash Royale"],
+["Roblox","Roblox"],["Minecraft","Minecraft"],["Among Us","Among Us"],
+["Asphalt Legends","Asphalt Legends Unite"],["Brawl Stars","Brawl Stars"],
+["Subway Surfers","Subway Surfers"],["Temple Run 2","Temple Run 2"],
+["Stumble Guys","Stumble Guys"],["Pokémon GO","Pokemon GO"],
+["EA SPORTS FC Mobile","EA SPORTS FC Mobile"],["Real Racing 3","Real Racing 3"],
+["Hill Climb Racing","Hill Climb Racing"],["Candy Crush Saga","Candy Crush Saga"],
+["8 Ball Pool","8 Ball Pool"],["Geometry Dash","Geometry Dash"],
+["Angry Birds 2","Angry Birds 2"],["eFootball","eFootball"]
+];
+
+$("mobilelinks").innerHTML=mobile.map(([name,q])=>
+ `<a target="_blank" rel="noopener noreferrer" href="https://play.google.com/store/search?q=${encodeURIComponent(q)}&c=apps">${name} ↗</a>`
+).join("");
+
+function appImage(id){
+ return `https://shared.steamstatic.com/store_item_assets/steam/apps/${id}/header.jpg`;
+}
+function saveFavorites(){
+ localStorage.setItem("epicsteam-favorites",JSON.stringify(favorites));
+ $("favcount").textContent=favorites.length;
+}
+function showAll(){
+ favoriteMode=false;
+ genreFilter="All";
+ $("heading").textContent="Explore Games";
+ $("alltab").classList.add("active");
+ render();
+}
+function showFavorites(){
+ favoriteMode=true;
+ $("heading").textContent="♥ My Library";
+ render();
+}
+function quickGenre(g){
+ favoriteMode=false;
+ genreFilter=g;
+ $("heading").textContent=g==="All"?"Explore Games":g+" Games";
+ document.querySelectorAll("#genres button").forEach(b=>b.classList.toggle("active",b.textContent.toLowerCase()===g.toLowerCase()));
+ render();
+}
+function card(g){
+ const saved=favorites.includes(g.id);
+ const store=`https://store.steampowered.com/app/${g.id}/`;
+ const safeName=g.name.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+ return `<article class="card">
+  <div class="cover">
+   <img loading="lazy" src="${g.image||appImage(g.id)}" alt="${safeName} cover artwork"
+    onerror="this.parentElement.classList.add('noimage')">
+   <div class="fallback">${safeName}</div>
+  </div>
+  <div class="info">
+   <h3>${safeName}</h3>
+   <div class="meta"><span class="pill">${g.free?"Free to Play":"PC Game"}</span><span>Steam</span></div>
+   <div class="actions">
+    <a href="${store}" target="_blank" rel="noopener noreferrer">View Game ↗</a>
+    <button aria-label="Save ${safeName}" onclick="toggleFavorite(${g.id})">${saved?"♥":"♡"}</button>
+   </div>
+  </div>
+ </article>`;
+}
+function render(){
+ const q=$("search").value.toLowerCase().trim();
+ let list=catalogue.filter(g=>{
+  const matchName=g.name.toLowerCase().includes(q);
+  const matchGenre=genreFilter==="All"||g.name.toLowerCase().includes(genreFilter.toLowerCase())||
+    (genreFilter==="Free to Play"&&g.free);
+  const matchFav=!favoriteMode||favorites.includes(g.id);
+  return matchName&&matchGenre&&matchFav;
+ });
+ if($("sort").value==="az")list.sort((a,b)=>a.name.localeCompare(b.name));
+ if($("sort").value==="za")list.sort((a,b)=>b.name.localeCompare(a.name));
+ visible=list;
+ const pageItems=list.slice(0,(page+1)*PAGE_SIZE);
+ $("grid").innerHTML=pageItems.map(card).join("");
+ $("count").textContent=`${list.length} games`;
+ $("total").textContent=catalogue.length;
+ $("empty").style.display=list.length?"none":"block";
+ $("loadmore").hidden=pageItems.length>=list.length;
+ $("status").textContent=catalogue.length>=200
+  ? "Game catalogue ready. More results may appear as additional searches finish."
+  : "Loading more real game listings...";
+}
+function toggleFavorite(id){
+ favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];
+ saveFavorites();
+ render();
+}
+function loadMore(){page++;render()}
+
+$("search").addEventListener("input",()=>{page=0;render()});
+$("sort").addEventListener("change",render);
+saveFavorites();
+
+async function fetchSearch(term){
+ const url=`https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(term)}&l=english&cc=us`;
+ const res=await fetch(url);
+ if(!res.ok)throw new Error("Store search unavailable");
+ const data=await res.json();
+ return (data.items||[]).filter(g=>g.id&&g.name).map(g=>({
+  id:Number(g.id),name:g.name,image:g.tiny_image||appImage(g.id),
+  free:!!(g.price&&g.price.final===0)
+ }));
+}
+async function start(){
+ const seen=new Set();
+ // Show useful results immediately while more searches continue.
+ const firstTerms=searches.slice(0,12);
+ let done=0;
+ async function one(term){
+  try{
+   const results=await fetchSearch(term);
+   for(const g of results)if(!seen.has(g.id)){seen.add(g.id);catalogue.push(g)}
+  }catch(e){}
+  done++;
+  render();
+ }
+ $("status").textContent="Finding real games and artwork from Steam...";
+ await Promise.all(firstTerms.map(one));
+ render();
+ // Search more genres to grow the library beyond 200 unique games.
+ const remaining=searches.slice(12);
+ for(let i=0;i<remaining.length;i+=6){
+  await Promise.all(remaining.slice(i,i+6).map(one));
+ }
+ $("status").textContent=catalogue.length
+  ? `Loaded ${catalogue.length} unique Steam listings. Search and save your favourites.`
+  : "Steam catalogue could not load. Check your internet connection and refresh this page.";
+ render();
+}
+start();
+</script>
+</body>
+</html>
