@@ -1,0 +1,508 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>epicnet.com | Discover Your Next Game</title>
+<style>
+:root {
+  --bg: #f6f8fc;
+  --white: #ffffff;
+  --text: #172033;
+  --muted: #718096;
+  --accent: #6558f5;
+  --border: #e7eaf2;
+  --green: #16a36a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+button, input { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+header {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 0 6%;
+  background: white;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.logo { font-size: 25px; font-weight: 900; letter-spacing: -1.4px; }
+.logo span { color: var(--accent); }
+nav { display: flex; gap: 25px; align-items: center; }
+nav a { color: #5c6578; font-size: 14px; font-weight: 600; }
+nav a:hover { color: var(--accent); }
+.header-actions { display: flex; gap: 10px; align-items: center; }
+.btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 16px;
+  font-weight: 700;
+  transition: .2s;
+}
+.btn:hover { transform: translateY(-1px); }
+.primary { background: var(--accent); color: white; }
+.secondary { background: #f0efff; color: var(--accent); }
+.menu-btn { display: none; background: white; border: 1px solid var(--border); }
+main { max-width: 1440px; margin: auto; padding: 30px 6% 60px; }
+.hero {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  min-height: 350px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 35px #27345b08;
+}
+.hero-copy { padding: 48px; align-self: center; }
+.eyebrow {
+  display: inline-block;
+  background: #eeedff;
+  color: var(--accent);
+  padding: 7px 11px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+h1 { font-size: clamp(34px, 4vw, 54px); line-height: 1.08; letter-spacing: -2px; margin: 18px 0; }
+.hero-copy p { color: var(--muted); line-height: 1.7; max-width: 470px; }
+.hero-image {
+  min-height: 300px;
+  background:
+  linear-gradient(90deg, #ffffff08, #00000000),
+  url("https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1100&q=85") center/cover;
+}
+.hero-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 25px; }
+.section-heading {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 15px; margin: 38px 0 18px;
+}
+h2 { margin: 0; font-size: 25px; letter-spacing: -.7px; }
+.section-heading p { margin: 6px 0 0; font-size: 13px; color: var(--muted); }
+.search-box {
+  display: flex; align-items: center; gap: 10px;
+  background: white; border: 1px solid var(--border);
+  border-radius: 12px; padding: 0 15px; width: min(100%, 330px);
+}
+.search-box input {
+  width: 100%; min-width: 0; height: 46px;
+  border: 0; outline: none; background: transparent;
+}
+.categories { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 22px; }
+.cat {
+  border: 1px solid var(--border); background: white; color: #5b6579;
+  padding: 10px 15px; border-radius: 9px; font-size: 13px; font-weight: 700;
+}
+.cat.active, .cat:hover { background: var(--accent); border-color: var(--accent); color: white; }
+.filters { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.filters button { border: 0; background: transparent; color: var(--muted); padding: 8px 10px; border-radius: 8px; font-size: 13px; }
+.filters button.active { background: #eae8ff; color: var(--accent); font-weight: 800; }
+.game-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 20px; }
+.game-card {
+  min-width: 0; overflow: hidden; background: white; border: 1px solid var(--border);
+  border-radius: 16px; transition: .2s;
+}
+.game-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px #1d2a480e; }
+.cover { position: relative; height: 165px; background: #e7eaf2; overflow: hidden; }
+.cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+.game-card:hover .cover img { transform: scale(1.04); }
+.price-tag {
+  position: absolute; top: 12px; left: 12px; padding: 6px 9px;
+  border-radius: 7px; font-size: 11px; font-weight: 900; background: white;
+}
+.price-tag.free { color: var(--green); }
+.heart {
+  position: absolute; top: 10px; right: 10px; width: 34px; height: 34px;
+  background: #ffffffeb; border: 0; border-radius: 50%; font-size: 19px;
+}
+.heart.saved { color: #ed4773; }
+.game-info { padding: 15px; }
+.game-info h3 { font-size: 16px; margin: 0 0 7px; }
+.game-info p { font-size: 12px; color: var(--muted); margin: 0 0 15px; }
+.card-bottom { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.genre { font-size: 11px; color: #727d91; background: #f3f5f9; padding: 6px 8px; border-radius: 6px; }
+.details-btn { padding: 8px 10px; font-size: 12px; }
+.empty { display: none; text-align: center; padding: 50px 10px; color: var(--muted); grid-column: 1/-1; }
+.stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 15px; margin-top: 32px; }
+.stat { background: white; border: 1px solid var(--border); border-radius: 15px; padding: 22px; }
+.stat strong { display: block; font-size: 25px; }
+.stat span { display: block; color: var(--muted); font-size: 13px; margin-top: 5px; }
+.newsletter {
+  margin-top: 35px; padding: 35px; border-radius: 20px;
+  background: #eeedff; display: flex; justify-content: space-between;
+  align-items: center; gap: 20px; flex-wrap: wrap;
+}
+.newsletter p { color: #6c6b8b; font-size: 14px; line-height: 1.6; }
+footer { background: white; border-top: 1px solid var(--border); padding: 27px 6%; color: var(--muted); font-size: 13px; }
+.footer-inner { max-width: 1440px; margin: auto; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.modal-backdrop {
+  position: fixed; inset: 0; background: #101629a8; z-index: 20;
+  display: none; align-items: center; justify-content: center; padding: 18px;
+}
+.modal-backdrop.show { display: flex; }
+.modal {
+  width: min(520px,100%); max-height: 90vh; overflow: auto;
+  background: white; border-radius: 20px; padding: 22px;
+}
+.modal img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; }
+.modal-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.close-btn { border: 0; background: #f0f2f7; width: 35px; height: 35px; border-radius: 9px; font-size: 20px; }
+#toast {
+  position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+  background: #172033; color: white; padding: 12px 18px; border-radius: 10px;
+  display: none; z-index: 30; max-width: 90%; text-align: center; font-size: 13px;
+}
+@media(max-width:1000px) {
+  .game-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .hero-copy { padding: 32px; }
+  header { padding: 0 4%; }
+  main { padding-left: 4%; padding-right: 4%; }
+}
+@media(max-width:720px) {
+  header { height: 66px; }
+  nav {
+    display: none; position: absolute; top: 65px; left: 0; right: 0;
+    background: white; padding: 18px 6%; border-bottom: 1px solid var(--border);
+    flex-direction: column; align-items: flex-start;
+  }
+  nav.open { display: flex; }
+  .menu-btn { display: block; }
+  .header-actions .primary { display: none; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-copy { padding: 28px 24px; }
+  .hero-image { min-height: 210px; grid-row: 1; }
+  .section-heading { align-items: flex-start; flex-direction: column; }
+  .search-box { width: 100%; }
+  .game-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  .cover { height: 135px; }
+  .game-info { padding: 11px; }
+  .game-info h3 { font-size: 14px; }
+  .card-bottom { align-items: flex-start; flex-direction: column; }
+  .details-btn { width: 100%; }
+  .stats { gap: 8px; }
+  .stat { padding: 13px; }
+  .stat strong { font-size: 20px; }
+  .stat span { font-size: 11px; }
+  .newsletter { padding: 23px; }
+}
+@media(max-width:380px) {
+  .game-grid { grid-template-columns: 1fr; }
+  .cover { height: 190px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="#" class="logo">epicnet<span>.com</span></a>
+  <nav id="nav">
+    <a href="#home">Home</a>
+    <a href="#games">Explore Games</a>
+    <a href="#categories">Categories</a>
+    <a href="#about">About</a>
+  </nav>
+  <div class="header-actions">
+    <button class="btn secondary" id="wishlistNav">♡ Wishlist <span id="wishCount">0</span></button>
+    <button class="btn primary" id="exploreTop">Explore Games</button>
+    <button class="btn menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="hero-copy">
+      <span class="eyebrow">Your next adventure starts here</span>
+      <h1>Find your next<br>favorite game.</h1>
+      <p>Explore exciting games, discover new worlds, and find your next gaming adventure in one place.</p>
+      <div class="hero-buttons">
+        <button class="btn primary" id="exploreBtn">Explore Games →</button>
+        <button class="btn secondary" id="freeBtn">Discover Free Games</button>
+      </div>
+    </div>
+    <div class="hero-image" role="img" aria-label="Gaming arena"></div>
+  </section>
+
+  <section id="games">
+    <div class="section-heading">
+      <div>
+        <h2 id="listTitle">Explore Games</h2>
+        <p>Discover games for every kind of player.</p>
+      </div>
+      <label class="search-box">
+        <span>⌕</span>
+        <input type="search" id="searchInput" placeholder="Search games..." aria-label="Search games">
+        <button id="clearSearch" style="border:0;background:none;color:#718096" aria-label="Clear search">×</button>
+      </label>
+    </div>
+
+    <div class="categories" id="categories">
+      <button class="cat active" data-category="All">All Games</button>
+      <button class="cat" data-category="Action">⚔️ Action</button>
+      <button class="cat" data-category="Adventure">🌍 Adventure</button>
+      <button class="cat" data-category="Racing">🏎️ Racing</button>
+      <button class="cat" data-category="Sports">⚽ Sports</button>
+      <button class="cat" data-category="Strategy">🧠 Strategy</button>
+      <button class="cat" data-category="Simulation">🛠️ Simulation</button>
+    </div>
+
+    <div class="section-heading" style="margin-top:20px">
+      <div><h2 style="font-size:19px">Game Library</h2><p id="resultCount">Loading games...</p></div>
+      <div class="filters">
+        <button class="active" data-filter="All">All</button>
+        <button data-filter="Free">Free</button>
+        <button data-filter="Paid">Paid</button>
+        <button data-filter="Wishlist">♡ Wishlist</button>
+      </div>
+    </div>
+
+    <div class="game-grid" id="gameGrid">
+      <div class="empty" id="emptyState">No games found. Try another search.</div>
+    </div>
+  </section>
+
+  <section class="stats" id="about">
+    <div class="stat"><strong id="totalGames">12</strong><span>Games to explore</span></div>
+    <div class="stat"><strong>7</strong><span>Categories to discover</span></div>
+    <div class="stat"><strong id="savedStat">0</strong><span>Games in your wishlist</span></div>
+  </section>
+
+  <section class="newsletter">
+    <div>
+      <h2>Ready to start playing?</h2>
+      <p>Find a game you love and visit its official store page for details.</p>
+    </div>
+    <button class="btn primary" id="backToGames">Browse the library →</button>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="logo">epicnet<span>.com</span></a>
+    <span>© <span id="year"></span> epicnet.com · Game discovery made simple.</span>
+    <span>Game trademarks belong to their respective owners.</span>
+  </div>
+</footer>
+
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modalTitle" style="font-size:21px">Game Details</h2>
+      <button class="close-btn" id="closeModal" aria-label="Close">×</button>
+    </div>
+    <div id="modalContent"></div>
+  </div>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+const games = [
+  {id:1,name:"Counter-Strike 2",genre:"Action",price:"Free",desc:"A competitive tactical first-person shooter.",img:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80",search:"Counter Strike 2",url:"https://store.steampowered.com/app/730/CounterStrike_2/"},
+  {id:2,name:"Forza Horizon 5",genre:"Racing",price:"Paid",desc:"Explore a vast open-world racing adventure.",img:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=700&q=80",url:"https://store.steampowered.com/search/?term=Forza+Horizon+5"},
+  {id:3,name:"Minecraft",genre:"Adventure",price:"Paid",desc:"Build, explore, and create your own world.",img:"https://images.unsplash.com/photo-1607513746994-51f730a44832?auto=format&fit=crop&w=700&q=80",url:"https://www.minecraft.net/"},
+  {id:4,name:"Rocket League",genre:"Sports",price:"Free",desc:"High-speed football with rocket-powered cars.",img:"https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=700&q=80",url:"https://www.rocketleague.com/"},
+  {id:5,name:"The Witcher 3",genre:"Adventure",price:"Paid",desc:"An epic fantasy adventure in a vast world.",img:"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=700&q=80",url:"https://store.steampowered.com/search/?term=The+Witcher+3"},
+  {id:6,name:"Apex Legends",genre:"Action",price:"Free",desc:"Team up in a fast-paced hero battle royale.",img:"https://images.unsplash.com/photo-1560253023-3ec5d502959f?auto=format&fit=crop&w=700&q=80",url:"https://www.ea.com/games/apex-legends"},
+  {id:7,name:"Euro Truck Simulator 2",genre:"Simulation",price:"Paid",desc:"Drive across scenic roads and deliver cargo.",img:"https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=700&q=80",url:"https://store.steampowered.com/search/?term=Euro+Truck+Simulator+2"},
+  {id:8,name:"The Sims 4",genre:"Simulation",price:"Free",desc:"Create people, build homes, and shape stories.",img:"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=700&q=80",url:"https://www.ea.com/games/the-sims/the-sims-4"},
+  {id:9,name:"Civilization VI",genre:"Strategy",price:"Paid",desc:"Build a civilization and lead it through history.",img:"https://images.unsplash.com/photo-1461360370896-922624d12aa1?auto=format&fit=crop&w=700&q=80",url:"https://store.steampowered.com/search/?term=Sid+Meiers+Civilization+VI"},
+  {id:10,name:"Trackmania",genre:"Racing",price:"Free",desc:"Race through creative tracks and beat the clock.",img:"https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=700&q=80",url:"https://www.trackmania.com/"},
+  {id:11,name:"Fall Guys",genre:"Sports",price:"Free",desc:"Compete in colorful obstacle-course challenges.",img:"https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=700&q=80",url:"https://www.fallguys.com/"},
+  {id:12,name:"Elden Ring",genre:"Action",price:"Paid",desc:"Explore a mysterious fantasy world full of danger.",img:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=80",url:"https://store.steampowered.com/search/?term=ELDEN+RING"}
+];
+
+const grid = document.getElementById("gameGrid");
+const searchInput = document.getElementById("searchInput");
+const emptyState = document.getElementById("emptyState");
+const modalBackdrop = document.getElementById("modalBackdrop");
+let category = "All";
+let filter = "All";
+let wishlist = [];
+let toastTimer;
+
+try {
+  wishlist = JSON.parse(localStorage.getItem("epicnet-wishlist") || "[]");
+  if (!Array.isArray(wishlist)) wishlist = [];
+} catch(e) { wishlist = []; }
+
+function notify(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.style.display = "block";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.style.display = "none", 2600);
+}
+
+function saveWishlist() {
+  try { localStorage.setItem("epicnet-wishlist", JSON.stringify(wishlist)); }
+  catch(e) { notify("Browser storage unavailable. Wishlist may not persist."); }
+  updateWishlistCount();
+}
+
+function updateWishlistCount() {
+  document.getElementById("wishCount").textContent = wishlist.length;
+  document.getElementById("savedStat").textContent = wishlist.length;
+}
+
+function renderGames() {
+  const query = searchInput.value.trim().toLowerCase();
+  const filtered = games.filter(game => {
+    const matchesQuery = (game.name + " " + game.genre + " " + game.desc).toLowerCase().includes(query);
+    const matchesCategory = category === "All" || game.genre === category;
+    const matchesFilter = filter === "All" ||
+      (filter === "Free" && game.price === "Free") ||
+      (filter === "Paid" && game.price === "Paid") ||
+      (filter === "Wishlist" && wishlist.includes(game.id));
+    return matchesQuery && matchesCategory && matchesFilter;
+  });
+
+  grid.innerHTML = "";
+  filtered.forEach(game => {
+    const card = document.createElement("article");
+    card.className = "game-card";
+    const saved = wishlist.includes(game.id);
+    card.innerHTML = `
+      <div class="cover">
+        <img src="${game.img}" alt="${game.name} cover" loading="lazy">
+        <span class="price-tag ${game.price === "Free" ? "free" : ""}">${game.price}</span>
+        <button class="heart ${saved ? "saved" : ""}" data-wish="${game.id}" aria-label="${saved ? "Remove from" : "Add to"} wishlist">${saved ? "♥" : "♡"}</button>
+      </div>
+      <div class="game-info">
+        <h3>${game.name}</h3>
+        <p>${game.genre} · PC game</p>
+        <div class="card-bottom">
+          <span class="genre">${game.genre}</span>
+          <button class="btn secondary details-btn" data-details="${game.id}">View Details ↗</button>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  emptyState.style.display = filtered.length ? "none" : "block";
+  grid.appendChild(emptyState);
+  document.getElementById("resultCount").textContent =
+    `${filtered.length} game${filtered.length === 1 ? "" : "s"} found`;
+  document.getElementById("totalGames").textContent = games.length;
+}
+
+function toggleWishlist(id) {
+  if (wishlist.includes(id)) {
+    wishlist = wishlist.filter(item => item !== id);
+    notify("Removed from your wishlist.");
+  } else {
+    wishlist.push(id);
+    notify("Added to your wishlist ♥");
+  }
+  saveWishlist();
+  renderGames();
+}
+
+function openDetails(id) {
+  const game = games.find(item => item.id === id);
+  if (!game) return;
+  document.getElementById("modalTitle").textContent = game.name;
+  document.getElementById("modalContent").innerHTML = `
+    <img src="${game.img}" alt="${game.name}">
+    <p style="color:#718096;font-size:13px">${game.genre} · ${game.price} · PC</p>
+    <p style="line-height:1.7">${game.desc}</p>
+    <p style="font-size:13px;color:#718096">Price and availability may vary by store and region.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+      <a class="btn primary" href="${game.url}" target="_blank" rel="noopener noreferrer">Visit Official Store ↗</a>
+      <button class="btn secondary" id="modalWishlist">${wishlist.includes(id) ? "♥ Saved" : "♡ Add to Wishlist"}</button>
+    </div>`;
+  modalBackdrop.classList.add("show");
+  document.getElementById("modalWishlist").onclick = () => {
+    toggleWishlist(id);
+    openDetails(id);
+  };
+}
+
+document.addEventListener("click", event => {
+  const wishButton = event.target.closest("[data-wish]");
+  const detailButton = event.target.closest("[data-details]");
+  if (wishButton) toggleWishlist(Number(wishButton.dataset.wish));
+  if (detailButton) openDetails(Number(detailButton.dataset.details));
+});
+
+searchInput.addEventListener("input", renderGames);
+document.getElementById("clearSearch").addEventListener("click", () => {
+  searchInput.value = "";
+  renderGames();
+  searchInput.focus();
+});
+
+document.querySelectorAll("[data-category]").forEach(button => {
+  button.addEventListener("click", () => {
+    category = button.dataset.category;
+    document.querySelectorAll("[data-category]").forEach(b => b.classList.toggle("active", b === button));
+    renderGames();
+  });
+});
+
+document.querySelectorAll("[data-filter]").forEach(button => {
+  button.addEventListener("click", () => {
+    filter = button.dataset.filter;
+    document.querySelectorAll("[data-filter]").forEach(b => b.classList.toggle("active", b === button));
+    document.getElementById("listTitle").textContent =
+      filter === "Wishlist" ? "My Wishlist" : filter === "Free" ? "Free Games" : filter === "Paid" ? "Paid Games" : "Explore Games";
+    renderGames();
+  });
+});
+
+function goToGames() {
+  document.getElementById("games").scrollIntoView({behavior:"smooth"});
+}
+document.getElementById("exploreBtn").addEventListener("click", goToGames);
+document.getElementById("exploreTop").addEventListener("click", goToGames);
+document.getElementById("backToGames").addEventListener("click", goToGames);
+
+document.getElementById("freeBtn").addEventListener("click", () => {
+  filter = "Free";
+  document.querySelectorAll("[data-filter]").forEach(b => b.classList.toggle("active", b.dataset.filter === "Free"));
+  document.getElementById("listTitle").textContent = "Free Games";
+  renderGames();
+  goToGames();
+});
+
+document.getElementById("wishlistNav").addEventListener("click", () => {
+  filter = "Wishlist";
+  document.querySelectorAll("[data-filter]").forEach(b => b.classList.toggle("active", b.dataset.filter === "Wishlist"));
+  document.getElementById("listTitle").textContent = "My Wishlist";
+  renderGames();
+  goToGames();
+});
+
+document.getElementById("menuBtn").addEventListener("click", () => {
+  document.getElementById("nav").classList.toggle("open");
+});
+document.querySelectorAll("#nav a").forEach(link => link.addEventListener("click", () => {
+  document.getElementById("nav").classList.remove("open");
+}));
+
+function closeModal() { modalBackdrop.classList.remove("show"); }
+document.getElementById("closeModal").addEventListener("click", closeModal);
+modalBackdrop.addEventListener("click", event => {
+  if (event.target === modalBackdrop) closeModal();
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeModal();
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+updateWishlistCount();
+renderGames();
+</script>
+</body>
+</html>
