@@ -1,0 +1,512 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title>AMZO PC STORE | Build Your Setup</title>
+<style>
+:root {
+  --ink:#172033; --muted:#70798b; --line:#e7eaf0;
+  --brand:#5b4cf0; --soft:#f5f5ff; --bg:#f8f9fc;
+  --green:#16845b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font-family:Inter,Arial,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+header{background:white;border-bottom:1px solid var(--line);
+position:sticky;top:0;z-index:10}
+.top{max-width:1200px;margin:auto;padding:17px 22px;
+display:flex;align-items:center;gap:25px}
+.logo{font-size:22px;font-weight:900;letter-spacing:-1px;
+white-space:nowrap}
+.logo span{color:var(--brand)}
+.search{flex:1;position:relative}
+.search input{width:100%;padding:13px 15px 13px 43px;
+border:1px solid var(--line);border-radius:11px;outline:none;
+background:#f9fafc}
+.search input:focus{border-color:var(--brand)}
+.search:before{content:"⌕";position:absolute;left:15px;
+top:6px;font-size:25px;color:var(--muted)}
+.cart-btn,.primary,.secondary{border:0;border-radius:10px;
+padding:12px 16px;font-weight:700}
+.cart-btn,.primary{background:var(--brand);color:white}
+.cart-btn{white-space:nowrap}
+.cart-count{background:white;color:var(--brand);border-radius:20px;
+padding:2px 7px;margin-left:4px}
+nav{max-width:1200px;margin:auto;padding:0 22px 12px;
+display:flex;gap:22px;overflow:auto}
+nav a{font-size:13px;color:var(--muted);white-space:nowrap}
+nav a:hover{color:var(--brand)}
+main{max-width:1200px;margin:auto;padding:25px 22px 50px}
+.hero{background:linear-gradient(115deg,#efedff,#f6f8ff 60%,#e7f5ff);
+border-radius:22px;padding:38px;display:grid;
+grid-template-columns:1.3fr .7fr;align-items:center;gap:20px;
+overflow:hidden}
+.eyebrow{color:var(--brand);font-size:12px;font-weight:800;
+letter-spacing:2px;text-transform:uppercase}
+.hero h1{font-size:clamp(32px,5vw,54px);line-height:1.06;
+letter-spacing:-2px;margin:15px 0}
+.hero p{color:#59647b;line-height:1.7;max-width:510px}
+.hero .primary{margin-top:10px;padding:14px 20px}
+.hero-art{font-size:clamp(85px,13vw,150px);text-align:center;
+filter:drop-shadow(0 16px 14px #3332)}
+.stats{display:flex;gap:22px;flex-wrap:wrap;margin-top:24px}
+.stat strong{display:block;font-size:18px}
+.stat small{color:var(--muted)}
+.section-head{display:flex;justify-content:space-between;
+align-items:center;gap:12px;flex-wrap:wrap;margin:34px 0 17px}
+h2{font-size:23px;margin:0;letter-spacing:-.6px}
+.section-head p{color:var(--muted);font-size:13px;margin:7px 0 0}
+.categories{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));
+gap:12px}
+.category{border:1px solid var(--line);background:white;
+border-radius:14px;padding:18px 8px;text-align:center;
+transition:.2s;color:var(--ink)}
+.category:hover,.category.active{border-color:var(--brand);
+background:var(--soft);transform:translateY(-2px)}
+.category .emoji{font-size:29px;display:block;margin-bottom:9px}
+.category strong{font-size:13px}
+.toolbar{display:flex;justify-content:space-between;
+align-items:center;gap:12px;flex-wrap:wrap;margin:22px 0 15px}
+.toolbar label{font-size:13px;color:var(--muted)}
+select{border:1px solid var(--line);background:white;
+padding:10px;border-radius:9px;color:var(--ink);margin-left:5px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+gap:16px}
+.card{background:white;border:1px solid var(--line);
+border-radius:15px;overflow:hidden;display:flex;flex-direction:column;
+transition:.2s;min-width:0}
+.card:hover{box-shadow:0 10px 28px #1d24400d;transform:translateY(-3px)}
+.product-img{height:185px;background:#fff;position:relative;
+display:flex;align-items:center;justify-content:center;padding:17px}
+.product-img img{width:100%;height:100%;object-fit:contain}
+.tag{position:absolute;top:11px;left:11px;background:#edfaf3;
+color:var(--green);font-size:10px;font-weight:800;
+padding:6px 8px;border-radius:5px}
+.card-body{padding:14px;display:flex;flex-direction:column;
+flex:1}
+.brand{font-size:10px;color:var(--brand);font-weight:800;
+letter-spacing:1px;text-transform:uppercase}
+.card h3{font-size:15px;line-height:1.45;margin:7px 0 5px}
+.spec{font-size:12px;color:var(--muted);line-height:1.6;
+min-height:38px}
+.price{font-size:19px;font-weight:850;margin-top:12px}
+.price-note{font-size:10px;color:var(--muted);margin-top:4px}
+.actions{display:flex;gap:7px;margin-top:14px}
+.actions button{font-size:12px;padding:10px 7px;flex:1}
+.secondary{background:white;border:1px solid var(--line)}
+.secondary:hover{background:#f3f4f9}
+.empty{grid-column:1/-1;background:white;padding:45px 15px;
+text-align:center;border-radius:15px;color:var(--muted)}
+.note{background:#fff8e8;border:1px solid #f4e4b7;border-radius:12px;
+padding:14px 16px;color:#71551c;font-size:12px;line-height:1.7;
+margin-top:24px}
+footer{background:white;border-top:1px solid var(--line);
+padding:28px 22px;color:var(--muted);font-size:12px}
+.footer-inner{max-width:1200px;margin:auto;display:flex;
+justify-content:space-between;gap:15px;flex-wrap:wrap}
+.overlay{position:fixed;inset:0;background:#10172b77;z-index:30;
+display:none;justify-content:flex-end}
+.overlay.show{display:flex}
+.drawer{background:white;width:min(440px,100%);height:100%;
+padding:22px;overflow:auto;box-shadow:-10px 0 30px #0001}
+.drawer-head{display:flex;align-items:center;
+justify-content:space-between;border-bottom:1px solid var(--line);
+padding-bottom:16px}
+.close{background:#f0f1f7;border:0;border-radius:9px;
+width:36px;height:36px;font-size:20px}
+.cart-item{display:grid;grid-template-columns:65px 1fr auto;
+gap:12px;padding:16px 0;border-bottom:1px solid var(--line)}
+.cart-item img{width:65px;height:65px;object-fit:contain}
+.cart-item h4{font-size:13px;margin:3px 0 8px}
+.cart-item small{color:var(--muted)}
+.qty{display:flex;align-items:center;gap:10px;margin-top:9px}
+.qty button{width:26px;height:26px;background:#f0f1f7;
+border:0;border-radius:6px}
+.remove{border:0;background:none;color:#c33;font-size:11px;
+padding:0;margin-top:7px}
+.total{display:flex;justify-content:space-between;font-weight:800;
+font-size:19px;margin:20px 0 8px}
+.cart-foot{margin-top:20px}
+.cart-foot .primary{width:100%}
+.cart-foot p{font-size:11px;color:var(--muted);line-height:1.6}
+.modal{position:fixed;inset:0;background:#10172b88;z-index:40;
+display:none;align-items:center;justify-content:center;padding:16px}
+.modal.show{display:flex}
+.modal-box{background:white;border-radius:17px;max-width:650px;
+width:100%;max-height:90vh;overflow:auto;padding:22px}
+.modal-top{display:flex;justify-content:space-between;gap:15px}
+.detail-layout{display:grid;grid-template-columns:1fr 1fr;
+gap:22px;margin-top:15px}
+.detail-layout img{width:100%;height:240px;object-fit:contain}
+.detail-layout p{font-size:13px;line-height:1.7;color:var(--muted)}
+.detail-layout .price{margin:18px 0}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+background:#172033;color:white;padding:13px 20px;border-radius:10px;
+z-index:60;font-size:13px;display:none;max-width:90%;
+text-align:center}
+.toast.show{display:block}
+@media(max-width:900px){
+ .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .categories{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .hero{padding:28px}.product-img{height:160px}
+}
+@media(max-width:600px){
+ .top{padding:13px;gap:10px;flex-wrap:wrap}
+ .logo{font-size:20px}
+ .search{order:3;flex-basis:100%}
+ .cart-btn{margin-left:auto;padding:11px}
+ nav{padding:0 13px 12px;gap:17px}
+ main{padding:16px 13px 35px}
+ .hero{padding:23px;grid-template-columns:1fr}
+ .hero-art{font-size:76px}
+ .hero h1{letter-spacing:-1px}
+ .categories{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+ .category{padding:14px 4px}
+ .category .emoji{font-size:25px}
+ .category strong{font-size:11px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .product-img{height:130px;padding:12px}
+ .card-body{padding:10px}
+ .card h3{font-size:13px}
+ .spec{font-size:11px}
+ .price{font-size:16px}
+ .actions{flex-direction:column}
+ .actions button{width:100%;padding:9px}
+ .detail-layout{grid-template-columns:1fr;gap:8px}
+ .detail-layout img{height:190px}
+}
+</style>
+</head>
+<body>
+<header>
+ <div class="top">
+  <a class="logo" href="#">AMZO <span>PC STORE.</span></a>
+  <div class="search">
+   <input id="search" type="search" placeholder="Search CPU, GPU, RAM..." aria-label="Search products">
+  </div>
+  <button class="cart-btn" id="openCart">Cart <span class="cart-count" id="cartCount">0</span></button>
+ </div>
+ <nav>
+  <a href="#categories">Categories</a>
+  <a href="#products">All products</a>
+  <a href="#products" data-cat="GPU">Graphics cards</a>
+  <a href="#products" data-cat="CPU">Processors</a>
+  <a href="#products" data-cat="Storage">Storage</a>
+ </nav>
+</header>
+
+<main>
+ <section class="hero">
+  <div>
+   <div class="eyebrow">YOUR NEXT BUILD STARTS HERE</div>
+   <h1>Build your<br>dream setup.</h1>
+   <p>Explore PC components, compare your options and find online listings for your next upgrade.</p>
+   <button class="primary" id="shopNow">Explore components →</button>
+   <div class="stats">
+    <div class="stat"><strong id="productCount">16+</strong><small>Products listed</small></div>
+    <div class="stat"><strong>6</strong><small>Categories</small></div>
+    <div class="stat"><strong>PKR</strong><small>Price estimates</small></div>
+   </div>
+  </div>
+  <div class="hero-art" aria-label="Computer setup">🖥️</div>
+ </section>
+
+ <section id="categories">
+  <div class="section-head">
+   <div><h2>Shop by category</h2><p>Find the components you need.</p></div>
+  </div>
+  <div class="categories" id="categoriesGrid"></div>
+ </section>
+
+ <section id="products">
+  <div class="section-head">
+   <div><h2 id="listTitle">Popular components</h2>
+   <p>Compare models and browse available listings.</p></div>
+  </div>
+  <div class="toolbar">
+   <label id="resultCount">Products</label>
+   <label>Sort by
+    <select id="sort">
+     <option value="featured">Featured</option>
+     <option value="low">Price: low to high</option>
+     <option value="high">Price: high to low</option>
+     <option value="name">Name: A–Z</option>
+    </select>
+   </label>
+  </div>
+  <div class="grid" id="productGrid"></div>
+  <div class="note">
+   <strong>Price and availability notice</strong><br>
+   Prices are illustrative estimates in Pakistani rupees (PKR), not verified live offers. Actual prices, stock and warranty vary by seller. Use “Find online” to search for the exact model before purchasing. Product photos are loaded from online image sources and may not load without internet access.
+  </div>
+ </section>
+</main>
+
+<footer>
+ <div class="footer-inner">
+  <strong>AMZO PC STORE.</strong>
+  <span>PC components • Compare models • Find sellers</span>
+  <span>Independent demo store — not affiliated with the manufacturers.</span>
+ </div>
+</footer>
+
+<div class="overlay" id="cartOverlay">
+ <aside class="drawer">
+  <div class="drawer-head"><h2>Your cart</h2><button class="close" id="closeCart" aria-label="Close cart">×</button></div>
+  <div id="cartItems"></div>
+  <div id="cartSummary"></div>
+ </aside>
+</div>
+
+<div class="modal" id="detailModal">
+ <div class="modal-box">
+  <div class="modal-top"><h2>Product details</h2><button class="close" id="closeDetail" aria-label="Close details">×</button></div>
+  <div id="detailContent"></div>
+ </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+"use strict";
+
+const products = [
+ {id:1,name:"AMD Ryzen 5 5600",brand:"AMD",cat:"CPU",price:28000,spec:"6 cores • 12 threads • AM4",tag:"Popular",img:"https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&w=500&q=80"},
+ {id:2,name:"AMD Ryzen 7 5700X",brand:"AMD",cat:"CPU",price:43000,spec:"8 cores • 16 threads • AM4",tag:"Upgrade",img:"https://images.unsplash.com/photo-1555617981-dac3880eac6e?auto=format&fit=crop&w=500&q=80"},
+ {id:3,name:"Intel Core i5-12400F",brand:"Intel",cat:"CPU",price:34000,spec:"6 cores • 12 threads • LGA1700",tag:"Gaming",img:"https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&w=500&q=80"},
+ {id:4,name:"NVIDIA GeForce RTX 4060",brand:"NVIDIA",cat:"GPU",price:105000,spec:"8GB GDDR6 • RTX series",tag:"Popular",img:"https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=500&q=80"},
+ {id:5,name:"NVIDIA GeForce RTX 3060 12GB",brand:"NVIDIA",cat:"GPU",price:85000,spec:"12GB GDDR6 • RTX series",tag:"12GB VRAM",img:"https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=500&q=80"},
+ {id:6,name:"AMD Radeon RX 6600",brand:"AMD",cat:"GPU",price:65000,spec:"8GB GDDR6 • Radeon",tag:"Value",img:"https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=500&q=80"},
+ {id:7,name:"Corsair Vengeance 16GB DDR4",brand:"Corsair",cat:"RAM",price:11500,spec:"16GB • DDR4 desktop memory",tag:"Upgrade",img:"https://images.unsplash.com/photo-1562976540-1502c2145186?auto=format&fit=crop&w=500&q=80"},
+ {id:8,name:"Kingston Fury Beast 32GB DDR4",brand:"Kingston",cat:"RAM",price:21000,spec:"32GB • DDR4 desktop memory",tag:"32GB",img:"https://images.unsplash.com/photo-1562976540-1502c2145186?auto=format&fit=crop&w=500&q=80"},
+ {id:9,name:"Samsung 990 EVO 1TB SSD",brand:"Samsung",cat:"Storage",price:26000,spec:"1TB • NVMe M.2 SSD",tag:"Fast storage",img:"https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=500&q=80"},
+ {id:10,name:"Kingston NV2 1TB SSD",brand:"Kingston",cat:"Storage",price:18000,spec:"1TB • NVMe M.2 SSD",tag:"Value",img:"https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=500&q=80"},
+ {id:11,name:"WD Blue 1TB HDD",brand:"Western Digital",cat:"Storage",price:12000,spec:"1TB • 3.5-inch SATA HDD",tag:"Storage",img:"https://images.unsplash.com/photo-1531492746076-161ca9bcad58?auto=format&fit=crop&w=500&q=80"},
+ {id:12,name:"MSI B550M PRO-VDH WIFI",brand:"MSI",cat:"Motherboard",price:35000,spec:"AM4 • Micro-ATX • Wi-Fi",tag:"AM4",img:"https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=500&q=80"},
+ {id:13,name:"Gigabyte B760M DS3H",brand:"Gigabyte",cat:"Motherboard",price:38000,spec:"Intel LGA1700 • Micro-ATX",tag:"Intel",img:"https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=500&q=80"},
+ {id:14,name:"Logitech G102 LIGHTSYNC",brand:"Logitech",cat:"Accessories",price:6500,spec:"Wired gaming mouse • RGB",tag:"Gaming",img:"https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=500&q=80"},
+ {id:15,name:"Logitech G213 Prodigy",brand:"Logitech",cat:"Accessories",price:14000,spec:"Wired gaming keyboard • RGB",tag:"Gaming",img:"https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&w=500&q=80"},
+ {id:16,name:"Corsair 4000D Airflow",brand:"Corsair",cat:"Accessories",price:25000,spec:"Mid-tower PC case • Airflow",tag:"PC case",img:"https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=500&q=80"}
+];
+
+const categories = [
+ {name:"All",icon:"🛍️",cat:"All"},
+ {name:"Processors",icon:"🧠",cat:"CPU"},
+ {name:"Graphics cards",icon:"🎮",cat:"GPU"},
+ {name:"Memory (RAM)",icon:"💾",cat:"RAM"},
+ {name:"Storage",icon:"⚡",cat:"Storage"},
+ {name:"Motherboards",icon:"🔌",cat:"Motherboard"},
+ {name:"Accessories",icon:"⌨️",cat:"Accessories"}
+];
+
+let activeCategory = "All";
+let query = "";
+let sortMode = "featured";
+let cart = {};
+let toastTimer;
+
+const $ = id => document.getElementById(id);
+const money = n => "Rs. " + Math.round(n).toLocaleString("en-PK");
+const escapeHTML = s => String(s).replace(/[&<>"']/g, c => ({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+})[c]);
+
+function onlineURL(p) {
+ return "https://www.google.com/search?q=" +
+ encodeURIComponent(p.name + " price Pakistan");
+}
+function imageHTML(p) {
+ return `<img src="${escapeHTML(p.img)}" alt="${escapeHTML(p.name)}"
+ loading="lazy" onerror="this.style.display='none';this.parentElement.insertAdjacentHTML('beforeend','<span style=&quot;font-size:55px&quot;>🖥️</span>')">`;
+}
+
+function renderCategories() {
+ $("categoriesGrid").innerHTML = categories.map(c => `
+  <button class="category ${activeCategory===c.cat?"active":""}"
+   data-category="${c.cat}">
+   <span class="emoji">${c.icon}</span><strong>${c.name}</strong>
+  </button>`).join("");
+ $("categoriesGrid").querySelectorAll("[data-category]").forEach(btn => {
+  btn.addEventListener("click", () => {
+   activeCategory = btn.dataset.category;
+   renderCategories();
+   renderProducts();
+   $("products").scrollIntoView({behavior:"smooth"});
+  });
+ });
+}
+
+function filteredProducts() {
+ let list = products.filter(p => {
+  const text = (p.name+" "+p.brand+" "+p.cat+" "+p.spec).toLowerCase();
+  return (activeCategory==="All" || p.cat===activeCategory)
+   && text.includes(query.toLowerCase());
+ });
+ if(sortMode==="low") list.sort((a,b)=>a.price-b.price);
+ if(sortMode==="high") list.sort((a,b)=>b.price-a.price);
+ if(sortMode==="name") list.sort((a,b)=>a.name.localeCompare(b.name));
+ return list;
+}
+
+function renderProducts() {
+ const list = filteredProducts();
+ $("resultCount").textContent = `${list.length} product${list.length===1?"":"s"} found`;
+ $("listTitle").textContent = query ? "Search results" :
+  activeCategory==="All" ? "Popular components" : categories.find(c=>c.cat===activeCategory)?.name || "Products";
+
+ if(!list.length) {
+  $("productGrid").innerHTML = `<div class="empty"><h3>No products found</h3><p>Try another search or category.</p><button class="secondary" id="resetSearch">Show all products</button></div>`;
+  $("resetSearch").onclick = () => {
+   query="";$("search").value="";activeCategory="All";
+   renderCategories();renderProducts();
+  };
+  return;
+ }
+
+ $("productGrid").innerHTML = list.map(p=>`
+  <article class="card">
+   <div class="product-img">
+    <span class="tag">${escapeHTML(p.tag)}</span>${imageHTML(p)}
+   </div>
+   <div class="card-body">
+    <div class="brand">${escapeHTML(p.brand)}</div>
+    <h3>${escapeHTML(p.name)}</h3>
+    <div class="spec">${escapeHTML(p.spec)}</div>
+    <div class="price">${money(p.price)}</div>
+    <div class="price-note">Estimated price • PKR</div>
+    <div class="actions">
+     <button class="primary" data-add="${p.id}">Add to cart</button>
+     <button class="secondary" data-detail="${p.id}">Details</button>
+    </div>
+    <a href="${onlineURL(p)}" target="_blank" rel="noopener noreferrer"
+      style="text-align:center;font-size:12px;color:#5b4cf0;margin-top:12px">
+      Find online ↗
+    </a>
+   </div>
+  </article>`).join("");
+
+ $("productGrid").querySelectorAll("[data-add]").forEach(btn=>
+  btn.addEventListener("click",()=>addToCart(Number(btn.dataset.add))));
+ $("productGrid").querySelectorAll("[data-detail]").forEach(btn=>
+  btn.addEventListener("click",()=>showDetail(Number(btn.dataset.detail))));
+}
+
+function addToCart(id) {
+ cart[id]=(cart[id]||0)+1;
+ updateCart();
+ const p=products.find(x=>x.id===id);
+ showToast(p.name+" added to cart");
+}
+function updateCart() {
+ const count=Object.values(cart).reduce((a,b)=>a+b,0);
+ $("cartCount").textContent=count;
+ const entries=Object.entries(cart).filter(([id,q])=>q>0);
+ if(!entries.length) {
+  $("cartItems").innerHTML='<div class="empty"><div style="font-size:36px">🛒</div><h3>Your cart is empty</h3><p>Add some PC components to get started.</p></div>';
+  $("cartSummary").innerHTML="";
+  return;
+ }
+ $("cartItems").innerHTML=entries.map(([id,q])=>{
+  const p=products.find(x=>x.id===Number(id));
+  return `<div class="cart-item">
+   ${imageHTML(p)}
+   <div><h4>${escapeHTML(p.name)}</h4><small>${money(p.price)} each</small>
+    <div class="qty">
+     <button data-qty="${id}" data-delta="-1" aria-label="Decrease quantity">−</button>
+     <span>${q}</span>
+     <button data-qty="${id}" data-delta="1" aria-label="Increase quantity">+</button>
+    </div>
+    <button class="remove" data-remove="${id}">Remove</button>
+   </div>
+   <strong style="font-size:12px">${money(p.price*q)}</strong>
+  </div>`;
+ }).join("");
+ const total=entries.reduce((sum,[id,q])=>
+  sum+products.find(p=>p.id===Number(id)).price*q,0);
+ $("cartSummary").innerHTML=`<div class="total"><span>Estimated total</span><span>${money(total)}</span></div>
+  <div class="cart-foot">
+   <button class="primary" id="findCartItems" style="width:100%">Find cart items online ↗</button>
+   <p>This is a demo cart, not an online order. No payment is collected and no order is placed. Prices are estimates; shipping and seller prices may differ.</p>
+   <button class="secondary" id="clearCart" style="width:100%">Clear cart</button>
+  </div>`;
+ $("cartItems").querySelectorAll("[data-qty]").forEach(btn=>{
+  btn.onclick=()=>{
+   const id=btn.dataset.qty;
+   cart[id]=(cart[id]||0)+Number(btn.dataset.delta);
+   if(cart[id]<=0) delete cart[id];
+   updateCart();
+  };
+ });
+ $("cartItems").querySelectorAll("[data-remove]").forEach(btn=>{
+  btn.onclick=()=>{delete cart[btn.dataset.remove];updateCart();};
+ });
+ $("clearCart").onclick=()=>{cart={};updateCart();};
+ $("findCartItems").onclick=()=>{
+  const items=entries.map(([id,q])=>{
+   const p=products.find(x=>x.id===Number(id));
+   return `${p.name} x${q}`;
+  });
+  window.open("https://www.google.com/search?q="+encodeURIComponent(items.join(", ")+" price Pakistan"),"_blank","noopener");
+ };
+}
+
+function showDetail(id) {
+ const p=products.find(x=>x.id===id);
+ $("detailContent").innerHTML=`<div class="detail-layout">
+  <div>${imageHTML(p)}</div>
+  <div><div class="brand">${escapeHTML(p.brand)} • ${escapeHTML(p.cat)}</div>
+   <h2 style="margin-top:8px">${escapeHTML(p.name)}</h2>
+   <p>${escapeHTML(p.spec)}</p>
+   <p>Prices and availability must be confirmed with a seller. Check compatibility with your existing PC before purchasing.</p>
+   <div class="price">${money(p.price)}</div>
+   <div class="price-note">Illustrative estimate in PKR</div>
+   <button class="primary" id="detailAdd" style="margin-top:15px">Add to cart</button>
+   <p><a href="${onlineURL(p)}" target="_blank" rel="noopener noreferrer" style="color:#5b4cf0">Search this exact model online ↗</a></p>
+  </div></div>`;
+ $("detailModal").classList.add("show");
+ $("detailAdd").onclick=()=>{addToCart(id);$("detailModal").classList.remove("show");};
+}
+function showToast(message) {
+ const t=$("toast");
+ t.textContent=message;t.classList.add("show");
+ clearTimeout(toastTimer);
+ toastTimer=setTimeout(()=>t.classList.remove("show"),2200);
+}
+
+$("search").addEventListener("input",e=>{query=e.target.value;renderProducts();});
+$("sort").addEventListener("change",e=>{sortMode=e.target.value;renderProducts();});
+$("shopNow").onclick=()=>$("categories").scrollIntoView({behavior:"smooth"});
+$("openCart").onclick=()=>{$("cartOverlay").classList.add("show");updateCart();};
+$("closeCart").onclick=()=>$("cartOverlay").classList.remove("show");
+$("cartOverlay").addEventListener("click",e=>{
+ if(e.target===$("cartOverlay")) $("cartOverlay").classList.remove("show");
+});
+$("closeDetail").onclick=()=>$("detailModal").classList.remove("show");
+$("detailModal").addEventListener("click",e=>{
+ if(e.target===$("detailModal")) $("detailModal").classList.remove("show");
+});
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape"){
+  $("cartOverlay").classList.remove("show");
+  $("detailModal").classList.remove("show");
+ }
+});
+document.querySelectorAll("nav [data-cat]").forEach(a=>{
+ a.addEventListener("click",()=>{
+  activeCategory=a.dataset.cat;
+  renderCategories();renderProducts();
+ });
+});
+
+$("productCount").textContent=products.length;
+renderCategories();
+renderProducts();
+updateCart();
+</script>
+</body>
+</html>
